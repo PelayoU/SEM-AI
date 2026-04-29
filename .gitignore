@@ -1,0 +1,13 @@
+# Documento maestro (interno, no se versiona)
+SEM-IA.md
+
+# OS
+.DS_Store
+
+# Node (futuro vault-cli)
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
