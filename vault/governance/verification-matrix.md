@@ -25,10 +25,6 @@ verification-matrix:
     verifiers: [architect, security-officer]
     description: "ADRs nuevos o modificados requieren revisión técnica y de seguridad"
 
-  - change-type: database-migration
-    verifiers: [dba, architect]
-    description: "Cambios en el modelo de datos requieren revisión de integridad"
-
   - change-type: security-sensitive-change
     verifiers: [security-officer, architect]
     description: "Cambios que tocan autenticación, autorización, datos sensibles"
@@ -36,6 +32,10 @@ verification-matrix:
   - change-type: spec-modification
     verifiers: [product-owner, qa]
     description: "Cambios en specs requieren coherencia de producto y cobertura"
+
+  - change-type: deployment-or-infrastructure-change
+    verifiers: [devops, architect]
+    description: "Cambios en pipelines, infraestructura o estrategia de despliegue"
 
   - change-type: minor-copy-or-config-change
     verifiers: []
@@ -52,4 +52,8 @@ verification-matrix:
 
 ## Extensión
 
-Cada proyecto añade change-types según su dominio. La matriz se construye iterativamente con uso real. Si llega un cambio no cubierto, recepción pregunta al humano qué verificadores invocar y sugiere añadir la regla.
+Cada proyecto añade change-types según su dominio. La matriz se construye iterativamente con uso real. Si llega un cambio no cubierto, recepción pregunta al humano qué verificadores invocar y sugiere añadir la regla. Ejemplos típicos de extensión:
+
+- `database-migration` → `[dba, architect]` (cuando el proyecto tiene DBA)
+- `quant-model-change` → `[quant, risk-analyst]` (proyectos cuantitativos)
+- `incentive-mechanism-change` → `[tokenomics-designer, quant]` (DeFi)
