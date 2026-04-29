@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sem-ia.dev/schemas/goal",
+  "title": "SEM-IA Goal Node",
+  "allOf": [
+    { "$ref": "node-base.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "goal" },
+        "parent": {
+          "type": "string",
+          "const": "vision",
+          "description": "Siempre cuelga de la visión"
+        }
+      },
+      "required": ["parent"]
+    }
+  ]
+}

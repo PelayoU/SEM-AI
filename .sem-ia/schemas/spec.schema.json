@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sem-ia.dev/schemas/spec",
+  "title": "SEM-IA Spec Node",
+  "allOf": [
+    { "$ref": "node-base.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "spec" },
+        "parent": {
+          "type": "string",
+          "pattern": "^story-",
+          "description": "Story padre"
+        },
+        "related-feature": {
+          "type": "string",
+          "pattern": "^feature-",
+          "description": "Feature al que pertenece la story"
+        },
+        "ac-count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Número de acceptance criteria en la spec"
+        }
+      },
+      "required": ["parent", "related-feature", "ac-count"]
+    }
+  ]
+}

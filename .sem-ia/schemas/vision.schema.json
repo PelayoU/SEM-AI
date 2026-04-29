@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sem-ia.dev/schemas/vision",
+  "title": "SEM-IA Vision Node",
+  "allOf": [
+    { "$ref": "node-base.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "vision" },
+        "id": { "const": "vision" }
+      }
+    }
+  ]
+}
