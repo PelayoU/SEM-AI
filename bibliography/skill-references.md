@@ -237,16 +237,78 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 
 ---
 
+# M2 — Architect (5 skills)
+
+5 Architect skills in 3 buckets, matching `.claude/agents/architect.md`. Tier-2 role, mandatory above ~10,000 FP.
+
+## Bucket — Structural
+
+### architect-architecture-design
+
+**Skill**: draft / refine / audit application architecture against the seven fundamental topics and Zachman schema.
+
+**Source layout**:
+
+- ★ **Best Practice #14 — *Software Architecture and Design*** — Capers Jones, *Software Engineering Best Practices* (McGraw-Hill 2010), pp. 75–77. Size-driven importance, Zachman 6×6 schema (Table 2-2), 40+ design notation alternatives, reusable design patterns, industry portfolio similarity ~80%.
+- ★ **Chapter 7 § *Software Architecture*** — Jones 2010, pp. 470–475. Seven fundamental topics (overall structure / data structure / interfaces / decomposition / linkage / performance / security); Table 7-7 size-importance scaling (1 FP: not needed; 1,000 FP: useful; 10,000 FP: important; 100,000 FP: critical); architectural-style evolution (Dijkstra/Parnas 1968 → Mary Shaw / David Garlan); modern styles (monolithic / client-server / 3-tier / N-tier / event-driven / peer-to-peer / model-driven / pattern-based / SOA / cloud); architect assignment scope 5,000–100,000 FP; Jones's explicit warning that style-evaluation criteria are "too hazy" for universal verdicts (p. 474).
+- ★ **Chapter 9 Table 9-23** — Jones 2010, p. 621. Architect impact: 100,000 FP assignment scope, defect prevention 17%, defect removal 12%. Enterprise Architect: 250,000 FP, 25%, 20%.
+- Out of audited bibliography (cited as convention only, not authority): Nygard, *Documenting Architecture Decisions* (ADRs); Bass, *Software Architecture in Practice* (quality attributes); Ford, *Building Evolutionary Architectures* (fitness functions); Ousterhout, *Philosophy of Software Design*; Martin, *Clean Architecture*.
+
+### architect-methodology-selection
+
+**Skill**: select a development methodology or methodology mix using a five-axis suitability matrix.
+
+**Source layout**:
+
+- ★ **Best Practice #9 — *Selecting Software Methods, Tools, and Practices*** — Jones 2010, pp. 59–61. Full methodology list (~18: Agile, clean-room, Crystal, DSDM, XP, hybrid, iterative, OO, pattern-based, PSP, RAD, RUP, spiral, structured, TSP, V-model, waterfall); partial method list (~10: code inspections, data-state design, design inspections, flow-based programming, JAD, Lean Six Sigma, pair programming, QFD, requirements inspections, Six Sigma for software); five-axis suitability evaluation (size / type / nature / attribute / activity); hybrid permission; benchmark-as-input mandate; "fad-driven adoption" failure mode.
+- ★ **ISBSG benchmark reference** — Jones BP #31 (depth in `po-benchmarks-baselines`).
+- ★ **Legacy-replacement reality** (~80% of new applications) — Jones BP #11, p. 70.
+
+## Bucket — Reuse
+
+### architect-reusability-strategy
+
+**Skill**: plan reuse across the 15 reusable artifact types with explicit ROI swing awareness.
+
+**Source layout**:
+
+- ★ **Best Practice #26 — *Software Reusability*** — Jones 2010, pp. 99–101. 15 reusable artifact inventory (architecture, requirements, source code, designs, help, data, training, cost estimates, screens, project plans, test plans, test cases, test scripts, user documents, human interfaces); quality precondition list (inspections + static analysis + testing + certification certificates); tracking column requirements (customers, defects, releases, certifications, updates); ±300% ROI swing empirics; <25% industry-average reuse vs >85% target / >95% for common types; SOA / OO class library / ERP skepticism; outsource vendor reuse pattern (~50%+).
+- ★ **Pattern-rich industry similarity** (~80%) — Jones BP #14, p. 77 (depth in `architect-architecture-design`).
+- ★ **Reuse certification cross-reference** — Jones BP #27 (depth in `architect-reuse-certification`).
+
+### architect-reuse-certification
+
+**Skill**: certification gate for admitting candidate reusable artifacts.
+
+**Source layout**:
+
+- ★ **Best Practice #27 — *Certification of Reusable Materials*** — Jones 2010, pp. 101–103. Two-edged-sword framing; central certification authority model (Underwriters-Laboratories-like); 11 supporting-practice inventory (taxonomy, standard interfaces, HELP text, test cases + scripts, defect repository, source identification, change records, variation records, distribution records, charging method, warranties); security caveats including deliberate back doors (p. 102); Table 2-4 economic value of certified reuse on a 10,000-FP application (p. 103).
+- ★ **15 reusable artifact types + ±300% ROI swing cross-reference** — Jones BP #26 (depth in `architect-reusability-strategy`).
+
+## Bucket — Quality
+
+### architect-performance-analysis
+
+**Skill**: plan + execute performance analysis with profiling, instrumentation, and the perf↔quality↔security overlap.
+
+**Source layout**:
+
+- ★ **Best Practice #39 — *Software Performance Analysis*** — Jones 2010, pp. 134–135. Profiler / instrumentation / dynamic-analysis tool inventory; instrumentation-overhead caveat; heisenbug / bohrbug / mandelbug / schrodenbug taxonomy (named after Heisenberg / Bohr / Mandelbrot / Schrödinger); performance↔quality↔security overlap (Jones: "performance best practices overlap best practices in quality control and security control"); mean-time-to-failure framing; business-cycle effects (quarter-end / year-end); specialist threshold above 100,000 FP.
+- ★ **Chapter 9 Table 9-23** — Jones 2010, p. 621. Performance Specialist: 20,000 FP assignment scope, defect prevention 10%, defect removal 12%.
+- ★ **Cross-reference: architecture decides the performance budget** — Jones Ch 7 § Software Architecture, topic 6 (depth in `architect-architecture-design`).
+
+---
+
 ## Sources in `sources/` referenced but not yet used in 15 super-PO skills
 
 - `gisf-delivery-control-and-monitoring.pdf` — Three Ways DevOps, daily stand-up, Release Kanban. Will be relevant when QA / DevOps roles are built (M3 / M5).
 - `gisf-delivery-review-and-retrospectives.pdf` — Product Review activities + Retrospective 5 activities + Inspect and Adapt. Will be relevant for retrospective skills (future).
 - `gisf-pipeline-devops.pdf` — Deployment pipeline (Humble & Farley), Continuous Integration, Continuous Delivery, Agile testing quadrants. Will be relevant to DevOps role (M5).
 - `gisf-agile-teams-and-roles.pdf` — CRACK criteria for PO, Coacher responsibilities, Agile Team Values. Will be relevant when adding more roles (M2 Architect, M4 Developer, etc.).
-- `se-best-practices.pdf` (Capers Jones) — Beyond the 11 BPs cited in the 15 super-PO skills (#6, #11, #12, #15, #16, #17, #18, #31, #32, #33, Ch. 1 p. 19 critical topics), the remaining BPs and chapters are not yet used:
-  - **Chapter 4 (Specialists)** — to be cited when defining the role catalog rationale.
-  - **Chapter 5 (Team Organization)** — same.
-  - **Chapter 7 (Requirements, BA, Architecture, Design)** — relevant to Architect role (M2).
+- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited so far across PO (M1) + Architect (M2): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #31, #32, #33, #39, plus Ch 1 p. 19 critical topics, Ch 7 § Architecture (pp. 470–475), and Ch 9 Table 9-23 (p. 621). Remaining for future milestones:
+  - **Chapter 4 (Specialists)** — to be cited if the role catalog rationale needs deeper anchoring.
+  - **Chapter 5 (Team Organization, including SQA Organizations pp. 342–348)** — relevant to QA role (M3).
+  - **Chapter 7 § Requirements + BA + Design** (beyond Architecture already used) — relevant to potential future skills.
   - **Chapter 8 (Programming, Defects)** — relevant to Developer role (M4).
-  - **Chapter 9 (Quality + Specialists)** — relevant to QA role (M3).
-  - BPs #14, #26, #28, #29, #34, #35, #36, #37, #38, #43 etc. — distributed to Architect, Developer, QA, DevOps, Security roles.
+  - **Chapter 9 (Quality + Specialists, Tables 9-22 + 9-23 beyond the architect rows)** — relevant to QA role (M3).
+  - Remaining BPs to distribute: #28 (Programming → Developer), #29 (Governance — non-skill per catalog), #30 (Measurements → QA), #34 (Configuration Control → DevOps), #35 (SQA → QA), #36 (Inspections → QA + Developer), #37 (Testing → QA), #38 (Security → Security Officer), #42 (Threats → Security), #43 (Deployment → DevOps), #44 (Customer training → DevOps/PO), #48 (Maintenance → Developer).
