@@ -441,13 +441,88 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 
 ---
 
+# M5 — DevOps (7 skills)
+
+7 DevOps skills in 4 buckets, matching `.claude/agents/devops.md`. Tier-2 role. Aggregates three Jones specialties (Config Control 1.5% + Maintenance ops portion of 31.5% + Customer Support 2.0%) + Humble & Farley Continuous Delivery body of practice.
+
+## Bucket — Control
+
+### devops-configuration-control
+
+**Source layout**:
+
+- ★ **Best Practice #34** — Jones 2010, p. 119. 1950s DoD weapons-systems origin; mechanical activity supported by automation; covers all deliverables (reqs / specs / code / tests / user docs); unique IDs + cross-deliverable mapping + master-copy locking + formal-method updates; ISO 10007-2003 + IEEE 828-1998 standards; CMM/CMMI key practice area; out-of-scope: judging change value (BP #33).
+- Out-of-bibliography (convention pointers only): ISO 10007-2003 full standard; IEEE 828-1998 full standard; CMMI CM process area; git / SVN / Polarion / Jama Connect.
+
+## Bucket — Pipeline
+
+### devops-deployment
+
+**Source layout**:
+
+- ★ **Best Practice #43** — Jones 2010, pp. 154–155. Deployment-is-poorly-covered observation; ERP-class baseline ($1M+ / 12 months / 25 consultants + 30 in-house); 10 deployment best practices; side-by-side run pattern; customization-as-norm for large applications.
+- ★ **GISF UC3M `gisf-pipeline-devops.pdf`** — Deployment Pipeline model (slide 30, citing Humble & Farley *Continuous Delivery*); 7-stage model; generic-process detailed instrumentation (slide 32); 5-axis strategy framework (slide 34: branching / build / test / release / deployment); Gitflow worked example (slides 35–38).
+- Out-of-bibliography (convention pointers only): Humble & Farley *Continuous Delivery* book; Kim et al *Phoenix Project* / Three Ways; DORA *State of DevOps Report*; Jenkins / GitLab CI / GitHub Actions / ArgoCD / Spinnaker / Tekton.
+
+### devops-releases
+
+**Source layout**:
+
+- ★ **Best Practice #49** — Jones 2010, pp. 164–165. Three release-driving forces; 16 named anti-patterns; 11 theoretical-but-correct best practices; mainframe-vs-PC support dichotomy.
+- ★ **Best Practice #45** (cross-link) — release volume drives support volume.
+- ★ **GISF UC3M `gisf-pipeline-devops.pdf`** — Release strategies (slide 34).
+- Out-of-bibliography (convention pointers only): semantic versioning, release notes conventions, EULA standards.
+
+## Bucket — Customer
+
+### devops-customer-support
+
+**Source layout**:
+
+- ★ **Best Practice #45** — Jones 2010, pp. 157–158. Empirical staffing (1/10kFP, 1/150 customers, drifting to 1/1,000 at scale); 220-defect ≈ 1 support FTE per year multiplier; support-as-most-commonly-outsourced; AI virtual support / e-mail triage / standardized HELP / SOA-reusable HELP scale levers.
+- ★ **Best Practice #49** (cross-link) — release-side anti-patterns + practices interacting with support model.
+- Out-of-bibliography (convention pointers only): ITIL service desk; Zendesk / Salesforce Service Cloud / Intercom; CSAT / NPS.
+
+## Bucket — Maintenance
+
+### devops-post-release-change
+
+**Source layout**:
+
+- ★ **Best Practice #47** — Jones 2010, pp. 160–161. "Less rigorous than pre-release" observation; spec-staleness empirics (~5 years); 10-tool renovation inventory (complexity / static analysis / error-prone module ID / dead code ID / data mining / code conversion / FP enumeration / renovation workbenches / automated test gen / coverage analysis); inspection-after-renovation rule.
+- ★ **Best Practice #48 + BP #28 practice 12** (cross-link) — renovate-before-enhance.
+- ★ **Chapter 9 Table 9-22** — DRE values for tool categories.
+- Out-of-bibliography (convention pointers only): Relativity Technologies renovation workbench, SonarQube / Coverity / Understand legacy-analysis tooling.
+
+### devops-maintenance-operations
+
+**Source layout**:
+
+- ★ **Best Practice #48** — Jones 2010, pp. 161–164. 23 maintenance work-type taxonomy; ITIL reference (p. 162); 14+ legacy best practices (operational tracking metrics in practices 12–17); maintenance-quality multiplier (120 defects ≈ 1 maintenance FTE); maintenance-outsourcing success rate.
+- ★ **Best Practice #35** — Jones 2010, pp. 120–124. Economic-value-of-quality empirics: 120 + 240 defect-multipliers.
+- ★ **Chapter 5 Table 5-1** — Maintenance specialists 31.5%; Configuration Control 1.5%; Customer Support 2.0%. DevOps aggregates these.
+- ★ **GISF UC3M `gisf-delivery-control-and-monitoring.pdf`** — Release Kanban board (slide 210: To Do / In Progress / Delivered); Release Burn-Up Chart (slide 211); Daily stand-up (slide 93 + slide 240).
+- Out-of-bibliography (convention pointers only): ITIL v3/v4 full standard; COBIT; DORA MTTR metric; Google SRE Book.
+
+## Bucket — Retirement
+
+### devops-legacy-retirement
+
+**Source layout**:
+
+- ★ **Best Practice #50** — Jones 2010, pp. 166–167. Long-lifespan empirics (30+ years air traffic control, 20+ years large IT); commercial-vendor sunset anti-patterns (Microsoft/Intuit/Symantec); 8 retirement best practices (mine business rules; survey users; search alternatives; stabilize legacy; SOA evaluation; certified reuse; automated language conversion; static analysis); dead-language problem; replacement-causes-trouble rule.
+- ★ **Best Practice #47** (cross-link) — 10-tool inventory applicable to retirement.
+- Out-of-bibliography (convention pointers only): Strangler Fig pattern (Fowler), Anti-Corruption Layer (DDD), COBOL-to-Java conversion tools.
+
+---
+
 ## Sources in `sources/` referenced but not yet used in 15 super-PO skills
 
 - `gisf-delivery-control-and-monitoring.pdf` — Three Ways DevOps, daily stand-up, Release Kanban. Will be relevant when QA / DevOps roles are built (M3 / M5).
 - `gisf-delivery-review-and-retrospectives.pdf` — Product Review activities + Retrospective 5 activities + Inspect and Adapt. Will be relevant for retrospective skills (future).
 - `gisf-pipeline-devops.pdf` — Deployment pipeline (Humble & Farley), Continuous Integration, Continuous Delivery, Agile testing quadrants. Will be relevant to DevOps role (M5).
 - `gisf-agile-teams-and-roles.pdf` — CRACK criteria for PO, Coacher responsibilities, Agile Team Values. Will be relevant when adding more roles (M2 Architect, M4 Developer, etc.).
-- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited so far across PO (M1) + Architect (M2) + QA (M3) + Developer (M4): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #28, #30, #31, #32, #33, #35, #36, #37, #39, #47, #48, plus Ch 1 p. 19 critical topics, Ch 5 § SQA Organizations pp. 342–348 + p. 282, Ch 5 Table 5-2 (23 forms of maintenance), Ch 7 § Architecture (pp. 470–475), Ch 8 § Forms of Programming Defect Prevention (pp. 519–525), Ch 9 Table 9-22 (pp. 615–617), Ch 9 Table 9-23 (p. 621). Remaining for future milestones:
+- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited across all 5 milestones (PO + Architect + QA + Developer + DevOps): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #28, #30, #31, #32, #33, #34, #35, #36, #37, #39, #43, #45, #47, #48, #49, #50 (28 of 50 Best Practices used), plus Ch 1 p. 19 critical topics, Ch 5 § SQA Organizations pp. 342–348 + p. 282, Ch 5 Table 5-1 (specialist distribution), Ch 5 Table 5-2 (23 forms of maintenance), Ch 7 § Architecture (pp. 470–475), Ch 8 § Forms of Programming Defect Prevention (pp. 519–525), Ch 9 Table 9-22 (pp. 615–617), Ch 9 Table 9-23 (p. 621). Remaining BPs for future role expansion:
   - **Chapter 4 (Specialists)** — to be cited if the role catalog rationale needs deeper anchoring.
   - **Chapter 5 (Team Organization, beyond SQA Organizations + Table 5-2 already used)** — relevant to future role-design conversations.
   - **Chapter 7 § Requirements + BA + Design** (beyond Architecture already used) — relevant to potential future skills.
