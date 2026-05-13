@@ -1,85 +1,69 @@
 ---
 name: po-vision
-description: "Crear, refinar y validar la visión del proyecto aplicando los 10 principios de Cagan + el template de positioning. La visión es el ancla estratégica del proyecto: future state 2-10 años, customer-centric, articula propósito, ambiciosa pero ancla en realidad. Use this skill when proposing a new project vision, when refining an existing one, or when reviewing whether the current vision still serves after significant project evolution."
-when_to_use: "El humano propone una visión, pide refinarla, o pregunta si la actual sigue siendo válida."
+description: "Create, refine, and validate the product vision against Cagan's Ten Principles of Product Vision and the GISF five-step vision construction method. Use whenever the human says they want to draft a vision, refresh an existing vision, decide whether the current vision still serves, write or audit a positioning statement, or extend the project's time horizon. Triggers also include phrases like 'product vision', 'long-term direction', 'where are we going in 5 years', 'positioning statement', 'elevator pitch', 'mission vs vision', or 'is our vision still right?'."
 ---
 
 # po-vision
 
-## Propósito
+## Purpose
 
-Producir o evaluar un enunciado de visión que cumpla criterios bibliográficamente auditados. La visión es el primer nivel del grafo SEM-IA — todo lo demás (goals, capabilities, features, stories, specs) deriva de ella.
+A product vision is the future you intend to create — typically two to ten years out — and the act of faith that holds the team aligned while the path is still unknown. This skill lets the Product Owner draft, refine, or audit a vision so it inspires the team, withstands strategic shifts, and does not collapse into a positioning statement, a roadmap, or a product feature list.
 
-## Estructura del nodo
+## When this skill applies
 
-La estructura del archivo vive en `_obsidian/templates/vision.md`. Léelo antes de crear o editar.
+- The human proposes a new vision and wants it scaffolded.
+- A vision exists but feels stale, generic, or tactical.
+- A pivot, market change, or major learning prompts the question "does our vision still serve?".
+- Stakeholders ask for a positioning statement or elevator pitch — the vision underwrites both.
+- A goal or capability proposal seems incoherent and the suspicion is that the vision is the broken link.
 
-## Definición operativa (canónica SEM-IA)
+## Formal criteria
 
-> *"Vision: the statement that provides a high-level guiding direction for the product."*
+A vision passes review only if all ten principles below hold. Each is taken verbatim from Cagan's *Inspired* as captured in GISF `gisf-discovery.pdf` slide 89.
 
-La visión describe un **futuro** que el equipo intenta crear, típicamente **2-10 años** desde ahora. Su propósito principal: **comunicar ese futuro e inspirar** al equipo, stakeholders, inversores, partners, clientes potenciales. Puede que no sepas cómo (o si) podrás entregarla, pero a este nivel debe creerse que vale la pena perseguirla.
+1. **Start with why.** The vision states the underlying reason the product should exist, not the artifact.
+2. **Fall in love with the problem, not the solution.** The vision describes the unmet need, the changed customer life — not the technology that delivers it.
+3. **Don't be afraid to think big, with vision.** A vision that fits inside a single release is a roadmap, not a vision.
+4. **Don't be afraid to disrupt yourself.** A vision that protects today's product is a marketing plan.
+5. **Product vision needs to inspire.** If reading it does not make a competent engineer want to join, rewrite.
+6. **Determine and adopt relevant and significant trends.** The vision is anchored in trends the team believes will hold over its horizon (regulation, demographics, technology).
+7. **Skate where the puck is going, not where it was.** The vision projects the world at the end of the horizon, not the world today.
+8. **Be stubborn in vision, but flexible in details.** The vision is durable; goals, capabilities, features are not.
+9. **Keep in mind that any product vision is an act of faith.** It must be believable to the team without yet being provable.
+10. **Evangelize continuously and relentlessly.** The vision must be repeatable in one breath by everyone on the team.
 
-> *"Product Vision is Science Fiction."* — la visión vive años en el futuro.
+Two structural criteria from the same source apply:
 
-## Los 10 Principios de Product Vision (Cagan literal)
+11. **Horizon between two and ten years** *(slide 82)*. Shorter than two years = goal. Longer than ten = speculation.
+12. **Future-as-system, not future-as-feature** *(slide 86, step 2)*. The vision describes the socio-technical system the customer lives in, not the product per se.
 
-Criterios canónicos para evaluar una visión:
+## How you proceed
 
-1. **Start with WHY** — articula propósito antes que producto.
-2. **Fall in love with the problem, not the solution** — la solución cambia; el problema permanece.
-3. **Don't be afraid to think big, with vision** — *"if you could truly validate a vision, then your vision probably isn't ambitious enough"*.
-4. **Don't be afraid to disrupt yourself** — la visión puede invalidar el producto actual.
-5. **Product vision needs to inspire** — emocional, no solo lógica.
-6. **Determine and adopt relevant and significant trends** — la visión vive en el contexto de tendencias.
-7. **Skate where the puck is going, not where it was** — anticipa, no reacciones.
-8. **Be stubborn in vision, but flexible in details** — el norte no cambia; el cómo se ajusta.
-9. **Keep in mind that any product vision is an act of faith** — visión validable al 100% antes de empezar no es visión.
-10. **Evangelize continuously and relentlessly** — *"no hay tal cosa como sobre-comunicar la visión"*.
+The human authors the vision; you scaffold and challenge. Five steps, drawn from GISF `gisf-discovery.pdf` slide 86:
 
-## Vision positioning template
+1. **Set the time horizon explicitly.** Ask the human: "two years? five? ten?". Without a horizon, every later criterion becomes negotiable.
+2. **Describe the future as a socio-technical system, ignoring the product.** What does the customer's day look like? Who else is in the picture? What is gone, what is new? The product is intentionally absent from this draft — it is the gap the vision fills.
+3. **Tell the future product story.** Insert the product into that future. What role does it play in the customer's day? This is the "science fiction" pass (slide 83): if it feels mundane, push further.
+4. **Communicate the story.** Draft a short narrative the team can repeat. Test principle 10 (evangelize continuously) by reading it aloud to the human and asking whether they can recite it five minutes later.
+5. **Write a positioning statement.** Use the template captured on slide 84:
+   > For *[target customer]* who *[need]*, the *[product]* is a *[category]* that *[key benefit]*. Unlike *[competitive alternative]*, our product *[primary differentiation]*.
+   The positioning statement is downstream of the vision, not a replacement for it.
 
-Aunque la visión NO es positioning statement, este template ayuda a expresarla con disciplina:
+Throughout, refuse to fill in the customer hypothesis on the human's behalf. If they cannot name the customer or the need, stop and surface that gap before drafting further — drafting on top of a missing customer hypothesis produces vision-shaped text without a vision.
 
-```
-For       [target customer]
-Who       [statement of need or opportunity]
-The       [product name] is a [product category]
-That      [key benefit, reason to buy]
-Unlike    [primary competitive alternative]
-Our product [statement of primary differentiation]
-```
+## Pitfalls to avoid
 
-## Cómo crear visión (5 pasos)
+- **Confusing vision with mission.** Mission is why the company exists. Vision is the future the product creates. If the draft works equally well for the company's HR page, it is a mission.
+- **Letting the vision become a feature list.** "We will be the leading platform for X with AI-powered Y" is a roadmap heading. Strip the features, keep the customer transformation.
+- **Anchoring the vision in today's technology.** The vision should survive at least one major technology cycle within the horizon. AI assumptions of 2026 may not hold in 2031.
+- **Treating the positioning statement as the vision.** Slide 84 is explicit: *"Vision is not product's positioning statement, but helps."* The positioning statement is an evangelism tool, not the vision itself.
+- **Skipping the act of faith (principle 9).** A vision that the human can already prove is not a vision — it is a plan. If everything in it is already de-risked, push for the part that scares them.
 
-1. **Set your future time horizon.** Típicamente 5-10 años.
-2. **Describe the future** (sin pensar específicamente en tu producto — como sistema socio-técnico).
-3. **Tell your future product story.**
-4. **Communicate your story.**
-5. **Write a product positioning statement** (usando el template).
+## Source
 
-## Cómo procedes
-
-1. **Si el humano propone una visión nueva**: aplica los 10 principios. Para cada uno, veredicto (✅/❌/🟡) con razón corta. Identifica qué principios falla. Propones reformulación.
-2. **Si refinas la existente**: lees `nodes/vision.md`, identificas principios fallados, propones edits puntuales.
-3. **Si validas la actual**: aplicas los 10 principios al enunciado existente. Reportas estado.
-
-Output al humano: veredicto por principio + reformulación sugerida si aplica. El humano confirma. Tú aplicas el cambio leyendo `_obsidian/templates/vision.md` como base.
-
-Aplicas `shared-cross-link` después si emergen cross-links (raro al nivel visión).
-
-## Trampas a evitar
-
-- **Visión-eslogan**: *"Cambiar el mundo"* — sin diagnosis, sin diferenciación.
-- **Visión-roadmap**: lista de features — falla "be flexible in details".
-- **Visión-tecnológica**: nombra stack — falla customer-centric (Principio "fall in love with the problem").
-- **Visión-genérica**: aplicable a cualquier producto — falla "think big with vision" + diferenciación.
-- **Visión validada al 100%**: si puedes validar la visión antes de empezar, no es ambiciosa (Principio 3).
-
-## Después de aplicar
-
-Registra el toque en el documento-sesión del día:
-
-```markdown
-- Creado/editado `nodes/vision.md` aplicando skill `po-vision`. Cita: 10 principios Cagan + positioning template.
-```
+- **Ten Principles of Product Vision** — Marty Cagan, *Inspired: How to Create Tech Products Customers Love* (Wiley, 2nd ed. 2018). Captured verbatim in GISF UC3M `gisf-discovery.pdf` slide 89.
+- **Vision definition + horizon (2–10 years) + "act of faith"** — `gisf-discovery.pdf` slide 82.
+- **Five-step vision construction method** — `gisf-discovery.pdf` slide 86.
+- **Positioning statement template** — `gisf-discovery.pdf` slide 84 (downstream of the vision, not a substitute).
+- **"Start with why" (principle 1)** — origin: Simon Sinek, *Start with Why* (Portfolio, 2009), Golden Circle.
+- Full traceability: `bibliography/skill-references.md` § `po-vision`.
