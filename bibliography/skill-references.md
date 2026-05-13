@@ -299,16 +299,86 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 
 ---
 
+# M3 — QA (5 skills)
+
+5 QA skills in 2 buckets, matching `.claude/agents/qa.md`. Tier-2 role, mandatory above ~2,500 FP. **Independence imperative**: reports to senior VP of quality outside dev chain (Jones Ch 5 p. 282).
+
+## Bucket — Program
+
+### qa-sqa-program
+
+**Skill**: design / audit the SQA organization.
+
+**Source layout**:
+
+- ★ **Best Practice #35 — *SQA*** — Capers Jones 2010, pp. 120–124. 12-role SQA inventory; IBM independence model; 3–5% staff ratio; release approval authority + appeal path; 9 cost-of-quality components; economic value of quality empirics (120 delivered defects ≈ 1 maintenance FTE, 240 ≈ 1 customer support FTE).
+- ★ **Chapter 5 § *SQA Organizations*** — Jones 2010, pp. 342–348. Four organizational patterns (50% test-only / 35% true SQA / 10% none / 5% figurehead); 10 traditional SQA activities; 1–3% staff ratio (IBM model); ~5,000 full-time SQA personnel in U.S. (2009); mandatory threshold >2,500 FP.
+- ★ **Chapter 5 p. 282** — Independence imperative quote: *"QA personnel need to be protected from coercion ... separate from the development organization all the way up to the level of a senior vice president of quality."*
+- ★ **Chapter 9 Table 9-23** — QA: 10k FP scope, 15% defect prevention, 40% defect removal.
+
+### qa-measurements
+
+**Skill**: design the quality + productivity measurement program.
+
+**Source layout**:
+
+- ★ **Best Practice #30 — *Measurements and Metrics*** — Jones 2010, pp. 110–112. 9-measure state-of-the-art inventory (effort, costs, milestone progress, dev productivity, maintenance productivity, requirements churn, defects by origin, DRE, earned value); FP as primary size metric; LOC + cost-per-defect as forbidden metrics; DRE definition + worked example (900 + 100 = 90%); industry-leader >95%, U.S. average ~85%; "measurement is professional malpractice" framing (p. 112).
+- ★ **Best Practice #35** — Jones 2010, pp. 120–124. Severity levels; 9 cost-of-quality components; economic-value-of-quality empirics; 5-category defect origins (requirements / design / code / documents / bad fixes).
+- ★ **Best Practice #11** — Jones 2010, pp. 70–72. Requirements-churn empirics for measure 6.
+- ★ **ISBSG as benchmark source** — Jones BP #31 (depth in `po-benchmarks-baselines`).
+- Out-of-bibliography (convention pointers only): Crosby Cost of Quality (cited via Jones BP #35), PMI/IEEE/ISO metric standards.
+
+## Bucket — Removal
+
+### qa-inspections-program
+
+**Skill**: plan / schedule / moderate formal inspections.
+
+**Source layout**:
+
+- ★ **Best Practice #36 — *Inspections and Static Analysis*** — Jones 2010, pp. 124–128. Fagan-origin (IBM 35+ years, Fagan + Priven + Radice + Stewart); 5 inspection preconditions (moderator, recorder, prep time, defect log, no-appraisal-use); 3–6 participants per session; 8 inspectable artifacts (architecture / requirements / design / DB / code / test plan / test case / user doc); per-artifact DRE 65–85% average + 88% peak (Gilb); static analysis ~87% on C/Java family coding defects; defect-origin → optimal-removal table; remote inspections allowed.
+- ★ **Chapter 9 Table 9-22** — Jones 2010, pp. 615–617. DRE values: automated static analysis 87% (#1), requirements inspections 85% (#2), external design 85% (#3), internal design 85% (#5), new code inspections 85% (#6), reuse certification 84% (#7), test case inspection 83% (#8), legacy code 83% (#10), architecture inspections 80% (#14), test plan 80% (#15), test script 78% (#16).
+- ★ **Chapter 9 Table 9-23** — Inspection Moderators: 1,000 FP scope, 27% defect prevention, 35% defect removal.
+- ★ **Cross-reference: requirements defects need requirements inspections** — Jones BP #11.
+- Out-of-bibliography (convention pointers only): Tom Gilb books on inspections, IEEE 1028.
+
+### qa-testing-strategy
+
+**Skill**: design the testing portfolio (20+ test forms).
+
+**Source layout**:
+
+- ★ **Best Practice #37 — *Testing and Test Library Control*** — Jones 2010, pp. 128–132. 20+ test forms inventory (developer / specialist-SQA / customer ownership groups); 3–12 forms typically applied; testing-alone cumulative <80% DRE; 20–40% of dev effort; black/white/gray box framing; defect prevention list (18 practices); defect removal list (17 practices); test-library hygiene (Jones: more errors in test cases than in software in some IBM samples); test coverage ~75% typical; successful project 4.0 defects/FP × 95% removal = 0.2 delivered/FP; failing project 7.0/FP × 80% = 1.4 delivered/FP.
+- ★ **Chapter 9 Table 9-22** — DRE per test form: PSP/TSP unit 52% (#38), subroutine 50% (#39), system 40% (#42), new function 35% (#43), regression 30% (#44), unit 25% (#45); specialized: virus 98% (#51), spyware 98% (#52), security 90% (#53), penetration 90% (#55), reusability 88% (#56), firewall 87% (#57), performance 80% (#58); user testing: usability 65% (#66), beta 40% (#69), acceptance 25–30% (#70–72).
+- ★ **Chapter 9 Table 9-23** — Testers: 10k FP scope, 15% defect prevention, 50% defect removal (highest of any role).
+- ★ **Gherkin acceptance contract** — Cucumber `gherkin-reference.pdf` (depth in `po-spec-gherkin`).
+- Out-of-bibliography (convention pointers only): IEEE 829 test docs, ISTQB body of knowledge, Crispin/Gregory agile testing quadrants.
+
+### qa-defect-removal-efficiency
+
+**Skill**: compose the DRE program to meet >95% safe / >99% leader target.
+
+**Source layout**:
+
+- ★ **Best Practice #35** — Jones 2010, pp. 120–124. DRE bands (leaders >95%, top performers 95–99%+, U.S. avg ~85%, laggards <50%); 5-category defect origins; severity scale.
+- ★ **Best Practice #36 — synergy quote** — Jones 2010, p. 125: *"a combination of formal inspections of requirements and design, static analysis, formal testing by test specialists, and a formal (and active) software quality assurance (SQA) group are the methods most often associated with projects achieving a cumulative defect removal efficiency higher than 99 percent."*
+- ★ **Best Practice #37** — Jones 2010, pp. 128–132. Testing alone <80% cumulative; >95% safe minimum requires combination; 18-practice defect prevention list + 17-practice defect removal list; 10k-FP project empirics (4.0 vs 7.0 defects/FP × 95% vs 80% removal).
+- ★ **Chapter 9 Table 9-22** — 80 defect removal activities ranked, organized in 6 groups (37 static-analysis-and-inspection avg 66.92%, 8 general testing avg 41.00%, 5 automatic testing avg 45.40%, 15 specialized testing avg 70.07%, 7 user testing avg 42.14%, 8 litigation analysis avg 77.14%); bad-fix injection rate ~5% average.
+- ★ **Chapter 9 Table 9-23** — full role-impact data: QA 40%, Testers 50%, Inspection Moderators 35%, Architects 12%, Performance Specialists 12%, Risk Analysts 25%, Six Sigma 30%.
+- Out-of-bibliography (convention pointers only): Crosby Cost of Quality, Six Sigma DMAIC, CMMI specific practices, ISO 9000 family.
+
+---
+
 ## Sources in `sources/` referenced but not yet used in 15 super-PO skills
 
 - `gisf-delivery-control-and-monitoring.pdf` — Three Ways DevOps, daily stand-up, Release Kanban. Will be relevant when QA / DevOps roles are built (M3 / M5).
 - `gisf-delivery-review-and-retrospectives.pdf` — Product Review activities + Retrospective 5 activities + Inspect and Adapt. Will be relevant for retrospective skills (future).
 - `gisf-pipeline-devops.pdf` — Deployment pipeline (Humble & Farley), Continuous Integration, Continuous Delivery, Agile testing quadrants. Will be relevant to DevOps role (M5).
 - `gisf-agile-teams-and-roles.pdf` — CRACK criteria for PO, Coacher responsibilities, Agile Team Values. Will be relevant when adding more roles (M2 Architect, M4 Developer, etc.).
-- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited so far across PO (M1) + Architect (M2): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #31, #32, #33, #39, plus Ch 1 p. 19 critical topics, Ch 7 § Architecture (pp. 470–475), and Ch 9 Table 9-23 (p. 621). Remaining for future milestones:
+- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited so far across PO (M1) + Architect (M2) + QA (M3): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #30, #31, #32, #33, #35, #36, #37, #39, plus Ch 1 p. 19 critical topics, Ch 5 § SQA Organizations pp. 342–348 + p. 282, Ch 7 § Architecture (pp. 470–475), Ch 9 Table 9-22 (pp. 615–617), Ch 9 Table 9-23 (p. 621). Remaining for future milestones:
   - **Chapter 4 (Specialists)** — to be cited if the role catalog rationale needs deeper anchoring.
-  - **Chapter 5 (Team Organization, including SQA Organizations pp. 342–348)** — relevant to QA role (M3).
+  - **Chapter 5 (Team Organization, beyond SQA Organizations already used)** — relevant to future role-design conversations.
   - **Chapter 7 § Requirements + BA + Design** (beyond Architecture already used) — relevant to potential future skills.
   - **Chapter 8 (Programming, Defects)** — relevant to Developer role (M4).
-  - **Chapter 9 (Quality + Specialists, Tables 9-22 + 9-23 beyond the architect rows)** — relevant to QA role (M3).
-  - Remaining BPs to distribute: #28 (Programming → Developer), #29 (Governance — non-skill per catalog), #30 (Measurements → QA), #34 (Configuration Control → DevOps), #35 (SQA → QA), #36 (Inspections → QA + Developer), #37 (Testing → QA), #38 (Security → Security Officer), #42 (Threats → Security), #43 (Deployment → DevOps), #44 (Customer training → DevOps/PO), #48 (Maintenance → Developer).
+  - **Chapter 9 (Quality + Specialists, sections beyond Tables 9-22 + 9-23 already used)** — relevant to deeper QA / Security work.
+  - Remaining BPs to distribute: #28 (Programming → Developer M4), #29 (Governance — non-skill per catalog), #34 (Configuration Control → DevOps M5), #38 (Security → Security Officer), #42 (Threats → Security), #43 (Deployment → DevOps M5), #44 (Customer training → DevOps/PO), #47 (Change Management After Release → DevOps M5), #48 (Maintenance → Developer M4 + DevOps M5), #49 (Updates and Releases → DevOps M5), #50 (Terminating Legacy → DevOps M5).
