@@ -369,16 +369,88 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 
 ---
 
+# M4 — Developer (5 skills)
+
+5 Developer skills in 3 buckets, matching `.claude/agents/developer.md`. Tier-1 (core) role: every project has at least one Developer.
+
+## Bucket — Coding
+
+### developer-coding-practices
+
+**Skill**: apply Jones's 13 programming best practices when writing new code.
+
+**Source layout**:
+
+- ★ **Best Practice #28 — *Programming or Coding*** — Capers Jones 2010, pp. 107–109. 13 state-of-the-art coding practices (language selection / structured programming / certified reuse / security / spaghetti-bowl avoidance / complexity minimization / clear comments / static analysis / test cases before-or-concurrent / formal code inspections / re-inspection after change / legacy renovation / error-prone module removal); >700-language inventory; manual-and-error-prone framing; cost analogy (10× yachts, 100× Indy cars); pair-programming evaluation; self-review-does-not-work; reusable-objects as the leverage point.
+- ★ **Chapter 8 § *Forms of Programming Defect Prevention*** — Jones 2010, pp. 519–525. Code reuse as prevention (~1/100th defects); patterns as prevention (~50% reduction for inexperienced); inspections as prevention (~80% reduction after participation); static analysis as prevention (~85%+ DRE; ~50 of 2,500 languages supported; ~100 tools).
+- ★ **Chapter 9 Table 9-22** — Refactoring 62% DRE (#25); error-prone module analysis 60% DRE (#26).
+- Out-of-bibliography (convention pointers only): SPR language taxonomy (www.SPR.com referenced by Jones BP #28 p. 108), Martin Clean Code, GoF design patterns, SOLID, Beck Extreme Programming Explained, McConnell Code Complete.
+
+### developer-reuse-application
+
+**Skill**: apply already-certified reusable artifacts (consumer side; Architect curates the library).
+
+**Source layout**:
+
+- ★ **Best Practice #26 — *Software Reusability*** — Jones 2010, pp. 99–101. 15 reusable artifacts; ±300% ROI swing.
+- ★ **Best Practice #27 — *Certification of Reusable Materials*** — Jones 2010, pp. 101–103. Security back-door warning (p. 102); 11 supporting practices; warranty + distribution record requirements.
+- ★ **Best Practice #28 — *Programming or Coding*** — Jones 2010, pp. 107–109. Reuse-before-custom rule; custom-coding cost framing.
+- ★ **Chapter 8 § *Code reuse as defect prevention*** — Jones 2010, p. 522. Certified reuse ~1/100th custom defect rate; uncertified reuse hazardous → negative ROI; familiarity-gap debugging cost; 50:1 ratio uncertified-to-certified sources.
+- Out-of-bibliography (convention pointers only): npm / PyPI / Maven Central reputation signals; SBOM standards.
+
+## Bucket — Removal
+
+### developer-static-analysis
+
+**Skill**: run automated static analysis (~87% DRE on coding defects) as both removal + prevention.
+
+**Source layout**:
+
+- ★ **Best Practice #36 — *Inspections and Static Analysis*** — Jones 2010, pp. 124–128. Static analysis best practice for supported languages; ~87% DRE on common coding defects; false-positive tuning rule; code-inspection-after-static-analysis sequence.
+- ★ **Chapter 8 § *Automated static analysis as defect prevention*** — Jones 2010, pp. 523–524. Dual role (removal + prevention); programmer-learning effect; ~50 supported languages out of ~2,500; ~100 tools in 2009; open-source community adoption.
+- ★ **Chapter 9 Table 9-22 #1** — Automated static analysis: 87% DRE, 2% bad-fix injection.
+- ★ **Chapter 9 p. 618** — Table 9-22 figures are maxima; real-life DRE often less than half.
+- Out-of-bibliography (convention pointers only): SonarQube, Coverity, Fortify, FindBugs / SpotBugs, Checkstyle, clang-tidy, pylint, ESLint, Semgrep, OWASP rule sets.
+
+### developer-unit-testing
+
+**Skill**: write and run developer-owned tests (subroutine / module / unit).
+
+**Source layout**:
+
+- ★ **Best Practice #37 — *Testing and Test Library Control*** — Jones 2010, pp. 128–132. Three developer-owned test forms (subroutine ~50% DRE / module / unit 25% plain, 52% PSP/TSP); test cases sometimes have higher error density than code (IBM samples); coverage typically ~75%; black/white/gray box framing; 20–40% of effort.
+- ★ **Best Practice #28 — *Programming or Coding*** — Jones 2010, p. 108. Practice 9: test cases before or concurrent with code.
+- ★ **Chapter 9 Table 9-22** — PSP/TSP unit testing 3.5 cases/FP, 52% DRE (#38); subroutine 0.25 cases/FP, 50% DRE (#39); XP testing 2.0 cases/FP, 40% DRE (#40); unit testing 3.0 cases/FP, 25% DRE (#45); test-case inspection 83% DRE (#8).
+- ★ **Chapter 9 p. 618** — figures are maxima.
+- Out-of-bibliography (convention pointers only): xUnit family, ISTQB body of knowledge, Crispin & Gregory agile testing quadrants.
+
+## Bucket — Maintenance
+
+### developer-maintenance
+
+**Skill**: maintain and enhance legacy code under the 23-work-type taxonomy.
+
+**Source layout**:
+
+- ★ **Best Practice #48 — *Software Maintenance and Enhancement*** — Capers Jones 2010, pp. 161–164. 23 work-type taxonomy (enhancements / defect repairs / customer support / error-prone module removal / mandatory changes / complexity analysis / code restructuring / optimization / migration / conversion / reverse engineering / reengineering / dead code removal / dormant app elimination / nationalization / mass updates / refactoring / retirement / field service / vendor reporting / vendor updates); 14+ legacy best-practice inventory; renovate-before-enhance rule; error-prone module rule (5% modules cause 50% defects, surgical removal); maintenance-quality multiplier (120 defects ≈ 1 maintenance FTE, 240 ≈ 1 customer-support FTE); ITIL reference (p. 162); maintenance-outsourcing more successful than development-outsourcing.
+- ★ **Best Practice #28 — *Programming or Coding*** — Jones 2010, pp. 107–109. Practice 12 (renovate before enhancement); practice 13 (error-prone module removal).
+- ★ **Best Practice #47 — *Software Change Management After Release*** — Jones 2010, p. 160. 10-tool post-release change list (cross-link to future `devops-post-release-change` M5).
+- ★ **Chapter 5 Table 5-2** — 23 forms of maintenance work (referenced by catalog; replicated in BP #48 text).
+- ★ **Chapter 9 Table 9-22** — Refactoring 62% DRE (#25); error-prone module analysis 60% DRE (#26); legacy code inspections 83% DRE (#10).
+- Out-of-bibliography (convention pointers only): ITIL v3/v4 (referenced by Jones p. 162 but spec not in `sources/`), COBIT, Relativity Technologies renovation workbench (named in Jones p. 163).
+
+---
+
 ## Sources in `sources/` referenced but not yet used in 15 super-PO skills
 
 - `gisf-delivery-control-and-monitoring.pdf` — Three Ways DevOps, daily stand-up, Release Kanban. Will be relevant when QA / DevOps roles are built (M3 / M5).
 - `gisf-delivery-review-and-retrospectives.pdf` — Product Review activities + Retrospective 5 activities + Inspect and Adapt. Will be relevant for retrospective skills (future).
 - `gisf-pipeline-devops.pdf` — Deployment pipeline (Humble & Farley), Continuous Integration, Continuous Delivery, Agile testing quadrants. Will be relevant to DevOps role (M5).
 - `gisf-agile-teams-and-roles.pdf` — CRACK criteria for PO, Coacher responsibilities, Agile Team Values. Will be relevant when adding more roles (M2 Architect, M4 Developer, etc.).
-- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited so far across PO (M1) + Architect (M2) + QA (M3): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #30, #31, #32, #33, #35, #36, #37, #39, plus Ch 1 p. 19 critical topics, Ch 5 § SQA Organizations pp. 342–348 + p. 282, Ch 7 § Architecture (pp. 470–475), Ch 9 Table 9-22 (pp. 615–617), Ch 9 Table 9-23 (p. 621). Remaining for future milestones:
+- `se-best-practices.pdf` (Capers Jones) — Cumulative BPs cited so far across PO (M1) + Architect (M2) + QA (M3) + Developer (M4): #6, #9, #11, #12, #14, #15, #16, #17, #18, #19, #26, #27, #28, #30, #31, #32, #33, #35, #36, #37, #39, #47, #48, plus Ch 1 p. 19 critical topics, Ch 5 § SQA Organizations pp. 342–348 + p. 282, Ch 5 Table 5-2 (23 forms of maintenance), Ch 7 § Architecture (pp. 470–475), Ch 8 § Forms of Programming Defect Prevention (pp. 519–525), Ch 9 Table 9-22 (pp. 615–617), Ch 9 Table 9-23 (p. 621). Remaining for future milestones:
   - **Chapter 4 (Specialists)** — to be cited if the role catalog rationale needs deeper anchoring.
-  - **Chapter 5 (Team Organization, beyond SQA Organizations already used)** — relevant to future role-design conversations.
+  - **Chapter 5 (Team Organization, beyond SQA Organizations + Table 5-2 already used)** — relevant to future role-design conversations.
   - **Chapter 7 § Requirements + BA + Design** (beyond Architecture already used) — relevant to potential future skills.
-  - **Chapter 8 (Programming, Defects)** — relevant to Developer role (M4).
+  - **Chapter 8 (Programming, Defects, sections beyond Defect Prevention already used)** — relevant to additional Developer skills if scope grows.
   - **Chapter 9 (Quality + Specialists, sections beyond Tables 9-22 + 9-23 already used)** — relevant to deeper QA / Security work.
-  - Remaining BPs to distribute: #28 (Programming → Developer M4), #29 (Governance — non-skill per catalog), #34 (Configuration Control → DevOps M5), #38 (Security → Security Officer), #42 (Threats → Security), #43 (Deployment → DevOps M5), #44 (Customer training → DevOps/PO), #47 (Change Management After Release → DevOps M5), #48 (Maintenance → Developer M4 + DevOps M5), #49 (Updates and Releases → DevOps M5), #50 (Terminating Legacy → DevOps M5).
+  - Remaining BPs to distribute (M5 + later): #29 (Governance — non-skill per catalog), #34 (Configuration Control → DevOps M5), #38 (Security → Security Officer), #42 (Threats → Security), #43 (Deployment → DevOps M5), #44 (Customer training → DevOps / PO), #47 (Change Management After Release → DevOps M5, partial use in M4 Developer maintenance), #49 (Updates and Releases → DevOps M5), #50 (Terminating Legacy → DevOps M5).
