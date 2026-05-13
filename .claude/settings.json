@@ -1,12 +1,1 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(find:vault/*)",
-      "Bash(ls:vault/*)",
-      "Read(vault/**)",
-      "Read(src/**)",
-      "Write(vault/**)",
-      "Edit(vault/**)"
-    ]
-  }
-}
+{}

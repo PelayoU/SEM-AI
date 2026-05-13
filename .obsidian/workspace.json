@@ -1,0 +1,224 @@
+{
+  "main": {
+    "id": "fd35de485876d552",
+    "type": "split",
+    "children": [
+      {
+        "id": "91070e694c67e0a4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "18e907553d4a0ca4",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "bibliography/sources/se-best-practices.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "se-best-practices"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "95d9aa47bc78ed89",
+    "type": "split",
+    "children": [
+      {
+        "id": "fa35cf5768bd3d58",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5d3bdb1da56451e1",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "c76e9c82740fddcf",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "97c8aa3cd62677cc",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d27c470b4aa73d75",
+    "type": "split",
+    "children": [
+      {
+        "id": "aed72f763027e641",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c26e7eda3b2f797",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "CLAUDE.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for CLAUDE"
+            }
+          },
+          {
+            "id": "c654958822afeaa9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "CLAUDE.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from CLAUDE"
+            }
+          },
+          {
+            "id": "af14d71a908f1073",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "6d9cb53ec0672780",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "e714c67cc37ed5b4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "CLAUDE.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of CLAUDE"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "hidden-folder-obsidian:Hidden Folders": false
+    }
+  },
+  "active": "18e907553d4a0ca4",
+  "lastOpenFiles": [
+    "CLAUDE.md",
+    "_obsidian/templates/capability.md",
+    ".claude/skills/po-capability/SKILL.md",
+    ".claude/skills/shared-cross-link/SKILL.md",
+    "bibliography/INDEX.md",
+    ".claude/agents/product-owner.md",
+    "_obsidian/templates/adr.md",
+    "_obsidian/templates/feature.md",
+    "_obsidian/templates/goal.md",
+    "_obsidian/templates/session.md",
+    "_obsidian/templates/spec.md",
+    "_obsidian/templates/story.md",
+    "_obsidian/templates/vision.md",
+    "bibliography/skill-references.md",
+    "bibliography/jones-se-best-practices.md",
+    "bibliography/sources/user-story-mapping.pdf",
+    "bibliography/sources/gherkin-reference.pdf",
+    "bibliography/sources/gisf-delivery-backlog-management.pdf",
+    "bibliography/sources/agile-story-essentials.pdf",
+    "bibliography/sources/se-best-practices.pdf",
+    "bibliography/sources/gisf-pipeline-devops.pdf",
+    "bibliography/sources/gisf-life-cycle.pdf",
+    "bibliography/sources/gisf-discovery.pdf",
+    "bibliography/sources/gisf-delivery-review-and-retrospectives.pdf",
+    "bibliography/sources/gisf-delivery-planning.pdf",
+    "bibliography/torres-continuous-discovery.md",
+    "bibliography/christensen-jtbd.md",
+    "bibliography/cagan-product-vision.md",
+    "bibliography/bass-software-architecture.md",
+    "bibliography/anthropic-subagents.md",
+    "bibliography/anthropic-skills.md",
+    "bibliography/adzic-specification-by-example.md",
+    "nodes/Untitled.md",
+    "_obsidian/templater-scripts/README.md",
+    ".claude/skills/po-feature/SKILL.md",
+    ".claude/skills/po-goal/SKILL.md"
+  ]
+}

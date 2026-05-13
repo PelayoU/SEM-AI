@@ -1,6 +1,6 @@
 ---
 name: po-capability
-description: "Derivar, refinar y validar capabilities bajo un goal aprobado aplicando criterios bibliográficos auditados (Torres OST, Rumelt coherent action, Christensen JTBD, Cagan). Una capability es una HABILIDAD del producto — no feature ni actividad. Decomponible en features. Use this skill when deriving capabilities from an approved goal, when proposing a new capability, or when reviewing existing ones."
+description: "Derivar, refinar y validar capabilities bajo un goal aprobado. Una capability da a los stakeholders la habilidad de lograr algún goal o cumplir alguna tarea, sin implicar una implementación particular. NO es feature ni actividad ni tecnología. Decomponible en features. Use this skill when deriving capabilities from an approved goal, when proposing a new capability, or when reviewing existing ones."
 when_to_use: "El humano quiere derivar capabilities bajo un goal aprobado, propone una capability nueva, o pide validar capabilities existentes."
 ---
 
@@ -8,89 +8,77 @@ when_to_use: "El humano quiere derivar capabilities bajo un goal aprobado, propo
 
 ## Propósito
 
-Derivar o evaluar capabilities — el tercer nivel del grafo. Una capability es una **habilidad del producto** que materializa parcialmente un goal. Es decomponible en features pero NO es feature (más abstracta, más durable).
+Derivar o evaluar capabilities — tercer nivel del grafo SEM-IA. Habilidad del producto que materializa parcialmente un goal sin implicar implementación concreta.
 
-## Bibliografía aplicada
+## Estructura del nodo
 
-- `bibliography/torres-continuous-discovery.md` — Teresa Torres, *Continuous Discovery Habits*. Opportunity Solution Tree: del outcome (goal) a oportunidades, de oportunidades a soluciones.
-- `bibliography/rumelt-good-strategy.md` — Rumelt, *coherent action*. Las capabilities son las "acciones coherentes" que el equipo desplegará para alcanzar el goal.
-- `bibliography/christensen-jtbd.md` — JTBD. Cada capability resuelve un sub-job dentro del job principal nombrado en la visión.
-- `bibliography/cagan-product-vision.md` — Cagan. Coherencia capability ↔ visión.
+Estructura del archivo en `_obsidian/templates/capability.md`. Léelo antes de crear o editar.
 
-## Criterios formales (6 tests Rumelt + Torres + Cagan)
+## Definición operativa (canónica SEM-IA literal)
 
-1. **Es habilidad, no feature ni actividad.** ❌ *"Login con OAuth"* (feature). ❌ *"Hacer onboarding"* (actividad). ✅ *"Que el usuario inicie sesión con identidad propia"* (habilidad — admite N features).
-2. **Parent claro.** Cuelga de un goal concreto. Si no tienes goal padre, es síntoma de que falta nivel intermedio o el goal está mal cortado.
-3. **Alineada con guiding policy (Rumelt).** Coherente con el "cómo" estratégico del proyecto. No contradice la visión ni otras capabilities.
-4. **No solapa con otras capabilities.** Cada capability cubre una habilidad distinta. Si dos se pisan, fusiona o re-recorta.
-5. **Cross-links explícitos.** Capabilities suelen relacionarse entre sí (`also-relates-to`) o depender unas de otras (`depends-on`). Declarar.
-6. **Decomponible en features.** Si no puedes imaginar 2-5 features bajo esta capability, está mal cortada (demasiado abstracta o demasiado concreta).
+> *"Capability: Gives stakeholders the ability to achieve some goal or fulfill some task, regardless of implementation. Don't imply a particular implementation."*
 
-## Estructura del nodo `capability`
+Una capability:
+- **Da habilidad**: al usuario/stakeholder de hacer algo.
+- **Independiente de implementación**: no nombra tecnología ni feature concreta.
+- **Sirve a un goal**: cuelga jerárquicamente de un goal padre.
+- **Decomponible en features**: las features son las implementaciones concretas que entregan la capability.
 
-```yaml
----
-category: capability
-id: cap-NN-<slug>
-parent: goal-XX-<slug>
-status: active
-created: <ISO date>
-also-relates-to: []
-depends-on: []
-dimensions-affected: [product, ...]
----
+## Criterios formales
 
-# Capability NN — <Título corto>
+1. **Es habilidad, no feature ni actividad ni tecnología.**
+   - ❌ *"Login con OAuth"* (feature concreta).
+   - ❌ *"Hacer onboarding de usuarios"* (actividad interna).
+   - ❌ *"Usar PostgreSQL"* (tecnología — va a ADR, no capability).
+   - ✅ *"Que el usuario inicie sesión con identidad propia"* (habilidad agnóstica de cómo).
 
-## Habilidad (qué hace el producto)
-<1-2 frases en presente: "El producto permite/sabe/garantiza ___".>
+2. **Parent claro**: cuelga jerárquicamente de un goal concreto.
 
-## Sub-job (Christensen)
-<Cuando _______, el usuario quiere _______, para _______.>
+3. **Sirve a goal padre**: la capability mueve un outcome del goal. Si no aporta al goal, repensar el árbol.
 
-## Anclaje en goal padre
-<Qué KR del goal se mueve por tener esta capability.>
+4. **No solapa con otras capabilities** del mismo goal. Cada una cubre una habilidad distinta.
 
-## Features previstas (placeholder, no exhaustivo)
-<Lista tentativa de 2-5 features candidatas. Solo orientativa — se materializan con po-feature después.>
+5. **Decomponible en features**: si no puedes imaginar 2-5 features bajo ella, está mal cortada (demasiado abstracta o demasiado concreta).
 
-## No-meta
-<Lo que esta capability NO cubre.>
+6. **Coherente con visión y otras capabilities**: las capabilities como conjunto deben funcionar juntas, no contradecirse.
+
+## Capability dentro del Dual Track
+
+Según GISF, las capabilities se filtran en el ciclo Discovery → Delivery:
+
+```
+Discovery → Capability List → [Go/No-Go filter] → MVP (Minimum Viable Product)
 ```
 
-## Cómo procedes — modo single (1 capability)
+La capability se descubre durante Discovery; el filtrado decide cuáles entran al MVP y cuáles se descartan o aplazan.
 
-1. Lees `nodes/<goal>.md` (el padre).
-2. Aplicas los 6 tests al enunciado propuesto.
-3. Propones nodo + cross-links.
+## Cómo procedes
 
-## Cómo procedes — modo batch (derivar varias capabilities bajo un goal)
+**Modo single** (1 capability):
+1. Lees el goal padre (`nodes/goal-XX-...md`).
+2. Aplicas los 6 criterios al enunciado propuesto.
+3. Propones el nodo con cross-links.
 
+**Modo batch** (derivar varias capabilities bajo un goal):
 1. Lees el goal.
-2. Aplicas Opportunity Solution Tree (Torres): outcome del goal → oportunidades (sub-jobs) → para cada oportunidad propones una capability.
-3. Verificas Independent (no solapan) y cobertura (juntas materializan el goal).
-4. Propones lista al humano para confirmación una por una.
+2. Identificas las habilidades que el producto necesita para mover el outcome del goal.
+3. Propones lista (típicamente 2-5 capabilities por goal).
+4. Verificas Independent + cobertura conjunta (juntas, las capabilities aseguran el goal).
+5. Presentas lista al humano para confirmación una por una.
 
-## Output esperado
-
-Propuesta al humano:
-- Lista de capabilities con veredicto por test.
-- Paths a crear: `nodes/cap-NN-<slug>.md`.
-- `parent: goal-XX-<slug>` declarado.
-- Cross-links entre capabilities si aplica.
-
-Aplicas `shared-cross-link` para los `also-relates-to`/`depends-on`.
+Tras confirmación, aplicas el cambio leyendo `_obsidian/templates/capability.md` como base. Aplicas `shared-cross-link` después.
 
 ## Trampas a evitar
 
-- **Capability-feature**: confundir habilidad con entregable. *"Implementar dashboard de admin"* es feature; *"Que el admin gestione usuarios y permisos"* es capability.
-- **Capability-actividad**: *"Hacer discovery con usuarios"* — actividad interna, no habilidad del producto.
-- **Capability-tecnología**: *"Usar PostgreSQL"* — decisión técnica, no habilidad. Va a ADR, no a capability.
-- **Bootstrap-anchor (Torres trampa)**: derivar capabilities desde features que ya tienes en mente, no desde el goal. Resultado: el grafo "encaja" pero no materializa estratégicamente. Empieza siempre desde el outcome del goal.
+- **Capability-feature**: confundir habilidad con entregable concreto. La capability NO nombra cómo se implementa.
+- **Capability-actividad**: *"Hacer discovery con usuarios"* — actividad interna del equipo, no habilidad del producto para el usuario.
+- **Capability-tecnología**: decisiones técnicas van a ADR, no a capability.
+- **Bootstrap-anchor**: derivar capabilities desde features que ya tienes en mente, no desde el goal. Resultado: el grafo "encaja" pero no materializa estratégicamente. Empieza siempre desde el outcome del goal.
 
-## Después de aplicar la skill
+## Después de aplicar
 
 Registra en documento-sesión:
+
 ```markdown
-- Creadas N capabilities bajo `goal-XX-<slug>` aplicando `po-capability`. Cita: Torres OST + Rumelt coherent action + JTBD.
+- Creadas N capabilities bajo `goal-XX-<slug>` aplicando `po-capability`. Cita: definición canónica SEM-IA + 6 criterios.
 ```

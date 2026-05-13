@@ -8,3 +8,7 @@ dist/
 # IDE
 .vscode/
 .idea/
+
+# Bibliography sources (PDFs originales — copyright + tamaño)
+# Las fichas .md en bibliography/ sí se versionan; los PDFs no.
+bibliography/sources/

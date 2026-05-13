@@ -1,6 +1,6 @@
 ---
 name: po-vision
-description: "Crear, refinar y validar la visión del proyecto aplicando criterios bibliográficos auditados (Cagan, Sinek, Rumelt, Christensen JTBD). La visión es customer-centric, durable 5-10 años, articula propósito (Why), ambiciosa pero anclada. Use this skill when proposing a new project vision, when refining an existing one, or when reviewing whether the current vision still serves after significant project evolution."
+description: "Crear, refinar y validar la visión del proyecto aplicando los 10 principios de Cagan + el template de positioning. La visión es el ancla estratégica del proyecto: future state 2-10 años, customer-centric, articula propósito, ambiciosa pero ancla en realidad. Use this skill when proposing a new project vision, when refining an existing one, or when reviewing whether the current vision still serves after significant project evolution."
 when_to_use: "El humano propone una visión, pide refinarla, o pregunta si la actual sigue siendo válida."
 ---
 
@@ -8,82 +8,78 @@ when_to_use: "El humano propone una visión, pide refinarla, o pregunta si la ac
 
 ## Propósito
 
-Producir o evaluar un enunciado de visión que cumpla criterios bibliográficos. La visión es el ancla estratégica del proyecto — todo lo demás (goals, capabilities, features) deriva de ella.
+Producir o evaluar un enunciado de visión que cumpla criterios bibliográficamente auditados. La visión es el primer nivel del grafo SEM-IA — todo lo demás (goals, capabilities, features, stories, specs) deriva de ella.
 
-## Bibliografía aplicada
+## Estructura del nodo
 
-- `bibliography/cagan-product-vision.md` — Marty Cagan, *Inspired*. Principios de visión inspiracional: customer-centric, durable, ambiciosa, accionable.
-- `bibliography/sinek-start-with-why.md` — Simon Sinek, Golden Circle. Why → How → What. La visión articula el **Why**.
-- `bibliography/rumelt-good-strategy.md` — Richard Rumelt, *Good Strategy / Bad Strategy*. Diagnosis + guiding policy + coherent action. La visión expresa el diagnosis estratégico.
-- `bibliography/christensen-jtbd.md` — Clayton Christensen, Jobs to be Done. La visión nombra el **job** que el producto resuelve para el usuario.
+La estructura del archivo vive en `_obsidian/templates/vision.md`. Léelo antes de crear o editar.
 
-## Criterios formales (los 7 tests Cagan + Sinek + Rumelt + JTBD)
+## Definición operativa (canónica SEM-IA)
 
-1. **Customer-centric.** La visión describe valor para el usuario, no capacidad técnica. ❌ *"Plataforma de microservicios escalable"*. ✅ *"Que cualquier desarrollador entregue producto sin perder coherencia a medida que el proyecto escala"*.
-2. **Articula el Why (Sinek).** Responde "¿por qué existe esto?" antes que "¿qué hace?".
-3. **Durable 5-10 años.** Una visión que envejece en 6 meses está mal calibrada. ❌ *"Adoptar React"*. ✅ *"Componer UIs reusables sin atarse a un framework"*.
-4. **Ambiciosa pero anclada.** Inspira, pero no es delirio. *"Resolver toda la educación mundial"* es delirio; *"Que cualquier persona aprenda programación a su ritmo sin profesor"* es ambición ancla.
-5. **Diagnosis claro (Rumelt).** Nombra el problema real que ataca, no síntomas. ¿Cuál es la *kindly described situation* que justifica el proyecto?
-6. **Job nombrado (Christensen).** ¿Qué job hace el usuario contratando este producto? *"Cuando estoy desarrollando con IA, quiero <X>, para <outcome>."*
-7. **Accionable.** Permite a un equipo derivar goals concretos. Si oyendo la visión nadie sabe qué hacer mañana, está mal escrita.
+> *"Vision: the statement that provides a high-level guiding direction for the product."*
 
-## Estructura del nodo `vision`
+La visión describe un **futuro** que el equipo intenta crear, típicamente **2-10 años** desde ahora. Su propósito principal: **comunicar ese futuro e inspirar** al equipo, stakeholders, inversores, partners, clientes potenciales. Puede que no sepas cómo (o si) podrás entregarla, pero a este nivel debe creerse que vale la pena perseguirla.
 
-```yaml
----
-category: vision
-id: vision
-status: active
-created: <ISO date>
-updated: <ISO date>
-also-relates-to: []
-dimensions-affected: [product]
----
+> *"Product Vision is Science Fiction."* — la visión vive años en el futuro.
 
-# Visión del proyecto
+## Los 10 Principios de Product Vision (Cagan literal)
 
-## Enunciado
-<1-3 frases. Customer-centric, Why-driven, durable.>
+Criterios canónicos para evaluar una visión:
 
-## Diagnosis (Rumelt)
-<Qué problema real ataca. Situación del mundo que justifica el proyecto.>
+1. **Start with WHY** — articula propósito antes que producto.
+2. **Fall in love with the problem, not the solution** — la solución cambia; el problema permanece.
+3. **Don't be afraid to think big, with vision** — *"if you could truly validate a vision, then your vision probably isn't ambitious enough"*.
+4. **Don't be afraid to disrupt yourself** — la visión puede invalidar el producto actual.
+5. **Product vision needs to inspire** — emocional, no solo lógica.
+6. **Determine and adopt relevant and significant trends** — la visión vive en el contexto de tendencias.
+7. **Skate where the puck is going, not where it was** — anticipa, no reacciones.
+8. **Be stubborn in vision, but flexible in details** — el norte no cambia; el cómo se ajusta.
+9. **Keep in mind that any product vision is an act of faith** — visión validable al 100% antes de empezar no es visión.
+10. **Evangelize continuously and relentlessly** — *"no hay tal cosa como sobre-comunicar la visión"*.
 
-## Job to be done (Christensen)
-<Cuando _______, quiero _______, para _______.>
+## Vision positioning template
 
-## No-meta (lo que esta visión NO promete)
-<Limites explícitos. Qué queda fuera del scope.>
+Aunque la visión NO es positioning statement, este template ayuda a expresarla con disciplina:
 
-## Origen
-<Quién, cuándo, qué motivó este enunciado.>
 ```
+For       [target customer]
+Who       [statement of need or opportunity]
+The       [product name] is a [product category]
+That      [key benefit, reason to buy]
+Unlike    [primary competitive alternative]
+Our product [statement of primary differentiation]
+```
+
+## Cómo crear visión (5 pasos)
+
+1. **Set your future time horizon.** Típicamente 5-10 años.
+2. **Describe the future** (sin pensar específicamente en tu producto — como sistema socio-técnico).
+3. **Tell your future product story.**
+4. **Communicate your story.**
+5. **Write a product positioning statement** (usando el template).
 
 ## Cómo procedes
 
-1. **Si el humano propone una visión**: aplicas los 7 tests. Para cada criterio, das veredicto (✅ / ❌ / 🟡) con razón corta + cita bibliográfica. Si hay ❌, propones reformulación concreta.
-2. **Si refinas una existente**: lees el nodo `nodes/vision.md`, identificas dónde falla los tests, propones edit.
-3. **Si validas la actual**: aplicas los 7 tests al enunciado existente. Reportas estado.
+1. **Si el humano propone una visión nueva**: aplica los 10 principios. Para cada uno, veredicto (✅/❌/🟡) con razón corta. Identifica qué principios falla. Propones reformulación.
+2. **Si refinas la existente**: lees `nodes/vision.md`, identificas principios fallados, propones edits puntuales.
+3. **Si validas la actual**: aplicas los 10 principios al enunciado existente. Reportas estado.
 
-## Output esperado
+Output al humano: veredicto por principio + reformulación sugerida si aplica. El humano confirma. Tú aplicas el cambio leyendo `_obsidian/templates/vision.md` como base.
 
-Propuesta concreta al humano:
-- Veredicto por test (lista de 7).
-- Reformulación sugerida (si aplica).
-- Path del nodo a crear/editar: `nodes/vision.md`.
-- Cross-links a declarar (típicamente ninguno — la visión es nodo raíz).
-
-Aplicas `shared-cross-link` si emergen `also-relates-to` legítimos (raro al nivel visión, posible si conectas con manifestos externos).
+Aplicas `shared-cross-link` después si emergen cross-links (raro al nivel visión).
 
 ## Trampas a evitar
 
-- **Visión-eslogan**: *"Cambiar el mundo"* — no es visión, es marketing. Falla durable + accionable.
-- **Visión-roadmap**: lista de features. Falla durable (los features cambian; la visión no).
-- **Visión-tecnológica**: nombra stack. Falla customer-centric.
-- **Visión-genérica**: aplicable a cualquier producto. Falla diagnosis (no nombra el problema concreto).
+- **Visión-eslogan**: *"Cambiar el mundo"* — sin diagnosis, sin diferenciación.
+- **Visión-roadmap**: lista de features — falla "be flexible in details".
+- **Visión-tecnológica**: nombra stack — falla customer-centric (Principio "fall in love with the problem").
+- **Visión-genérica**: aplicable a cualquier producto — falla "think big with vision" + diferenciación.
+- **Visión validada al 100%**: si puedes validar la visión antes de empezar, no es ambiciosa (Principio 3).
 
-## Después de aplicar la skill
+## Después de aplicar
 
 Registra el toque en el documento-sesión del día:
+
 ```markdown
-- Creado/editado `nodes/vision.md` aplicando skill `po-vision`. Cita: 7 tests Cagan + Sinek + Rumelt + JTBD.
+- Creado/editado `nodes/vision.md` aplicando skill `po-vision`. Cita: 10 principios Cagan + positioning template.
 ```

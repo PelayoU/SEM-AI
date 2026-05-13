@@ -1,6 +1,6 @@
 ---
 name: po-feature
-description: "Descomponer una capability aprobada en features (slices de outcome) y cada feature en stories (thin slices INVEST) aplicando criterios bibliográficos auditados (Patton Story Map, Cohn INVEST, Christensen JTBD). Una feature entrega outcome experiencial concreto al usuario. Una story es slice ejecutable. Use this skill when decomposing a capability into features, when breaking down a feature into stories, or when validating existing features/stories against criteria."
+description: "Descomponer una capability en features (entregables de funcionalidad concreta) y cada feature en stories (formato Cohn, criterios INVEST). Una feature es una pieza de funcionalidad entregable que materializa una capability. Una story es un token para una conversación + criterios de aceptación. Use this skill when decomposing a capability into features, when breaking down a feature into stories, or when validating existing features/stories against criteria."
 when_to_use: "El humano quiere descomponer una capability en features, descomponer una feature en stories, o validar features/stories existentes."
 ---
 
@@ -8,129 +8,125 @@ when_to_use: "El humano quiere descomponer una capability en features, descompon
 
 ## Propósito
 
-Descomponer una capability en **features** (slices de outcome coherente) y cada feature en **stories** (thin slices INVEST ejecutables). Cuarto y quinto nivel del grafo.
+Descomponer una capability en **features** (pieces of deliverable product functionality) y cada feature en **stories** (cards for conversations, INVEST). Cuarto y quinto nivel del grafo SEM-IA.
 
-## Bibliografía aplicada
+## Estructura del nodo
 
-- `bibliography/patton-user-story-mapping.md` — Jeff Patton, *User Story Mapping*. Narrative flow + thin slices. Las features son slices verticales que entregan outcome experiencial.
-- `bibliography/cohn-user-stories-invest.md` — Mike Cohn, *User Stories Applied*. INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable.
-- `bibliography/christensen-jtbd.md` — JTBD. Cada feature avanza el job principal.
+Estructura del archivo en:
+- `_obsidian/templates/feature.md` — para features.
+- `_obsidian/templates/story.md` — para stories.
 
-## Criterios formales — feature
+Léelos antes de crear o editar.
 
-1. **Outcome experiencial.** La feature entrega algo que el usuario puede percibir/usar. ❌ *"Capa de cache Redis"*. ✅ *"Que el dashboard cargue en <1s"*.
-2. **Slice vertical (Patton).** Atraviesa todas las capas del stack (UI + lógica + datos) para producir outcome. No es "una capa", es un corte fino end-to-end.
-3. **Cuelga de capability clara** (`parent: cap-XX`).
-4. **Tamaño razonable.** Si no puedes imaginar 2-7 stories bajo esta feature, está mal cortada.
-5. **Cross-links declarados.** Features suelen tocar varias dimensiones (`dimensions-affected`) y depender de otras features (`depends-on`).
+## Definición operativa (canónica SEM-IA literal)
 
-## Criterios formales — story (INVEST de Cohn)
+> *"Features/stories: What is designed and implemented to deliver capabilities. Are pieces of deliverable product functionality."*
 
-1. **Independent.** Cada story implementable sin esperar a otra (relax si dependencias técnicas reales).
-2. **Negotiable.** El "cómo" es conversable; el "qué" y el "por qué" no.
-3. **Valuable.** Para el usuario (no para el dev). Si solo aporta valor técnico, repensar.
-4. **Estimable.** El equipo puede estimar esfuerzo grueso. Si nadie sabe estimar, falta info — discovery primero.
-5. **Small.** Cabe en un sprint / iteración corta. Si no, parte.
-6. **Testable.** AC futuros pueden derivarse. Si no, falta claridad de outcome.
+Features y stories están al MISMO nivel jerárquico en el grafo SEM-IA: ambos son **piezas entregables de funcionalidad**. La diferencia operativa:
 
-## Estructura del nodo `feature`
+- **Feature**: pieza de funcionalidad coherente del producto, suele agrupar varias stories.
+- **Story**: thin slice ejecutable + token para conversación, criterios INVEST.
 
-```yaml
----
-category: feature
-id: feature-NNN-<slug>
-parent: cap-NN-<slug>
-status: draft  # draft | decomposed | ready-for-implementation | in-implementation | implemented
-created: <ISO date>
-also-relates-to: []
-depends-on: []
-dimensions-affected: [product, ...]
-priority: <number>  # opcional, para sort en backlog.base
----
+## Stories: formato y filosofía
 
-# Feature NNN — <Título>
+> *"Stories are for telling. A story is a token for a conversation."* — Kent Beck (origen, late 1990s).
 
-## Outcome
-<1-3 frases. Qué experiencia/resultado obtiene el usuario al usar esta feature.>
+**Template canónico (Cohn)**:
 
-## Stories (descomposición INVEST)
-- `[[story-NNN-A-<slug>]]` — As <role> I want <action> so that <benefit>.
-- `[[story-NNN-B-<slug>]]` — ...
-- `[[story-NNN-C-<slug>]]` — ...
-
-## Spec
-- `[[spec-NNN-<slug>]]` — contrato Gherkin agregando AC de todas las stories (se genera con `po-spec`).
-
-## Notas
-<Contexto adicional, decisiones, dudas abiertas.>
+```
+As <user role>
+I want to <goal>
+So that <benefit>
 ```
 
-## Estructura del nodo `story`
+**Filosofía Patton/Comakers**:
+- Las stories no son spec completa; son **tokens para conversaciones** que producen shared understanding.
+- *"Shared documents are NOT shared understanding."* — la documentación es memorando de la conversación, no reemplaza la conversación.
+- Vacation Photos metaphor: los modelos/dibujos/notas son mementos para recordar la conversación.
 
-```yaml
----
-category: story
-id: story-NNN-X-<slug>   # X = letra A, B, C... para trazabilidad con AC
-parent: feature-NNN-<slug>
-status: draft  # draft | ready | in-implementation | done
-created: <ISO date>
-also-relates-to: []
-depends-on: []
-dimensions-affected: []
----
+## Criterios INVEST (literal Cohn/Wake)
 
-# Story NNN-X — <Título>
+Aplicables a cada story:
 
-## Frase Cohn
-As **<role>**, I want **<action>**, so that **<benefit>**.
+1. **Independent** — implementable sin depender de stories no construidas (relax si dependencia técnica real existe).
+2. **Negotiable** — el detalle del cómo es negociable; el qué y por qué no.
+3. **Valuable** — entrega valor a un stakeholder (usuario, negocio, equipo).
+4. **Estimable** — el equipo puede estimar tamaño con razonable aproximación. Si no se puede estimar, falta discovery.
+5. **Small** (sized appropriately) — cabe en una iteración corta. Si es muy grande → epic → descompone.
+6. **Testable** — hay AC derivables. Si no es testeable, falta especificación.
 
-## Examples (Adzic — alimentan AC)
-- Ejemplo 1: <escenario concreto>
-- Ejemplo 2: <variación>
-- Ejemplo 3: <edge case>
+## Criterios para features
 
-## INVEST self-check
-- Independent: <✅/❌/🟡 con razón>
-- Negotiable: ...
-- Valuable: ...
-- Estimable: ...
-- Small: ...
-- Testable: ...
+1. **Entrega outcome experiencial**: la feature produce algo que el usuario percibe/usa. ❌ *"Capa de cache Redis"* (capa técnica). ✅ *"El dashboard carga en <1s"* (outcome perceptible).
+2. **Cuelga de capability clara**: parent identificado.
+3. **Tamaño razonable**: 2-7 stories aproximadamente. Si no, repartir o agrupar.
+4. **Cross-links declarados**: `dimensions-affected`, `depends-on` cuando aplique.
+
+## User Story Mapping (Patton)
+
+Para descomponer una capability en features, el método canónico de Patton es **User Story Mapping**. Estructura:
+
 ```
+Epic (Activity)  ←  Theme (Task)  ←  Story (Sub-task)
+```
+
+**Story Map Process (5 pasos)**:
+
+1. **Frame** — short product/feature brief. What/Who/Why.
+2. **Map the Big Picture** — "mile-wide, inch-deep". Backbone de activities y tasks, izquierda-derecha (narrative flow).
+3. **Explore** — descompón tasks en subtasks. Blue sky, variations, exceptions, "wouldn't it be cool if".
+4. **Slice Out Viable Releases** — thin slices que abarquen el flow completo. Walking Skeleton = release mínimo end-to-end.
+5. **Slice Out Development Strategy** — opening game (walking skeleton), mid game (functionality), end game (refinement).
+
+> *"The secret to prioritization is to prioritize outcomes and not features."*
+
+## Splitting heuristics
+
+- **"Think cake"**: cada story debe ser una "rebanada que se pueda probar". Whole features tienen menos valor para usuarios; varias stories suman a una feature completa.
+- **Stories vs Delivery Tasks**: stories describen algo entregable y evaluable; tasks son "la receta" de cómo construir la story.
 
 ## Cómo procedes — descomponer capability en features
 
 1. Lees `nodes/<capability>.md`.
-2. Aplicas Story Map (Patton) mentalmente: ¿cuál es el narrative flow del usuario para conseguir el outcome de la capability? Las features son los pasos coherentes del flow.
-3. Propones lista de features (típicamente 2-5 por capability) con outcome de cada una.
-4. Para cada feature, validas con los 5 criterios feature.
+2. Aplicas Story Map mentalmente: ¿cuál es el narrative flow del usuario para conseguir el outcome de la capability?
+3. Identificas las features (slices coherentes del flow). Típicamente 2-5 por capability.
+4. Para cada feature, validas los 4 criterios feature.
 
 ## Cómo procedes — descomponer feature en stories
 
 1. Lees `nodes/<feature>.md`.
-2. Identificas el thin slice más pequeño que entrega *algún* outcome de la feature (Cohn small).
-3. Propones stories con frase Cohn + examples placeholder.
-4. Validas INVEST por story.
+2. Identificas el thin slice más pequeño que entrega algún outcome del usuario.
+3. Propones stories con frase Cohn ("As/I want/So that") + examples placeholder.
+4. Validas INVEST en cada story.
 
-## Output esperado
+Tras confirmación del humano, aplicas el cambio leyendo los templates como base. Aplicas `shared-cross-link` después.
 
-Propuesta al humano:
-- Lista de features/stories con veredicto.
-- Paths a crear: `nodes/feature-NNN-<slug>.md`, `nodes/story-NNN-X-<slug>.md`.
-- Cross-links: feature `parent: cap-NN`; story `parent: feature-NNN`.
+## 5 Cs Cycle
 
-Aplicas `shared-cross-link` para los demás cross-links.
+Para mantener stories como tokens de conversación viva:
+
+```
+Card → Conversation → Confirmation → Construction → Consequences → (loop)
+```
+
+- **Card**: ideas en cards (una por card).
+- **Conversation**: discuss con team, preguntas, soluciones ideales, shared understanding.
+- **Confirmation**: agreement sobre qué construir + confirmation tests.
+- **Construction**: developers/testers construyen con shared understanding.
+- **Consequences**: working software → test con usuarios → learnings → next cycle.
 
 ## Trampas a evitar
 
-- **Feature-tarea técnica**: *"Refactor del módulo X"* — no es feature de producto, es trabajo técnico. Va a ADR o a un nodo de tarea interna.
-- **Feature horizontal (Patton trampa)**: *"Toda la persistencia"* — capa, no slice. Patton anti-pattern.
-- **Story sin "so that"**: si no puedes nombrar el benefit, falta entender el JTBD.
-- **Stories que se contradicen INVEST**: si una story depende de otra (no Independent), reagrupa. Si nadie puede estimar (no Estimable), discovery falta.
+- **Feature horizontal** (anti-pattern Patton): *"Toda la persistencia"* — es capa, no slice end-to-end.
+- **Feature como tarea técnica**: *"Refactor del módulo X"* — eso es trabajo técnico que va a ADR o sprint backlog, no a feature de producto.
+- **Story sin "so that"**: falta entender el benefit. La frase Cohn requiere las 3 partes.
+- **Stories que rompen INVEST**: reagrupa si no Independent; profundiza discovery si no Estimable; descompone si no Small.
+- **Spec por adelantado**: las stories no son contrato sellado, son tokens para conversación (Patton/Beck).
 
-## Después de aplicar la skill
+## Después de aplicar
 
 Registra en documento-sesión:
+
 ```markdown
-- Creadas N features bajo `cap-NN-<slug>` y M stories bajo `feature-NNN-<slug>` aplicando `po-feature`. Cita: Patton Story Map + Cohn INVEST + JTBD.
+- Creadas N features bajo `cap-NN-<slug>` y M stories bajo `feature-NNN-<slug>` aplicando `po-feature`. Cita: definición canónica + Patton User Story Mapping + Cohn INVEST.
 ```
