@@ -1,18 +1,11 @@
 {
   "name": "sem-ia",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "description": "Software Engineering Management framework para desarrollo asistido por IA. Codifica workflows enterprise (SDLC, governance, approval matrices) en formato AI-ejecutable, con disciplina de roles, scope auditable y verificación cruzada.",
-  "license": "UNLICENSED",
+  "description": "SEM-IA — Ingeniería de Gestión de Software de IA. La IA mantiene la infraestructura documental del proyecto; el humano es autor.",
   "scripts": {
-    "sem": "cd vault/product-owner && claude",
-    "po": "cd vault/product-owner && claude",
-    "arch": "cd vault/architect && claude",
-    "des": "cd vault/designer && claude",
-    "biz": "cd vault/business-analyst && claude",
-    "sec": "cd vault/security-officer && claude",
-    "qa": "cd vault/qa && claude",
-    "dev": "cd src && claude",
-    "ops": "cd vault/devops && claude"
-  }
+    "po": "claude --agent product-owner",
+    "sem": "claude --agent product-owner"
+  },
+  "license": "Apache-2.0"
 }
