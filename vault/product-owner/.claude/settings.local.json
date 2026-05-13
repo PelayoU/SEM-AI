@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/pelayo/Developer/SEM-AI/**)",
+      "Bash(awk 'NR==360,NR==420' /Users/pelayo/Developer/SEM-AI/vault/shared/sessions/active/wa-2026-05-12-003.md)",
+      "Bash(awk *)"
+    ]
+  }
+}
