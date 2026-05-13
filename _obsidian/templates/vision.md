@@ -4,60 +4,60 @@ id: vision
 status: draft
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-also-relates-to: []
-dimensions-affected: [product]
 ---
 
-# Visión del proyecto
+# Vision — <short title>
 
-## Enunciado
+> Authored via `po-vision`. Canonical criteria: Cagan's Ten Principles of Product Vision (GISF `gisf-discovery.pdf` slide 89) + 5-step construction method (slide 86) + 2-to-10-year horizon (slide 82).
 
-> 1-3 frases. Customer-centric, durable 5-10 años. Articula propósito antes que producto. Si suena a eslogan o nombra tecnología, está mal calibrada.
+## Statement
 
-## WHY — Propósito (Sinek)
+> 2–4 sentences. Customer-centric. Describes the future you intend to create, not the product. Horizon 2–10 years. *"Science fiction"* allowed and encouraged (slide 83).
 
-> Por qué existe esto, más allá del producto. La causa o creencia que motiva. El círculo central del Golden Circle.
+## Time horizon
 
-## Diagnosis (Rumelt)
+> Explicit (e.g., "5 years", "10 years"). Below 2 years is a goal; above 10 is speculation (slide 82).
 
-> El problema real que ataca esta visión. Situación del mundo (no del producto) que justifica que el proyecto exista. Nombra el dolor, no los síntomas. *"The most common cause of bad strategy is a weak diagnosis."*
+## Positioning statement (slide 84)
 
-## Guiding policy (Rumelt)
+> *Vision is not the positioning statement, but the positioning statement helps communicate it.*
 
-> Cómo se aborda el desafío del diagnóstico, sin definir aún qué se hace concretamente. Crea ventaja anticipando, concentrando esfuerzo, haciendo que las acciones futuras sean coherentes entre sí.
+For **\<target customer\>**
+who **\<need\>**,
+the **\<product\>**
+is a **\<category\>**
+that **\<key benefit\>**.
+Unlike **\<competitive alternative\>**,
+our product **\<primary differentiation\>**.
 
-## Job to be done (Christensen)
+## 5-step construction trace (slide 86)
 
-> Cuando _______, el usuario quiere _______, para _______.
+1. **Time horizon set** — <value declared above>.
+2. **Future described as a socio-technical system** (ignoring the product) — <how the customer's day looks>.
+3. **Future product story told** — <where the product fits>.
+4. **Story communicated** — <one-breath summary the team can recite>.
+5. **Positioning statement written** — <above>.
 
-Dimensiones del job:
-- **Funcional**: la tarea pragmática.
-- **Emocional**: cómo el usuario quiere sentirse haciéndolo.
-- **Social**: cómo quiere ser percibido.
+## Ten Principles of Product Vision — self-check (slide 89, verbatim)
 
-## Alternativas que el usuario "contrata" hoy
+Mark ✅ / ⚠️ / ❌ with one-line reason:
 
-> A qué recurre el usuario actualmente para hacer este job (productos, workarounds, no-acción). El criterio Christensen: la visión gana cuando hace el job mejor que las alternativas existentes.
+1. **Start with why.**
+2. **Fall in love with the problem, not the solution.**
+3. **Don't be afraid to think big, with vision.**
+4. **Don't be afraid to disrupt yourself.**
+5. **Product vision needs to inspire.**
+6. **Determine and adopt relevant and significant trends.**
+7. **Skate where the puck is going, not where it was.**
+8. **Be stubborn in vision, but flexible in details.**
+9. **Keep in mind that any product vision is an act of faith.**
+10. **Evangelize continuously and relentlessly.**
 
--
+## Origin
 
-## No-meta
+> Who formulated it, when, what motivated it. Useful for future audit.
 
-> Lo que esta visión NO promete. Límites explícitos del scope para evitar drift futuro.
+## Source
 
-## Origen
-
-> Quién la formuló, cuándo, qué la motivó. Útil para auditoría futura cuando se revise.
-
-## Self-check Cagan (10 principios)
-
-Marca ✅/❌/🟡 con razón corta:
-
-- **Start with WHY** — articula propósito, no solo producto.
-- **Fall in love with the problem, not the solution** — el problema es durable, la solución puede cambiar.
-- **Think big and inspirational** — *"if you could truly validate a vision, then your vision probably isn't ambitious enough"*.
-- **Customer-centric** — describe mejora para el usuario, no para el producto.
-- **Inspirational and emotional** — engancha al equipo a un propósito.
-- **Durable 5-10 años** — no roadmap trimestral.
-- **Ambitious but feasible** — sueño con anclaje en realidad.
-- **Stubborn on vision, flexible on details** — el norte no cambia; el cómo se ajusta.
+- Skill: `po-vision`.
+- Cagan, *Inspired*, Ten Principles + 5-step method, captured in GISF UC3M `gisf-discovery.pdf` slides 82, 84, 86, 89.

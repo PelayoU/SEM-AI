@@ -5,40 +5,48 @@ parent: "[[cap-NN-slug]]"
 status: draft
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-also-relates-to: []
-depends-on: []
-dimensions-affected: [product]
-priority:
 ---
 
-# Feature <NNN> — <Título>
+# Feature <NNN> — <short title>
 
-## Outcome experiencial (Patton)
+> Authored via `po-feature-decomposition`. Canonical definition: GISF `gisf-life-cycle.pdf` slide 54 — *"Features/user stories: what is designed and implemented to deliver capabilities. Pieces of deliverable product functionality."* Features and stories sit at the same level; features group stories. INVEST applies to stories. Story Map hierarchy (Patton via GISF `gisf-delivery-backlog-management.pdf` slide 132): **Activity → Task → Sub-task** — features typically map to Tasks; stories map to Sub-tasks.
 
-> 1-3 frases. Qué experiencia/resultado concreto obtiene el usuario al usar esta feature. *"The secret to prioritization is to prioritize outcomes and not features."* Si no puedes resumirlo así, la feature está mal delimitada.
+## What it delivers
 
-## Progreso JTBD (Christensen)
+> 1–3 sentences. What the feature lets the user do. The functional contract, not the implementation. Pulled from the parent capability.
 
-> Qué progreso habilita para el usuario en qué circunstancia. *"People hire products to make progress in specific circumstances."* Si solo "agrega capacidad X", repensar.
+## Story Map position (Patton via slide 132)
 
-## Thin slice (Patton)
+> - **Activity (Epic)** this feature belongs to: <…>
+> - **Task** this feature maps to: <this feature>
+> - **Release slice** it sits in: <walking skeleton | thickening release N>
 
-> Esta feature, ¿es un slice vertical end-to-end (atraviesa todas las capas hasta producir outcome)? ¿O es una "capa" horizontal? Patton: los slices verticales entregan valor; las capas no.
+## Stories (children)
 
-## Stories (descomposición INVEST — Cohn)
-
-> Lista de stories hijas con frase Cohn. Cada story se materializa con el template `story.md` y debe pasar los 6 criterios INVEST.
+> Stories carry an `<id>` letter (A, B, C, …) so their acceptance criteria are traceable in the spec sibling (`story-NNN-A` → `AC-A1`, `AC-A2`, …).
 
 - `[[story-NNN-A-slug]]` — As <role>, I want <action>, so that <benefit>.
-- `[[story-NNN-B-slug]]` —
-- `[[story-NNN-C-slug]]` —
+- `[[story-NNN-B-slug]]` — <…>
+- `[[story-NNN-C-slug]]` — <…>
 
-## Spec
+## Spec sibling
 
-> Wikilink al spec.md con el contrato Gherkin que agrega AC de todas las stories de esta feature (convención Adzic: 1 spec por feature, no por story). Se materializa con la skill `po-spec`.
+> One Gherkin spec per feature, not per story (Cucumber: *"only a single Feature in a `.feature` file"*; `gherkin-reference.pdf` p. 1). The spec aggregates ACs from all child stories. Authored via `po-spec-gherkin`.
 
 - `[[spec-NNN-slug]]`
 
-## Notas
+## 5 Cs cycle reminder (GISF `gisf-life-cycle.pdf` slide 56 + `agile-story-essentials.pdf`)
 
-> Contexto adicional, decisiones tomadas durante la conversación, dudas abiertas, edge cases conocidos.
+> The feature card and its stories are tokens for **Conversation → Confirmation → Construction → Consequences**. The detail emerges through conversation; the spec captures Confirmation; Construction follows; Consequences feed the next loop.
+
+## Notes
+
+> Context, decisions taken during the conversation, open questions, known edge cases.
+
+## Source
+
+- Skill: `po-feature-decomposition`.
+- GISF UC3M `gisf-life-cycle.pdf` slide 54 (definition) + slide 56 (5 Cs).
+- GISF UC3M `gisf-delivery-backlog-management.pdf` slide 132 (Story Map hierarchy: Activity / Task / Sub-task).
+- GISF UC3M `agile-story-essentials.pdf` p. 1 (Card / Conversation / Confirmation / Construction / Consequences; Kent Beck origin).
+- Spec contract: see `[[spec-NNN-slug]]` and `gherkin-reference.pdf`.

@@ -5,40 +5,47 @@ parent: "[[feature-NNN-slug]]"
 status: draft
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-also-relates-to: []
-depends-on: []
-dimensions-affected: []
 ---
 
-# Story <NNN>-<X> — <Título>
+# Story <NNN>-<X> — <short title>
 
-> La letra X (A, B, C...) traza los AC en el spec hermano (`spec-NNN-slug`). Los AC se numeran AC-X1, AC-X2, AC-X3...
+> Authored via `po-feature-decomposition`. The letter **\<X\>** (A, B, C, …) traces this story's acceptance criteria in the spec sibling: `story-<NNN>-A` → `AC-A1`, `AC-A2`, …
 >
-> *"User stories are placeholders for conversations."* — Cohn. La frase es punto de partida, no contrato cerrado.
+> *"A story is a token for a conversation."* — Kent Beck via Comakers (`agile-story-essentials.pdf` p. 1). The card text is the start; detail emerges through the 5 Cs cycle.
 
-## Frase Cohn
+## Cohn statement (GISF `gisf-delivery-backlog-management.pdf` slide 124)
 
-> As **<role>**, I want **<action>**, so that **<benefit>**.
->
-> - **Role**: del catálogo de roles SEM-IA o usuario externo del framework.
-> - **Action**: capacidad concreta.
-> - **Benefit**: resultado que conecta con la feature padre y, a través de ella, con la capability.
+As **\<role\>**,
+I want **\<action / capability\>**,
+so that **\<benefit\>**.
 
-## Examples (Adzic — alimentan AC)
+- **Role:** an actor — a user persona, a stakeholder type, or a system role.
+- **Action:** the concrete capability the actor gains.
+- **Benefit:** the outcome that links to the parent feature and capability.
 
-> Ejemplos concretos en lenguaje real (no técnico) que iluminan el comportamiento esperado. 2-5 ejemplos por story incluyendo edge cases. Estos ejemplos alimentan los AC en el spec hermano. *"Examples are bridges that connect business and technical perspectives."*
+## Conditions of Satisfaction (back of card, GISF slide 125)
 
-- Ejemplo 1:
-- Ejemplo 2:
-- Ejemplo 3:
+> Brief, human-readable conditions the team agrees describe *done* for this story. These conditions feed the AC block in the spec sibling, where each becomes one or more numbered `AC-<X>N` Scenarios in Gherkin.
 
-## INVEST self-check (Cohn / Wake)
+- <condition 1>
+- <condition 2>
+- <condition 3>
 
-> Veredicto por criterio (✅ / ❌ / 🟡) con razón corta. Si falla algún criterio, repensar la story.
+## INVEST self-check (GISF `gisf-delivery-backlog-management.pdf` slide 128)
 
-- **Independent**: ¿se puede construir/entregar sin depender de stories no construidas?
-- **Negotiable**: ¿no está sobreespecificada? El detalle emerge en discovery.
-- **Valuable**: ¿qué valor concreto entrega y a quién?
-- **Estimable**: ¿el equipo puede estimar tamaño con razonable aproximación?
-- **Small**: ¿cabe en un Working Agreement / iteración corta?
-- **Testable**: ¿se pueden formular AC en Gherkin a partir de ella?
+Mark ✅ / ⚠️ / ❌ with one-line reason:
+
+- **I — Independent:** can be pulled without blocking on a sibling story.
+- **N — Negotiable:** card is a token, not the contract; details still open.
+- **V — Valuable:** the *so that* clause names a user or business outcome.
+- **E — Estimable:** team can size it with reasonable confidence.
+- **S — Small:** fits in a single iteration.
+- **T — Testable:** at least one observable outcome can confirm done.
+
+## Source
+
+- Skill: `po-feature-decomposition`.
+- Cohn story format: GISF UC3M `gisf-delivery-backlog-management.pdf` slide 124. Origin: Mike Cohn, *User Stories Applied* (Addison-Wesley, 2004) — book not in audited `bibliography/sources/`; cited via GISF.
+- INVEST: GISF `gisf-delivery-backlog-management.pdf` slide 128. Origin: Bill Wake (2003).
+- Conditions of Satisfaction (back of card): GISF slide 125.
+- "Token for a conversation" attribution: GISF UC3M `agile-story-essentials.pdf` p. 1 (Kent Beck, late 1990s).

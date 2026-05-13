@@ -3,43 +3,50 @@ category: capability
 id: cap-<NN>-<slug>
 parent: "[[goal-XX-slug]]"
 status: draft
+mvp: go|no-go
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-also-relates-to: []
-depends-on: []
-dimensions-affected: [product]
 ---
 
-# Capability <NN> — <Título corto>
+# Capability <NN> — <short title>
 
-## Habilidad (qué hace el producto)
+> Authored via `po-capabilities`. Canonical definition: GISF `gisf-life-cycle.pdf` slide 54 — *"gives stakeholders the ability to achieve some goal or fulfill some task, regardless of implementation. Don't imply a particular implementation."* Capability listing format: GISF `gisf-discovery.pdf` slides 97–99. MVP Go/No-go filter: `gisf-life-cycle.pdf` slide 69. Cagan four-risks discriminator: slide 64.
 
-> 1-2 frases en presente: "El producto permite/sabe/garantiza ___". Habilidad, no feature ni actividad ni tecnología.
+## Statement (slides 97–99 form)
 
-## Outcome del goal padre (Torres OST)
+> In order to **\<parent goal\>** as **\<stakeholder\>** I want **\<this capability — implementation-agnostic ability the stakeholder gains\>**.
 
-> Qué Key Result del goal padre se mueve por tener esta capability. Si no mueve ningún KR, repensar.
+## Implementation-agnostic test
 
-## Opportunity (Torres OST)
+> Name two plausible implementations of this capability. If only one comes to mind, the candidate is probably a feature, not a capability.
 
-> Qué necesidad no satisfecha / pain / deseo del usuario aborda esta capability. La opportunity es **insight aprendido** sobre el usuario, NO la solución.
+- Implementation A: <…>
+- Implementation B: <…>
 
-## Sub-job (Christensen)
+## MVP Go / No-go (slide 69 filter)
 
-> Cuando _______, el usuario quiere _______, para _______. Sub-job dentro del job principal de la visión.
+> Declared in frontmatter as `mvp:`. Use Cagan's four risks (slide 64) as the discriminator:
+>
+> - **Value risk** — will customers buy / use this?
+> - **Usability risk** — can users figure out how to use it?
+> - **Viability risk** — can engineers build it with current technology and skills?
+> - **Business viability risk** — can sales / marketing / legal / finance cope?
 
-## Coherencia con otras capabilities (Rumelt)
+**Decision:** \<go | no-go\> — <one-line rationale>.
 
-> Cómo se relaciona con capabilities hermanas. Las acciones de la estrategia deben ser **coherentes entre sí** (se refuerzan, no se cancelan). Si entra en conflicto con otra capability, repensar el recorte.
+## Non-overlap with sibling capabilities
 
-## Features previstas (placeholder, no exhaustivo)
+> List sibling capabilities under the same goal. Confirm this capability does not duplicate them. If overlap is significant, merge or split.
 
-> Lista tentativa de 2-5 features candidatas. Orientativa — se materializan después con la skill `po-feature`. Recordar Torres: generar múltiples soluciones por oportunidad, no enamorarse de la primera idea.
+- Sibling: `[[cap-NN-…]]` — relation: <independent | adjacent | overlaps>.
 
-- Feature candidata 1:
-- Feature candidata 2:
-- Feature candidata 3:
+## Non-coverage
 
-## No-meta
+> What this capability does NOT cover. Explicit boundary.
 
-> Lo que esta capability NO cubre.
+## Source
+
+- Skill: `po-capabilities`.
+- GISF UC3M `gisf-life-cycle.pdf` slide 54 (canonical *capability* definition), slide 69 (Capability filtering → MVP → Go/No-go).
+- GISF UC3M `gisf-discovery.pdf` slides 97–99 (capability listing format).
+- Cagan four risks captured in `gisf-life-cycle.pdf` slide 64.

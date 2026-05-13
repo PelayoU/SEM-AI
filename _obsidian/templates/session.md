@@ -1,24 +1,39 @@
 ---
 category: session
-id: <YYYY-MM-DD>-<tema-slug>
+id: <YYYY-MM-DD>-<topic-slug>
 date: <YYYY-MM-DD>
-participants: [humano]
+role: <product-owner | architect | qa | developer | devops>
+participants: [human, <role>]
 related-nodes: []
 ---
 
-# <Tema de la sesión>
+# <Session topic>
 
-## Conversación
+> A session document records a meaningful conversation between the human and an agent role. It is for audit (what was discussed, what was decided) and continuity (where to pick up next time). Not a transcript; a distilled record.
 
-> Resumen narrativo de lo discutido + decisiones que emergieron. No es transcripción literal; es destilado de lo que vale la pena recordar.
+## Context
 
-## Toques al grafo
+> What prompted the session: a question, a problem, a planning need. One paragraph.
 
-> Lista de cambios concretos al grafo durante la sesión. Path + breve descripción + skill aplicada.
+## Skills invoked
 
-- Creado `nodes/<path>` aplicando skill `<skill>`.
-- Editado `nodes/<path>` (cross-link añadido / refinamiento).
+> Which skills the role used during the session.
 
-## Próximos pasos sugeridos
+- `<role>-<skill>` — what was applied.
+- `<role>-<skill>` — what was applied.
 
-> Lo que el rol propone hacer luego. El humano decide si arranca otra sesión sobre eso o aparca.
+## Conversation summary
+
+> Narrative summary of what was discussed and what emerged. Decisions reached + open questions left.
+
+## Artifact changes
+
+> Concrete changes to the project's artifacts proposed and confirmed during the session.
+
+- Created `<path>` applying skill `<skill>`.
+- Edited `<path>` — <one-line description>.
+- Proposed but deferred: <…>.
+
+## Next steps
+
+> What the role recommends doing next. The human decides whether to open another session on it or set aside.
