@@ -2,7 +2,7 @@
 category: session
 id: 2026-05-14-sem-ia-self-bootstrap
 date: 2026-05-14
-participants: [product-owner]
+participants: [product-owner, architect]
 related-nodes:
   - "[[vision-sem-ia]]"
   - "[[goal-01-self-bootstrap-validation]]"
@@ -291,6 +291,47 @@ Skills applied: verification pass against `po-capabilities` SKILL.md + GISF slid
 Artifacts: `CLAUDE.md` (1 edit — Substrate traceability paragraph reformulated, "Universal optional fields" framing removed); `_obsidian/templates/vision.md` (reverted); `_obsidian/templates/goal.md` (reverted); `_obsidian/templates/session.md` (added `artifacts:`).
 Next: commit Phase 7b on top of Phase 7. Bootstrap session may close after.
 
+### 2026-05-15 — product-owner (Phases 7c / 7d / 7e — back-fill of `artifacts:` across existing nodes)
+
+Phase 7b closed the scope question (which categories carry `artifacts:`). The remaining gap was that the 247 already-created nodes pre-dated the field. Human required full back-fill — *"vas a ir a todos los nodos que has creado y linkear los artifacts. Es una tarea gorda pero bueno"*. Executed in three sub-phases:
+
+- **Phase 7c — back-fill (initial pass).** Wrote `/tmp/sem-ia-artifacts-backfill.py` with a NNN→substrate-paths mapping covering the 37 role-skill wrapper features (one substrate path each: the wrapped `.claude/skills/<role>-<name>/SKILL.md`), the 34 structural features (mapped to the substrate items they describe: `CLAUDE.md` sections, `_obsidian/templates/*.md`, `.claude/agents/*.md`, `.claude/commands/*.md`, etc.), the 78 stories (each story inherits its parent feature's artefact set), the 71 specs (same), and the 10 ADRs (mapped to the substrate paths they affect — e.g., adr-001 → branch + sessions/, adr-004 → `CLAUDE.md` substrate-content split + `.claude/` + `nodes/`). Ran script; populated `artifacts:` on 210 nodes.
+
+- **Phase 7d — wikilink-format conversion.** Human flagged that plain string entries (`CLAUDE.md`) are not clickable in Obsidian's Properties pane. Standard Obsidian wikilinks (`"[[path]]"`) are. Wrote `/tmp/sem-ia-artifacts-to-wikilinks.py` and converted every `artifacts:` entry across all populated nodes from bare strings to `- "[[<path>]]"` form. The vault now treats substrate links as first-class navigation targets.
+
+- **Phase 7e — final consistency pass.** 20 nodes remained without the `artifacts:` field (6 abstract feature nodes — feature-022 / 023 / 030 / 031 / 032 / 034 — plus their child stories and sibling specs). These describe abstract properties without a single artefact owner. Added the field with an explanatory comment (*"No concrete substrate — this node describes an abstract property without a single artefact owner. See CLAUDE.md § Substrate traceability."*) so all eligible nodes carry the field structurally, even when empty by design. Also added `artifacts:` to this session doc's frontmatter listing the 8 substrate paths edited during the session's work-thread.
+
+Phase 7 also surfaced and corrected three additional Layer-A terminology issues in CLAUDE.md that emerged during the back-fill (added "Terminology" subsection distinguishing substrate / management nodes / artefact; fixed wording asymmetries; updated `§ Templates` example block to wikilink form).
+
+**Final node-count audit after 7c+7d+7e:**
+
+- 247 nodes total in `nodes/` (unchanged).
+- 230 / 230 feature / story / spec / adr nodes carry `artifacts:` (210 with concrete substrate paths + 20 abstract with explanatory comment).
+- 17 vision / goal / capability nodes intentionally lack `artifacts:` per Phase 7b GISF-anchored decision.
+- 100% wikilink format — every substrate path is clickable in Obsidian.
+- Session doc carries `artifacts:` with 8 substrate paths.
+
+**G1 self-bootstrap status check:**
+
+- ✅ SEM-IA's own backbone hierarchy lives in its own graph (1 vision + 3 goals + 13 caps + 71 features + 78 stories + 71 specs + 10 ADRs = 247 nodes).
+- ✅ All 13 implemented capabilities + every feature carry primary-source citations.
+- ✅ Substrate traceability operationally machine-queryable (Jones BP #11 practice 7).
+- ⚠️ 5-role authorship: PO (246 nodes) + Architect (10 ADRs) only. QA / Developer / DevOps not contributing in this session — captured as **pending for a follow-up session**, not blocker for closure of this work-unit.
+
+**Commits on `session/2026-05-14-sem-ia-self-bootstrap`:** 15 commits across all phases (bootstrap Phases 1–6 + Phase 7 Layer-A fix + Phase 7b scope correction + Phase 7c back-fill + Phase 7d wikilinks + Phase 7e final pass + this closing entry).
+
+Skills applied: maintenance pass on `po-feature-decomposition` outputs + `po-spec-gherkin` outputs (no new skill exercised; back-fill is structural enforcement of an existing skill convention).
+Artifacts: 230 nodes received structural `artifacts:` updates; `CLAUDE.md` further edited for terminology consistency; this session doc.
+Next: close session via `/session-close` ceremony; human picks merge / pr / discard.
+
+### 2026-05-15 — product-owner (session-close)
+
+Invoked `/session-close`. Compiled participants (`product-owner` + `architect` via Phase-1 Task subagent dispatch). The `related-nodes:` frontmatter captures the strategic backbone (vision + 3 goals + 13 caps + 10 ADRs); the 71 features + 78 stories + 71 specs are not enumerated individually in frontmatter — they are discoverable via parent-chain navigation from the cap nodes already listed, which is the framework's designed audit path per [[adr-002-backbone-hierarchy-parent-edges]] and [[cap-01-vision-to-code-audit]]. Filled `## Closing summary` below. Committing session doc and asking human for merge decision.
+
+Skills applied: `session-close` ceremony skill.
+Artifacts: this session doc.
+Next: human decides merge / pr / discard.
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
@@ -326,10 +367,14 @@ Next: commit Phase 7b on top of Phase 7. Bootstrap session may close after.
 
 ## Closing summary
 
-> Filled in at `/session-close`.
+**Outcome.** SEM-IA's own backbone graph bootstrapped end-to-end inside SEM-IA: **247 nodes** under `nodes/` (1 vision + 3 goals + 13 capabilities + 10 ADRs + 71 features + 78 stories + 71 specs), each citation-anchored to the audited bibliography (Capers Jones BPs, Cagan via GISF, GISF UC3M, Cucumber Gherkin, Patton, Cohn). Two roles contributed in-session: PO authored 246 nodes; Architect authored 10 ADRs via Task subagent dispatch. Beyond the graph, a coherent **Layer-A fix** was committed (Phases 7 / 7b / 7c / 7d / 7e): the `artifacts:` frontmatter field was introduced for substrate traceability (operationalising Jones BP #11 practice 7), scoped correctly against GISF slide 54 to `feature / story / spec / adr / session` only, back-filled across all 230 eligible existing nodes in wikilink form so substrate paths are clickable from Obsidian's Properties pane. Three CLAUDE.md terminology errors were caught by the human during post-bootstrap review and fixed. The meta-recursive test of SEM-IA succeeded — the framework can describe itself in its own format.
 
-**Outcome:** —
+**Pending / next steps.**
 
-**Pending / next steps:** —
+- **5-role co-authorship of G1.** QA / Developer / DevOps have not yet contributed any node. G1's M-criterion *"all 5 implemented roles have authored or co-authored ≥ 1 node"* remains unsatisfied. Follow-up session candidates: QA inspection pass on existing specs, Developer code-review pass on the substrate, DevOps deployment / hosting ADR for goal-02.
+- **goal-02 deliverables** — README positioning, public hosting, license-text choice (`feature-030-readme`, `feature-031-public-hosting`, `feature-033-license-permits-forks` are `ready-for-implementation`).
+- **goal-03 portability proof** — secondary-project concierge test (November 2026 target).
+- **Improvement candidates #1–#12 captured during session** (consultation matrix, next-roadmap adoption milestone, graph-vs-substrate operating rule, deferred cap-14 Obsidian Bases, deferred cap-15 Security role, deferred cap-16 Designer role, cap-01 split decision, 6 Architect-flagged ADR follow-ups, `artifacts:` lint check tooling, etc.) — each is a one-session unit of follow-up work.
+- **Direct work on `main` for trivial Layer-B hygiene** (e.g., session-start hook removal already begun, slash-command tweaks) can proceed without sessions.
 
-**Merge decision:** —
+**Merge decision:** `<pending>` — to be filled after human chooses.
