@@ -18,10 +18,12 @@ A framework for software engineering management at scale — vision through code
 | QA            | Quality program (SQA independence) + measurements + inspections + testing + DRE            |  5     | `.claude/agents/qa.md`              | 2    |
 | DevOps        | Configuration control + deployment pipeline + releases + customer support + maintenance ops + legacy retirement |  7     | `.claude/agents/devops.md`          | 2    |
 
+**Default entry: Product Owner.** For new product work, `claude --agent product-owner` is the natural starting point — PO is the integrator and routes to specialists when needed. Direct entry with another role is appropriate for work that does not need product framing (refactor, incident response, infrastructure ADR).
+
 **Invocation.** Two modes:
 
 - **Role-as-agent (human)** — `claude --agent <role>` starts a session where Claude assumes that role for the duration.
-- **Subagent dispatch (Claude)** — from another role, use the `Task` tool with `subagent_type: <role>` for a bounded handoff.
+- **Subagent dispatch (Claude)** — from another role, use the `Task` tool with `subagent_type: <role>`. The response is consultation, not authority transfer (see Layer B below).
 
 Both modes load this `CLAUDE.md` + the role's `agent.md`. The agent.md `description` field is what triggers correct dispatch.
 
@@ -149,6 +151,57 @@ Wikilinks activate Obsidian's backlinks pane and graph view. They are **narrativ
 
 ---
 
+## Layer B — operating the graph
+
+This section codifies *how* the framework is used. Layer A (roles + skills + bibliography + templates) provides the *what* and *why*; Layer B provides the *how* and *when*.
+
+### The triangle
+
+Three pillars hold the operating model together. Each leg removes a class of friction that traditional Working Agreements try (and usually fail) to handle:
+
+1. **Traceability** — every artifact in `nodes/` has an explicit `parent:` chain and `[[wikilinks]]`. The graph itself answers *"what exists and how does it relate?"*. Replaces *"where is X documented?"* friction.
+2. **Scope discipline** — each role operates only the skills listed in its `## Skills` section. Work falling outside the role's scope is escalated via subagent consultation or session handoff. Scope violations are visible at audit time via the session doc's `participants` field. Replaces *"whose job is this?"* friction.
+3. **Sessions as shared context** — a thread of work lives as a git branch + a session document in `sessions/`. Multiple roles may participate; anyone entering the session inherits full context. Replaces *"let me catch you up"* friction.
+
+The triangle replaces a Working Agreement. There are no team rules to memorise — the infrastructure makes the right path the natural path.
+
+### Sessions = git branch
+
+A **session** is a thread of work materialized as two coupled artifacts:
+
+1. A **git branch** named `session/<YYYY-MM-DD>-<topic-slug>`.
+2. A **session document** at `sessions/<YYYY-MM-DD>-<topic-slug>.md` — narrative log of what happened, who contributed, what nodes were touched.
+
+**Branch state is session state.** No `status:` field in the session frontmatter. If the branch exists, the session is open. On `main`, no session is active. To list open sessions: `git branch | grep ^\ \ session/`.
+
+A session is **agnostic of role**. Multiple roles may participate in the same session — by subagent consultation or by sequential agent invocation in the same branch. The session document records who contributed when.
+
+### Subagent dispatch ≠ authority transfer
+
+When a role invokes another role via the `Task` tool, the response is **information**, not authority. PO consulting Architect about feasibility does *not* mean Architect now owns the feature — PO retains scope authority and uses Architect's input as data. This distinction keeps roles from quietly bleeding into each other's scopes, and is the operational form of pillar 2 of the triangle.
+
+If full ownership transfer is what's needed (rare), the human closes the conversation with the first role and opens a new one with the second, in the same session / same branch.
+
+### Slash commands
+
+Custom commands live in `.claude/commands/`. The Layer B set:
+
+- `/session-open <topic-slug>` — creates branch `session/<date>-<topic-slug>` + initial session doc from `_obsidian/templates/session.md`.
+- `/session-close` — appends final summary to session doc; the human decides merge to `main` / open PR / discard.
+- `/session-context` — re-reads the current session doc into context. Useful in long sessions when context has drifted.
+
+### SessionStart hook
+
+A `SessionStart` hook in `.claude/hooks/` checks `git branch --show-current` when Claude starts. If on a `session/*` branch, the hook surfaces the corresponding session doc as context. On `main`, the hook is silent.
+
+This is the mechanism that makes "any role can pick up where another left off" work without ceremony: switch to the session branch (or already be on it), launch the role you need, the session context is loaded.
+
+### Direct work on `main`
+
+Working directly on `main` without opening a session is permitted but discouraged for product-driven work. It is appropriate for trivial fixes, exploration, or work explicitly outside the session model (one-line typo fixes, repo hygiene). The framework does not enforce a no-direct-commits-to-main rule by default; if you want it, add a pre-commit hook locally.
+
+---
+
 ## Bibliography and citation discipline
 
 `bibliography/sources/` holds the audited primary sources skills cite:
@@ -172,7 +225,7 @@ Wikilinks activate Obsidian's backlinks pane and graph view. They are **narrativ
 - **Citation is mandatory.** Every authoritative claim traces to a primary source. *"INVEST fails the Independent criterion because …"* — not *"this isn't a good story"* without anchor.
 - **Read-before-write per skill.** A new skill is not written without first reading the binding source verbatim. The same discipline applies when extending a skill.
 - **Out-of-bibliography is named, not borrowed silently.** If a useful framework isn't in `bibliography/sources/`, the skill flags it as convention with a disclaimer — never as anchored authority.
-- **Layer A vs Layer B.** This project currently codifies **Layer A** — roles, skills, bibliography, templates as canonical structure. **Layer B** — the operational mechanics of how agents create / mutate / query nodes over time, status transitions, base queries, automation — is planned but not yet codified. Agents can create artifacts following the templates and naming conventions today; richer graph operation rules will land in a separate plan.
+- **Layer A vs Layer B.** **Layer A** (roles + skills + bibliography + canonical templates) defines the *what* and *why* of every operation: what a role does, what criteria it applies, what artifact it produces. **Layer B** (sessions as git branches + slash commands + the SessionStart hook, documented above) defines the *how* and *when*: how work is opened, threaded across roles, and closed. Together they replace what a Working Agreement would try to legislate.
 - **Obsidian is the UI surface.** The human opens the repo as a vault to browse the graph (graph view, backlinks). When `_obsidian/bases/` populates with `.base` files, filtered views (backlog, in-flight, etc.) appear.
 
 ---
