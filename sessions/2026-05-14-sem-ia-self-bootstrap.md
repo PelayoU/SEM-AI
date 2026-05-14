@@ -21,6 +21,16 @@ related-nodes:
   - "[[cap-11-adr-capture]]"
   - "[[cap-12-public-publication]]"
   - "[[cap-13-portability]]"
+  - "[[adr-001-sessions-as-git-branch]]"
+  - "[[adr-002-backbone-hierarchy-parent-edges]]"
+  - "[[adr-003-citation-mandate]]"
+  - "[[adr-004-substrate-content-separation]]"
+  - "[[adr-005-subagent-dispatch-not-authority-transfer]]"
+  - "[[adr-006-super-po-fusion]]"
+  - "[[adr-007-obsidian-as-editor-surface]]"
+  - "[[adr-008-markdown-frontmatter-data-format]]"
+  - "[[adr-009-skill-as-canonical-method]]"
+  - "[[adr-010-human-directed-ai-maintained]]"
 ---
 
 # SEM-IA self-bootstrap — derive the framework's own graph
@@ -148,6 +158,38 @@ Surfaced the formal audit of the 13 capabilities against the 7 `po-capabilities`
 
 One borderline acknowledged: **cap-01** fuses *backbone hierarchy* (structural property) with *audit-by-navigation* (behavioural property). Defended as a single capability because audit is the *use* of traceability; flagged here in case future review prefers to split into cap-01a (structural) + cap-01b (navigation surface).
 
+### 2026-05-14 — product-owner (Phase 1: ADRs via Architect)
+
+PO dispatched **Architect via Task subagent** with the 8 candidate architectural decisions identified during the bootstrap conversation. Architect authored **10 ADRs** (8 of the PO's list + 1 merged + 3 new not on PO's list). All `status: accepted` (each captures a decision already de facto in force in the substrate). PO did NOT author any ADR content — Architect-scope honoured.
+
+ADRs created:
+
+| ID | Title | Parent | Origin |
+|---|---|---|---|
+| adr-001 | Sessions = git branch | goal-01 | PO list #1 |
+| adr-002 | Backbone hierarchy with parent edges | vision-sem-ia | PO list #2 |
+| adr-003 | Citation mandate + out-of-bibliography flagging | cap-08 | PO list #3 + #7 **merged** (Architect's call: flagging is the negative space of the mandate, inseparable) |
+| adr-004 | Substrate vs content directory separation | cap-13 | PO list #4 |
+| adr-005 | Subagent dispatch ≠ authority transfer | cap-10 | PO list #5 |
+| adr-006 | Super-PO fusion at Tier-1 | vision-sem-ia | PO list #6 |
+| adr-007 | Obsidian as recommended editor surface | cap-01 | PO list #8 (recommendation, not mandate — editor-agnostic data layer documented as load-bearing portability property) |
+| adr-008 | Markdown body + YAML frontmatter as canonical data format | vision-sem-ia | **Architect-added** — Jones Ch 7 topic 2 (data structure) was silent without this |
+| adr-009 | Skill = canonical method for one operation | vision-sem-ia | **Architect-added** — functional decomposition of every role's catalog |
+| adr-010 | Human directs, AI maintains | vision-sem-ia | **Architect-added** — operational anchor of the AI-as-infrastructure paradigm; CLAUDE.md operating principle #1 |
+
+Concerns Architect flagged for PO follow-up (captured here, not acted upon in this phase):
+
+1. **Nygard ADR convention is tier-2 (out-of-bibliography).** Every ADR repeats the flag. Adding Nygard's *Documenting Architecture Decisions* to `bibliography/sources/` would promote ADRs to tier-1 — PO decision.
+2. **No ADR directly parented to goal-02 or goal-03.** Cap-level parenting is structurally cleaner; not an omission.
+3. **Cross-goal wikilinks in cap bodies** (e.g., "also serves goal-X") are honoured per ADR 002 (frontmatter edge is the single `parent:`; cross-references live in body). Working as designed.
+4. **No ADR for `claude --agent <role>` as harness choice.** Out-of-scope per cap-13's non-coverage clause; can be authored quickly if PO wants the current harness captured for TFM completeness.
+5. **No ADR for `LICENSE` choice** (file is currently a placeholder). When PO picks a license, that decision should be captured as an ADR.
+6. **The 10 ADRs are paradigm-defining only.** Downstream architectural decisions (slash-command interaction model, session-doc closing semantics, etc.) get their own ADRs as features and stories are decomposed.
+
+Skills applied (PO-side): `po-capabilities` (no new skill; consultation was Architect's exercise of `architect-architecture-design`).
+Artifacts: 10 ADR nodes.
+Next: Phase 2 — structural features.
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
@@ -168,10 +210,11 @@ One borderline acknowledged: **cap-01** fuses *backbone hierarchy* (structural p
 - Created `nodes/cap-11-adr-capture.md` — architectural decisions as cross-cutting durable artifacts. Parent G1.
 - Created `nodes/cap-12-public-publication.md` — substrate accessibility for external readers. Parent G2.
 - Created `nodes/cap-13-portability.md` — substrate operates on projects other than SEM-IA. Parent G3.
+- Created `nodes/adr-001-sessions-as-git-branch.md` through `nodes/adr-010-human-directed-ai-maintained.md` — 10 Architect-authored ADRs covering the cross-cutting architectural decisions: sessions = branch, backbone hierarchy, citation mandate + flagging (merged), substrate/content separation, subagent dispatch ≠ authority transfer, super-PO fusion, Obsidian editor surface, markdown+YAML data format, skill = canonical method, human directs AI maintains.
 
 ## Subagent consultations
 
-- (none yet)
+- `product-owner` → `architect` — Question: author the cross-cutting ADRs that capture the architectural decisions de facto in force in SEM-IA's substrate. PO supplied 8 candidate decisions; Architect was given authority to redefine the set, merge candidates, add Architect-identified decisions, and decide `accepted` vs `proposed` per ADR. Response summary: 10 ADRs authored, all `status: accepted`. ADR 003 merged candidates #3 + #7 (citation mandate + out-of-bibliography flagging). ADRs 008, 009, 010 added by Architect (data format / skill-as-method / human-directed AI-maintained). 6 concerns flagged for PO follow-up captured in the Phase 1 Log entry above.
 
 ## Closing summary
 
