@@ -22,9 +22,17 @@ Opened the session. Confirmed slug `sem-ia-self-bootstrap` with the human. Next:
 
 Next: draft `nodes/vision-sem-ia.md` and present to the human for validation.
 
+### 2026-05-14 — product-owner
+
+Applied skill `po-vision`. Dialog with the human surfaced the structural thesis behind SEM-IA: it is not a product-for-a-persona but **infrastructure** — AI-as-infrastructure replacing the older "AI-as-tool" / "AI-as-employee" framings. The unmet need is the AI-specific cost (review burden, hallucination, scope drift, context loss) that today blocks enterprise adoption and prevents freelancers from scaling. The vision absorbs an earlier TFM thesis paragraph by the author, reformulated as infrastructure and aligned with the current role catalog (5 implemented + Security + Designer planned; Coach and Quant dropped as legacy). Horizon fixed at 5 years (2031). One-breath statement: *"SEM-IA is AI-as-infrastructure: one homologous agent per classical SE role, vault-mediated, human-directed, making software engineering rigor available at any scale."* All 10 Cagan principles self-checked ✅ in the node. The paradigm name "AI as infrastructure" is flagged as out-of-bibliography (human author's formulation, not audited citation).
+
+Skills applied: `po-vision`.
+Artifacts: [[vision-sem-ia]].
+Next: apply skill `po-goals` to derive 2–4 SMART goals under the vision, anchored on GISF multilevel horizons (Roadmap 1–2 years, Release 2–9 months).
+
 ## Artifacts touched
 
-- (none yet)
+- Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked.
 
 ## Subagent consultations
 
