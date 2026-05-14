@@ -104,11 +104,11 @@ Wikilinks activate Obsidian's backlinks pane and graph view. They are **narrativ
 | `created`  | `YYYY-MM-DD`                                                  | Every node                  |
 | `updated`  | `YYYY-MM-DD`                                                  | Every node                  |
 
-**Type-specific optional fields** appear in the relevant templates: `horizon:` (goal), `mvp:` (capability), `artifacts:` (feature / story / spec / adr — when wrapping a concrete substrate artefact, see § Substrate traceability below), `supersedes` / `superseded-by` (adr), `date` / `participants` / `related-nodes` (session).
+**Type-specific optional fields** appear in the relevant templates: `horizon:` (goal), `mvp:` (capability), `artifacts:` (feature / story / spec / adr / session — see § Substrate traceability below), `supersedes` / `superseded-by` (adr), `date` / `participants` / `related-nodes` (session).
 
 **Not used in this project** (eliminated by design): `also-relates-to`, `depends-on`, `dimensions-affected`. Horizontal cross-references live as wikilinks in node bodies, not as frontmatter fields.
 
-**Substrate traceability** (operationalises Capers Jones BP #11 practice 7 via the management-graph format). Management nodes that wrap a concrete substrate artefact — a feature describing a specific skill or agent or template; a story or spec verifying a specific artefact's behaviour; an ADR affecting specific code — carry an explicit `artifacts:` field in frontmatter:
+**Substrate traceability** (operationalises Capers Jones BP #11 practice 7 via the management-graph format). The five node categories that GISF `gisf-life-cycle.pdf` slide 54 places at or near the artefact end of the hierarchy — **feature, story, spec, adr** — plus **session** (work-thread that modifies substrate) carry an explicit `artifacts:` field in frontmatter listing the substrate paths they materially associate with. The association can be *backward* (a feature wrapping an already-implemented skill), *forward* (a story whose implementation will produce a new code file), *cross-cutting* (an ADR that affects multiple substrate paths), or *operational* (a session whose work-thread modified specific substrate files):
 
 ```yaml
 artifacts:
@@ -116,7 +116,9 @@ artifacts:
   - .claude/agents/product-owner.md
 ```
 
-Paths are relative to repo root and point at items in this repository (`.claude/...`, `_obsidian/...`, `bibliography/sources/...`, `CLAUDE.md`, `LICENSE`). External / conventional references (Cagan books, Nygard ADRs, etc.) stay in `## Source`, not in `artifacts:`. The field is **optional** — a feature describing an abstract property without a single artefact owner (e.g., *"parent-pointer convention"*, *"backbone hierarchy"*) may omit it — but **strongly preferred** when a concrete substrate path exists, because it makes the management↔substrate link **machine-queryable**, not just narrative-mention in `## Source`.
+Paths are relative to repo root and point at items in this repository (`.claude/...`, `_obsidian/...`, `bibliography/sources/...`, `CLAUDE.md`, `LICENSE`). External / conventional references (Cagan books, Nygard ADRs, etc.) stay in `## Source`, not in `artifacts:`. The field is **optional** within these five node categories — a feature describing an abstract property without a single artefact owner (e.g., *"parent-pointer convention"*, *"backbone hierarchy"*) may omit it — but **strongly preferred** whenever a concrete substrate path exists.
+
+**Vision, goal, capability nodes do NOT carry `artifacts:`** by design. Per GISF slide 54 these node categories sit at the **strategic / outcome / implementation-agnostic** end of the hierarchy and are themselves the artefact at their level of abstraction; tying them to substrate paths would contradict the implementation-agnostic property the `po-capabilities` skill enforces (and would create a leak from strategic abstractions into concrete code paths).
 
 ## Canonical status values
 

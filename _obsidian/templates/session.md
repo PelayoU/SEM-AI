@@ -4,6 +4,10 @@ id: <YYYY-MM-DD>-<topic-slug>
 date: <YYYY-MM-DD>
 participants: []
 related-nodes: []
+artifacts: []
+# Optional. Substrate paths modified or produced during this session's work-thread
+# (e.g., CLAUDE.md, _obsidian/templates/*.md, .claude/skills/<...>/SKILL.md).
+# Distinct from `related-nodes:` which lists graph nodes touched. See CLAUDE.md § Substrate traceability.
 ---
 
 # <Session topic>

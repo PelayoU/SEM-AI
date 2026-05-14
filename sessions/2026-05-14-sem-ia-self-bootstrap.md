@@ -251,6 +251,37 @@ Skills applied: `po-capabilities` (no new skill; Phase 7 is Layer-A maintenance,
 Artifacts: `CLAUDE.md` (4 edits — 3 wording corrections + 1 new principle), `_obsidian/templates/feature.md`, `story.md`, `spec.md`, `adr.md` (4 template frontmatter updates).
 Next: human decides closure path. The bootstrap graph + Phase 7 Layer-A fix together close a coherent unit of work; `/session-close` is appropriate.
 
+### 2026-05-15 — product-owner (Phase 7b — scope correction)
+
+Phase 7 over-broadened the `artifacts:` field. PO initially placed it on 4 templates (feature/story/spec/adr); then, in conversation, started extending it to all 8 templates (adding vision.md and goal.md before being interrupted). Human pushed back with *"no alucines, busca si en SEM todos los nodos pueden generar artefactos o no"* — and required verification against the audited sources.
+
+**Verification against classical SEM:**
+
+- **GISF `gisf-life-cycle.pdf` slide 53** (canonical hierarchy): `Vision → Goals → Capabilities → Features → Stories → AC → Examples → Artifacts (Code)`. Artefacts are explicitly placed at the **bottom** of the hierarchy. Strategic / outcome / implementation-agnostic abstractions (vision, goals, capabilities) sit **above** the artefact end.
+- **GISF slide 54** (definitions):
+  - Capability: *"gives stakeholders the ability to achieve some goal **regardless of implementation**. Don't imply a particular implementation."* — Implementation-agnostic by definition; tying it to substrate paths would violate this property.
+  - Feature/story: *"what is **designed and implemented** to deliver capabilities. Pieces of deliverable product functionality."* — explicit bridge to artefacts.
+- **`po-capabilities` skill formal criteria** (already authored, GISF-anchored): an implementation-agnostic test (*"name two plausible implementations of this capability"*) is a hard criterion. Forcing `artifacts:` on a capability would force it to one implementation, violating the skill.
+
+**Conclusion:** classical SEM places artefacts at the artefact-end of the hierarchy. Vision, goal, capability are strategic / outcome / implementation-agnostic and **do not carry `artifacts:`**. The 5 node categories that legitimately carry it are: **feature, story, spec, adr** (per GISF slide 54 they are designed-and-implemented or affect implementation) plus **session** (work-thread operationalization that modifies substrate during the work).
+
+**Corrections applied:**
+
+1. Reverted `_obsidian/templates/vision.md` and `_obsidian/templates/goal.md` — removed `artifacts:` field.
+2. Did NOT add `artifacts:` to `_obsidian/templates/capability.md` — would violate `po-capabilities` implementation-agnostic criterion.
+3. Added `artifacts:` to `_obsidian/templates/session.md` — sessions touch substrate (this very session edited `CLAUDE.md` + 4 templates).
+4. Reformulated CLAUDE.md § Frontmatter:
+   - Removed the over-broad "Universal optional fields" framing.
+   - Restored `artifacts:` to "Type-specific optional fields" line scoped to *"feature / story / spec / adr / session"*.
+   - Updated the Substrate traceability paragraph to cite GISF slide 54 explicitly and to scope the rule to the 5 categories.
+   - Added an explicit negative clause: *"Vision, goal, capability nodes do NOT carry `artifacts:` by design"* with the GISF reasoning.
+
+**Lesson** (improvement candidate #12): when widening framework scope on operator instinct, **verify against the audited sources before acting**. Phase 7's initial framing of `artifacts:` as universal was a PO over-extension that classical SEM does not support. The skill `po-capabilities`'s implementation-agnostic criterion specifically would have flagged the contradiction if I had re-read it before broadening. Lesson: any change to a template's frontmatter must cross-check against the skill that anchors that template.
+
+Skills applied: verification pass against `po-capabilities` SKILL.md + GISF slide 54 reading; no new skill exercised.
+Artifacts: `CLAUDE.md` (1 edit — Substrate traceability paragraph reformulated, "Universal optional fields" framing removed); `_obsidian/templates/vision.md` (reverted); `_obsidian/templates/goal.md` (reverted); `_obsidian/templates/session.md` (added `artifacts:`).
+Next: commit Phase 7b on top of Phase 7. Bootstrap session may close after.
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
