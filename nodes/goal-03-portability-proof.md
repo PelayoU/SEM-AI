@@ -36,10 +36,13 @@ I want **capabilities that let me apply SEM-IA end-to-end on a non-SEM-IA projec
   - 1 non-SEM-IA project chosen, named, scope-declared in a node (`adr` or `spec` under this goal).
   - That project has its own SEM-IA-style graph: ≥ 1 vision + ≥ 1 goal + ≥ 1 capability + ≥ 1 feature + ≥ 1 story + ≥ 1 spec → code.
   - ≥ 4 roles contributed to the secondary project's graph (minimum PO + Architect + Developer + QA; DevOps if the project ships).
-  - Comparative report exists, documenting:
-    - (a) ≥ 3 logged instances of hallucination or scope-drift events that the framework **prevented or surfaced** (e.g., agent-flagged scope violation, citation-mandate stop, parent-chain rejection).
-    - (b) Decision-traceability rate: % of significant decisions traceable back to a graph node (target ≥ 80%).
-    - (c) ≥ 3 quantitative axes vs. baseline: e.g., rework events, scope-drift count, time-to-decision, review-burden hours.
+  - Comparative report exists, addressing each axis the parent vision names as a promise of the substrate. Metric design per axis is QA-scope at execution time (cross-link `qa-measurements`); PO's responsibility here is only to declare the axes as non-negotiable:
+    - **Review burden** — does the framework reduce the human effort spent reviewing AI output, vs the baseline of working on a similar prior project without SEM-IA?
+    - **Hallucination** — does the framework prevent or surface AI hallucinations that would otherwise have reached the artifact?
+    - **Scope drift** — does the framework prevent or surface scope drift before it lands in committed work?
+    - **Context loss** — does the framework eliminate re-explanation of prior project context to contributors (human or AI) joining or returning to the work?
+    - **Deployment-readiness / maintainability** — does the secondary project produce an artifact that ships and is maintainable, not only code that runs? (This axis materialises the vision's *"programming and product-building diverge at deployment"* claim.)
+  - Decision-traceability: every significant project decision traces back to a node in the graph via the `parent:` chain. This is the operational instantiation of the vision's *"audit becomes inspection of the substrate"* claim.
   - Report includes honest counter-evidence: ≥ 1 friction point or anti-pattern observed (where SEM-IA imposed cost without commensurate value).
 - **A — Achievable:** ⚠️ — 4 months post-TFM (July → November 2026). Achievability depends critically on **project sizing**: must be non-trivial enough to exercise the framework, small enough to complete end-to-end in 4 months by one person. Risk: scope creep on the secondary project. **Mitigation: a hard sub-decision at G3-kickoff that fixes secondary-project scope at ≤ 5 stories, with the project's own retro at the midpoint.**
 - **R — Relevant:** ✅ — The portability claim and the defect-prevention claim are the two strongest predictions the vision makes. G3 tests both simultaneously. Vision-retirement test: if the vision were retired, this goal would be retired with it; the goal exists *for* the vision.

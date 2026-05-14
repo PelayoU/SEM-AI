@@ -37,8 +37,9 @@ I want **capabilities that derive the framework's own vision, goals, capabilitie
   - ≥ 3 `goal` nodes exist (this set).
   - ≥ N `capability` nodes covering the goals (N to be set during capability decomposition; minimum 1 per goal, target 2–4 per goal).
   - ≥ 1 `feature`, ≥ 1 `story`, ≥ 1 `spec` exist, chained correctly (parent edges + story-to-AC trace).
+  - ≥ 1 `adr` node exists, exercising the architectural-decision template under SEM-IA's own substrate (the specific decision topic is Architect-scope at authoring time, not declared here).
   - All 5 implemented roles have authored or co-authored ≥ 1 node.
-  - 0 authoritative claims without a primary-source citation (audit pass).
+  - Citation audit passes: every authoritative claim across all nodes carries a primary-source citation traceable to `bibliography/`. The audit method is QA-scope (cross-link to `qa-inspections-program` and `qa-measurements`) at audit time; PO's responsibility here is only to declare the outcome required.
   - End-to-end navigation from `vision-sem-ia` to a spec-affecting code node succeeds with no broken `parent:` edges.
 - **A — Achievable:** ✅ — Session `2026-05-14-sem-ia-self-bootstrap` opened the work today; ~2 months of available focus to TFM defense. Risk: scope creep within each layer (capabilities exploding into 10+ instead of 3–5). Mitigation: discipline of stopping each layer at the minimum that satisfies the level above.
 - **R — Relevant:** ✅ — Directly advances `vision-sem-ia` Statement (*"framework that traces vision through code"*) and Principle 9 (*"vision is an act of faith"* — this goal converts faith into evidence). Vision-retirement test: if the vision were retired, this goal would be retired with it; the goal exists *for* the vision.

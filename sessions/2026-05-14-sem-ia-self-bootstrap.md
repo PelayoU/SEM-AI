@@ -50,12 +50,37 @@ Skills applied: `po-goals`.
 Artifacts: [[goal-01-self-bootstrap-validation]], [[goal-02-tfm-public-artifact]], [[goal-03-portability-proof]].
 Next: apply skill `po-capabilities` to derive capabilities under each goal — keep them implementation-agnostic, filterable into an MVP, separated from features.
 
+### 2026-05-14 — product-owner
+
+Conversation with the human surfaced two structural insights about the vision and triggered a full audit + refinement pass before descending to capabilities:
+
+1. *Programming ≠ product-building.* The vision was sharpened to name the moment-of-truth at deployment as the cost SEM-IA closes (Cagan principle 1 — start with why — operationalised).
+2. *The framework is the entire stack, not just the graph.* The vision was further sharpened (structurally, without enumerating components, per Cagan principle 8) to state that the SEM-IA substrate ships with the code and audit becomes inspection of the substrate.
+
+The human then loaded the full SEM-IA stack into PO context (~50 files: 5 agents, 8 templates, 37 skills, 2 bibliography indices, role catalog) because the substrate inventory was needed to reason about capabilities. This loading produced **PO contamination**: when running an audit pass on the 4 existing nodes (vision + 3 goals), the PO began prescribing inspection mechanisms (QA-scope) and measurement units (QA-scope) instead of restricting itself to outcome declaration. The human caught the contamination; the PO retracted and reformulated three audit findings in PO-only scope.
+
+Final corrected audit findings, applied as edits:
+
+- **G1-A** — Add `≥ 1 adr` to the cobertura de categorías in G1's M-criterion. The specific ADR topic is Architect-scope at authoring time, not declared in the goal.
+- **G1-B** — Replace "0 authoritative claims without a primary-source citation (audit pass)" with an outcome-only formulation that defers the audit *method* to QA at audit time.
+- **G3-A** — Replace the (a)/(b)/(c) generic axes with five axes derived 1:1 from the vision Statement: review burden, hallucination, scope drift, context loss, deployment-readiness/maintainability. Metric design per axis is QA-scope; PO declares only that all five axes are non-negotiable. Decision-traceability is kept as a separate criterion (operational instantiation of the vision's "audit becomes inspection of the substrate" claim).
+
+Three improvement candidates captured during the conversation (deferred — not acted on in this session):
+
+- *Consultation matrix*: the PO-agent's `agent.md` has a coarse hand-off table for cross-role interaction but no fine-grained per-skill / per-node-type rule, nor a "consider consultation" gate in the workflow. Codification deferred to a post-bootstrap session.
+- *Next-roadmap adoption milestone*: a future goal (post-Nov-2026) along the lines of *"1 software product shipped publicly with its complete SEM-IA substrate as part of the distribution"* — adoption-level outcome, belongs to the next roadmap not this one.
+- *Graph-vs-substrate operating rule*: the framework should declare explicitly that the project graph (nodes/) is the navigation surface for any role-agent operating on the project, while the substrate (.claude/skills/, .claude/agents/) is for substrate maintainers only. Cross-role information flows through the graph, not through the substrate. This rule, codified, prevents the contamination observed in this session — and dissolves once the bootstrap completes, because future PO sessions will operate on the graph.
+
+Skills applied: `po-vision` (audit pass), `po-goals` (audit pass).
+Artifacts: [[vision-sem-ia]] (3 edits), [[goal-01-self-bootstrap-validation]] (2 edits), [[goal-03-portability-proof]] (1 edit).
+Next: apply skill `po-capabilities` to derive capabilities under each goal.
+
 ## Artifacts touched
 
-- Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked.
-- Created `nodes/goal-01-self-bootstrap-validation.md` — release-horizon goal targeting July 2026; the self-modelling test of the framework.
-- Created `nodes/goal-02-tfm-public-artifact.md` — release-horizon goal with hard deadline July 2026; academic defense + public release.
-- Created `nodes/goal-03-portability-proof.md` — release-horizon goal targeting November 2026; second-project concierge test with defect-prevention evidence.
+- Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
+- Created `nodes/goal-01-self-bootstrap-validation.md` — release-horizon goal targeting July 2026; the self-modelling test of the framework. **Edited** to add `adr` coverage and to reformulate the citation audit as outcome-only (QA-scope for method).
+- Created `nodes/goal-02-tfm-public-artifact.md` — release-horizon goal with hard deadline July 2026; academic defense + public release. (No audit edits required.)
+- Created `nodes/goal-03-portability-proof.md` — release-horizon goal targeting November 2026; second-project concierge test with defect-prevention evidence. **Edited** to map the comparative-report axes 1:1 to the vision's named costs (review burden, hallucination, scope drift, context loss, deployment-readiness), with metric design deferred to QA.
 
 ## Subagent consultations
 
