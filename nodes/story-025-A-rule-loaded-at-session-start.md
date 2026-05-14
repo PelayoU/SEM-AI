@@ -2,6 +2,8 @@
 category: story
 id: story-025-A-rule-loaded-at-session-start
 parent: "[[feature-025-claude-md-subagent-rule]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

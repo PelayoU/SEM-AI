@@ -2,6 +2,12 @@
 category: adr
 id: adr-001-sessions-as-git-branch
 parent: "[[goal-01-self-bootstrap-validation]]"
+artifacts:
+  - "[[CLAUDE.md]]"
+  - "[[.claude/commands/session-log.md]]"
+  - "[[.claude/commands/session-context.md]]"
+  - "[[.claude/commands/session-close.md]]"
+  - "[[_obsidian/templates/session.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

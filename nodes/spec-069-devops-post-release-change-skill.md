@@ -2,6 +2,8 @@
 category: spec
 id: spec-069-devops-post-release-change-skill
 parent: "[[feature-069-devops-post-release-change-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-post-release-change/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

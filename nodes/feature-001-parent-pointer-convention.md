@@ -2,6 +2,8 @@
 category: feature
 id: feature-001-parent-pointer-convention
 parent: "[[cap-01-vision-to-code-audit]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

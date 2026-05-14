@@ -2,6 +2,9 @@
 category: feature
 id: feature-023-task-tool-integration
 parent: "[[cap-10-subagent-consultation]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

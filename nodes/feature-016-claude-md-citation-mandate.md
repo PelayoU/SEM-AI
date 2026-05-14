@@ -2,6 +2,8 @@
 category: feature
 id: feature-016-claude-md-citation-mandate
 parent: "[[cap-08-citation-discipline]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: feature
 id: feature-012-skill-references-traceability
 parent: "[[cap-08-citation-discipline]]"
+artifacts:
+  - "[[bibliography/skill-references.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

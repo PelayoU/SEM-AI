@@ -2,6 +2,8 @@
 category: feature
 id: feature-017-session-log-slash-command
 parent: "[[cap-09-session-continuity]]"
+artifacts:
+  - "[[.claude/commands/session-log.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

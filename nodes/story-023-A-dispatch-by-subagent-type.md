@@ -2,6 +2,9 @@
 category: story
 id: story-023-A-dispatch-by-subagent-type
 parent: "[[feature-023-task-tool-integration]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,9 @@
 category: feature
 id: feature-006-show-hidden-files-plugin
 parent: "[[cap-01-vision-to-code-audit]]"
+artifacts:
+  - "[[.obsidian/plugins/show-hidden-files/manifest.json]]"
+  - "[[.obsidian/community-plugins.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

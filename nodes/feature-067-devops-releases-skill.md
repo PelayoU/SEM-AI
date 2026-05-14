@@ -2,6 +2,8 @@
 category: feature
 id: feature-067-devops-releases-skill
 parent: "[[cap-07-apply-devops-discipline]]"
+artifacts:
+  - "[[.claude/skills/devops-releases/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

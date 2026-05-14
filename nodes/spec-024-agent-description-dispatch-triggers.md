@@ -2,6 +2,12 @@
 category: spec
 id: spec-024-agent-description-dispatch-triggers
 parent: "[[feature-024-agent-description-dispatch-triggers]]"
+artifacts:
+  - "[[.claude/agents/product-owner.md]]"
+  - "[[.claude/agents/architect.md]]"
+  - "[[.claude/agents/qa.md]]"
+  - "[[.claude/agents/developer.md]]"
+  - "[[.claude/agents/devops.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

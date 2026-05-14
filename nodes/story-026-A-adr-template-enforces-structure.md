@@ -2,6 +2,8 @@
 category: story
 id: story-026-A-adr-template-enforces-structure
 parent: "[[feature-026-adr-template-nygard-format]]"
+artifacts:
+  - "[[_obsidian/templates/adr.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

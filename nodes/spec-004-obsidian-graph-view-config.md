@@ -2,6 +2,8 @@
 category: spec
 id: spec-004-obsidian-graph-view-config
 parent: "[[feature-004-obsidian-graph-view-config]]"
+artifacts:
+  - "[[.obsidian/graph.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

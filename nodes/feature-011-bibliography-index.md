@@ -2,6 +2,8 @@
 category: feature
 id: feature-011-bibliography-index
 parent: "[[cap-08-citation-discipline]]"
+artifacts:
+  - "[[bibliography/INDEX.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

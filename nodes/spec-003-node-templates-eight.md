@@ -2,6 +2,15 @@
 category: spec
 id: spec-003-node-templates-eight
 parent: "[[feature-003-node-templates-eight]]"
+artifacts:
+  - "[[_obsidian/templates/vision.md]]"
+  - "[[_obsidian/templates/goal.md]]"
+  - "[[_obsidian/templates/capability.md]]"
+  - "[[_obsidian/templates/feature.md]]"
+  - "[[_obsidian/templates/story.md]]"
+  - "[[_obsidian/templates/spec.md]]"
+  - "[[_obsidian/templates/adr.md]]"
+  - "[[_obsidian/templates/session.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

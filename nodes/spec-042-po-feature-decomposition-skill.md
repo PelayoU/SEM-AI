@@ -2,6 +2,8 @@
 category: spec
 id: spec-042-po-feature-decomposition-skill
 parent: "[[feature-042-po-feature-decomposition-skill]]"
+artifacts:
+  - "[[.claude/skills/po-feature-decomposition/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: spec
 id: spec-038-po-value-analysis-skill
 parent: "[[feature-038-po-value-analysis-skill]]"
+artifacts:
+  - "[[.claude/skills/po-value-analysis/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

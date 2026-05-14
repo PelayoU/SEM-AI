@@ -108,12 +108,18 @@ Wikilinks activate Obsidian's backlinks pane and graph view. They are **narrativ
 
 **Not used in this project** (eliminated by design): `also-relates-to`, `depends-on`, `dimensions-affected`. Horizontal cross-references live as wikilinks in node bodies, not as frontmatter fields.
 
+**Terminology** (used throughout the framework — and specifically by the `artifacts:` field below).
+
+- **Substrate** — the framework's implementation: files under `.claude/`, `_obsidian/`, `bibliography/sources/`, plus `CLAUDE.md` and `LICENSE`. These are what SEM-IA *runs from*.
+- **Management nodes** — files in `nodes/` and `sessions/` that govern, trace, and document the substrate. These are the SEM management layer.
+- **Artifact** — used in two senses across the framework. *(Generic SE sense, used elsewhere in this doc)*: any work product. *(SEM-IA-specific sense, used by the `artifacts:` frontmatter field)*: a **substrate path** specifically — i.e., a file in the framework's implementation layer that a management node materially associates with. The `artifacts:` field is **always** the SEM-IA-specific sense, never the generic one.
+
 **Substrate traceability** (operationalises Capers Jones BP #11 practice 7 via the management-graph format). The five node categories that GISF `gisf-life-cycle.pdf` slide 54 places at or near the artefact end of the hierarchy — **feature, story, spec, adr** — plus **session** (work-thread that modifies substrate) carry an explicit `artifacts:` field in frontmatter listing the substrate paths they materially associate with. The association can be *backward* (a feature wrapping an already-implemented skill), *forward* (a story whose implementation will produce a new code file), *cross-cutting* (an ADR that affects multiple substrate paths), or *operational* (a session whose work-thread modified specific substrate files):
 
 ```yaml
 artifacts:
-  - .claude/skills/po-vision/SKILL.md
-  - .claude/agents/product-owner.md
+  - "[[.claude/skills/po-vision/SKILL.md]]"
+  - "[[.claude/agents/product-owner.md]]"
 ```
 
 Paths are relative to repo root and point at items in this repository (`.claude/...`, `_obsidian/...`, `bibliography/sources/...`, `CLAUDE.md`, `LICENSE`). External / conventional references (Cagan books, Nygard ADRs, etc.) stay in `## Source`, not in `artifacts:`. The field is **optional** within these five node categories — a feature describing an abstract property without a single artefact owner (e.g., *"parent-pointer convention"*, *"backbone hierarchy"*) may omit it — but **strongly preferred** whenever a concrete substrate path exists.

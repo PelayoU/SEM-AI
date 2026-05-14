@@ -2,6 +2,19 @@
 category: story
 id: story-013-A-corpus-versioned-with-substrate
 parent: "[[feature-013-audited-pdf-sources-corpus]]"
+artifacts:
+  - "[[bibliography/sources/se-best-practices.pdf]]"
+  - "[[bibliography/sources/gisf-life-cycle.pdf]]"
+  - "[[bibliography/sources/gisf-discovery.pdf]]"
+  - "[[bibliography/sources/gisf-agile-teams-and-roles.pdf]]"
+  - "[[bibliography/sources/gisf-delivery-planning.pdf]]"
+  - "[[bibliography/sources/gisf-delivery-backlog-management.pdf]]"
+  - "[[bibliography/sources/gisf-delivery-control-and-monitoring.pdf]]"
+  - "[[bibliography/sources/gisf-delivery-review-and-retrospectives.pdf]]"
+  - "[[bibliography/sources/gisf-pipeline-devops.pdf]]"
+  - "[[bibliography/sources/gherkin-reference.pdf]]"
+  - "[[bibliography/sources/user-story-mapping.pdf]]"
+  - "[[bibliography/sources/agile-story-essentials.pdf]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

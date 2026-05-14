@@ -2,6 +2,8 @@
 category: spec
 id: spec-009-role-catalog-design-doc
 parent: "[[feature-009-role-catalog-design-doc]]"
+artifacts:
+  - "[[.claude/sem-role-catalog.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

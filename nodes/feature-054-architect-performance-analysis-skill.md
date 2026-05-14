@@ -2,6 +2,8 @@
 category: feature
 id: feature-054-architect-performance-analysis-skill
 parent: "[[cap-04-apply-architect-discipline]]"
+artifacts:
+  - "[[.claude/skills/architect-performance-analysis/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

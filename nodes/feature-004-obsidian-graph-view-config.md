@@ -2,6 +2,8 @@
 category: feature
 id: feature-004-obsidian-graph-view-config
 parent: "[[cap-01-vision-to-code-audit]]"
+artifacts:
+  - "[[.obsidian/graph.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

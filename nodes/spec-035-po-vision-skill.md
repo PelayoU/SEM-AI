@@ -2,6 +2,8 @@
 category: spec
 id: spec-035-po-vision-skill
 parent: "[[feature-035-po-vision-skill]]"
+artifacts:
+  - "[[.claude/skills/po-vision/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

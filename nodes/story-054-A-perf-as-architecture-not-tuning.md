@@ -2,6 +2,8 @@
 category: story
 id: story-054-A-perf-as-architecture-not-tuning
 parent: "[[feature-054-architect-performance-analysis-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-performance-analysis/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

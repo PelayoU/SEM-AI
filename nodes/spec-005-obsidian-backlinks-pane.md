@@ -2,6 +2,9 @@
 category: spec
 id: spec-005-obsidian-backlinks-pane
 parent: "[[feature-005-obsidian-backlinks-pane]]"
+artifacts:
+  - "[[.obsidian/core-plugins.json]]"
+  - "[[.obsidian/workspace.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

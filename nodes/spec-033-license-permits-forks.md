@@ -2,6 +2,8 @@
 category: spec
 id: spec-033-license-permits-forks
 parent: "[[feature-033-license-permits-forks]]"
+artifacts:
+  - "[[LICENSE]]"
 status: draft
 created: 2026-05-14
 updated: 2026-05-14

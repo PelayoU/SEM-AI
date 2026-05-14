@@ -2,6 +2,8 @@
 category: story
 id: story-016-B-out-of-biblio-flagged
 parent: "[[feature-016-claude-md-citation-mandate]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: story
 id: story-015-A-new-skill-from-template
 parent: "[[feature-015-skill-meta-template]]"
+artifacts:
+  - "[[.claude/templates/SKILL.md.template]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

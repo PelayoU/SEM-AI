@@ -2,6 +2,8 @@
 category: spec
 id: spec-055-qa-sqa-program-skill
 parent: "[[feature-055-qa-sqa-program-skill]]"
+artifacts:
+  - "[[.claude/skills/qa-sqa-program/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

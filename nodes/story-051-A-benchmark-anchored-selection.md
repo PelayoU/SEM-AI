@@ -2,6 +2,8 @@
 category: story
 id: story-051-A-benchmark-anchored-selection
 parent: "[[feature-051-architect-methodology-selection-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-methodology-selection/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

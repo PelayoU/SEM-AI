@@ -2,6 +2,8 @@
 category: spec
 id: spec-017-session-log-slash-command
 parent: "[[feature-017-session-log-slash-command]]"
+artifacts:
+  - "[[.claude/commands/session-log.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

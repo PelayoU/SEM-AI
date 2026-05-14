@@ -2,6 +2,8 @@
 category: feature
 id: feature-008-agent-meta-template
 parent: "[[cap-02-role-scoped-agents]]"
+artifacts:
+  - "[[.claude/templates/agent.md.template]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

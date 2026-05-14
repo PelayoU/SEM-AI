@@ -2,6 +2,8 @@
 category: feature
 id: feature-026-adr-template-nygard-format
 parent: "[[cap-11-adr-capture]]"
+artifacts:
+  - "[[_obsidian/templates/adr.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

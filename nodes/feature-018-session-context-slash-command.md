@@ -2,6 +2,8 @@
 category: feature
 id: feature-018-session-context-slash-command
 parent: "[[cap-09-session-continuity]]"
+artifacts:
+  - "[[.claude/commands/session-context.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

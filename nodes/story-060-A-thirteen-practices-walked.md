@@ -2,6 +2,8 @@
 category: story
 id: story-060-A-thirteen-practices-walked
 parent: "[[feature-060-developer-coding-practices-skill]]"
+artifacts:
+  - "[[.claude/skills/developer-coding-practices/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

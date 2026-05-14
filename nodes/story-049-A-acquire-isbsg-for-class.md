@@ -2,6 +2,8 @@
 category: story
 id: story-049-A-acquire-isbsg-for-class
 parent: "[[feature-049-po-benchmarks-baselines-skill]]"
+artifacts:
+  - "[[.claude/skills/po-benchmarks-baselines/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,9 @@
 category: story
 id: story-006-A-dot-files-visible
 parent: "[[feature-006-show-hidden-files-plugin]]"
+artifacts:
+  - "[[.obsidian/plugins/show-hidden-files/manifest.json]]"
+  - "[[.obsidian/community-plugins.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -6,8 +6,8 @@ artifacts:
   # Optional. List of substrate paths this decision materially affects (e.g., agent identity, skill catalog, template, command).
   # Omit for paradigm-level decisions that affect the framework as a whole without a single artefact owner.
   # See CLAUDE.md § Substrate traceability for the rule.
-  # - CLAUDE.md
-  # - .claude/agents/<role>.md
+  # - "[[CLAUDE.md]]"
+  # - "[[.claude/agents/<role>.md]]"
 status: proposed
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>

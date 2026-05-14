@@ -2,6 +2,16 @@
 category: adr
 id: adr-008-markdown-frontmatter-data-format
 parent: "[[vision-sem-ia]]"
+artifacts:
+  - "[[CLAUDE.md]]"
+  - "[[_obsidian/templates/vision.md]]"
+  - "[[_obsidian/templates/goal.md]]"
+  - "[[_obsidian/templates/capability.md]]"
+  - "[[_obsidian/templates/feature.md]]"
+  - "[[_obsidian/templates/story.md]]"
+  - "[[_obsidian/templates/spec.md]]"
+  - "[[_obsidian/templates/adr.md]]"
+  - "[[_obsidian/templates/session.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

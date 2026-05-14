@@ -2,6 +2,8 @@
 category: spec
 id: spec-001-parent-pointer-convention
 parent: "[[feature-001-parent-pointer-convention]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

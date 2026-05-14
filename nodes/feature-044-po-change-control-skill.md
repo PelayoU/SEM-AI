@@ -2,6 +2,8 @@
 category: feature
 id: feature-044-po-change-control-skill
 parent: "[[cap-03-apply-po-discipline]]"
+artifacts:
+  - "[[.claude/skills/po-change-control/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

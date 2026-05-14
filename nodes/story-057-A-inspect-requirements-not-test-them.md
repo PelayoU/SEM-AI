@@ -2,6 +2,8 @@
 category: story
 id: story-057-A-inspect-requirements-not-test-them
 parent: "[[feature-057-qa-inspections-program-skill]]"
+artifacts:
+  - "[[.claude/skills/qa-inspections-program/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: feature
 id: feature-010-claude-md-role-scope-section
 parent: "[[cap-02-role-scoped-agents]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

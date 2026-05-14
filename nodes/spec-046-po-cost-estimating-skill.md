@@ -2,6 +2,8 @@
 category: spec
 id: spec-046-po-cost-estimating-skill
 parent: "[[feature-046-po-cost-estimating-skill]]"
+artifacts:
+  - "[[.claude/skills/po-cost-estimating/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

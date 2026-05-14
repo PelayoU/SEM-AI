@@ -2,6 +2,8 @@
 category: story
 id: story-001-A-parent-pointer-authoring
 parent: "[[feature-001-parent-pointer-convention]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

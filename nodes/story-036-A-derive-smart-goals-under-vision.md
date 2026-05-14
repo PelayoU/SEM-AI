@@ -2,6 +2,8 @@
 category: story
 id: story-036-A-derive-smart-goals-under-vision
 parent: "[[feature-036-po-goals-skill]]"
+artifacts:
+  - "[[.claude/skills/po-goals/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

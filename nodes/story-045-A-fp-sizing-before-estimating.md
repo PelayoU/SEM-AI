@@ -2,6 +2,8 @@
 category: story
 id: story-045-A-fp-sizing-before-estimating
 parent: "[[feature-045-po-early-sizing-skill]]"
+artifacts:
+  - "[[.claude/skills/po-early-sizing/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

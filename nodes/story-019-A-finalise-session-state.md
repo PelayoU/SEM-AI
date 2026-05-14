@@ -2,6 +2,8 @@
 category: story
 id: story-019-A-finalise-session-state
 parent: "[[feature-019-session-close-slash-command]]"
+artifacts:
+  - "[[.claude/commands/session-close.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

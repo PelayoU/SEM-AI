@@ -2,6 +2,8 @@
 category: feature
 id: feature-028-claude-md-adr-cross-cut-rule
 parent: "[[cap-11-adr-capture]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

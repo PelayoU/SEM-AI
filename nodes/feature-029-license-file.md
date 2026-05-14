@@ -2,6 +2,8 @@
 category: feature
 id: feature-029-license-file
 parent: "[[cap-12-public-publication]]"
+artifacts:
+  - "[[LICENSE]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

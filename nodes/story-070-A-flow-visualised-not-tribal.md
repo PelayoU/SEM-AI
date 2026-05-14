@@ -2,6 +2,8 @@
 category: story
 id: story-070-A-flow-visualised-not-tribal
 parent: "[[feature-070-devops-maintenance-operations-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-maintenance-operations/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

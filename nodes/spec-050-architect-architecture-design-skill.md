@@ -2,6 +2,8 @@
 category: spec
 id: spec-050-architect-architecture-design-skill
 parent: "[[feature-050-architect-architecture-design-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-architecture-design/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

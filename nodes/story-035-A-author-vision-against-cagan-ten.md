@@ -2,6 +2,8 @@
 category: story
 id: story-035-A-author-vision-against-cagan-ten
 parent: "[[feature-035-po-vision-skill]]"
+artifacts:
+  - "[[.claude/skills/po-vision/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

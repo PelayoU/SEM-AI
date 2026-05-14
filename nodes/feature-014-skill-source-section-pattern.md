@@ -2,6 +2,8 @@
 category: feature
 id: feature-014-skill-source-section-pattern
 parent: "[[cap-08-citation-discipline]]"
+artifacts:
+  - "[[.claude/templates/SKILL.md.template]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

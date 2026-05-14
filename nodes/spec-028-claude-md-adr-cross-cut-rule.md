@@ -2,6 +2,8 @@
 category: spec
 id: spec-028-claude-md-adr-cross-cut-rule
 parent: "[[feature-028-claude-md-adr-cross-cut-rule]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

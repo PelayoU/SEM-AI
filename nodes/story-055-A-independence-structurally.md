@@ -2,6 +2,8 @@
 category: story
 id: story-055-A-independence-structurally
 parent: "[[feature-055-qa-sqa-program-skill]]"
+artifacts:
+  - "[[.claude/skills/qa-sqa-program/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

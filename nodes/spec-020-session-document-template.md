@@ -2,6 +2,8 @@
 category: spec
 id: spec-020-session-document-template
 parent: "[[feature-020-session-document-template]]"
+artifacts:
+  - "[[_obsidian/templates/session.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: story
 id: story-041-A-scale-aware-user-techniques
 parent: "[[feature-041-po-user-involvement-skill]]"
+artifacts:
+  - "[[.claude/skills/po-user-involvement/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

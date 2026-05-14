@@ -2,6 +2,8 @@
 category: feature
 id: feature-046-po-cost-estimating-skill
 parent: "[[cap-03-apply-po-discipline]]"
+artifacts:
+  - "[[.claude/skills/po-cost-estimating/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

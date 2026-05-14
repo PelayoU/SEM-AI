@@ -2,6 +2,8 @@
 category: feature
 id: feature-071-devops-legacy-retirement-skill
 parent: "[[cap-07-apply-devops-discipline]]"
+artifacts:
+  - "[[.claude/skills/devops-legacy-retirement/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

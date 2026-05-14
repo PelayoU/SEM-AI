@@ -2,6 +2,8 @@
 category: story
 id: story-002-A-wikilinks-in-body
 parent: "[[feature-002-wikilinks-narrative-cross-reference]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

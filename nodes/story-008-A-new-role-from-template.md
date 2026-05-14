@@ -2,6 +2,8 @@
 category: story
 id: story-008-A-new-role-from-template
 parent: "[[feature-008-agent-meta-template]]"
+artifacts:
+  - "[[.claude/templates/agent.md.template]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

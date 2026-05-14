@@ -2,6 +2,9 @@
 category: feature
 id: feature-005-obsidian-backlinks-pane
 parent: "[[cap-01-vision-to-code-audit]]"
+artifacts:
+  - "[[.obsidian/core-plugins.json]]"
+  - "[[.obsidian/workspace.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

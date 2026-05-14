@@ -2,6 +2,8 @@
 category: story
 id: story-052-A-reuse-beyond-code-only
 parent: "[[feature-052-architect-reusability-strategy-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-reusability-strategy/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

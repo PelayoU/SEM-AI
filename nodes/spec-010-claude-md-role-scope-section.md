@@ -2,6 +2,8 @@
 category: spec
 id: spec-010-claude-md-role-scope-section
 parent: "[[feature-010-claude-md-role-scope-section]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

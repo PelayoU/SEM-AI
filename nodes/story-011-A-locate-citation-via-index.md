@@ -2,6 +2,8 @@
 category: story
 id: story-011-A-locate-citation-via-index
 parent: "[[feature-011-bibliography-index]]"
+artifacts:
+  - "[[bibliography/INDEX.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: spec
 id: spec-063-developer-unit-testing-skill
 parent: "[[feature-063-developer-unit-testing-skill]]"
+artifacts:
+  - "[[.claude/skills/developer-unit-testing/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

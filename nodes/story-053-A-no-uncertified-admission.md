@@ -2,6 +2,8 @@
 category: story
 id: story-053-A-no-uncertified-admission
 parent: "[[feature-053-architect-reuse-certification-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-reuse-certification/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

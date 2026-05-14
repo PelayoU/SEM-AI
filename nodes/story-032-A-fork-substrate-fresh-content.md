@@ -2,6 +2,9 @@
 category: story
 id: story-032-A-fork-substrate-fresh-content
 parent: "[[feature-032-substrate-content-directory-separation]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

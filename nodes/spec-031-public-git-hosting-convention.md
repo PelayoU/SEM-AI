@@ -2,6 +2,9 @@
 category: spec
 id: spec-031-public-git-hosting-convention
 parent: "[[feature-031-public-git-hosting-convention]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: draft
 created: 2026-05-14
 updated: 2026-05-14

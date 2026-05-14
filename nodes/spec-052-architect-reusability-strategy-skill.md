@@ -2,6 +2,8 @@
 category: spec
 id: spec-052-architect-reusability-strategy-skill
 parent: "[[feature-052-architect-reusability-strategy-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-reusability-strategy/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: feature
 id: feature-040-po-requirements-discovery-skill
 parent: "[[cap-03-apply-po-discipline]]"
+artifacts:
+  - "[[.claude/skills/po-requirements-discovery/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: feature
 id: feature-002-wikilinks-narrative-cross-reference
 parent: "[[cap-01-vision-to-code-audit]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

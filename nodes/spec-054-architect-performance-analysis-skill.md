@@ -2,6 +2,8 @@
 category: spec
 id: spec-054-architect-performance-analysis-skill
 parent: "[[feature-054-architect-performance-analysis-skill]]"
+artifacts:
+  - "[[.claude/skills/architect-performance-analysis/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

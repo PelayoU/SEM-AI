@@ -2,6 +2,8 @@
 category: feature
 id: feature-047-po-project-planning-skill
 parent: "[[cap-03-apply-po-discipline]]"
+artifacts:
+  - "[[.claude/skills/po-project-planning/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

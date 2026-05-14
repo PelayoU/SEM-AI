@@ -2,6 +2,8 @@
 category: story
 id: story-037-A-derive-implementation-agnostic-capabilities
 parent: "[[feature-037-po-capabilities-skill]]"
+artifacts:
+  - "[[.claude/skills/po-capabilities/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

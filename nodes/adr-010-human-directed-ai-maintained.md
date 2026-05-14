@@ -2,6 +2,8 @@
 category: adr
 id: adr-010-human-directed-ai-maintained
 parent: "[[vision-sem-ia]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

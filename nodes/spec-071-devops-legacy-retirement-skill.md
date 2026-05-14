@@ -2,6 +2,8 @@
 category: spec
 id: spec-071-devops-legacy-retirement-skill
 parent: "[[feature-071-devops-legacy-retirement-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-legacy-retirement/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

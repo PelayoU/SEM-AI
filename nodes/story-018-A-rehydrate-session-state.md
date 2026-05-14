@@ -2,6 +2,8 @@
 category: story
 id: story-018-A-rehydrate-session-state
 parent: "[[feature-018-session-context-slash-command]]"
+artifacts:
+  - "[[.claude/commands/session-context.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

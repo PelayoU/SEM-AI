@@ -2,6 +2,9 @@
 category: adr
 id: adr-006-super-po-fusion
 parent: "[[vision-sem-ia]]"
+artifacts:
+  - "[[.claude/agents/product-owner.md]]"
+  - "[[.claude/sem-role-catalog.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: feature
 id: feature-048-po-milestone-tracking-skill
 parent: "[[cap-03-apply-po-discipline]]"
+artifacts:
+  - "[[.claude/skills/po-milestone-tracking/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

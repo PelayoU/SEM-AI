@@ -2,6 +2,8 @@
 category: spec
 id: spec-043-po-spec-gherkin-skill
 parent: "[[feature-043-po-spec-gherkin-skill]]"
+artifacts:
+  - "[[.claude/skills/po-spec-gherkin/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

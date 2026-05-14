@@ -2,6 +2,8 @@
 category: story
 id: story-065-A-all-deliverables-under-cm
 parent: "[[feature-065-devops-configuration-control-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-configuration-control/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

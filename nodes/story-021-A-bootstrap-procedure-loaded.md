@@ -2,6 +2,8 @@
 category: story
 id: story-021-A-bootstrap-procedure-loaded
 parent: "[[feature-021-claude-md-layer-b-section]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

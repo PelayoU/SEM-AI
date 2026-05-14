@@ -2,6 +2,15 @@
 category: adr
 id: adr-002-backbone-hierarchy-parent-edges
 parent: "[[vision-sem-ia]]"
+artifacts:
+  - "[[CLAUDE.md]]"
+  - "[[_obsidian/templates/vision.md]]"
+  - "[[_obsidian/templates/goal.md]]"
+  - "[[_obsidian/templates/capability.md]]"
+  - "[[_obsidian/templates/feature.md]]"
+  - "[[_obsidian/templates/story.md]]"
+  - "[[_obsidian/templates/spec.md]]"
+  - "[[_obsidian/templates/adr.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

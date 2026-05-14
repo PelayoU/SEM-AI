@@ -2,6 +2,8 @@
 category: story
 id: story-048-A-reject-cosmetic-green-status
 parent: "[[feature-048-po-milestone-tracking-skill]]"
+artifacts:
+  - "[[.claude/skills/po-milestone-tracking/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

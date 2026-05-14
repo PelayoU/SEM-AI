@@ -2,6 +2,8 @@
 category: feature
 id: feature-052-architect-reusability-strategy-skill
 parent: "[[cap-04-apply-architect-discipline]]"
+artifacts:
+  - "[[.claude/skills/architect-reusability-strategy/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

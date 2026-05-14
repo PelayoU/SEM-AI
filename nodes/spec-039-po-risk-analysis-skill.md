@@ -2,6 +2,8 @@
 category: spec
 id: spec-039-po-risk-analysis-skill
 parent: "[[feature-039-po-risk-analysis-skill]]"
+artifacts:
+  - "[[.claude/skills/po-risk-analysis/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

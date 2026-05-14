@@ -2,6 +2,8 @@
 category: feature
 id: feature-059-qa-defect-removal-efficiency-skill
 parent: "[[cap-05-apply-qa-discipline]]"
+artifacts:
+  - "[[.claude/skills/qa-defect-removal-efficiency/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

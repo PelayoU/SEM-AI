@@ -2,6 +2,8 @@
 category: feature
 id: feature-021-claude-md-layer-b-section
 parent: "[[cap-09-session-continuity]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

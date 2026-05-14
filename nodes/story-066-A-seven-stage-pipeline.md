@@ -2,6 +2,8 @@
 category: story
 id: story-066-A-seven-stage-pipeline
 parent: "[[feature-066-devops-deployment-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-deployment/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

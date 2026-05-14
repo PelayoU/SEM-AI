@@ -2,6 +2,8 @@
 category: story
 id: story-033-A-license-permits-fork
 parent: "[[feature-033-license-permits-forks]]"
+artifacts:
+  - "[[LICENSE]]"
 status: ready-for-implementation
 created: 2026-05-14
 updated: 2026-05-14

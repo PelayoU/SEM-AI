@@ -31,6 +31,15 @@ related-nodes:
   - "[[adr-008-markdown-frontmatter-data-format]]"
   - "[[adr-009-skill-as-canonical-method]]"
   - "[[adr-010-human-directed-ai-maintained]]"
+artifacts:
+  - "[[CLAUDE.md]]"
+  - "[[_obsidian/templates/feature.md]]"
+  - "[[_obsidian/templates/story.md]]"
+  - "[[_obsidian/templates/spec.md]]"
+  - "[[_obsidian/templates/adr.md]]"
+  - "[[_obsidian/templates/session.md]]"
+  - "[[_obsidian/templates/vision.md]]"
+  - "[[_obsidian/templates/goal.md]]"
 ---
 
 # SEM-IA self-bootstrap — derive the framework's own graph

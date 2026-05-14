@@ -2,6 +2,8 @@
 category: spec
 id: spec-068-devops-customer-support-skill
 parent: "[[feature-068-devops-customer-support-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-customer-support/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: feature
 id: feature-033-license-permits-forks
 parent: "[[cap-13-portability]]"
+artifacts:
+  - "[[LICENSE]]"
 status: ready-for-implementation
 created: 2026-05-14
 updated: 2026-05-14

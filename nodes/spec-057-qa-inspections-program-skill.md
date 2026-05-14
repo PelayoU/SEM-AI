@@ -2,6 +2,8 @@
 category: spec
 id: spec-057-qa-inspections-program-skill
 parent: "[[feature-057-qa-inspections-program-skill]]"
+artifacts:
+  - "[[.claude/skills/qa-inspections-program/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

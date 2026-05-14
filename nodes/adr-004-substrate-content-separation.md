@@ -2,6 +2,8 @@
 category: adr
 id: adr-004-substrate-content-separation
 parent: "[[cap-13-portability]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

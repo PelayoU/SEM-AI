@@ -2,6 +2,8 @@
 category: spec
 id: spec-058-qa-testing-strategy-skill
 parent: "[[feature-058-qa-testing-strategy-skill]]"
+artifacts:
+  - "[[.claude/skills/qa-testing-strategy/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

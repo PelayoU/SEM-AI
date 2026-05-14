@@ -2,6 +2,8 @@
 category: feature
 id: feature-055-qa-sqa-program-skill
 parent: "[[cap-05-apply-qa-discipline]]"
+artifacts:
+  - "[[.claude/skills/qa-sqa-program/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

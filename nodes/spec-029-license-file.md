@@ -2,6 +2,8 @@
 category: spec
 id: spec-029-license-file
 parent: "[[feature-029-license-file]]"
+artifacts:
+  - "[[LICENSE]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

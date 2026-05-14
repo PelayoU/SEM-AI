@@ -2,6 +2,8 @@
 category: story
 id: story-016-A-citation-mandate-loaded
 parent: "[[feature-016-claude-md-citation-mandate]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

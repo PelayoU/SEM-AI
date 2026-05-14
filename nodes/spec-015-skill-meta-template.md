@@ -2,6 +2,8 @@
 category: spec
 id: spec-015-skill-meta-template
 parent: "[[feature-015-skill-meta-template]]"
+artifacts:
+  - "[[.claude/templates/SKILL.md.template]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

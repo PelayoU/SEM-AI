@@ -2,6 +2,12 @@
 category: story
 id: story-007-A-invoke-role-agent
 parent: "[[feature-007-five-role-agent-identities]]"
+artifacts:
+  - "[[.claude/agents/product-owner.md]]"
+  - "[[.claude/agents/architect.md]]"
+  - "[[.claude/agents/qa.md]]"
+  - "[[.claude/agents/developer.md]]"
+  - "[[.claude/agents/devops.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

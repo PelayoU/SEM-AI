@@ -2,6 +2,8 @@
 category: feature
 id: feature-060-developer-coding-practices-skill
 parent: "[[cap-06-apply-developer-discipline]]"
+artifacts:
+  - "[[.claude/skills/developer-coding-practices/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

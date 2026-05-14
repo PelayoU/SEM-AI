@@ -2,6 +2,8 @@
 category: story
 id: story-010-B-invocation-mode-clarity
 parent: "[[feature-010-claude-md-role-scope-section]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

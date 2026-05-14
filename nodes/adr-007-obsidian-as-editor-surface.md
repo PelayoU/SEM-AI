@@ -2,6 +2,12 @@
 category: adr
 id: adr-007-obsidian-as-editor-surface
 parent: "[[cap-01-vision-to-code-audit]]"
+artifacts:
+  - "[[.obsidian/graph.json]]"
+  - "[[.obsidian/workspace.json]]"
+  - "[[.obsidian/core-plugins.json]]"
+  - "[[.obsidian/community-plugins.json]]"
+  - "[[.obsidian/plugins/show-hidden-files/manifest.json]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

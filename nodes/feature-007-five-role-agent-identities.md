@@ -2,6 +2,12 @@
 category: feature
 id: feature-007-five-role-agent-identities
 parent: "[[cap-02-role-scoped-agents]]"
+artifacts:
+  - "[[.claude/agents/product-owner.md]]"
+  - "[[.claude/agents/architect.md]]"
+  - "[[.claude/agents/qa.md]]"
+  - "[[.claude/agents/developer.md]]"
+  - "[[.claude/agents/devops.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

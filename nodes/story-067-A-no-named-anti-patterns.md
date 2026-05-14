@@ -2,6 +2,8 @@
 category: story
 id: story-067-A-no-named-anti-patterns
 parent: "[[feature-067-devops-releases-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-releases/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: spec
 id: spec-018-session-context-slash-command
 parent: "[[feature-018-session-context-slash-command]]"
+artifacts:
+  - "[[.claude/commands/session-context.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

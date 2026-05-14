@@ -2,6 +2,8 @@
 category: feature
 id: feature-041-po-user-involvement-skill
 parent: "[[cap-03-apply-po-discipline]]"
+artifacts:
+  - "[[.claude/skills/po-user-involvement/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

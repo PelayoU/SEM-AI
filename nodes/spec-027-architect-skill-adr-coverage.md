@@ -2,6 +2,8 @@
 category: spec
 id: spec-027-architect-skill-adr-coverage
 parent: "[[feature-027-architect-skill-adr-coverage]]"
+artifacts:
+  - "[[.claude/skills/architect-architecture-design/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: adr
 id: adr-009-skill-as-canonical-method
 parent: "[[vision-sem-ia]]"
+artifacts:
+  - "[[.claude/templates/SKILL.md.template]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

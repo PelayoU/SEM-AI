@@ -2,6 +2,11 @@
 category: adr
 id: adr-003-citation-mandate
 parent: "[[cap-08-citation-discipline]]"
+artifacts:
+  - "[[CLAUDE.md]]"
+  - "[[bibliography/INDEX.md]]"
+  - "[[bibliography/skill-references.md]]"
+  - "[[.claude/templates/SKILL.md.template]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

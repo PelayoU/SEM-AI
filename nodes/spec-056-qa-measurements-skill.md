@@ -2,6 +2,8 @@
 category: spec
 id: spec-056-qa-measurements-skill
 parent: "[[feature-056-qa-measurements-skill]]"
+artifacts:
+  - "[[.claude/skills/qa-measurements/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

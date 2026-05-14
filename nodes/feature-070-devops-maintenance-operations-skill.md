@@ -2,6 +2,8 @@
 category: feature
 id: feature-070-devops-maintenance-operations-skill
 parent: "[[cap-07-apply-devops-discipline]]"
+artifacts:
+  - "[[.claude/skills/devops-maintenance-operations/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

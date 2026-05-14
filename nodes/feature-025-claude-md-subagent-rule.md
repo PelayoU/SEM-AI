@@ -2,6 +2,8 @@
 category: feature
 id: feature-025-claude-md-subagent-rule
 parent: "[[cap-10-subagent-consultation]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

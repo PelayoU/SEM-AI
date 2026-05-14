@@ -2,6 +2,8 @@
 category: story
 id: story-061-A-check-library-before-custom
 parent: "[[feature-061-developer-reuse-application-skill]]"
+artifacts:
+  - "[[.claude/skills/developer-reuse-application/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

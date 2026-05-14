@@ -2,6 +2,8 @@
 category: feature
 id: feature-057-qa-inspections-program-skill
 parent: "[[cap-05-apply-qa-discipline]]"
+artifacts:
+  - "[[.claude/skills/qa-inspections-program/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

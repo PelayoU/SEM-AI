@@ -2,6 +2,8 @@
 category: spec
 id: spec-012-skill-references-traceability
 parent: "[[feature-012-skill-references-traceability]]"
+artifacts:
+  - "[[bibliography/skill-references.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

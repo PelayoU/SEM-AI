@@ -2,6 +2,8 @@
 category: story
 id: story-044-A-fp-quantified-crs
 parent: "[[feature-044-po-change-control-skill]]"
+artifacts:
+  - "[[.claude/skills/po-change-control/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

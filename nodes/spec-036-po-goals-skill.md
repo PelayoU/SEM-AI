@@ -2,6 +2,8 @@
 category: spec
 id: spec-036-po-goals-skill
 parent: "[[feature-036-po-goals-skill]]"
+artifacts:
+  - "[[.claude/skills/po-goals/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

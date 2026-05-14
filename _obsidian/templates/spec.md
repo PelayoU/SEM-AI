@@ -6,7 +6,7 @@ artifacts:
   # Optional. List of substrate paths this spec verifies (the Gherkin `Given` clauses typically reference the same path).
   # Omit when the spec covers an abstract property without a single artefact owner.
   # See CLAUDE.md § Substrate traceability for the rule.
-  # - .claude/skills/<role>-<name>/SKILL.md
+  # - "[[.claude/skills/<role>-<name>/SKILL.md]]"
 status: draft
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>

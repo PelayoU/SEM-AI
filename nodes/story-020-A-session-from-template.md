@@ -2,6 +2,8 @@
 category: story
 id: story-020-A-session-from-template
 parent: "[[feature-020-session-document-template]]"
+artifacts:
+  - "[[_obsidian/templates/session.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

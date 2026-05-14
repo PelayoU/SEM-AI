@@ -2,6 +2,8 @@
 category: story
 id: story-028-A-adr-cross-cut-rule-loaded
 parent: "[[feature-028-claude-md-adr-cross-cut-rule]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,9 @@
 category: feature
 id: feature-031-public-git-hosting-convention
 parent: "[[cap-12-public-publication]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: ready-for-implementation
 created: 2026-05-14
 updated: 2026-05-14

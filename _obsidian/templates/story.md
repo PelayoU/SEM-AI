@@ -6,7 +6,7 @@ artifacts:
   # Optional. List of substrate paths this story exercises (typically inherited from parent feature when concrete).
   # Omit when the story is about an abstract property without a single artefact owner.
   # See CLAUDE.md § Substrate traceability for the rule.
-  # - .claude/skills/<role>-<name>/SKILL.md
+  # - "[[.claude/skills/<role>-<name>/SKILL.md]]"
 status: draft
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>

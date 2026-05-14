@@ -2,6 +2,8 @@
 category: spec
 id: spec-026-adr-template-nygard-format
 parent: "[[feature-026-adr-template-nygard-format]]"
+artifacts:
+  - "[[_obsidian/templates/adr.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

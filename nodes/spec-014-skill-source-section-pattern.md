@@ -2,6 +2,8 @@
 category: spec
 id: spec-014-skill-source-section-pattern
 parent: "[[feature-014-skill-source-section-pattern]]"
+artifacts:
+  - "[[.claude/templates/SKILL.md.template]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

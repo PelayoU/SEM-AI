@@ -2,6 +2,9 @@
 category: story
 id: story-022-B-branch-list-as-open-sessions
 parent: "[[feature-022-git-branch-as-session-state]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

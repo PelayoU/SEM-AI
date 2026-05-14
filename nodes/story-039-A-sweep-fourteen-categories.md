@@ -2,6 +2,8 @@
 category: story
 id: story-039-A-sweep-fourteen-categories
 parent: "[[feature-039-po-risk-analysis-skill]]"
+artifacts:
+  - "[[.claude/skills/po-risk-analysis/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

@@ -2,6 +2,8 @@
 category: spec
 id: spec-016-claude-md-citation-mandate
 parent: "[[feature-016-claude-md-citation-mandate]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

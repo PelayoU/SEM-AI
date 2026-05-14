@@ -2,6 +2,8 @@
 category: spec
 id: spec-070-devops-maintenance-operations-skill
 parent: "[[feature-070-devops-maintenance-operations-skill]]"
+artifacts:
+  - "[[.claude/skills/devops-maintenance-operations/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

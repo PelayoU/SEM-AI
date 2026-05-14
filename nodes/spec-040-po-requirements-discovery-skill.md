@@ -2,6 +2,8 @@
 category: spec
 id: spec-040-po-requirements-discovery-skill
 parent: "[[feature-040-po-requirements-discovery-skill]]"
+artifacts:
+  - "[[.claude/skills/po-requirements-discovery/SKILL.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

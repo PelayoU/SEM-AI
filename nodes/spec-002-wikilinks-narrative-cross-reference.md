@@ -2,6 +2,8 @@
 category: spec
 id: spec-002-wikilinks-narrative-cross-reference
 parent: "[[feature-002-wikilinks-narrative-cross-reference]]"
+artifacts:
+  - "[[CLAUDE.md]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

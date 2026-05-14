@@ -2,6 +2,9 @@
 category: story
 id: story-030-B-readme-navigation-guide
 parent: "[[feature-030-readme-positioning-document]]"
+artifacts:
+  # No concrete substrate — this node describes an abstract property
+  # without a single artefact owner. See CLAUDE.md § Substrate traceability.
 status: ready-for-implementation
 created: 2026-05-14
 updated: 2026-05-14

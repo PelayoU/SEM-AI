@@ -2,6 +2,8 @@
 category: story
 id: story-004-A-graph-view-renders-backbone
 parent: "[[feature-004-obsidian-graph-view-config]]"
+artifacts:
+  - "[[.obsidian/graph.json]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14

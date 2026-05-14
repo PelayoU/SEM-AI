@@ -2,6 +2,13 @@
 category: adr
 id: adr-005-subagent-dispatch-not-authority-transfer
 parent: "[[cap-10-subagent-consultation]]"
+artifacts:
+  - "[[CLAUDE.md]]"
+  - "[[.claude/agents/product-owner.md]]"
+  - "[[.claude/agents/architect.md]]"
+  - "[[.claude/agents/qa.md]]"
+  - "[[.claude/agents/developer.md]]"
+  - "[[.claude/agents/devops.md]]"
 status: accepted
 created: 2026-05-14
 updated: 2026-05-14

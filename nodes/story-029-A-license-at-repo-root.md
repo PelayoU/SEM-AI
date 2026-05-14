@@ -2,6 +2,8 @@
 category: story
 id: story-029-A-license-at-repo-root
 parent: "[[feature-029-license-file]]"
+artifacts:
+  - "[[LICENSE]]"
 status: implemented
 created: 2026-05-14
 updated: 2026-05-14
