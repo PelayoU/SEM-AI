@@ -377,4 +377,4 @@ Next: human decides merge / pr / discard.
 - **Improvement candidates #1–#12 captured during session** (consultation matrix, next-roadmap adoption milestone, graph-vs-substrate operating rule, deferred cap-14 Obsidian Bases, deferred cap-15 Security role, deferred cap-16 Designer role, cap-01 split decision, 6 Architect-flagged ADR follow-ups, `artifacts:` lint check tooling, etc.) — each is a one-session unit of follow-up work.
 - **Direct work on `main` for trivial Layer-B hygiene** (e.g., session-start hook removal already begun, slash-command tweaks) can proceed without sessions.
 
-**Merge decision:** `<pending>` — to be filled after human chooses.
+**Merge decision:** `merged to main` (`--no-ff`, session boundary preserved in history). Branch retention decided separately after merge.
