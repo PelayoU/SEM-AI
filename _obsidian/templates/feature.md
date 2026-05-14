@@ -2,6 +2,11 @@
 category: feature
 id: feature-<NNN>-<slug>
 parent: "[[cap-NN-slug]]"
+artifacts:
+  # Optional. List of substrate paths this feature wraps (e.g., specific skill, agent, template, command file).
+  # Omit when the feature describes an abstract property without a single artefact owner.
+  # See CLAUDE.md § Substrate traceability for the rule.
+  # - .claude/skills/<role>-<name>/SKILL.md
 status: draft
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>

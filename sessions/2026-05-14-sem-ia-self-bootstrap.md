@@ -219,6 +219,38 @@ Skills applied: `po-feature-decomposition` (Phases 2–4), `po-spec-gherkin` (Ph
 Artifacts: 247 nodes total in `nodes/`. Architect-authored: 10 ADRs (logged in Subagent consultations).
 Next: human decides — close session with `/session-close` to author closing summary + merge decision, or defer closure to invite QA / Developer / DevOps in a follow-up session for the missing 5-role authorship.
 
+### 2026-05-15 — product-owner (Phase 7 — Layer-A fix)
+
+Post-bootstrap human review of CLAUDE.md surfaced **three Layer-A errors** in the `## Templates` section plus **one structural gap** in the framework. All four were diagnosed live in the conversation; none were acted on by an outside auditor — the bootstrap's meta-recursive intent (use SEM-IA to audit SEM-IA) is operating.
+
+The errors:
+
+1. **Wrong terminology.** CLAUDE.md said *"the canonical structure for each artifact type"*. The templates produce **nodes** (management layer), not artifacts (substrate layer). Mixing the two violates the framework's own layering. **Fixed:** *"for each node category in the management graph"*.
+2. **Human-biased "Application" paragraph.** Original wording treated the human as primary actor and the agent as side note. The bootstrap created 247 nodes — all by an agent, none by Templater. **Fixed:** balanced co-equal wording, *"Templates are instantiated either by a human (via Templater plugin in Obsidian) or by an agent (via Read + Write tools)…"*.
+3. **False universal aspersion.** Original said templates were *"derived directly from the corresponding Layer-A skill"* but the table itself shows `session.md` has no skill anchor. **Fixed:** *"derived from the corresponding Layer-A skill where applicable (`session.md` is an operational convention, not skill-anchored)"*.
+
+The structural gap:
+
+4. **No `artifacts:` traceability field in frontmatter.** Framework claims to operate Capers Jones BP #11 practice 7 (traceability) via `.claude/skills/po-requirements-discovery/SKILL.md` but management nodes linked to substrate inconsistently (specs structural via Gherkin Given, features via prose in Source, stories not at all). Traceability was narrative-only, not machine-queryable. **Fixed:** new `## Frontmatter > Substrate traceability` subsection introducing the optional `artifacts:` field; the four relevant templates (`feature.md`, `story.md`, `spec.md`, `adr.md`) updated to carry the field with commented placeholder.
+
+Layer placement per architectural split:
+
+```
+classical SEM            →  .claude/agents/  +  .claude/skills/  +  bibliography/   (unchanged: Jones #11 already taught here)
+SEM-IA paradigm contract →  CLAUDE.md   (Phase 7 fix lives here)
+SEM-IA materialization   →  _obsidian/templates/  +  nodes/   (Phase 7 fix also here)
+```
+
+No changes to `.claude/skills/` or `.claude/agents/` — the classical SEM teaching of traceability is already in place; only the SEM-IA-specific operationalisation needed to be made structural.
+
+The 247 existing nodes are not refactored in this commit — they are **pre-rule**. Their narrative-only linking remains in `## Source` sections; the `artifacts:` field is empty for all of them. Back-fill is **improvement candidate #11**, captured below.
+
+**Improvement candidate #11 (deferred):** Back-fill the `artifacts:` frontmatter field on existing nodes that wrap concrete substrate artefacts. Estimated scope: ~50–70 nodes (the 37 role-skill features, their corresponding 38 stories, their 37 specs, plus several agent-related structural features and the 10 ADRs that affect named substrate paths). Not blocker for G1 (the bootstrap's existing trace via Source mentions and Gherkin Given clauses satisfies Jones #11 narratively); structural-machine-queryable trace is the V2 polish.
+
+Skills applied: `po-capabilities` (no new skill; Phase 7 is Layer-A maintenance, not a skill exercise).
+Artifacts: `CLAUDE.md` (4 edits — 3 wording corrections + 1 new principle), `_obsidian/templates/feature.md`, `story.md`, `spec.md`, `adr.md` (4 template frontmatter updates).
+Next: human decides closure path. The bootstrap graph + Phase 7 Layer-A fix together close a coherent unit of work; `/session-close` is appropriate.
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
@@ -244,6 +276,9 @@ Next: human decides — close session with `/session-close` to author closing su
 - Created `nodes/story-001-*.md` through `nodes/story-071-A-*.md` — 78 INVEST-passing user stories, one or two per feature.
 - Created `nodes/spec-001-*.md` through `nodes/spec-071-*.md` — 71 Gherkin specs, one per feature with story-to-AC traceability.
 - **Total `nodes/` content after all phases: 247 markdown files** (1 vision + 3 goals + 13 caps + 10 ADRs + 71 features + 78 stories + 71 specs).
+- *(Phase 7 — Layer-A fix: no new nodes; edits to `CLAUDE.md` + 4 templates only.)*
+- Edited `CLAUDE.md` — 3 wording corrections in § Templates + 1 line update + new "Substrate traceability" subsection in § Frontmatter (introduces optional `artifacts:` field operationalising Jones BP #11 practice 7).
+- Edited `_obsidian/templates/feature.md`, `story.md`, `spec.md`, `adr.md` — added `artifacts:` field to frontmatter with commented placeholder.
 
 ## Subagent consultations
 
