@@ -190,6 +190,35 @@ Skills applied (PO-side): `po-capabilities` (no new skill; consultation was Arch
 Artifacts: 10 ADR nodes.
 Next: Phase 2 — structural features.
 
+### 2026-05-14 — product-owner (Phases 2–5: features, stories, specs)
+
+Authored the full comprehensive coverage of features, stories, and specs across the graph per the approved plan.
+
+**Phase 2 (commit `441658e`) — 34 structural features.** Each describes one piece of the substrate (parent-pointer convention, Obsidian editor surface, slash commands, bibliography corpus, etc.) under caps 1, 2, 8, 9, 10, 11, 12, 13. Status mostly `implemented` (substrate exists); 3 features (`feature-030-readme`, `feature-031-public-hosting`, `feature-033-license-permits-forks`) status `ready-for-implementation` (pending goal-02 deliverables and license-text decision).
+
+**Phase 3 (commit `e28f33e`) — 37 role-skill wrapper features.** One thin wrapper per implemented skill (15 PO + 5 Architect + 5 QA + 5 Developer + 7 DevOps) under caps 3–7. Wrappers cite the wrapped SKILL.md and the anchoring authority; do NOT duplicate skill content per [[adr-009-skill-as-canonical-method]].
+
+**Phase 4 (commit `43d5f02`) — 78 INVEST-passing stories.** One or two per feature using Cohn template + Conditions of Satisfaction + INVEST self-check per GISF slides 124 / 125 / 128. Stories under planned features inherit `ready-for-implementation`; others `implemented`.
+
+**Phase 5 (commit `5e372da`) — 71 Gherkin specs.** One Cucumber-style spec per feature per the one-Feature-per-file rule. Each spec carries: stories-covered, human-form AC list, Gherkin block with Scenarios (3–5 steps), Source citation. Specs under planned features are `draft`; others `implemented`.
+
+**Phase 6 (this entry + final commit) — verification + session updates.** Ran end-to-end audit:
+
+- File count: **247 nodes** in `nodes/` (1 vision + 3 goals + 13 caps + 10 ADRs + 71 features + 78 stories + 71 specs).
+- Status distribution: 210 `implemented` + 20 `draft` + 10 `accepted` (ADRs) + 7 `ready-for-implementation`.
+- Parent-chain integrity: **0 broken edges**; every non-root node's `parent:` resolves to an existing file under `nodes/`.
+- Unique parent targets: 88 (matches expected: 1 vision + 3 goals + 13 caps + 71 features).
+- 5-role authorship status: PO authored 246 nodes; Architect authored 10 ADRs via Task subagent. G1's M-criterion *"all 5 implemented roles have authored or co-authored ≥ 1 node"* is **not yet satisfied** — QA, Developer, DevOps have not contributed. Their contribution is appropriate for a follow-up session (QA inspection pass, Developer code-review pass on features that exist as code, DevOps deployment ADR on the readme/hosting work).
+- Citation audit: spot-check of 10 random nodes finds every authoritative claim cites a primary source (Jones / Cagan via GISF / GISF / Cucumber / Patton / Cohn) or is explicitly flagged as out-of-bibliography.
+
+Commit history on `session/2026-05-14-sem-ia-self-bootstrap`: 11 commits, narrative-clean.
+
+**G1 self-bootstrap status:** 6 of 7 M-criteria satisfied. The remaining criterion (5-role co-authorship) is a follow-up session.
+
+Skills applied: `po-feature-decomposition` (Phases 2–4), `po-spec-gherkin` (Phase 5).
+Artifacts: 247 nodes total in `nodes/`. Architect-authored: 10 ADRs (logged in Subagent consultations).
+Next: human decides — close session with `/session-close` to author closing summary + merge decision, or defer closure to invite QA / Developer / DevOps in a follow-up session for the missing 5-role authorship.
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
@@ -211,6 +240,10 @@ Next: Phase 2 — structural features.
 - Created `nodes/cap-12-public-publication.md` — substrate accessibility for external readers. Parent G2.
 - Created `nodes/cap-13-portability.md` — substrate operates on projects other than SEM-IA. Parent G3.
 - Created `nodes/adr-001-sessions-as-git-branch.md` through `nodes/adr-010-human-directed-ai-maintained.md` — 10 Architect-authored ADRs covering the cross-cutting architectural decisions: sessions = branch, backbone hierarchy, citation mandate + flagging (merged), substrate/content separation, subagent dispatch ≠ authority transfer, super-PO fusion, Obsidian editor surface, markdown+YAML data format, skill = canonical method, human directs AI maintains.
+- Created `nodes/feature-001-*.md` through `nodes/feature-071-*.md` — 71 feature nodes covering structural pieces of the substrate (34) and role-skill wrappers (37).
+- Created `nodes/story-001-*.md` through `nodes/story-071-A-*.md` — 78 INVEST-passing user stories, one or two per feature.
+- Created `nodes/spec-001-*.md` through `nodes/spec-071-*.md` — 71 Gherkin specs, one per feature with story-to-AC traceability.
+- **Total `nodes/` content after all phases: 247 markdown files** (1 vision + 3 goals + 13 caps + 10 ADRs + 71 features + 78 stories + 71 specs).
 
 ## Subagent consultations
 
