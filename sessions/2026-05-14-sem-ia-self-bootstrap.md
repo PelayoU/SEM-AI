@@ -8,6 +8,19 @@ related-nodes:
   - "[[goal-01-self-bootstrap-validation]]"
   - "[[goal-02-tfm-public-artifact]]"
   - "[[goal-03-portability-proof]]"
+  - "[[cap-01-vision-to-code-audit]]"
+  - "[[cap-02-role-scoped-agents]]"
+  - "[[cap-03-apply-po-discipline]]"
+  - "[[cap-04-apply-architect-discipline]]"
+  - "[[cap-05-apply-qa-discipline]]"
+  - "[[cap-06-apply-developer-discipline]]"
+  - "[[cap-07-apply-devops-discipline]]"
+  - "[[cap-08-citation-discipline]]"
+  - "[[cap-09-session-continuity]]"
+  - "[[cap-10-subagent-consultation]]"
+  - "[[cap-11-adr-capture]]"
+  - "[[cap-12-public-publication]]"
+  - "[[cap-13-portability]]"
 ---
 
 # SEM-IA self-bootstrap — derive the framework's own graph
@@ -75,12 +88,80 @@ Skills applied: `po-vision` (audit pass), `po-goals` (audit pass).
 Artifacts: [[vision-sem-ia]] (3 edits), [[goal-01-self-bootstrap-validation]] (2 edits), [[goal-03-portability-proof]] (1 edit).
 Next: apply skill `po-capabilities` to derive capabilities under each goal.
 
+### 2026-05-14 — product-owner (capabilities first attempt — rolled back)
+
+Applied skill `po-capabilities` top-down, deriving 9 candidate capabilities from the 3 release-horizon goals. Each candidate passed the implementation-agnostic test, MVP Go/No-go via Cagan four risks, parent-goal anchoring, and non-overlap with siblings. Wrote 9 nodes (cap-01 to cap-09).
+
+Human review surfaced three problems before commit:
+
+1. **No subagent consultation** despite earlier explicit commitment to invoke Architect when a capability touches Architect-scope (cap-04 vault, cap-07 ADR, cap-09 substrate/content separation were all candidates).
+2. **Top-down framing assumed without offering the choice.** GISF slide 53 permits *"top-down + bottom-up loop"*; the human's instinct was bottom-up.
+3. **Coverage gap.** Of 37 existing skills in the substrate, ~25 do not map to any of the 9 capabilities (most Developer, QA, DevOps, and half the PO skills are orphans). The 9 capabilities cover **meta-capabilities** (how the framework operates) but miss **object-capabilities** (what the framework lets the user do *inside their project*).
+
+Decision: rollback all 9 cap nodes. Restart with bottom-up audit pass: enumerate substrate (37 skills + 5 agents + 8 templates + bibliography + CLAUDE.md + commands), group bottom-up into capability clusters, map each to its parent goal, identify cases that need additional goals (likely scenario: the framework has capabilities not demanded by the current 3 release-horizon goals, so either new goals are surfaced or the substrate is flagged as latent).
+
+Skills applied: `po-capabilities` (then rolled back).
+Artifacts created and deleted: cap-01 through cap-09.
+Next: bottom-up audit pass — first inventorise substrate, then cluster into capabilities, then map.
+
+### 2026-05-14 — product-owner (capabilities second attempt — bottom-up)
+
+Restarted `po-capabilities` with a bottom-up audit pass. **Phase A (inventory):** enumerated 81 substrate items (CLAUDE.md + 5 agents + 37 skills + 8 node templates + 2 meta-templates + 3 slash commands + 14 bibliography items + 1 role catalog + 1 settings.json + 1 LICENSE + 8 `.obsidian/` config files + 1 `_obsidian/bases/` placeholder). The human confirmed `.obsidian/` config IS part of the substrate (Obsidian is the recommended editor surface).
+
+**Phase B (cluster):** grouped features bottom-up by user-ability delivered. Surfaced **16 capability candidates** — 13 implemented + 3 planned-but-unimplemented. The bottom-up pass surfaced **5 capabilities the first top-down attempt missed**: one *"Apply audited X discipline"* per implemented role (PO, Architect, QA, Developer, DevOps). These are the **object-capabilities** that the previous attempt's pure-meta framing had occluded.
+
+**Phase C (map to goals):** distribution G1 = 9, G2 = 3, G3 = 1 for implemented capabilities. 0 of the 81 substrate items remained as orphans — every implemented feature falls under at least one capability.
+
+**Phase D (Architect consultation decision):** The PO decided **not** to invoke Architect at the capability level. Reasoning: (1) capability description is PO scope; (2) Architect-content (specific ADRs, structural decisions) is feature-level work, not capability-level; (3) cost of unnecessary consultation is contamination of strategic scope by technical framing. Architect consultation is flagged as appropriate when features are decomposed under cap-04 (Apply audited Architect discipline) and cap-11 (ADR capture), which will happen in a subsequent session.
+
+Capabilities written (13, all `mvp: go`):
+
+| ID | Title | Parent goal |
+|---|---|---|
+| cap-01 | Vision-to-code navigation and audit | G1 |
+| cap-02 | Role-scoped AI agents with explicit custody | G1 |
+| cap-03 | Apply audited Product / BA / PM discipline | G1 |
+| cap-04 | Apply audited Architect discipline | G1 |
+| cap-05 | Apply audited QA discipline | G1 |
+| cap-06 | Apply audited Developer discipline | G1 |
+| cap-07 | Apply audited DevOps discipline | G2 |
+| cap-08 | Primary-source citation discipline | G2 |
+| cap-09 | Work-thread continuity via sessions | G1 |
+| cap-10 | Cross-role consultation (not authority transfer) | G1 |
+| cap-11 | Architectural-decision capture (ADRs) | G1 |
+| cap-12 | Public publication of the substrate | G2 |
+| cap-13 | Portability to projects other than SEM-IA | G3 |
+
+Three planned capabilities **captured as deferred items** (improvement candidate #10 — not written as nodes in this session; belong to next-roadmap goals when goals exist that demand them):
+
+- **cap-14 (deferred)** — Filtered graph views via Obsidian Bases. `_obsidian/bases/` scaffolding exists; no `.base` files yet.
+- **cap-15 (deferred)** — Security role coverage (Tier-3 per sem-role-catalog.md). Security agent + skills not implemented.
+- **cap-16 (deferred)** — Designer role coverage (Tier-3 per sem-role-catalog.md). Designer agent + skills not implemented.
+
+Skills applied: `po-capabilities` (bottom-up).
+Artifacts: cap-01 through cap-13 (13 nodes).
+Next: `po-feature-decomposition` to decompose each capability into features and stories under INVEST + Patton Story Map. Architect consultation appropriate at feature level under cap-04 (Architect discipline) and cap-11 (ADR capture).
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
 - Created `nodes/goal-01-self-bootstrap-validation.md` — release-horizon goal targeting July 2026; the self-modelling test of the framework. **Edited** to add `adr` coverage and to reformulate the citation audit as outcome-only (QA-scope for method).
 - Created `nodes/goal-02-tfm-public-artifact.md` — release-horizon goal with hard deadline July 2026; academic defense + public release. (No audit edits required.)
 - Created `nodes/goal-03-portability-proof.md` — release-horizon goal targeting November 2026; second-project concierge test with defect-prevention evidence. **Edited** to map the comparative-report axes 1:1 to the vision's named costs (review burden, hallucination, scope drift, context loss, deployment-readiness), with metric design deferred to QA.
+- *(Capabilities first attempt: cap-01 through cap-09 written then rolled back — see Log entry above. Coverage gap and missing subagent consultations diagnosed; bottom-up audit pass followed.)*
+- Created `nodes/cap-01-vision-to-code-audit.md` — vision-to-code navigation surfaced through editor. Parent G1.
+- Created `nodes/cap-02-role-scoped-agents.md` — AI agents with bounded role custody. Parent G1.
+- Created `nodes/cap-03-apply-po-discipline.md` — audited Product / BA / PM discipline (15 PO skills as features). Parent G1.
+- Created `nodes/cap-04-apply-architect-discipline.md` — audited Architect discipline (5 Architect skills as features). Parent G1.
+- Created `nodes/cap-05-apply-qa-discipline.md` — audited QA discipline with independence imperative (5 QA skills as features). Parent G1.
+- Created `nodes/cap-06-apply-developer-discipline.md` — audited Developer discipline (5 Developer skills as features). Parent G1.
+- Created `nodes/cap-07-apply-devops-discipline.md` — audited DevOps discipline (7 DevOps skills as features). Parent G2.
+- Created `nodes/cap-08-citation-discipline.md` — primary-source citation across all authoritative claims. Parent G2.
+- Created `nodes/cap-09-session-continuity.md` — work-thread continuity via sessions. Parent G1.
+- Created `nodes/cap-10-subagent-consultation.md` — cross-role consultation without authority transfer. Parent G1.
+- Created `nodes/cap-11-adr-capture.md` — architectural decisions as cross-cutting durable artifacts. Parent G1.
+- Created `nodes/cap-12-public-publication.md` — substrate accessibility for external readers. Parent G2.
+- Created `nodes/cap-13-portability.md` — substrate operates on projects other than SEM-IA. Parent G3.
 
 ## Subagent consultations
 
