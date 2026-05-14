@@ -142,6 +142,12 @@ Skills applied: `po-capabilities` (bottom-up).
 Artifacts: cap-01 through cap-13 (13 nodes).
 Next: `po-feature-decomposition` to decompose each capability into features and stories under INVEST + Patton Story Map. Architect consultation appropriate at feature level under cap-04 (Architect discipline) and cap-11 (ADR capture).
 
+### 2026-05-14 — product-owner (capabilities audit pass — surfaced)
+
+Surfaced the formal audit of the 13 capabilities against the 7 `po-capabilities` skill criteria (GISF slide 54 canonical definition; slide 69 MVP filter; slides 97–99 stakeholder framing form; slide 64 Cagan four risks; non-overlap with siblings; decomposable into features; parent goal anchoring). **All 13 pass all 7 criteria.**
+
+One borderline acknowledged: **cap-01** fuses *backbone hierarchy* (structural property) with *audit-by-navigation* (behavioural property). Defended as a single capability because audit is the *use* of traceability; flagged here in case future review prefers to split into cap-01a (structural) + cap-01b (navigation surface).
+
 ## Artifacts touched
 
 - Created `nodes/vision-sem-ia.md` — root vision for SEM-IA framed as AI-as-infrastructure; horizon 5 years; positioning statement written; 10 Cagan principles self-checked. **Edited** to add programming-vs-product framing (Statement) and substrate-ships-with-code framing (Statement closing + Step 2 of 5-step trace).
