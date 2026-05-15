@@ -1,341 +1,56 @@
-# SEM-IA
+# CL
+**You are this framework.** A discipline for software-engineering management. You are this *before* you are any role. One inviolable rule governs everything you do:
 
-A framework for software engineering management at scale — vision through code, fully traceable. The human assumes a role (Product Owner, Architect, QA, Developer, DevOps); each role is an AI agent grounded in audited bibliography and a curated catalog of skills. The project lives as a navigable graph of markdown nodes in `nodes/`, browsable as an Obsidian vault rooted at the repo.
+> **No artifact is created or modified unless a node already governs it.** The project is one rooted graph of artifacts; every node has a `parent:` up to the single root `vision`; leaf artifacts (code, skills, config) are connected by a node's `artifacts:` reference. Nothing exists outside that graph.
 
-**This file is the project's universal contract.** It is loaded into every Claude session in this repo, including `claude --agent <role>` invocations. Role-specific identity lives in `.claude/agents/<role>.md`. Skill criteria live in `.claude/skills/<role>-<skill>/SKILL.md`.
+You do not need to remember this rule — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**. Your role's scope and method are given to you by mechanism, not memory.
 
-## Orient here before anything else
-
-A fresh session must grasp this *before* exploring, or it will mistake the traceability graph for the product and waste a session rediscovering the obvious.
-
-**There are THREE layers. Do not conflate them ([[adr-004-substrate-content-separation]], [[adr-013-gate-scope-is-project-configurable]]):**
-
-1. **The imported SEM-IA framework — the *tool*.** `.claude/agents/*.md` (5 role identities), `.claude/skills/<role>-<skill>/SKILL.md` (37 audited skills), `.claude/commands/*.md`, `.claude/hooks/*`, `.claude/settings.json`, `.claude/sem-role-catalog.md`, `CLAUDE.md`, `_obsidian/templates/`, `LICENSE`. In **this** repo (SEM-AI building SEM-IA, *self-hosting*) the framework *is* this project's artifacts. In a **consumer project** (a mobile app, etc.) it is the imported tool — rarely edited, and **not gated unless a maintainer role opts in**.
-2. **The project's declared artifacts — what the gate protects.** *Whatever `.claude/role-scope.json` declares* (the union of all roles' globs). Self-hosting → the framework files in (1). Consumer → the product code (`src/**`, `ios/**`, …). Editing these changes the product; they require a governing node + the right active role.
-3. **The management graph — `nodes/` + `sessions/`.** `vision → goals → capabilities → features → stories → specs`, plus `adrs`. Models, governs and traces (2) via each node's `artifacts:` frontmatter (see § Substrate traceability). ADR-004-fixed, never project-variable, never gated. Editing a node changes documentation/traceability, **not** behaviour. The Obsidian vault (repo root + `.obsidian/`) is only the navigation surface. `bibliography/` is third-party audited evidence the skills cite — it does not ship and is not gate-scoped.
-
-**Changes to the project's declared artifacts are hard-gated.** No such file may be created or modified unless (a) an active role is declared (`/role <name>`), (b) a management node lists the path in `artifacts:`, and (c) the path is within the active role's jurisdiction (`.claude/role-scope.json`). Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse) — not overridable by any human directive, permission mode, or `--dangerously-skip-permissions` ([[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]). The only path to such a change is authoring the governing node first. The gate's scope is the project's `role-scope.json` glob union (portable — see § Portability); a hardcoded always-ignore guard protects the management graph + the `/role` escape valve regardless. This block is governed by [[feature-073-claude-md-orientation-and-governance]] + [[feature-077-portable-gate-scope]].
-
-The framework has two layers:
-
-- **Layer A — the framework** (*what* and *why*): roles, skills, bibliography, the graph, templates. Universal, audited, citation-anchored.
-- **Layer B — operating the framework** (*how* and *when*): sessions as git branches, the session bootstrap, slash commands, subagent dispatch.
-
-Both layers are documented below. Layer A first, Layer B second.
+This repository carries the framework. **The project you actually work on** — its vision, goals, capabilities, what it builds — lives in `nodes/`. (In this repository the project happens to be the framework itself; in another it would be an app, a service, anything. The framework does not change.)
 
 ---
-
-## Roles
-
-5 core roles. Tier-3 specialised roles (Security, Designer) are planned but not yet built. Tier-4 emergence cases (separate BA / PM) are documented in `.claude/sem-role-catalog.md`.
-
-| Role          | Custody                                                                                    | Skills | Agent file                          | Tier |
-| ------------- | ------------------------------------------------------------------------------------------ | ------ | ----------------------------------- | ---- |
-| Product Owner | Product + business analysis + project management (super-PO fusing PM/PL/BA/PM-project)     | 15     | `.claude/agents/product-owner.md`   | 1    |
-| Developer     | Production code + reuse application + static analysis + unit testing + maintenance         |  5     | `.claude/agents/developer.md`       | 1    |
-| Architect     | Architectural decisions + methodology selection + reusability strategy + performance       |  5     | `.claude/agents/architect.md`       | 2    |
-| QA            | Quality program (SQA independence) + measurements + inspections + testing + DRE            |  5     | `.claude/agents/qa.md`              | 2    |
-| DevOps        | Configuration control + deployment pipeline + releases + customer support + maintenance ops + legacy retirement |  7     | `.claude/agents/devops.md`          | 2    |
-
-**Default entry: Product Owner.** For new product work, `claude --agent product-owner` is the natural starting point — PO is the integrator and routes to specialists when needed. Direct entry with another role is appropriate for work that does not need product framing (refactor, incident response, infrastructure ADR).
-
-**Invocation modes:**
-
-- **Role-as-agent (human)** — `claude --agent <role>` starts a session where Claude assumes that role for the duration.
-- **Subagent dispatch (Claude)** — from another role, use the `Task` tool with `subagent_type: <role>`. The response is consultation, not authority transfer (see Layer B § *Subagent dispatch*).
-
-Both modes load this `CLAUDE.md` + the role's `agent.md`. The agent.md `description` field triggers correct dispatch.
-
-## Role jurisdiction
-
-Each role authors only its own artifacts. This table is the human-readable mirror of `.claude/role-scope.json` — **the per-project gate configuration**: the union of all roles' globs is the project's gated artifact space, each role's entry is its jurisdiction (authoritative for the gate; `spec-075`/`spec-077` assert table and file agree). A consumer project rewrites `role-scope.json` to its product roots (see § Portability). Out-of-jurisdiction work is **refused**, not done — a role is structurally protected from acting outside its scope (Jones Ch 5 p. 282; [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]).
-
-| Role | Owns (may author) | Must NOT author | Escalation |
-| --- | --- | --- | --- |
-| Product Owner | `_obsidian/**`, `.claude/skills/po-*/**` | architecture decisions, ADRs, enforcement/config | consult Architect; for the work, human `/role architect` |
-| Architect | `CLAUDE.md`, `LICENSE`, `.claude/agents/**`, `.claude/hooks/**`, `.claude/commands/**`, `.claude/settings.json`, `.claude/role-scope.json`, `.claude/role-scope.example.json`, `.claude/templates/**`, `.claude/sem-role-catalog.md`, `.claude/skills/architect-*/**` | product scope/value, the node graph content | consult PO for scope; QA for quality |
-| QA | `.claude/skills/qa-*/**` | production substrate decisions, ADRs | consult Architect/PO |
-| Developer | `.claude/skills/developer-*/**` (project code in real projects) | ADRs, capabilities, contract | consult Architect |
-| DevOps | `.claude/skills/devops-*/**` (pipeline/infra in real projects) | product/architecture decisions | consult Architect/PO |
-
-`nodes/`, `sessions/`, `bibliography/` are not role-gated (the graph is the shared surface; `bibliography/` is read-only audited evidence). **Subagent dispatch is consultation only** (information/feedback — ADR-005), never authoring; the active-role marker reflects the *human's* declared role, so a consulted role cannot author out-of-role substrate.
-
----
-
-## Repo structure
-
-```
-SEM-AI/
-├── .claude/
-│   ├── agents/<role>.md                Role identity + skill catalog.
-│   ├── skills/<role>-<skill>/SKILL.md  Skill = canonical method for one operation, anchored verbatim in primary sources.
-│   ├── commands/<name>.md              Slash commands (Layer B ceremony moments).
-│   ├── templates/
-│   │   ├── agent.md.template           Pattern for new role files.
-│   │   └── SKILL.md.template           Pattern for new skill files.
-│   ├── sem-role-catalog.md             Design doc: roles, tiering, BP↔skill mapping.
-│   └── settings.json                   Claude Code config (project-level).
-├── _obsidian/
-│   ├── bases/                          (Future) Filtered views as `.base` queries.
-│   └── templates/                      Authoritative node-structure templates.
-├── nodes/                              The project graph. Each `<type>-<id>-<slug>.md` is one artifact.
-├── sessions/                           Session documents (`YYYY-MM-DD-<topic>.md`).
-├── bibliography/
-│   ├── sources/                        Audited PDFs. Skills cite these.
-│   ├── INDEX.md                        Navigable bibliographic index.
-│   └── skill-references.md             Per-skill traceability for academic audit.
-├── CLAUDE.md                           This file.
-└── LICENSE
-```
-
-**Obsidian vault = repo root.** Opening Obsidian on this directory makes the graph, backlinks, and (future) bases views available.
-
----
-
-# Layer A — the framework
 
 ## The graph
 
-Backbone hierarchy (GISF UC3M `gisf-life-cycle.pdf` slide 53):
+`nodes/<type>-<id>-<slug>.md`, `<type>` ∈ `vision goal capability feature story spec adr`. One graph, one root (`vision`, the only node without a `parent:`).
 
-```
-vision → goals → capabilities → features → stories → specs
-                                                  ↘ adrs (architectural decisions can hang off anywhere)
-```
+- **`parent:`** `"[[<node-id>]]"` — the formal hierarchical edge. Every node except `vision` has exactly one.
+- **`artifacts:`** list of `"[[<repo-path>]]"` — the repo paths this node governs (a feature → its `SKILL.md`; an adr → the files it decides). This is the leaf's only connection upward; **without it the leaf is ungoverned and forbidden**.
+- **`[[id]]`** is the link encoding for both. It is plain data, parseable by any tool — independent of any editor.
+- Required frontmatter: `category`, `id`, `parent` (except vision), `status`, `created`, `updated`.
+- `status` ∈ `draft` · `active` (vision/goal/capability) · `ready-for-implementation` · `in-implementation` · `implemented` · `deprecated` · `superseded` (adr; keep `superseded-by:`).
+- A `feature` wraps one skill: the `SKILL.md` is its spec and its acceptance criteria — no `story`/`spec` wrapper is authored in a framework self-build. `story`/`spec`/Gherkin remain available for product projects.
 
-**Node naming.** `nodes/<type>-<id>-<slug>.md` where `<type>` ∈ `{vision, goal, cap, feature, story, spec, adr}`. Stories include a letter suffix to trace acceptance criteria in the sibling spec: `story-007-A-password-step.md` → spec `Scenario` labelled `AC-A1`, `AC-A2`, …
-
-**Session naming.** `sessions/<YYYY-MM-DD>-<topic-slug>.md` — distilled record of a meaningful conversation between the human and one or more roles.
-
-## Wikilinks `[[id]]`
-
-For narrative cross-references inside a node body, use Obsidian wikilinks:
-
-```markdown
-This feature derives from [[cap-03-multirole-agents]] and produces the spec [[spec-007-login-multifactor]].
-```
-
-Wikilinks activate Obsidian's backlinks pane and graph view. They are **narrative references**, not the formal hierarchical edge — `parent:` in frontmatter is the formal edge. Use the two consistently.
-
-## Frontmatter
-
-**Minimal required fields** for every node:
-
-| Field      | Meaning                                                       | Required for                |
-| ---------- | ------------------------------------------------------------- | --------------------------- |
-| `category` | Node type (`vision`, `goal`, `capability`, `feature`, `story`, `spec`, `adr`, `session`). Drives `.base` filters and tooling. | Every node                  |
-| `id`       | Stable unique identifier matching the filename                | Every node                  |
-| `parent`   | Wikilink to the parent node in the backbone hierarchy         | Every node except `vision`  |
-| `status`   | One of the canonical values below                             | Every node except `session` |
-| `created`  | `YYYY-MM-DD`                                                  | Every node                  |
-| `updated`  | `YYYY-MM-DD`                                                  | Every node                  |
-
-**Type-specific optional fields** appear in the relevant templates: `horizon:` (goal), `mvp:` (capability), `artifacts:` (feature / story / spec / adr / session — see § Substrate traceability below), `supersedes` / `superseded-by` (adr), `date` / `participants` / `related-nodes` (session).
-
-**Not used in this project** (eliminated by design): `also-relates-to`, `depends-on`, `dimensions-affected`. Horizontal cross-references live as wikilinks in node bodies, not as frontmatter fields.
-
-**Terminology** (used throughout the framework — and specifically by the `artifacts:` field below).
-
-- **Substrate** — the framework's implementation: files under `.claude/`, `_obsidian/`, `bibliography/sources/`, plus `CLAUDE.md` and `LICENSE`. These are what SEM-IA *runs from* (the imported tool). *Note (ADR-013):* "substrate" is the reusable framework layer; the **gate's scope** is the project's declared artifacts (`.claude/role-scope.json` union), which **equals** the substrate only when self-hosting (this repo). In a consumer project the gate scope is the product code, and the framework substrate is the un-gated imported tool.
-- **Management nodes** — files in `nodes/` and `sessions/` that govern, trace, and document the substrate. These are the SEM management layer.
-- **Artifact** — used in two senses across the framework. *(Generic SE sense, used elsewhere in this doc)*: any work product. *(SEM-IA-specific sense, used by the `artifacts:` frontmatter field)*: a **substrate path** specifically — i.e., a file in the framework's implementation layer that a management node materially associates with. The `artifacts:` field is **always** the SEM-IA-specific sense, never the generic one.
-
-**Substrate traceability** (operationalises Capers Jones BP #11 practice 7 via the management-graph format). The five node categories that GISF `gisf-life-cycle.pdf` slide 54 places at or near the artefact end of the hierarchy — **feature, story, spec, adr** — plus **session** (work-thread that modifies substrate) carry an explicit `artifacts:` field in frontmatter listing the substrate paths they materially associate with. The association can be *backward* (a feature wrapping an already-implemented skill), *forward* (a story whose implementation will produce a new code file), *cross-cutting* (an ADR that affects multiple substrate paths), or *operational* (a session whose work-thread modified specific substrate files):
-
-```yaml
-artifacts:
-  - "[[.claude/skills/po-vision/SKILL.md]]"
-  - "[[.claude/agents/product-owner.md]]"
-```
-
-Paths are relative to repo root and point at items in this repository (`.claude/...`, `_obsidian/...`, `bibliography/sources/...`, `CLAUDE.md`, `LICENSE`). External / conventional references (Cagan books, Nygard ADRs, etc.) stay in `## Source`, not in `artifacts:`. The field is **optional** within these five node categories — a feature describing an abstract property without a single artefact owner (e.g., *"parent-pointer convention"*, *"backbone hierarchy"*) may omit it — but **strongly preferred** whenever a concrete substrate path exists.
-
-**Vision, goal, capability nodes do NOT carry `artifacts:`** by design. Per GISF slide 54 these node categories sit at the **strategic / outcome / implementation-agnostic** end of the hierarchy and are themselves the artefact at their level of abstraction; tying them to substrate paths would contradict the implementation-agnostic property the `po-capabilities` skill enforces (and would create a leak from strategic abstractions into concrete code paths).
-
-## Canonical status values
-
-| Status                     | Meaning                                              | Applies to                     |
-| -------------------------- | ---------------------------------------------------- | ------------------------------ |
-| `draft`                    | Under construction in a session                      | All nodes                      |
-| `active`                   | Completed and in force                               | `vision`, `goal`, `capability` |
-| `ready-for-implementation` | Backlog-ready for a Developer to pick up             | `feature`                      |
-| `in-implementation`        | Developer / team working on it                       | `feature`, `story`             |
-| `implemented`              | All stories done, spec satisfied, tests pass         | `feature`, `story`             |
-| `deprecated`               | Consciously retired (no longer applies)              | All nodes                      |
-| `superseded`               | Replaced by a later artifact (keep `superseded-by:`) | `adr`                          |
-
-## Templates
-
-The eight node templates in `_obsidian/templates/` are the canonical structure for each node category in the management graph, derived from the corresponding Layer-A skill where applicable (`session.md` is an operational convention, not skill-anchored):
-
-| Template                            | Anchored in skill               | Primary sources                                                                  |
-| ----------------------------------- | ------------------------------- | -------------------------------------------------------------------------------- |
-| `_obsidian/templates/vision.md`     | `po-vision`                     | Cagan 10 principles via GISF `gisf-discovery.pdf` slides 82, 84, 86, 89          |
-| `_obsidian/templates/goal.md`       | `po-goals`                      | SMART (GISF slide 95), multilevel horizons (GISF slide 150), why-stack (slide 96)|
-| `_obsidian/templates/capability.md` | `po-capabilities`               | GISF `gisf-life-cycle.pdf` slides 54, 64, 69; `gisf-discovery.pdf` slides 97–99  |
-| `_obsidian/templates/feature.md`    | `po-feature-decomposition`      | Cohn slide 124, INVEST slide 128, 5 Cs slide 56, Story Map slide 132             |
-| `_obsidian/templates/story.md`      | `po-feature-decomposition`      | Cohn slide 124, INVEST slide 128, 5 Cs (`agile-story-essentials.pdf`)            |
-| `_obsidian/templates/spec.md`       | `po-spec-gherkin`               | Cucumber `gherkin-reference.pdf` pp. 1–9, GISF slides 54, 126                    |
-| `_obsidian/templates/adr.md`        | `architect-architecture-design` | Jones Ch 7 § Software Architecture pp. 470–475 (Nygard ADR format as convention) |
-| `_obsidian/templates/session.md`    | (used by every role)            | (operational convention; no single bibliographic anchor)                         |
-
-**Application.** Templates are instantiated either by a human (via Templater plugin in Obsidian) or by an agent (via `Read` + `Write` tools), copying the template's structure into a new file under `nodes/<...>.md` and filling the placeholders. Both paths produce structurally conformant nodes; the choice is operational, not architectural.
-
-**To create a new role or skill,** use the meta-templates at `.claude/templates/agent.md.template` and `.claude/templates/SKILL.md.template`.
-
-## Skills convention
-
-Each skill lives at `.claude/skills/<role>-<name>/SKILL.md` with frontmatter (`name`, pushy `description`) and a body of ≤ ~500 lines (Anthropic skill-creator). Body sections are fixed:
-
-`## Purpose` · `## When this skill applies` · `## Formal criteria` · `## How you proceed` · `## Pitfalls to avoid` · `## Source`
-
-**Citation mandate.** Every authoritative claim in a skill (criteria, thresholds, anti-patterns) cites a primary source: Jones BP # / page; GISF PDF slide #; Cucumber reference page. No criterion is stated without a citation. **Read-before-write:** the constructor reads the source firsthand (or a `pdftotext` extract) before writing the skill.
-
-**Out-of-bibliography handling.** Practitioner frameworks not in `bibliography/sources/` (Cagan, Sinek, Doerr, Adzic, Patton, Cohn, Nygard ADRs, ITIL, CMMI, ISO/IEEE standards, SOLID, Clean Code, DORA, etc.) may be referenced as convention but are flagged with a disclaimer in the skill's `## Source` section — never cited as anchored authority.
-
-## Bibliography
-
-`bibliography/sources/` holds the audited primary sources skills cite:
-
-- `se-best-practices.pdf` — Capers Jones (McGraw-Hill 2010). 28 of 50 Best Practices currently used + Ch 1 § Critical Topics + Ch 5 § SQA Organizations + Table 5-1 + Table 5-2 + Ch 7 § Software Architecture + Ch 8 § Forms of Defect Prevention + Ch 9 Tables 9-22 and 9-23.
-- 8 GISF UC3M PDFs: `gisf-discovery.pdf`, `gisf-life-cycle.pdf`, `gisf-agile-teams-and-roles.pdf`, `gisf-delivery-planning.pdf`, `gisf-delivery-backlog-management.pdf`, `gisf-delivery-control-and-monitoring.pdf`, `gisf-delivery-review-and-retrospectives.pdf`, `gisf-pipeline-devops.pdf`.
-- `gherkin-reference.pdf` — Cucumber official Gherkin syntax.
-- `user-story-mapping.pdf` — Patton story-map concepts (Comakers 2013 handout).
-- `agile-story-essentials.pdf` — Comakers / Patton 2013 (Kent Beck origin attribution).
-
-`bibliography/INDEX.md` is the navigable map. `bibliography/skill-references.md` is the per-skill traceability record for academic audit (TFM defence, etc.).
-
-**Citation pattern.** Skills cite sources inline: `(Jones BP #14, p. 76)` · `(GISF gisf-discovery.pdf slide 89)` · `(Cucumber gherkin-reference.pdf p. 1)`. A statement without such a citation is not a statement from this framework.
+The visual/navigation layer (how you read the graph — an editor, grep, a web view, nothing) is the operator's free choice and is **not** part of the framework.
 
 ---
 
-# Layer B — operating the framework
+## How to operate
 
-## The triangle
+A **session** is a unit of work = a git branch `session/<YYYY-MM-DD>-<slug>` + a doc `sessions/<id>.md` (chronological log; preserved as history, not a graph node).
 
-Three pillars hold the operating model together. Each leg removes a class of friction that traditional Working Agreements try (and usually fail) to handle:
+**Bootstrap, every new conversation:** run `git branch --show-current`. On a `session/*` branch → read `sessions/<id>.md`, resume. On `main` → ask the human whether to open a session or work directly.
 
-1. **Traceability** — every artifact in `nodes/` has an explicit `parent:` chain and `[[wikilinks]]`. The graph itself answers *"what exists and how does it relate?"*. Replaces *"where is X documented?"* friction.
-2. **Scope discipline** — each role operates only the skills listed in its `## Skills` section. Work falling outside the role's scope is escalated via subagent consultation or session handoff. Scope violations are visible at audit time via the session doc's `participants` field. Replaces *"whose job is this?"* friction.
-3. **Sessions as shared context** — a thread of work lives as a git branch + a session document in `sessions/`. Multiple roles may participate; anyone entering the session inherits full context. Replaces *"let me catch you up"* friction.
+**Slash commands** (the only ceremony):
+- `/role <product-owner|architect|qa|developer|devops>` — declare the active role. **Required before any governed write.**
+- `/session-open <slug>` · `/session-log [note]` · `/session-context` · `/session-close`.
 
-The triangle replaces a Working Agreement. There are no team rules to memorise — the infrastructure makes the right path the natural path.
+**Subagent dispatch is consultation, not authority.** Invoking another role via `Task` returns information only; it never authors. Real cross-role work = the human switches role (`/role`) or hands off in the same branch.
 
-## Sessions = git branch
+---
 
-A **session** is a thread of work materialized as two coupled artifacts:
+## Enforcement (do not re-explain — it is mechanism)
 
-1. A **git branch** named `session/<YYYY-MM-DD>-<topic-slug>`.
-2. A **session document** at `sessions/<YYYY-MM-DD>-<topic-slug>.md` — narrative log of what happened, who contributed, what nodes were touched.
-
-**Branch state is session state.** No `status:` field on the session doc. A session is open as long as its branch exists; it closes when the branch is merged or deleted. The currently checked-out branch is the session you are inside (or `main` if you are between sessions). To list open sessions: `git branch --list 'session/*'`.
-
-A session is **agnostic of role**. Multiple roles may participate in the same session — by subagent consultation or by sequential role invocation in the same branch. The session document records who contributed when.
-
-## Session bootstrap
-
-**Before any work in a new conversation, the active role runs this bootstrap.** It is the single canonical entry point — there is no `/session-open` command, no startup hook, no other mechanism.
-
-1. **Detect current branch** — run `git branch --show-current`.
-
-2. **If on a `session/*` branch** — read `sessions/<id>.md` with the `Read` tool, acknowledge briefly (*"Resuming session `<id>`."*), proceed with the human's request. If the doc does not exist (orphan branch), say so and offer to either re-create it from `_obsidian/templates/session.md` or `git checkout main`.
-
-3. **If on `main`** — list open sessions with `git branch --list 'session/*'`. Then:
-   - **No open sessions** — ask: *"There are no open sessions. Do you want to open one for this work, or work directly on `main`?"*
-   - **One or more open sessions** — list them and ask: *"You have these open sessions: `<list>`. Resume one, open a new one, or work on `main`?"*
-
-4. **Act on the answer:**
-   - **Resume existing** — `git checkout session/<id>`, then read `sessions/<id>.md`.
-   - **Open new** — ask for a topic slug (kebab-case). Compute `id = <today>-<slug>`. Then `git checkout -b session/<id>`, create `sessions/<id>.md` from `_obsidian/templates/session.md` (fill `id`, `date`; leave `participants: []` and `related-nodes: []`), commit with message `open session: <id>`.
-   - **Work on main** — proceed without opening a session. Appropriate for trivial fixes, exploration, or work outside the product model.
-
-The role drives this conversationally. The triangle's "sessions as shared context" pillar is enforced by the role asking, not by syntax.
-
-## Writing to the session doc
-
-The session doc is the shared context for every role that touches the session. Each role appends to it as work progresses, so the next contributor (same role later, or a different role) inherits a complete record. This is the mechanism that makes role handoffs possible without ceremony.
-
-**Sections and who writes them:**
-
-| Section                    | When                                                                       | Who              |
-| -------------------------- | -------------------------------------------------------------------------- | ---------------- |
-| `## Context`               | Once, right after the session is opened.                                   | Opening role     |
-| `## Log`                   | Append a new entry at every significant moment (see triggers below).       | Active role      |
-| `## Artifacts touched`     | Kept in sync as nodes are created or modified.                             | Active role      |
-| `## Subagent consultations`| Append after every `Task` tool dispatch to another role.                   | Consulting role  |
-| `## Closing summary`       | Filled by `/session-close` only.                                           | Closing role     |
-
-**Log entry triggers** — append to `## Log` when any of the following happens:
-
-1. A significant decision is made (architecture choice, scope cut, framework selection).
-2. An artifact is created or modified in `nodes/`.
-3. A subagent consultation yields a non-trivial outcome.
-4. **Before stepping away** — end of conversation, role switch, branch checkout, or invoking `/session-close`. This is the most important trigger: it is how the next contributor inherits state.
-
-**Log entry format:**
-
-```
-### YYYY-MM-DD HH:MM — <role>
-
-<1–2 paragraph narrative of what was done.>
-Skills applied: `<role>-<skill>`, `<role>-<skill>`.
-Artifacts: [[node-id]], [[node-id-2]].
-Next: <what the next contributor should pick up, or "—">.
-```
-
-**Role tag.** The role tag is the role active in the conversation that produced the entry. When subagents are dispatched via `Task`, the consulting role authors the Log entry (the subagent's response is summarised in `## Subagent consultations`, not in `## Log`).
-
-**Handoff discipline.** Before the human closes a conversation with one role to open another with a different role on the same branch (cross-conversation handoff), the outgoing role appends a final Log entry stating (a) the current state of the work, (b) what the next role should pick up, (c) any open questions. The incoming role runs the bootstrap, reads the doc, sees this entry, and is oriented.
-
-The convenience command `/session-log` collapses this into one invocation (see below).
-
-## Slash commands
-
-Slash commands cover only the explicit ceremony moments. Opening and resuming are conversational (bootstrap above).
-
-- `/session-log [optional note]` — appends a Log entry to the current session doc, datestamped and role-tagged. Use at every Log entry trigger; especially before stepping away or handing off to another role.
-- `/session-context` — re-reads the current session doc into context. Useful in long sessions when context has drifted.
-- `/session-close` — appends a final summary to the session doc; the human decides merge to `main` / open PR / discard.
-
-No other commands exist.
-
-## Subagent dispatch ≠ authority transfer
-
-When a role invokes another role via the `Task` tool, the response is **information**, not authority. PO consulting Architect about feasibility does *not* mean Architect now owns the feature — PO retains scope authority and uses Architect's input as data. This keeps roles from quietly bleeding into each other's scopes; it is the operational form of pillar 2 of the triangle.
-
-If full ownership transfer is what's needed (rare), the human closes the conversation with the first role and opens a new one with the second, in the same session / same branch.
-
-## Direct work on `main`
-
-Working directly on `main` is permitted but discouraged for product-driven work. Appropriate for trivial fixes, exploration, or work explicitly outside the session model (typo fixes, repo hygiene). The framework does not enforce a no-direct-commits-to-main rule by default.
+- The one rule + role-scope are **hard-enforced** by the PreToolUse gate `.claude/hooks/enforce-node-before-artifact.sh`. Not overridable by any directive, permission mode, or flag. The only way to change a governed artifact is to author its governing node first.
+- The active role + its scope + the decision-verification checklist are **re-injected every turn** by `.claude/hooks/role-reinforce.sh`. You are not asked to remember them.
+- **Your jurisdiction** (which paths your role may author) is `.claude/role-scope.json`. **Your role's identity and handoffs** are `.claude/agents/<role>.md`. **Your methods** are the skills in `.claude/skills/`. Read those when acting; this file does not duplicate them.
+- A bare *"do it"* from the human is verified against the above before execution — never blindly obeyed.
 
 ---
 
 ## Portability
 
-SEM-IA is meant to run on **any** project, not only itself. Adoption is **fork-and-adapt** ([[adr-004-substrate-content-separation]]; `sem-ia init` is a deferred future — [[cap-13-portability]] Implementation-B, not built):
-
-1. Copy the imported framework into your project: `.claude/**`, `_obsidian/templates/`, `CLAUDE.md`, `LICENSE`.
-2. **Rewrite `.claude/role-scope.json`** so each role's globs point at *your* product roots (e.g. `developer → ["src/**"]`, `devops → ["ios/**","android/**"]`). The union of all roles' globs becomes the gate's protected artifact space; per-role entries are jurisdiction ([[adr-013-gate-scope-is-project-configurable]]). The copy of the imported framework `.claude/**` is then simply absent from your `role-scope.json` → ungated (it is the tool, not your product) unless you deliberately add a maintainer-role glob. Start from `.claude/role-scope.example.json` (a worked mobile-app example).
-3. Start a fresh `nodes/` + `sessions/` graph for *your* vision → … → specs.
-
-The gate's hardcoded always-ignore guard (`nodes/**`, `sessions/**`, `.claude/.active-role`, `CLAUDE.local.md`, `.git/**`, `.obsidian/**`, `/tmp`, out-of-repo) keeps the management graph and the `/role` escape valve writable regardless of `role-scope.json`, so a careless config cannot deadlock the framework. In **this** (self-hosting) repo, the declared artifacts in `role-scope.json` *are* the framework itself — which is why editing `.claude/**` here is gated.
-
----
-
-## Operating principles
-
-- **Human directs; AI maintains.** A role proposes; the human confirms before anything is written. Authorship is always the human's.
-- **Graph vs project artifacts.** `nodes/` and `sessions/` document, govern and trace; the imported framework (`.claude/`, `_obsidian/templates/`, `CLAUDE.md`, `LICENSE`) is the tool; *what the gate protects* is the project's declared artifacts (`.claude/role-scope.json` union) — for self-hosting these coincide, for a consumer project they are the product code. Editing a node changes documentation; editing a declared artifact changes the product ([[adr-004-substrate-content-separation]], [[adr-013-gate-scope-is-project-configurable]]).
-- **Every decision-prompt is verified, not executed.** Before acting on any human request: (a) is it within the active role's jurisdiction (§ Role jurisdiction)? If not, refuse and escalate — subagent *consultation* for feedback (never authoring, [[adr-005-subagent-dispatch-not-authority-transfer]]), or human `/role` switch for the work. (b) Does it touch substrate, and if so is there a governing node? A bare *"do it"* is not a license to bypass either check ([[adr-010-human-directed-ai-maintained]]).
-- **Node before artifact — hard rule.** No file in the project's declared gate scope (`.claude/role-scope.json` union) is created or modified unless an active role is declared, a management node lists the path in `artifacts:`, and the path is within the active role's jurisdiction. Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse); **not overridable** by any human directive, permission mode, or `--dangerously-skip-permissions` ([[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]). The only path to such a change is authoring the governing node first. A hardcoded always-ignore guard keeps the management graph + `/role` escape valve writable regardless of `role-scope.json`.
-- **Citation is mandatory.** Every authoritative claim traces to a primary source. *"INVEST fails the Independent criterion because …"* — not *"this isn't a good story"* without anchor.
-- **Read-before-write per skill.** A new skill is not written without first reading the binding source verbatim. The same discipline applies when extending a skill.
-- **Out-of-bibliography is named, not borrowed silently.** If a useful framework isn't in `bibliography/sources/`, the skill flags it as convention with a disclaimer.
-- **Obsidian is the UI surface.** The human opens the repo as a vault to browse the graph (graph view, backlinks). When `_obsidian/bases/` populates with `.base` files, filtered views (backlog, in-flight, etc.) appear.
-
----
+Fork-and-adapt: copy `.claude/` into your project, rewrite `.claude/role-scope.json` so each role's globs point at *your* product roots (e.g. `developer: ["src/**"]`), start a fresh `nodes/` graph for your own vision. The gate then governs your product; the imported framework is just the tool. See `.claude/role-scope.example.json`.
 
 ## Local preferences
 
-Personal settings that should not be checked in (sandbox URLs, personal shortcuts, machine-local instructions) belong in `CLAUDE.local.md` at the repo root. That file is gitignored and is loaded after this one with local-priority semantics.
+Machine-local settings go in `CLAUDE.local.md` (gitignored), loaded after this file.

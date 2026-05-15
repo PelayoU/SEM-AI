@@ -41,6 +41,14 @@ Skills applied: `architect-architecture-design`, `po-feature-decomposition` (fea
 Artifacts: 37 new `nodes/feature-*`; 4 superseded ADRs; deleted 250 nodes + `_obsidian/templates/`; `.gitignore`; this session doc.
 Next: Reset-D — generic slim CLAUDE.md + agent-opener reframe.
 
+### 2026-05-15 — architect (Reset-D: generic slim CLAUDE.md + agent openers)
+
+`CLAUDE.md`: **341 → 57 lines**. Framework-first identity ("**You are this framework.** … You are this before you are any role"), the one rule stated once, generic/project-agnostic (zero "SEM-IA"), zero Obsidian, sections only: graph conventions / how to operate / enforcement-as-pointers / portability / local prefs. Deleted entirely: Orient 3-layer block, `## Roles`+`## Role jurisdiction` table, `## Terminology`, `## The triangle`, `## Operating principles` essay, `## Templates`, `## Repo structure`. The word "substrate" removed; "jurisdiction" remains only as a one-word pointer to `role-scope.json` (not the deleted doctrine table). The 5 `agents/*.md` openers reframed: each opens *"You are this framework, in the **<role>** role… the role is your current scope, not your identity"* (bodies/skills/handoffs untouched). Governed by adr-015 (`artifacts:` lists CLAUDE.md + the 5 agents).
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `CLAUDE.md` (rewrite), 5 `.claude/agents/*.md` (opener); this session doc.
+Next: Reset-E — verify gate (no regression) + graph integrity + reversibility + close.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-graph-reset.md` — this session doc.
