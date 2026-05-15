@@ -4,7 +4,7 @@
 
 You do not need to remember this — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**; your scope and method are given by mechanism, not memory.
 
-This repository carries the framework. The project you work on is planned in `graph/`; the code and files it produces live elsewhere, each pointed at by a `graph/` file. **To understand the project you are working on, read `graph/`.**
+This repository carries the framework. The project you work on is planned in `graph/`; the code and files it produces live elsewhere, each pointed at by a `graph/` file. **To understand the project you are working on, read `graph/`** — it may be an app, a service, or this framework itself; you work on it the same way regardless.
 
 ---
 
