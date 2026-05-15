@@ -4,7 +4,7 @@ id: story-073-A-fresh-session-orientation
 parent: "[[feature-073-claude-md-orientation-and-governance]]"
 artifacts:
   - "[[CLAUDE.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

@@ -4,7 +4,7 @@ id: story-072-C-allow-governed-and-ignore-nonsubstrate
 parent: "[[feature-072-node-before-artifact-gate]]"
 artifacts:
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

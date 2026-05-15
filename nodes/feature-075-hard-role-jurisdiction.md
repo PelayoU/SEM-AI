@@ -7,7 +7,7 @@ artifacts:
   - "[[.claude/role-scope.json]]"
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
   - "[[CLAUDE.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

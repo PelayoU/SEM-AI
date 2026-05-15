@@ -5,7 +5,7 @@ parent: "[[feature-075-hard-role-jurisdiction]]"
 artifacts:
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
   - "[[.claude/role-scope.json]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

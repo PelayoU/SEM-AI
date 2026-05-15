@@ -4,7 +4,7 @@ id: story-075-A-declare-active-role
 parent: "[[feature-075-hard-role-jurisdiction]]"
 artifacts:
   - "[[.claude/commands/role.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

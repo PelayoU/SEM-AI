@@ -5,7 +5,7 @@ parent: "[[feature-076-per-turn-role-reinforcement]]"
 artifacts:
   - "[[.claude/hooks/role-reinforce.sh]]"
   - "[[.claude/settings.json]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---
@@ -48,7 +48,7 @@ Feature: Per-turn role reinforcement
 
 ## Notes
 
-Realized-AC verbatim filled during Phase E (test 13).
+**Realized (Phase E, 2026-05-15):** AC-A1 ✅ with `.active-role` set, injection contains role + jurisdiction + the verification checklist; never blocks. AC-B1 ✅ with no marker, injection is the run-`/role` message; never blocks.
 
 ## Source
 

@@ -4,7 +4,7 @@ id: story-076-A-active-role-injected-each-turn
 parent: "[[feature-076-per-turn-role-reinforcement]]"
 artifacts:
   - "[[.claude/hooks/role-reinforce.sh]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

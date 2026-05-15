@@ -5,7 +5,7 @@ parent: "[[cap-02-role-scoped-agents]]"
 artifacts:
   - "[[.claude/hooks/role-reinforce.sh]]"
   - "[[.claude/settings.json]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

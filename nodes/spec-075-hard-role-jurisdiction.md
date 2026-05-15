@@ -7,7 +7,7 @@ artifacts:
   - "[[.claude/role-scope.json]]"
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
   - "[[CLAUDE.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---
@@ -67,7 +67,7 @@ Feature: Hard role-jurisdiction via mandatory active-role marker
 
 ## Notes
 
-Realized-AC verbatim filled during Phase E (tests 3,4,5,8,11).
+**Realized (Phase E, 2026-05-15):** AC-A1 ✅ `/role` ceremony writes the marker; invalid name rejected. AC-B1 ✅ no marker → all substrate writes denied. AC-C1 ✅ developer→CLAUDE.md denied (role-scope). AC-D1 ✅ architect→architect-scoped governed path allowed. AC-D2 ✅ role-scope.json keys ↔ CLAUDE.md jurisdiction table both cover all 5 roles, consistent.
 
 ## Source
 

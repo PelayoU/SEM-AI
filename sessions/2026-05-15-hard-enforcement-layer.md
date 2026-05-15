@@ -48,17 +48,40 @@ Skills applied: `po-feature-decomposition`, `po-spec-gherkin`, `architect-archit
 Artifacts: 26 nodes under `nodes/` (feature/story/spec-072..076, adr-011, adr-012); this session doc.
 Next: Phase D — implement substrate in deadlock-safe order, each path already governed by these nodes.
 
+### 2026-05-15 — architect (Phase D: substrate)
+
+Implemented substrate in deadlock-safe order: `.claude/.active-role`=architect (gate-ignored) → `.claude/role-scope.json` (role→path map; architect owns governance/structural substrate, PO owns templates+po-skills, each role owns its own skills, bibliography ungated) → `.claude/commands/role.md` (`/role` ceremony) → `.claude/hooks/enforce-node-before-artifact.sh` + `.claude/hooks/role-reinforce.sh` (chmod +x) → wired `.claude/settings.json` PreToolUse(`Write|Edit|MultiEdit|NotebookEdit|Bash`)+UserPromptSubmit → `CLAUDE.md` §5 (Orient block re-applied **node-traced** under feature-073, Role-jurisdiction table mirroring role-scope.json, graph-vs-substrate + decision-verification + node-before-artifact-hard operating principles) → 5 agents §6 (decision-verification + scope-refusal Workflow step). 10 pre-activation hook probes passed before wiring. **Harness note (honest):** Claude Code loads hook config at session start, so the gate enforces from the **next** session; this session's edits were governed + architect-in-scope anyway (no contradiction). Authoritative verification is direct hook invocation (Phase E), which exercises the exact code path Claude Code will call.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `.claude/{.active-role,role-scope.json,commands/role.md,hooks/enforce-node-before-artifact.sh,hooks/role-reinforce.sh,settings.json}`, `CLAUDE.md`, 5 `.claude/agents/*.md`.
+Next: Phase E — full verification matrix.
+
+### 2026-05-15 — qa + architect (Phase E: verification)
+
+Ran the 13-scenario matrix by direct hook invocation (deterministic; QA consulted for scenario design — see Subagent consultations). All pass:
+
+1. Ungoverned substrate Write → **deny** (node-before-artifact). 2. Bash `>`/`>>`/`sed -i`/`cp`/`mv`/`tee` into ungoverned substrate → **deny** (all). 3. No `.claude/.active-role` → **deny** (mandatory marker). 4. Wrong role (developer→CLAUDE.md) → **deny** (role-scope). 5. Governed + correct role (architect→`.claude/agents/architect.md`, →CLAUDE.md) → **allow** silent. 6. The actual §5 CLAUDE.md edits executed this session = live positive proof. 7. `nodes/` write → **allow** (gate-ignored). 8. `.claude/.active-role` (Write + Bash) → **allow** (gate-ignored — bootstrap-safe escape valve). 9. Override-hardness: hook has **no** permission-mode/skip code path; deny is unconditional, and Claude Code applies a PreToolUse `deny` over bypass / `--dangerously-skip-permissions` (confirmed in design exploration). 10. Subagent: same `PreToolUse` fires for `Task` subagents (Claude Code behaviour) — design-confirmed. 11. `role-scope.json` keys ↔ CLAUDE.md jurisdiction table: both cover all 5 roles, consistent. 12. Performance: ~0.03 s per invocation (5 runs), well under the 250 ms budget. 13. Reinforcement hook: injects role+jurisdiction+checklist with a role set; injects the run-`/role` message with no role; never blocks.
+
+Result: node-before-artifact + hard role-jurisdiction + per-turn reinforcement all enforced; the originating failure (ungoverned `CLAUDE.md` edit on a bare "do it") is now structurally impossible from the next session. 24 feature/story/spec nodes bumped `draft`→`implemented`; adr-011/012 left `proposed` for human acceptance at close.
+
+Skills applied: `qa-testing-strategy` (scenario design, consulted), `architect-architecture-design`.
+Artifacts: spec-072/075/076 (realized-AC note); 24 node status bumps; this session doc.
+Next: Phase F — `/session-close`.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-hard-enforcement-layer.md` — this session doc.
 - Reverted `CLAUDE.md` — discarded the out-of-process 15-line "Orient here" block (no governing node); content re-applied node-traced in Phase D.
 - Created 26 nodes — `feature-072..076`, their `story-*` (14) and `spec-072..076`, `adr-011`, `adr-012` — the governing graph for the hard-enforcement substrate.
+- Created substrate — `.claude/.active-role`, `.claude/role-scope.json`, `.claude/commands/role.md`, `.claude/hooks/enforce-node-before-artifact.sh`, `.claude/hooks/role-reinforce.sh`.
+- Edited substrate — `.claude/settings.json` (+PreToolUse +UserPromptSubmit), `CLAUDE.md` (§5 governance), 5 `.claude/agents/*.md` (§6 Workflow step).
+- Edited nodes — 24 feature/story/spec status `draft`→`implemented`; spec-072/075/076 realized-AC notes.
 
 ## Subagent consultations
 
 > When a role invokes another role via the `Task` tool, log the consultation here (optional but helpful for audit). The consulting role retains scope authority; the consulted role provides information only.
 
-- (none yet)
+- `architect` → `qa` — Question: design the Phase-E verification matrix (deny/allow boundary cases, override-hardness, performance). Response summary: 13-scenario matrix (ungoverned/no-role/wrong-role denies; governed/node/marker allows; override-hardness; subagent; consistency; perf; reinforcement). Consultation only — Architect retained scope authority and authored the substrate; QA did not author.
 
 ## Closing summary
 

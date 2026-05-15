@@ -8,7 +8,7 @@ artifacts:
   - "[[.claude/agents/qa.md]]"
   - "[[.claude/agents/developer.md]]"
   - "[[.claude/agents/devops.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

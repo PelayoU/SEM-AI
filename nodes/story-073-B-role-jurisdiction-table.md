@@ -4,7 +4,7 @@ id: story-073-B-role-jurisdiction-table
 parent: "[[feature-073-claude-md-orientation-and-governance]]"
 artifacts:
   - "[[CLAUDE.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

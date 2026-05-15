@@ -5,7 +5,7 @@ parent: "[[feature-072-node-before-artifact-gate]]"
 artifacts:
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
   - "[[.claude/settings.json]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---
@@ -69,7 +69,7 @@ Feature: Node-before-artifact hard gate
 
 ## Notes
 
-Realized-AC verbatim results filled during Phase E. Performance figure recorded here.
+**Realized (Phase E, 2026-05-15, direct hook invocation):** AC-A1 ✅ ungoverned Write denied. AC-B1 ✅ Bash `>`/`sed -i`/`cp`/`mv`/`tee` into ungoverned substrate denied. AC-B2 ✅ deny is unconditional (no permission-mode code path in the hook; Claude Code applies PreToolUse `deny` over bypass). AC-C1 ✅ governed path allowed silently. AC-C2 ✅ `nodes/` allowed. AC-C3 ✅ `/tmp` allowed. Performance: ~0.03 s/invocation (5 runs). Harness note: gate enforces from the next session (Claude Code loads hooks at session start); logic verified deterministically by direct invocation.
 
 ## Source
 
