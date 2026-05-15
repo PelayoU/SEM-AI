@@ -2,7 +2,7 @@
 category: session
 id: 2026-05-15-hard-enforcement-layer
 date: 2026-05-15
-participants: [architect, product-owner]
+participants: [architect, product-owner, qa]
 related-nodes:
   - "[[feature-072-node-before-artifact-gate]]"
   - "[[feature-073-claude-md-orientation-and-governance]]"
@@ -68,6 +68,14 @@ Skills applied: `qa-testing-strategy` (scenario design, consulted), `architect-a
 Artifacts: spec-072/075/076 (realized-AC note); 24 node status bumps; this session doc.
 Next: Phase F — `/session-close`.
 
+### 2026-05-15 — architect (Phase F: session-close)
+
+Invoked `/session-close`. Participants compiled: architect (enforcement design + substrate + ADRs), product-owner (feature/story/spec nodes), qa (Phase-E scenario design, consulted — non-authoring). The flow the session demonstrates, end to end: **session opened → out-of-process edit reverted (the originating violation, undone first) → 26 governing nodes authored before any substrate → 2 ADRs → substrate implemented in deadlock-safe order, each path pre-governed → 13/13 verification → close.** node-before-artifact was applied to the implementation of node-before-artifact itself. Closing summary filled; committing; merge decision deferred to the human.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: this session doc.
+Next: human picks merge / PR / discard.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-hard-enforcement-layer.md` — this session doc.
@@ -87,8 +95,13 @@ Next: Phase F — `/session-close`.
 
 > Filled in at `/session-close`. What was accomplished, what is left pending, and the recommended next step.
 
-**Outcome:** <pending>.
+**Outcome:** SEM-IA's soft-only enforcement (proven null — an agent edited `CLAUDE.md` ungoverned on a bare "do it") is replaced by a self-hosted hard layer, installed *through its own discipline*: a `PreToolUse` gate (`.claude/hooks/enforce-node-before-artifact.sh`) that denies any substrate Write/Edit/Bash unless (1) a role is declared (`.claude/.active-role` via `/role`), (2) a node references the path in `artifacts:`, and (3) the path is within the active role's `.claude/role-scope.json` jurisdiction — no override by directive, permission mode, or `--dangerously-skip-permissions`; plus a `UserPromptSubmit` per-turn reinforcement. Governed by 26 nodes (`feature/story/spec-072..076`, `adr-011`, `adr-012`) authored **before** any substrate. CLAUDE.md gained a hoisted Orient block, a Role-jurisdiction table, and graph-vs-substrate / decision-verification / node-before-artifact operating principles; the 5 agents gained a decision-verification Workflow step. 13/13 verification scenarios pass; ~0.03 s/call. The `2026-05-14` deferred *graph-vs-substrate operating rule* and *consultation matrix* improvement candidates are delivered. Citations in skills/agents untouched (epistemic spine preserved); `bibliography/**` correctly left ungated (non-shippable evidence).
 
-**Pending / next steps:** <pending>.
+**Pending / next steps:**
+- `adr-011`, `adr-012` are `status: proposed` — set to `accepted` on human confirmation at merge.
+- **Deferred (separate node):** skill-trigger enforcement — agents/SKILL.md are well-designed for triggering but it remains soft model-judgment; capture as a future `feature` under `cap-02` (a `UserPromptSubmit`-based skill-applicability nudge), not built here.
+- Residual (documented in adr-011/012, accepted): heuristic Bash-write parser has a residual bypass surface (`python -c`, `perl -i`, editors); marker/reality desync is a correctness (not bypass) risk.
+- Pre-existing, flagged not fixed: `CLAUDE.md § Session-bootstrap` "no command/hook exists" drift; legacy `.claude/hooks/session-start.sh` ungoverned; `CLAUDE.md § Terminology` lists `bibliography/sources/` under substrate (imprecise vs distribution reality).
+- The gate enforces from the **next** Claude Code session (hook config loads at session start); logic is deterministically verified by direct invocation.
 
-**Merge decision:** <pending>.
+**Merge decision:** <pending — human decides: merge / PR / discard>.
