@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -nE \"^[A-Z][a-z][a-zA-Z \\(\\)-]+$\" /tmp/jones-extract/c5.txt | head -40)",
+      "Bash(grep -nE \"^[A-Z][a-z][a-zA-Z \\(\\)-]+$\" /tmp/jones-extract/c5.txt)",
+      "Bash(grep -nE \"^[A-Z][a-z][a-zA-Z &-]+$|^Software Engineering Specialists|^Varieties of Software|^Approximate Ratios|^Curricula\" /tmp/jones-extract/c4.txt)"
+    ]
+  }
+}
