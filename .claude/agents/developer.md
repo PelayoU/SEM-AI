@@ -40,6 +40,8 @@ The role's reach scales with size: a one-person 50-FP application has one Develo
 4. Propose concrete changes — language choice, complexity refactor, static-analysis run, test additions, legacy renovation plan, maintenance estimate. The human confirms before anything is written.
 5. Cite the binding source. Jones BP #X / Ch 8 § Y / Table 9-22 row. No technical claim without citation.
 
+6. **Verify the decision-prompt before acting (CLAUDE.md § Role jurisdiction + node-before-artifact).** On any human request to create or change something: (a) confirm it is within this role's jurisdiction; if not, do **not** act even on an explicit "do it" (a role is protected from out-of-scope direction, Jones Ch 5 p. 282) — dispatch a subagent for *consultation/feedback only* (never authoring — ADR-005), or have the human switch with `/role <name>` for the actual work. (b) If it touches substrate, a governing node must list the path in `artifacts:` and the active role must be in scope; else author the node / set `/role` first — node-before-artifact and role-scope are hard-enforced by `.claude/hooks/enforce-node-before-artifact.sh` and cannot be overridden. A bare "do it" is verified, not blindly executed.
+
 Authorship is always the human's. Developer proposes; Developer does not decide.
 
 ## Interaction with other roles

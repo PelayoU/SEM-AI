@@ -4,6 +4,21 @@ A framework for software engineering management at scale — vision through code
 
 **This file is the project's universal contract.** It is loaded into every Claude session in this repo, including `claude --agent <role>` invocations. Role-specific identity lives in `.claude/agents/<role>.md`. Skill criteria live in `.claude/skills/<role>-<skill>/SKILL.md`.
 
+## Orient here before anything else
+
+A fresh session must grasp this *before* exploring, or it will mistake the traceability graph for the product and waste a session rediscovering the obvious.
+
+**SEM-IA *is* the substrate. These files ARE the framework — editing them changes what SEM-IA does:**
+
+- `.claude/agents/*.md` — the 5 role identities (Product Owner, Architect, QA, Developer, DevOps).
+- `.claude/skills/<role>-<skill>/SKILL.md` — the 37 audited skills (the method each role applies, citation-anchored).
+- `.claude/commands/*.md` — slash commands. `.claude/hooks/*` — automation/enforcement. `.claude/settings.json` — config. `.claude/sem-role-catalog.md` — the role-catalog design doc.
+- `CLAUDE.md` (this file) — the universal contract. `_obsidian/templates/` — authoritative node-structure templates. `LICENSE`.
+
+**`nodes/` + `sessions/` are the traceability / vision layer — NOT the framework.** They are a management graph (`vision → goals → capabilities → features → stories → specs`, plus `adrs`) that models, governs and traces the substrate: each node points at the substrate paths it materializes via the `artifacts:` frontmatter field (see § Substrate traceability). Editing a node changes documentation and traceability, **not** SEM-IA's behaviour; editing the substrate changes SEM-IA. The Obsidian vault (repo root + `.obsidian/` config) is only the navigation surface over that graph. `bibliography/` is third-party audited evidence the skills cite — it does not ship and is not gate-scoped.
+
+**Substrate changes are hard-gated.** No substrate file may be created or modified unless (a) an active role is declared (`/role <name>`), (b) a management node lists the path in `artifacts:`, and (c) the path is within the active role's jurisdiction. Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse) — not overridable by any human directive, permission mode, or `--dangerously-skip-permissions` (ADR-011, ADR-012). The only path to a substrate change is authoring the governing node first. This block itself is governed by [[feature-073-claude-md-orientation-and-governance]].
+
 The framework has two layers:
 
 - **Layer A — the framework** (*what* and *why*): roles, skills, bibliography, the graph, templates. Universal, audited, citation-anchored.
@@ -33,6 +48,20 @@ Both layers are documented below. Layer A first, Layer B second.
 - **Subagent dispatch (Claude)** — from another role, use the `Task` tool with `subagent_type: <role>`. The response is consultation, not authority transfer (see Layer B § *Subagent dispatch*).
 
 Both modes load this `CLAUDE.md` + the role's `agent.md`. The agent.md `description` field triggers correct dispatch.
+
+## Role jurisdiction
+
+Each role authors only its own substrate. This table is the human-readable mirror of `.claude/role-scope.json` (authoritative for the gate; `spec-075` asserts they agree). Out-of-jurisdiction work is **refused**, not done — a role is structurally protected from acting outside its scope (Jones Ch 5 p. 282; [[adr-012-mandatory-active-role-hard-jurisdiction]]).
+
+| Role | Owns (may author) | Must NOT author | Escalation |
+| --- | --- | --- | --- |
+| Product Owner | `_obsidian/**`, `.claude/skills/po-*/**` | architecture decisions, ADRs, enforcement/config | consult Architect; for the work, human `/role architect` |
+| Architect | `CLAUDE.md`, `LICENSE`, `.claude/agents/**`, `.claude/hooks/**`, `.claude/commands/**`, `.claude/settings.json`, `.claude/role-scope.json`, `.claude/templates/**`, `.claude/sem-role-catalog.md`, `.claude/skills/architect-*/**` | product scope/value, the node graph content | consult PO for scope; QA for quality |
+| QA | `.claude/skills/qa-*/**` | production substrate decisions, ADRs | consult Architect/PO |
+| Developer | `.claude/skills/developer-*/**` (project code in real projects) | ADRs, capabilities, contract | consult Architect |
+| DevOps | `.claude/skills/devops-*/**` (pipeline/infra in real projects) | product/architecture decisions | consult Architect/PO |
+
+`nodes/`, `sessions/`, `bibliography/` are not role-gated (the graph is the shared surface; `bibliography/` is read-only audited evidence). **Subagent dispatch is consultation only** (information/feedback — ADR-005), never authoring; the active-role marker reflects the *human's* declared role, so a consulted role cannot author out-of-role substrate.
 
 ---
 
@@ -288,6 +317,9 @@ Working directly on `main` is permitted but discouraged for product-driven work.
 ## Operating principles
 
 - **Human directs; AI maintains.** A role proposes; the human confirms before anything is written. Authorship is always the human's.
+- **Graph vs substrate.** `nodes/` and `sessions/` document, govern and trace; `.claude/`, `_obsidian/`, `CLAUDE.md`, `LICENSE` are the framework. Editing a node changes documentation; editing substrate changes SEM-IA's behaviour ([[adr-004-substrate-content-separation]]).
+- **Every decision-prompt is verified, not executed.** Before acting on any human request: (a) is it within the active role's jurisdiction (§ Role jurisdiction)? If not, refuse and escalate — subagent *consultation* for feedback (never authoring, [[adr-005-subagent-dispatch-not-authority-transfer]]), or human `/role` switch for the work. (b) Does it touch substrate, and if so is there a governing node? A bare *"do it"* is not a license to bypass either check ([[adr-010-human-directed-ai-maintained]]).
+- **Node before artifact — hard rule.** No substrate file is created or modified unless an active role is declared, a management node lists the path in `artifacts:`, and the path is within the active role's jurisdiction. Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse); **not overridable** by any human directive, permission mode, or `--dangerously-skip-permissions` ([[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]]). The only path to a substrate change is authoring the governing node first.
 - **Citation is mandatory.** Every authoritative claim traces to a primary source. *"INVEST fails the Independent criterion because …"* — not *"this isn't a good story"* without anchor.
 - **Read-before-write per skill.** A new skill is not written without first reading the binding source verbatim. The same discipline applies when extending a skill.
 - **Out-of-bibliography is named, not borrowed silently.** If a useful framework isn't in `bibliography/sources/`, the skill flags it as convention with a disclaimer.
