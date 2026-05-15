@@ -4,7 +4,9 @@
 
 **Everything you create is an artifact** — a line, a file, code, config. The one rule is about artifacts:
 
-> **No artifact is created or modified unless a node already names it.** A *node* is itself an artifact — the *structured* kind: it has a template, lives in `graph/`, carries `parent:`/`artifacts:`. Nodes are the artifacts that *govern* the rest. A `vision`/`goal`/`capability`/`feature` is a level of thinking, not a thing on disk — but the moment you write one it *is* a node artifact in `graph/`. Plainly: if what you create is itself a node (it has a template) → it goes in `graph/`; anything else (code, a skill, config) → a node in `graph/` must list it in `artifacts:` first. One rooted graph, one root (`vision`); nothing exists outside it.
+> **No artifact is created or modified unless a node already names it.**
+>
+> **Artifacts that have a node template (`vision`/`goal`/`capability`/`feature`/`story`/`spec`/`adr`) live in `graph/`.** Everything else (code, skills, config) lives where it lives — and a node in `graph/` names its path under `artifacts:`. That naming is the permission: no node names it → the gate blocks the write. One rooted graph, one root (`vision`); nothing exists outside it.
 
 You do not need to remember this — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**; your scope and method are given by mechanism, not memory.
 
