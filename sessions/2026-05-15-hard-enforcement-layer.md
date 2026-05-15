@@ -104,4 +104,4 @@ Next: human picks merge / PR / discard.
 - Pre-existing, flagged not fixed: `CLAUDE.md § Session-bootstrap` "no command/hook exists" drift; legacy `.claude/hooks/session-start.sh` ungoverned; `CLAUDE.md § Terminology` lists `bibliography/sources/` under substrate (imprecise vs distribution reality).
 - The gate enforces from the **next** Claude Code session (hook config loads at session start); logic is deterministically verified by direct invocation.
 
-**Merge decision:** <pending — human decides: merge / PR / discard>.
+**Merge decision:** merged to `main` (`--no-ff`, session boundary preserved). Human-confirmed at close; `adr-011` and `adr-012` set `accepted`.

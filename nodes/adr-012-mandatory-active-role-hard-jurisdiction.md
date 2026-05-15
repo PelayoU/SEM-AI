@@ -10,7 +10,7 @@ artifacts:
   - "[[.claude/agents/qa.md]]"
   - "[[.claude/agents/developer.md]]"
   - "[[.claude/agents/devops.md]]"
-status: proposed
+status: accepted
 created: 2026-05-15
 updated: 2026-05-15
 supersedes:
@@ -23,7 +23,7 @@ superseded-by:
 
 ## Status
 
-proposed.
+accepted (human-confirmed at session close 2026-05-15).
 
 ## Context
 
