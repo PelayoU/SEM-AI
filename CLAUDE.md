@@ -8,16 +8,13 @@ A framework for software engineering management at scale — vision through code
 
 A fresh session must grasp this *before* exploring, or it will mistake the traceability graph for the product and waste a session rediscovering the obvious.
 
-**SEM-IA *is* the substrate. These files ARE the framework — editing them changes what SEM-IA does:**
+**There are THREE layers. Do not conflate them ([[adr-004-substrate-content-separation]], [[adr-013-gate-scope-is-project-configurable]]):**
 
-- `.claude/agents/*.md` — the 5 role identities (Product Owner, Architect, QA, Developer, DevOps).
-- `.claude/skills/<role>-<skill>/SKILL.md` — the 37 audited skills (the method each role applies, citation-anchored).
-- `.claude/commands/*.md` — slash commands. `.claude/hooks/*` — automation/enforcement. `.claude/settings.json` — config. `.claude/sem-role-catalog.md` — the role-catalog design doc.
-- `CLAUDE.md` (this file) — the universal contract. `_obsidian/templates/` — authoritative node-structure templates. `LICENSE`.
+1. **The imported SEM-IA framework — the *tool*.** `.claude/agents/*.md` (5 role identities), `.claude/skills/<role>-<skill>/SKILL.md` (37 audited skills), `.claude/commands/*.md`, `.claude/hooks/*`, `.claude/settings.json`, `.claude/sem-role-catalog.md`, `CLAUDE.md`, `_obsidian/templates/`, `LICENSE`. In **this** repo (SEM-AI building SEM-IA, *self-hosting*) the framework *is* this project's artifacts. In a **consumer project** (a mobile app, etc.) it is the imported tool — rarely edited, and **not gated unless a maintainer role opts in**.
+2. **The project's declared artifacts — what the gate protects.** *Whatever `.claude/role-scope.json` declares* (the union of all roles' globs). Self-hosting → the framework files in (1). Consumer → the product code (`src/**`, `ios/**`, …). Editing these changes the product; they require a governing node + the right active role.
+3. **The management graph — `nodes/` + `sessions/`.** `vision → goals → capabilities → features → stories → specs`, plus `adrs`. Models, governs and traces (2) via each node's `artifacts:` frontmatter (see § Substrate traceability). ADR-004-fixed, never project-variable, never gated. Editing a node changes documentation/traceability, **not** behaviour. The Obsidian vault (repo root + `.obsidian/`) is only the navigation surface. `bibliography/` is third-party audited evidence the skills cite — it does not ship and is not gate-scoped.
 
-**`nodes/` + `sessions/` are the traceability / vision layer — NOT the framework.** They are a management graph (`vision → goals → capabilities → features → stories → specs`, plus `adrs`) that models, governs and traces the substrate: each node points at the substrate paths it materializes via the `artifacts:` frontmatter field (see § Substrate traceability). Editing a node changes documentation and traceability, **not** SEM-IA's behaviour; editing the substrate changes SEM-IA. The Obsidian vault (repo root + `.obsidian/` config) is only the navigation surface over that graph. `bibliography/` is third-party audited evidence the skills cite — it does not ship and is not gate-scoped.
-
-**Substrate changes are hard-gated.** No substrate file may be created or modified unless (a) an active role is declared (`/role <name>`), (b) a management node lists the path in `artifacts:`, and (c) the path is within the active role's jurisdiction. Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse) — not overridable by any human directive, permission mode, or `--dangerously-skip-permissions` (ADR-011, ADR-012). The only path to a substrate change is authoring the governing node first. This block itself is governed by [[feature-073-claude-md-orientation-and-governance]].
+**Changes to the project's declared artifacts are hard-gated.** No such file may be created or modified unless (a) an active role is declared (`/role <name>`), (b) a management node lists the path in `artifacts:`, and (c) the path is within the active role's jurisdiction (`.claude/role-scope.json`). Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse) — not overridable by any human directive, permission mode, or `--dangerously-skip-permissions` ([[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]). The only path to such a change is authoring the governing node first. The gate's scope is the project's `role-scope.json` glob union (portable — see § Portability); a hardcoded always-ignore guard protects the management graph + the `/role` escape valve regardless. This block is governed by [[feature-073-claude-md-orientation-and-governance]] + [[feature-077-portable-gate-scope]].
 
 The framework has two layers:
 
@@ -51,12 +48,12 @@ Both modes load this `CLAUDE.md` + the role's `agent.md`. The agent.md `descript
 
 ## Role jurisdiction
 
-Each role authors only its own substrate. This table is the human-readable mirror of `.claude/role-scope.json` (authoritative for the gate; `spec-075` asserts they agree). Out-of-jurisdiction work is **refused**, not done — a role is structurally protected from acting outside its scope (Jones Ch 5 p. 282; [[adr-012-mandatory-active-role-hard-jurisdiction]]).
+Each role authors only its own artifacts. This table is the human-readable mirror of `.claude/role-scope.json` — **the per-project gate configuration**: the union of all roles' globs is the project's gated artifact space, each role's entry is its jurisdiction (authoritative for the gate; `spec-075`/`spec-077` assert table and file agree). A consumer project rewrites `role-scope.json` to its product roots (see § Portability). Out-of-jurisdiction work is **refused**, not done — a role is structurally protected from acting outside its scope (Jones Ch 5 p. 282; [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]).
 
 | Role | Owns (may author) | Must NOT author | Escalation |
 | --- | --- | --- | --- |
 | Product Owner | `_obsidian/**`, `.claude/skills/po-*/**` | architecture decisions, ADRs, enforcement/config | consult Architect; for the work, human `/role architect` |
-| Architect | `CLAUDE.md`, `LICENSE`, `.claude/agents/**`, `.claude/hooks/**`, `.claude/commands/**`, `.claude/settings.json`, `.claude/role-scope.json`, `.claude/templates/**`, `.claude/sem-role-catalog.md`, `.claude/skills/architect-*/**` | product scope/value, the node graph content | consult PO for scope; QA for quality |
+| Architect | `CLAUDE.md`, `LICENSE`, `.claude/agents/**`, `.claude/hooks/**`, `.claude/commands/**`, `.claude/settings.json`, `.claude/role-scope.json`, `.claude/role-scope.example.json`, `.claude/templates/**`, `.claude/sem-role-catalog.md`, `.claude/skills/architect-*/**` | product scope/value, the node graph content | consult PO for scope; QA for quality |
 | QA | `.claude/skills/qa-*/**` | production substrate decisions, ADRs | consult Architect/PO |
 | Developer | `.claude/skills/developer-*/**` (project code in real projects) | ADRs, capabilities, contract | consult Architect |
 | DevOps | `.claude/skills/devops-*/**` (pipeline/infra in real projects) | product/architecture decisions | consult Architect/PO |
@@ -139,7 +136,7 @@ Wikilinks activate Obsidian's backlinks pane and graph view. They are **narrativ
 
 **Terminology** (used throughout the framework — and specifically by the `artifacts:` field below).
 
-- **Substrate** — the framework's implementation: files under `.claude/`, `_obsidian/`, `bibliography/sources/`, plus `CLAUDE.md` and `LICENSE`. These are what SEM-IA *runs from*.
+- **Substrate** — the framework's implementation: files under `.claude/`, `_obsidian/`, `bibliography/sources/`, plus `CLAUDE.md` and `LICENSE`. These are what SEM-IA *runs from* (the imported tool). *Note (ADR-013):* "substrate" is the reusable framework layer; the **gate's scope** is the project's declared artifacts (`.claude/role-scope.json` union), which **equals** the substrate only when self-hosting (this repo). In a consumer project the gate scope is the product code, and the framework substrate is the un-gated imported tool.
 - **Management nodes** — files in `nodes/` and `sessions/` that govern, trace, and document the substrate. These are the SEM management layer.
 - **Artifact** — used in two senses across the framework. *(Generic SE sense, used elsewhere in this doc)*: any work product. *(SEM-IA-specific sense, used by the `artifacts:` frontmatter field)*: a **substrate path** specifically — i.e., a file in the framework's implementation layer that a management node materially associates with. The `artifacts:` field is **always** the SEM-IA-specific sense, never the generic one.
 
@@ -314,12 +311,24 @@ Working directly on `main` is permitted but discouraged for product-driven work.
 
 ---
 
+## Portability
+
+SEM-IA is meant to run on **any** project, not only itself. Adoption is **fork-and-adapt** ([[adr-004-substrate-content-separation]]; `sem-ia init` is a deferred future — [[cap-13-portability]] Implementation-B, not built):
+
+1. Copy the imported framework into your project: `.claude/**`, `_obsidian/templates/`, `CLAUDE.md`, `LICENSE`.
+2. **Rewrite `.claude/role-scope.json`** so each role's globs point at *your* product roots (e.g. `developer → ["src/**"]`, `devops → ["ios/**","android/**"]`). The union of all roles' globs becomes the gate's protected artifact space; per-role entries are jurisdiction ([[adr-013-gate-scope-is-project-configurable]]). The copy of the imported framework `.claude/**` is then simply absent from your `role-scope.json` → ungated (it is the tool, not your product) unless you deliberately add a maintainer-role glob. Start from `.claude/role-scope.example.json` (a worked mobile-app example).
+3. Start a fresh `nodes/` + `sessions/` graph for *your* vision → … → specs.
+
+The gate's hardcoded always-ignore guard (`nodes/**`, `sessions/**`, `.claude/.active-role`, `CLAUDE.local.md`, `.git/**`, `.obsidian/**`, `/tmp`, out-of-repo) keeps the management graph and the `/role` escape valve writable regardless of `role-scope.json`, so a careless config cannot deadlock the framework. In **this** (self-hosting) repo, the declared artifacts in `role-scope.json` *are* the framework itself — which is why editing `.claude/**` here is gated.
+
+---
+
 ## Operating principles
 
 - **Human directs; AI maintains.** A role proposes; the human confirms before anything is written. Authorship is always the human's.
-- **Graph vs substrate.** `nodes/` and `sessions/` document, govern and trace; `.claude/`, `_obsidian/`, `CLAUDE.md`, `LICENSE` are the framework. Editing a node changes documentation; editing substrate changes SEM-IA's behaviour ([[adr-004-substrate-content-separation]]).
+- **Graph vs project artifacts.** `nodes/` and `sessions/` document, govern and trace; the imported framework (`.claude/`, `_obsidian/templates/`, `CLAUDE.md`, `LICENSE`) is the tool; *what the gate protects* is the project's declared artifacts (`.claude/role-scope.json` union) — for self-hosting these coincide, for a consumer project they are the product code. Editing a node changes documentation; editing a declared artifact changes the product ([[adr-004-substrate-content-separation]], [[adr-013-gate-scope-is-project-configurable]]).
 - **Every decision-prompt is verified, not executed.** Before acting on any human request: (a) is it within the active role's jurisdiction (§ Role jurisdiction)? If not, refuse and escalate — subagent *consultation* for feedback (never authoring, [[adr-005-subagent-dispatch-not-authority-transfer]]), or human `/role` switch for the work. (b) Does it touch substrate, and if so is there a governing node? A bare *"do it"* is not a license to bypass either check ([[adr-010-human-directed-ai-maintained]]).
-- **Node before artifact — hard rule.** No substrate file is created or modified unless an active role is declared, a management node lists the path in `artifacts:`, and the path is within the active role's jurisdiction. Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse); **not overridable** by any human directive, permission mode, or `--dangerously-skip-permissions` ([[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]]). The only path to a substrate change is authoring the governing node first.
+- **Node before artifact — hard rule.** No file in the project's declared gate scope (`.claude/role-scope.json` union) is created or modified unless an active role is declared, a management node lists the path in `artifacts:`, and the path is within the active role's jurisdiction. Enforced by `.claude/hooks/enforce-node-before-artifact.sh` (PreToolUse); **not overridable** by any human directive, permission mode, or `--dangerously-skip-permissions` ([[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]). The only path to such a change is authoring the governing node first. A hardcoded always-ignore guard keeps the management graph + `/role` escape valve writable regardless of `role-scope.json`.
 - **Citation is mandatory.** Every authoritative claim traces to a primary source. *"INVEST fails the Independent criterion because …"* — not *"this isn't a good story"* without anchor.
 - **Read-before-write per skill.** A new skill is not written without first reading the binding source verbatim. The same discipline applies when extending a skill.
 - **Out-of-bibliography is named, not borrowed silently.** If a useful framework isn't in `bibliography/sources/`, the skill flags it as convention with a disclaimer.

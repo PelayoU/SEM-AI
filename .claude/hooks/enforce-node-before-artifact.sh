@@ -2,12 +2,18 @@
 # SEM-IA PreToolUse gate — node-before-artifact + hard role-jurisdiction.
 #
 # Governed by: feature-072-node-before-artifact-gate, feature-075-hard-role-jurisdiction,
-# adr-011-hard-enforcement-no-human-override, adr-012-mandatory-active-role-hard-jurisdiction.
+# feature-077-portable-gate-scope, adr-011-hard-enforcement-no-human-override,
+# adr-012-mandatory-active-role-hard-jurisdiction, adr-013-gate-scope-is-project-configurable.
 #
-# Denies any Write/Edit/MultiEdit/Bash that creates or mutates an in-scope
-# substrate path unless (1) an active role is declared, (2) a management node
-# references the path in its artifacts: frontmatter, and (3) the path is within
-# the active role's jurisdiction. No human/permission/flag override. Fail-closed.
+# Denies any Write/Edit/MultiEdit/Bash that creates or mutates a governed path
+# unless (1) an active role is declared, (2) a management node references the
+# path in its artifacts: frontmatter, and (3) the path is within the active
+# role's jurisdiction. No human/permission/flag override. Fail-closed.
+#
+# Gate scope is the project's .claude/role-scope.json glob union (ADR-013):
+# portable across projects by editing that one file. A hardcoded always-ignore
+# guard runs first and wins, protecting universal SEM-IA invariants + the
+# /role escape valve regardless of role-scope.json.
 
 set -euo pipefail
 
@@ -85,17 +91,35 @@ esac
 
 [ "${#candidates[@]}" -eq 0 ] && allow
 
-# --- classify scope ---------------------------------------------------------
-is_substrate() {
+# --- classify scope (ADR-013) ----------------------------------------------
+# Hard always-ignore safety guard. Load-bearing invariant: these paths must
+# NEVER be gated, regardless of role-scope.json — universal SEM-IA management
+# layer (ADR-004), the /role escape valve (.claude/.active-role; gating it
+# would deadlock the framework), the local-override file, and OS/temp +
+# out-of-repo paths. Runs FIRST and wins over the role-scope union. The arms
+# are a verbatim copy of the old is_substrate() ignore set.
+always_ignore() {  # return 0 = ignore unconditionally
   case "$1" in
-    nodes/*|sessions/*|bibliography/*|.git/*|.obsidian/*) return 1 ;;
-    .claude/.active-role|CLAUDE.local.md) return 1 ;;
-    /tmp/*|/var/folders/*) return 1 ;;
-    /*) return 1 ;;                                  # absolute, outside repo
-    CLAUDE.md|LICENSE) return 0 ;;
-    .claude/*|_obsidian/*) return 0 ;;
-    *) return 1 ;;                                   # anything else: not substrate
+    nodes/*|sessions/*|bibliography/*|.git/*|.obsidian/*) return 0 ;;
+    .claude/.active-role|CLAUDE.local.md) return 0 ;;
+    /tmp/*|/var/folders/*) return 0 ;;
+    /*) return 0 ;;                                  # absolute, outside repo
+    *) return 1 ;;
   esac
+}
+
+# Governed scope = union of every glob across every role in role-scope.json
+# (ADR-013: that file IS the per-project gate config). jq selects only
+# array-valued entries so the "_comment" string key (and any future scalar
+# metadata) cannot crash iteration. glob_match() (below) is the same matcher
+# the per-role jurisdiction check uses — one matcher, no divergence.
+is_governed() {  # return 0 = in the project's gated artifact space
+  local P="$1" g
+  while IFS= read -r g; do
+    [ -z "$g" ] && continue
+    if glob_match "$P" "$g"; then return 0; fi
+  done < <(jq -r '[to_entries[] | select(.value|type=="array") | .value[]] | unique | .[]' .claude/role-scope.json 2>/dev/null)
+  return 1
 }
 
 # --- glob (with ** and *) -> ERE -------------------------------------------
@@ -112,7 +136,8 @@ active_role=""
 [ -f .claude/.active-role ] && active_role="$(tr -d '[:space:]' < .claude/.active-role)"
 
 for P in "${candidates[@]}"; do
-  is_substrate "$P" || continue   # out of scope: ignore this candidate
+  always_ignore "$P" && continue  # universal invariant / escape valve: never gate
+  is_governed   "$P" || continue  # not in this project's role-scope union: ignore
 
   # (1) active role mandatory
   if [ -z "$active_role" ]; then
