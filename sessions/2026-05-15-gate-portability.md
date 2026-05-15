@@ -2,7 +2,7 @@
 category: session
 id: 2026-05-15-gate-portability
 date: 2026-05-15
-participants: [architect]
+participants: [architect, product-owner, qa]
 related-nodes:
   - "[[adr-013-gate-scope-is-project-configurable]]"
   - "[[feature-077-portable-gate-scope]]"
@@ -52,6 +52,14 @@ Skills applied: `qa-testing-strategy` (consulted), `architect-architecture-desig
 Artifacts: spec-077 realized notes; 6 node status bumps; this session doc.
 Next: Phase E — `/session-close`.
 
+### 2026-05-15 — architect (Phase E: session-close)
+
+Invoked `/session-close`. The flow held end to end: clean main → session open → `/role architect` → 7 governing nodes (adr-013 + feature-077 + 4 stories + spec-077) committed **before** any substrate → substrate refactor (gate scope from role-scope.json union + always-ignore guard + 3-layer CLAUDE.md + consumer example) → verification (no observable regression; portability inversion fixed; honest pre-existing residual flagged) → close. node-before-artifact governed the portability fix itself. Merged hard-enforcement layer untouched (extended, not reverted). Closing summary filled; committing; merge + adr-013 acceptance deferred to the human.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: this session doc.
+Next: human picks merge / PR / discard and confirms adr-013 acceptance.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-gate-portability.md` — this session doc.
@@ -69,8 +77,12 @@ Next: Phase E — `/session-close`.
 
 > Filled at `/session-close`.
 
-**Outcome:** <pending>.
+**Outcome:** The hard-enforcement gate is now **project-portable**. It derives its governed scope from `.claude/role-scope.json` (union of all roles' globs = the project's gated artifact space; per-role = jurisdiction) instead of a hardcoded self-hosting layout; a hardcoded always-ignore safety guard protects the management graph + `/role` escape valve regardless of config. A consumer project adopts SEM-IA by copying `.claude/**`+`_obsidian/templates/`, rewriting `role-scope.json` to its product roots, and starting a fresh `nodes/` graph — the imported framework is then ungated (the tool, not the product). CLAUDE.md reframed to the 3-layer model (imported framework / project's declared artifacts / management graph) with a new § Portability; `.claude/role-scope.example.json` shipped (mobile-app worked example). Verified by direct hook invocation: **no observable regression** on SEM-AI self-hosting (matrix == prior Phase E); the self-hosting→consumer **inversion is fixed** (consumer simulation gates product code, ignores the imported framework); always-ignore guard wins over a careless config (no `/role` deadlock); `jq` tolerates the `_comment` scalar. The fix itself went through the discipline (nodes-first, governed, gated). Delivers a `cap-13-portability` increment toward `goal-03`.
 
-**Pending / next steps:** <pending>.
+**Pending / next steps:**
+- `adr-013` is `status: proposed` — set `accepted` on human confirmation at merge.
+- **Honest residual (pre-existing, documented [[adr-011-hard-enforcement-no-human-override]], NOT a portability regression):** the heuristic Bash parser misses `sed -i ""` (BSD empty-backup form). Captured as a deferred follow-up to feature-072/adr-011 (tighten the `sed -i` regex) — out of scope here.
+- Deferred (named, not built): `sem-ia init` scaffolder ([[cap-13-portability]] Implementation-B); the pre-existing untracked `.claude/commands/session-log.md` (governed by feature-017, uncommitted from a prior session) — separate concern, not adopted.
+- Branch deletion of the prior merged `session/2026-05-15-hard-enforcement-layer` remains independent housekeeping.
 
-**Merge decision:** <pending>.
+**Merge decision:** <pending — human decides: merge / PR / discard, and confirms adr-013 acceptance>.
