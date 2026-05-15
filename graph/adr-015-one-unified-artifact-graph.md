@@ -9,18 +9,16 @@ artifacts:
   - "[[.claude/agents/qa.md]]"
   - "[[.claude/agents/developer.md]]"
   - "[[.claude/agents/devops.md]]"
-  - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
-  - "[[.claude/role-scope.json]]"
 status: proposed
 created: 2026-05-15
 updated: 2026-05-15
-supersedes: "[[adr-004-substrate-content-separation]], [[adr-007-obsidian-as-editor-surface]], [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]"
+supersedes: "[[adr-004-substrate-content-separation]], [[adr-007-obsidian-as-editor-surface]], [[adr-011-hard-enforcement-no-human-override]], [[adr-012-mandatory-active-role-hard-jurisdiction]], [[adr-013-gate-scope-is-project-configurable]]"
 superseded-by:
 ---
 
-# ADR 015 â One unified artifact graph; doctrine in mechanism; generic editor-agnostic contract
+# ADR 015 - One unified artifact graph; the rule is an unenforced discipline
 
-> One decision = one ADR. ADR format = Nygard convention, not in audited `bibliography/sources/`.
+> One decision = one ADR. ADR format = Nygard convention, not in audited `bibliography/sources/`. (Rewritten clean: a prior automated edit mojibake-corrupted this file and it described an enforcement mechanism that was subsequently removed.)
 
 ## Status
 
@@ -28,41 +26,28 @@ proposed.
 
 ## Context
 
-The graph reached 281 nodes (1 vision / 3 goals / 13 caps / 77 features / 96 stories / 77 specs / 14 ADRs) and CLAUDE.md 341 lines. Root cause: a framework self-build applied product-decomposition machinery (featureâstoryâspecâGherkin) to *prose*, and the doctrine tried to *classify* artifacts (substrate vs content vs management; the "3-layer model"; the spec-075/adr-012 "mirror invariant") when there is only one uniform thing. Obsidian leaked in as if it were the framework. CLAUDE.md became a doctrine essay restating the same rule ~21Ã â soft context, the original null-enforcement failure this project exists to fix.
+The graph reached 281 nodes + a 341-line CLAUDE.md: a framework self-build applied product-decomposition (feature/story/spec/Gherkin) to prose, and the doctrine tried to classify artifacts (substrate vs content vs management; a "3-layer model"; a "mirror invariant") when there is only one uniform thing. A hard PreToolUse gate + role-scope + per-turn reinforcement hooks were built (adr-011/012/013) to make the rule non-forgettable. The human then judged the mechanism's recursion/cost not worth it for this prose-heavy self-build and removed it.
 
 ## Decision
 
-1. **One rooted artifact graph.** Root = `vision`. Every node carries `parent:` up to `vision`; leaf artifacts (skills, code, config) are connected by a node's `artifacts:` reference. **One rule:** no artifact is created or modified unless a parent node already references it. This subsumes "node-before-artifact" and abolishes the substrate/content/management trichotomy, the 3-layer model, and the mirror invariant â there are no artifact categories, only the rule.
-2. **Doctrine lives in mechanism, not CLAUDE.md prose.** The gate enforces the rule; `.claude/hooks/role-reinforce.sh` injects role + scope + checklist every turn; `.claude/agents/<role>.md` carries per-role behaviour; skills carry methods (including node structure â ADR-009). CLAUDE.md contains no enforceable-rule prose.
-3. **The agent's identity is framework-first, role-second.** CLAUDE.md and agent files address the agent as *being* the framework, not as a role that must remember rules â discipline is identity, not memory (this is the strongest form of "doctrine in mechanism"). CLAUDE.md opens *"You are this framework â a discipline for software-engineering management with one inviolable ruleâ¦"*; each `agents/<role>.md` opens *"You are this framework, in the **<role>** role."* Generic, project-agnostic, no "SEM-IA" string, no editor/visual layer. The project's identity/vision/graph lives in `graph/`.
-4. **The visual/navigation layer is the operator's free choice.** Obsidian is not the framework â `_obsidian/templates/` is removed (node structure is carried by authoring skills), `.obsidian/` is personal tooling (`.gitignore`d). The `[[id]]` reference encoding in `parent:`/`artifacts:` STAYS â it is framework data, parseable by any tool, independent of Obsidian.
-5. **Minimal graph.** `feature` = one per skill (`artifacts:` = that `SKILL.md`), parented to its role-discipline capability. No `story`/`spec` wrappers in a framework self-build (the `SKILL.md` *is* the spec/criteria, ADR-009). `story`/`spec`/Gherkin remain available vocabulary for real product projects (e.g. a dApp), not instantiated here.
+1. **One rooted artifact graph, one rule.** Root = `vision`. Every node carries `parent:` up to `vision`; non-node files (code, skills, config) are connected by a node's `artifacts:` reference. **The one rule: no file is created or changed unless a node in `graph/` names it.** No substrate/content/management categories, no 3-layer model, no mirror invariant - just the rule.
+2. **The rule is an UNENFORCED discipline, stated plainly in CLAUDE.md.** All hooks were deleted, `settings.json` emptied, dead machinery removed (`role-scope.json`, `.active-role`, `/role`). Honest consequence: nothing prevents the rule being broken - it is the soft model whose failure originated this work, accepted knowingly by the human. The gate code survives in git history and can return when the framework is applied to a real product (`git show 51f3b80:.claude/hooks/...`). Per-role behaviour is in `.claude/agents/<role>.md`; methods are the skills.
+3. **Identity is framework-first.** CLAUDE.md and agent files address the agent as *being* the framework, not a role that remembers rules. Generic, project-agnostic, no "SEM-IA" string, no editor/visual layer in the contract.
+4. **The visual/navigation layer is the operator's free choice.** Obsidian is not the framework: `_obsidian/templates/` removed, `.obsidian/` is personal (`.gitignore`d). The `[[id]]` reference encoding stays - framework data, parseable by any tool.
+5. **Minimal graph.** `feature` = one per skill (`artifacts:` = that `SKILL.md`). No `story`/`spec` wrappers in a framework self-build (the `SKILL.md` is the spec, ADR-009). `story`/`spec`/Gherkin remain available for real product projects.
 
 ## Consequences
 
-**Positive:** the contract becomes scannable; portability is by construction (no special-casing); one rule replaces all the classification doctrine; rules cannot be forgotten because mechanism carries them; ~281 â ~60â70 nodes.
+**Positive:** scannable ~52-line contract; one rule replaces all classification doctrine; portability by construction; 281 -> ~64 nodes.
 
-**Negative:** mass node deletion and a CLAUDE.md rewrite â mitigated: history-preserving (branch-only, `main` untouched, `git show <sha>:nodes/â¦` (pre-rename history) recovers anything; reversibility anchor `1b92365`). Supersedes 4 ADRs.
+**Negative:** no enforcement - the rule depends on the agent holding it (the failure mode this project named). Mitigated only by reversibility: branch-only, `main` untouched, everything recoverable from git history.
 
-**Neutral:** 37 skills, 5 agents (bodies), 3 hooks, `role-scope.json`, `sessions/` history are untouched in substance; `[[id]]` encoding kept; superseded ADRs remain in history with `superseded-by:`.
+**Neutral:** 37 skills, 5 agents, `sessions/` history untouched; `[[id]]` kept; superseded ADRs remain in history.
 
-## Alternatives considered
+## Clarification (artifact/node ontology)
 
-- **Rewrite the 3-layer/jurisdiction prose better** â rejected: better prose is still soft context; the model itself is redundant with the gate.
-- **Keep story/spec wrappers, just thin them** â rejected: 3 nodes per skill of ceremony with no information beyond the `SKILL.md`.
-- **Literal history burn** â rejected: irreversible, destroys the audit trail the thesis values.
-
-## Seven fundamental topics â touchpoints (Jones Ch 7, p. 470)
-
-- **1. Structure / 4. Decomposition:** one graph, one rule, doctrine relocated to its enforcing mechanisms.
-- **2. Data:** `[[id]]` reference encoding is the canonical, editor-agnostic link format.
-- **5. Linkage:** CLAUDE.md/agents â pointers to gate/hook/skills; no duplicated content.
-- 3, 6, 7 not materially affected.
-
-## Clarification (artifact/node ontology + folder rename)
-
-Everything created is an **artifact**. A **node** is the structured kind of artifact (has a template, lives in `graph/`, carries `parent:`/`artifacts:`) and is what *governs* the rest. A capability/goal/vision is a level of thinking; its written form is a node artifact. The graph folder is renamed `nodes/` → `graph/` (the folder *is* the graph; its files are node-artifacts) â `git mv`, history preserved; the gate hook + role-scope `_comment` + CLAUDE.md patched accordingly; pre-rename history still at `git show 1b92365:nodes/...`.
+Everything created is an artifact. A *node* is the structured kind (has a template, lives in `graph/`, carries `parent:`/`artifacts:`); nodes govern the rest. A capability/goal/vision is a level of thinking; its written form is a node. The graph folder was renamed `nodes/` -> `graph/` (`git mv`, history preserved; pre-rename history at `git show 1b92365:nodes/...`).
 
 ## Source
 
-- Skill: `architect-architecture-design`. Jones Ch 7 Â§Software Architecture pp. 470â475. ADR format: Nygard (convention, not in audited bibliography). Absorbs the uncommitted `adr-014` (doctrine-in-mechanism). In force, unchanged: `[[adr-001-sessions-as-git-branch]]`, `[[adr-002-backbone-hierarchy-parent-edges]]`, `[[adr-003-citation-mandate]]`, `[[adr-009-skill-as-canonical-method]]`, `[[adr-010-human-directed-ai-maintained]]`, `[[adr-011-hard-enforcement-no-human-override]]`.
+- Skill: `architect-architecture-design`. Jones Ch 7 Software Architecture pp. 470-475. ADR format: Nygard (convention, not in audited bibliography). Absorbs the uncommitted `adr-014`. In force: `[[adr-001-sessions-as-git-branch]]`, `[[adr-002-backbone-hierarchy-parent-edges]]`, `[[adr-003-citation-mandate]]`, `[[adr-009-skill-as-canonical-method]]`, `[[adr-010-human-directed-ai-maintained]]`.

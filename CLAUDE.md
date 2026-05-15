@@ -13,7 +13,7 @@ This repository carries the framework. The project you work on is planned in `gr
 `graph/<type>-<id>-<slug>.md`, `<type>` ∈ `vision goal capability feature story spec adr`. One graph, one root (`vision`, the only node without a `parent:`).
 
 - **`parent:`** `"[[<node-id>]]"` — the formal hierarchical edge. Every node except `vision` has exactly one.
-- **`artifacts:`** list of `"[[<repo-path>]]"` — the repo paths this node governs (a feature → its `SKILL.md`; an adr → the files it decides). This is the leaf's only connection upward; **without it the leaf is ungoverned and forbidden**.
+- **`artifacts:`** list of `"[[<repo-path>]]"` — the repo paths this node governs (a feature → its `SKILL.md`; an adr → the files it decides). This is the file's only link upward; the rule: don't create such a file unless a node names it.
 - **`[[id]]`** is the link encoding for both. It is plain data, parseable by any tool — independent of any editor.
 - Required frontmatter: `category`, `id`, `parent` (except vision), `status`, `created`, `updated`.
 - `status` ∈ `draft` · `active` (vision/goal/capability) · `ready-for-implementation` · `in-implementation` · `implemented` · `deprecated` · `superseded` (adr; keep `superseded-by:`).
@@ -29,9 +29,7 @@ A **session** is a unit of work = a git branch `session/<YYYY-MM-DD>-<slug>` + a
 
 **Bootstrap, every new conversation:** run `git branch --show-current`. On a `session/*` branch → read `sessions/<id>.md`, resume. On `main` → ask the human whether to open a session or work directly.
 
-**Slash commands** (the only ceremony):
-- `/role <product-owner|architect|qa|developer|devops>` — note the role you are working as (a discipline; nothing enforces it).
-- `/session-open <slug>` · `/session-log [note]` · `/session-context` · `/session-close`.
+**Slash commands:** `/session-open <slug>` · `/session-log [note]` · `/session-context` · `/session-close`. You work as one role at a time (`.claude/agents/<role>.md`) — a discipline, not a command.
 
 **Subagent dispatch is consultation, not authority.** Invoking another role via `Task` returns information only; it never authors. Real cross-role work = the human switches role (`/role`) or hands off in the same branch.
 

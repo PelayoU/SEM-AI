@@ -6,11 +6,11 @@ artifacts:
   - "[[CLAUDE.md]]"
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
   - "[[.claude/settings.json]]"
-status: accepted
+status: superseded
 created: 2026-05-15
 updated: 2026-05-15
 supersedes:
-superseded-by:
+superseded-by: "[[adr-015-one-unified-artifact-graph]]"
 ---
 
 # ADR 011 — Node-before-artifact is hard-enforced with no human override
