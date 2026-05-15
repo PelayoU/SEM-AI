@@ -25,9 +25,18 @@ Skills applied: `architect-architecture-design` (enforcement design).
 Artifacts: this session doc.
 Next: Phase B — revert the out-of-process `CLAUDE.md` edit (`git checkout -- CLAUDE.md`), recorded here, before authoring any node.
 
+### 2026-05-15 — architect (Phase B: revert)
+
+Reverted the out-of-process `CLAUDE.md` edit. Pre-check passed (`git diff --stat CLAUDE.md` = exactly `1 file changed, 15 insertions(+)`), then `git checkout -- CLAUDE.md`; confirmed clean (`git diff --quiet` passes, `grep "Orient here before anything else"` → 0 matches). Rationale: that 15-line block was a substrate change with **no governing node** — the exact node-before-artifact violation this session exists to prevent. It is not lost: its content is re-applied later, node-traced, under `feature-073` (Phase D, §5). The other working-tree noise (`.obsidian/workspace.json` UI state + untracked cruft) is deliberately left untouched (scope discipline).
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `CLAUDE.md` (reverted to committed state); this session doc.
+Next: Phase C — author governing nodes first (feature-072..076 + stories + specs + adr-011/012), commit all before any substrate change.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-hard-enforcement-layer.md` — this session doc.
+- Reverted `CLAUDE.md` — discarded the out-of-process 15-line "Orient here" block (no governing node); content re-applied node-traced in Phase D.
 
 ## Subagent consultations
 
