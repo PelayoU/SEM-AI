@@ -2,7 +2,7 @@
 
 **The one rule.** Files that *plan the work* — vision, goals, capabilities, features, specs, decisions — live in `graph/`. You must not create or change any other file (code, a skill, config) unless some file in `graph/` points at it (lists its path in its `artifacts:` line). That's the whole rule.
 
-**Nothing enforces this — you hold it.** It is a discipline, not a mechanism. You work as exactly **one role at a time** (`.claude/agents/<role>.md`). A bare *"do it"* from the human does not excuse breaking the rule.
+**Nothing enforces this — you hold it.** It is a discipline, not a mechanism. You work as exactly **one role at a time**: the role's identity is `.claude/agents/<role>.md`, your methods are the skills in `.claude/skills/`. A bare *"do it"* from the human does not excuse breaking the rule.
 
 This repository carries the framework. The project you work on is planned in `graph/`; the code and files it produces live elsewhere, each pointed at by a `graph/` file. **To understand the project you are working on, read `graph/`** — it may be an app, a service, or this framework itself; you work on it the same way regardless.
 
@@ -10,16 +10,11 @@ This repository carries the framework. The project you work on is planned in `gr
 
 ## The graph
 
-`graph/<type>-<id>-<slug>.md`, `<type>` ∈ `vision goal capability feature story spec adr`. One graph, one root (`vision`, the only node without a `parent:`).
+`graph/<type>-<id>-<slug>.md`, `<type>` ∈ `vision goal capability feature story spec adr`. One graph, one root: `vision` (the only node without a `parent:`).
 
-- **`parent:`** `"[[<node-id>]]"` — the formal hierarchical edge. Every node except `vision` has exactly one.
-- **`artifacts:`** list of `"[[<repo-path>]]"` — the repo paths this node governs (a feature → its `SKILL.md`; an adr → the files it decides). This is the file's only link upward; the rule: don't create such a file unless a node names it.
-- **`[[id]]`** is the link encoding for both. It is plain data, parseable by any tool — independent of any editor.
-- Required frontmatter: `category`, `id`, `parent` (except vision), `status`, `created`, `updated`.
-- `status` ∈ `draft` · `active` (vision/goal/capability) · `ready-for-implementation` · `in-implementation` · `implemented` · `deprecated` · `superseded` (adr; keep `superseded-by:`).
-- A `feature` wraps one skill: the `SKILL.md` is its spec and its acceptance criteria — no `story`/`spec` wrapper is authored in a framework self-build. `story`/`spec`/Gherkin remain available for product projects.
+Every node's frontmatter: `category`, `id`, `parent: "[[<node-id>]]"` (except vision), `status`, `created`, `updated`. `status` ∈ `draft`/`active`/`ready-for-implementation`/`in-implementation`/`implemented`/`deprecated`/`superseded`. A node lists the files it governs under `artifacts: ["[[<repo-path>]]"]`. `[[id]]` is plain data, parseable by any tool.
 
-The visual/navigation layer (how you read the graph — an editor, grep, a web view, nothing) is the operator's free choice and is **not** part of the framework.
+**How to write each node *type* is its skill's job, not this file's** — `po-vision` for a vision, `po-feature-decomposition` for features, `po-spec-gherkin` for specs, `architect-architecture-design` for ADRs, etc. This section is only the shared frontmatter schema (no skill owns that). The visual layer (editor / grep / web / none) is the operator's free choice, not the framework.
 
 ---
 
@@ -31,20 +26,6 @@ A **session** is a unit of work = a git branch `session/<YYYY-MM-DD>-<slug>` + a
 
 **Slash commands:** `/session-open <slug>` · `/session-log [note]` · `/session-context` · `/session-close`. You work as one role at a time (`.claude/agents/<role>.md`) — a discipline, not a command.
 
-**Subagent dispatch is consultation, not authority.** Invoking another role via `Task` returns information only; it never authors. Real cross-role work = the human switches role (`/role`) or hands off in the same branch.
+## Working as roles
 
----
-
-## Discipline (no automatic enforcement)
-
-There are no hooks. The rule above is held by *you*, not enforced by tooling. Your role's identity and hand-offs are in `.claude/agents/<role>.md`; your methods are the skills in `.claude/skills/`. Read those when acting; this file does not duplicate them.
-
----
-
-## Portability
-
-Fork-and-adapt: copy `.claude/` (agents + skills) into your project and start a fresh `graph/` for your own vision. The rule travels with it as a discipline; the imported framework is just the tool.
-
-## Local preferences
-
-Machine-local settings go in `CLAUDE.local.md` (gitignored), loaded after this file.
+You work as **one SEM role at a time** — the human picks the role; its identity and *when-to-consult* rules are in `.claude/agents/<role>.md`. When the work needs another role's judgement, dispatch that role as a **subagent** (`Task`): its answer is **consultation only** — information you act on, never its authorship. To actually hand work to another role, the human switches role or opens a new conversation on the same branch.
