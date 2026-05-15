@@ -46,8 +46,16 @@ Next: Reset-D — generic slim CLAUDE.md + agent-opener reframe.
 `CLAUDE.md`: **341 → 57 lines**. Framework-first identity ("**You are this framework.** … You are this before you are any role"), the one rule stated once, generic/project-agnostic (zero "SEM-IA"), zero Obsidian, sections only: graph conventions / how to operate / enforcement-as-pointers / portability / local prefs. Deleted entirely: Orient 3-layer block, `## Roles`+`## Role jurisdiction` table, `## Terminology`, `## The triangle`, `## Operating principles` essay, `## Templates`, `## Repo structure`. The word "substrate" removed; "jurisdiction" remains only as a one-word pointer to `role-scope.json` (not the deleted doctrine table). The 5 `agents/*.md` openers reframed: each opens *"You are this framework, in the **<role>** role… the role is your current scope, not your identity"* (bodies/skills/handoffs untouched). Governed by adr-015 (`artifacts:` lists CLAUDE.md + the 5 agents).
 
 Skills applied: `architect-architecture-design`.
-Artifacts: `CLAUDE.md` (rewrite), 5 `.claude/agents/*.md` (opener); this session doc.
+Artifacts: `CLAUDE.md` (rewrite + header-corruption fix), 5 `.claude/agents/*.md` (opener); this session doc.
 Next: Reset-E — verify gate (no regression) + graph integrity + reversibility + close.
+
+### 2026-05-15 — architect (Reset-E: verify + close)
+
+Verified by direct hook invocation + scripts: gate no-regression (ungoverned `.claude/skills/architect-zzz/SKILL.md` → deny; CLAUDE.md/agents/gate-hook/nodes governed-by-adr-015 → allow; no-role + wrong-role → deny); graph integrity (68 nodes, exactly 1 rootless `vision-sem-ia`, 0 orphans, 37 features == 37 skills, 0 story/spec); reversibility (`git show 1b92365:nodes/spec-072` returns old content — full 281-node graph recoverable); `main` untouched at `0c8431e`. Fixed a committed CLAUDE.md header corruption (`# CL`→`# CLAUDE.md`, commit `ae284d0`) from the recurring stray gremlin. Closing; merge + adr-015 acceptance deferred to the human.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: this session doc.
+Next: human picks merge / PR / discard; confirm adr-015.
 
 ## Artifacts touched
 
@@ -60,8 +68,12 @@ Next: Reset-E — verify gate (no regression) + graph integrity + reversibility 
 
 ## Closing summary
 
-**Outcome:** <pending>.
+**Outcome:** Teardown→rebuild to the unified model, done & verified, history intact. **281 → 68 nodes** (1 vision + 3 goals + 13 caps + 14 ADRs + 37 lean skill-features). One rooted artifact graph, one rule, doctrine carried by mechanism. `adr-015` is the single conceptual ADR (supersedes adr-004/007/012/013, absorbs adr-014). `CLAUDE.md` **341 → 57 lines**: framework-first identity ("You are this framework… before you are any role"), generic/project-agnostic (zero "SEM-IA"), zero Obsidian, no doctrine essays. 5 agent openers reframed framework-first. `_obsidian/templates/` removed; `.obsidian/` gitignored (interchangeable personal visual layer, not framework). Verified: gate no-regression (ungoverned deny / governed-by-adr-015 allow / no-role+wrong-role deny / nodes ignored); graph integrity (1 rootless `vision`, 0 orphans, feature==skill==37); old 281-node graph fully recoverable (`git show 1b92365:nodes/…`); `main` untouched at `0c8431e`.
 
-**Pending / next steps:** <pending>.
+**Pending / next steps:**
+- `adr-015` is `status: proposed` — set `accepted` on human confirmation at merge.
+- **Environmental issue (flag, important):** a recurring stray corruption hit `CLAUDE.md`'s top lines ~4× this conversation (`/`, `. `, `# CL`); the last one reached commit `8981a5f` (truncated `# CLAUDE.md`→`# CL`) and was fixed in `ae284d0`. Something outside the work is mutating that file between write and commit — worth investigating (editor/plugin/hook on the human side).
+- Superseded ADRs (004/007/012/013) kept as history with `superseded-by:`. The portability branch's gate *code* (role-scope union + always-ignore guard) is retained and is what makes the unified model work; that branch's obsolete doctrine is superseded here.
+- Branch deletion of prior merged session branches = independent housekeeping.
 
-**Merge decision:** <pending>.
+**Merge decision:** <pending — human decides: merge / PR / discard; confirm adr-015 acceptance>.
