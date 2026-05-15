@@ -4,7 +4,7 @@ id: story-077-B-always-ignore-safety-guard
 parent: "[[feature-077-portable-gate-scope]]"
 artifacts:
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

@@ -4,7 +4,7 @@ id: story-077-C-claude-md-three-layer-reframe
 parent: "[[feature-077-portable-gate-scope]]"
 artifacts:
   - "[[CLAUDE.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

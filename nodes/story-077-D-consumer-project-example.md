@@ -5,7 +5,7 @@ parent: "[[feature-077-portable-gate-scope]]"
 artifacts:
   - "[[.claude/role-scope.json]]"
   - "[[.claude/role-scope.example.json]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---

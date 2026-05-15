@@ -7,7 +7,7 @@ artifacts:
   - "[[.claude/role-scope.json]]"
   - "[[.claude/role-scope.example.json]]"
   - "[[CLAUDE.md]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---
@@ -77,7 +77,14 @@ Feature: Portable gate scope (role-scope.json union, not hardcoded layout)
 
 ## Notes
 
-Realized verbatim results appended during Phase D. The old `.claude/skills/dummy-probe/SKILL.md` probe (spec-072 AC-A1) no longer matches any role glob → now *ignored*, not *denied*: this is the **named, intended** coverage delta of ADR-013 (not a regression); the node-before-artifact deny is re-verified with `.claude/agents/probe.md` (matches `.claude/agents/**`, ungoverned-by-node).
+**Realized (Phase D, 2026-05-15, direct hook invocation):**
+- **AC-A1/D1 — no observable regression:** governed+node `.claude/agents/architect.md` → ALLOW; ungoverned `.claude/agents/probe.md` → DENY; Bash `cp`/`mv`/`>`/`>>`/`tee`/`dd of=` into ungoverned governed-path → DENY; `/tmp` → ALLOW; no-role → DENY; wrong-role (developer→CLAUDE.md) → DENY; `nodes/` → ALLOW. Identical outcomes to spec-072/075 Phase E.
+- **AC-A2:** `jq` union filter `[to_entries[]|select(.value|type=="array")|.value[]]|unique` lists all globs, does **not** crash on `_comment` ✓.
+- **Named delta (intended, ADR-013 — not a regression):** old `.claude/skills/dummy-probe/SKILL.md` probe → now ALLOW (ignored: matches no role glob). Node-before-artifact deny re-verified with `.claude/agents/probe.md`.
+- **AC-B1/B2 — always-ignore guard wins:** with a careless `role-scope.json` listing `nodes/**` and `.claude/.active-role` under `developer`, both still ALLOW (guard runs first; graph protected; no `/role` deadlock).
+- **AC-C1 — consumer simulation** (`developer→["src/**"]`): `src/app.ts`+developer+no-node → DENY (product code now gated); `.claude/agents/architect.md` → ALLOW/ignored (imported framework not in consumer union); `ios/Info.plist`+devops+no-node → DENY. The self-hosting→consumer inversion is fixed.
+- **AC-C2:** `.claude/role-scope.example.json` present in BOTH `role-scope.json` (architect array) and CLAUDE.md § Role jurisdiction (Architect row); all 5 role keys consistent ✓.
+- **Pre-existing residual (NOT a portability regression; documented [[adr-011-hard-enforcement-no-human-override]]; deferred):** the heuristic Bash parser does not catch `sed -i "" …` (BSD empty-backup form). Verified pre-existing — the sed-extraction regex never matched it (including pre-refactor); the portability refactor left Bash candidate parsing byte-identical. Captured as a deferred follow-up to feature-072/adr-011 (improve the `sed -i` regex), out of scope for this portability session.
 
 ## Source
 

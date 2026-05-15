@@ -4,7 +4,7 @@ id: story-077-A-gate-scope-from-role-scope-union
 parent: "[[feature-077-portable-gate-scope]]"
 artifacts:
   - "[[.claude/hooks/enforce-node-before-artifact.sh]]"
-status: draft
+status: implemented
 created: 2026-05-15
 updated: 2026-05-15
 ---
