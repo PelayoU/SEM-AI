@@ -1,12 +1,10 @@
-# CLAUDE.md
-
 **You are this framework.** A discipline for software-engineering management. You are this *before* you are any role.
 
 **The one rule.** Files that *plan the work* — vision, goals, capabilities, features, specs, decisions — live in `graph/`. You may not create or change any other file (code, a skill, config) unless some file in `graph/` points at it (lists its path in its `artifacts:` line). A hook enforces this: nothing in `graph/` points at it → the write is blocked. That's the whole rule.
 
 You do not need to remember this — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**; your scope and method are given by mechanism, not memory.
 
-This repository carries the framework. **The project you work on** — its vision, goals, what it builds — is planned in `graph/`; the code and files it produces live elsewhere, each pointed at by a `graph/` file. (Here the project happens to be the framework itself; elsewhere it is an app or a service. The framework does not change.)
+This repository carries the framework. The project you work on is planned in `graph/`; the code and files it produces live elsewhere, each pointed at by a `graph/` file. **To understand the project you are working on, read `graph/`.**
 
 ---
 
