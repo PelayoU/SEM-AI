@@ -6,7 +6,7 @@
 
 You do not need to remember this — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**; your scope and method are given by mechanism, not memory.
 
-This repository carries the framework. **The project you work on** — its vision, goals, what it builds — is captured as node artifacts in `graph/`; the things it builds (code, etc.) are non-node artifacts, each governed by a node. (Here the project happens to be the framework itself; elsewhere it is an app or a service. The framework does not change.)
+This repository carries the framework. **The project you work on** — its vision, goals, what it builds — is planned in `graph/`; the code and files it produces live elsewhere, each pointed at by a `graph/` file. (Here the project happens to be the framework itself; elsewhere it is an app or a service. The framework does not change.)
 
 ---
 
