@@ -4,11 +4,11 @@ id: adr-004-substrate-content-separation
 parent: "[[cap-13-portability]]"
 artifacts:
   - "[[CLAUDE.md]]"
-status: accepted
+status: superseded
 created: 2026-05-14
 updated: 2026-05-14
 supersedes:
-superseded-by:
+superseded-by: "[[adr-015-one-unified-artifact-graph]]"
 ---
 
 # ADR 004 — Substrate and content occupy disjoint directories; the substrate is the reusable framework, the content is the project

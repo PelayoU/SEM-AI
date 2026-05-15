@@ -12,3 +12,6 @@ dist/
 # Bibliography sources (PDFs originales — copyright + tamaño)
 # Las fichas .md en bibliography/ sí se versionan; los PDFs no.
 bibliography/sources/
+
+# personal visual layer — not framework (ADR-015)
+.obsidian/

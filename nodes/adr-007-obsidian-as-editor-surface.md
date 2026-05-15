@@ -8,11 +8,11 @@ artifacts:
   - "[[.obsidian/core-plugins.json]]"
   - "[[.obsidian/community-plugins.json]]"
   - "[[.obsidian/plugins/show-hidden-files/manifest.json]]"
-status: accepted
+status: superseded
 created: 2026-05-14
 updated: 2026-05-14
 supersedes:
-superseded-by:
+superseded-by: "[[adr-015-one-unified-artifact-graph]]"
 ---
 
 # ADR 007 — Obsidian is the recommended editor surface; the data layer remains editor-agnostic

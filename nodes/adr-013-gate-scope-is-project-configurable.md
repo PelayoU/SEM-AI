@@ -7,11 +7,11 @@ artifacts:
   - "[[.claude/role-scope.json]]"
   - "[[.claude/role-scope.example.json]]"
   - "[[CLAUDE.md]]"
-status: proposed
+status: superseded
 created: 2026-05-15
 updated: 2026-05-15
 supersedes:
-superseded-by:
+superseded-by: "[[adr-015-one-unified-artifact-graph]]"
 ---
 
 # ADR 013 — The gate's governed scope is the project's role-scope.json glob union, not a hardcoded layout

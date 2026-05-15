@@ -10,11 +10,11 @@ artifacts:
   - "[[.claude/agents/qa.md]]"
   - "[[.claude/agents/developer.md]]"
   - "[[.claude/agents/devops.md]]"
-status: accepted
+status: superseded
 created: 2026-05-15
 updated: 2026-05-15
 supersedes:
-superseded-by:
+superseded-by: "[[adr-015-one-unified-artifact-graph]]"
 ---
 
 # ADR 012 — Active-role marker is mandatory; per-role path-scope is hard-enforced

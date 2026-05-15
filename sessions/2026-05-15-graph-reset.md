@@ -33,6 +33,14 @@ Skills applied: `architect-architecture-design`.
 Artifacts: `nodes/adr-015-one-unified-artifact-graph.md`; removed uncommitted `nodes/adr-014`; this session doc.
 Next: Reset-C — mass prune (delete story/spec, feature=skill, prune caps, supersede ADRs, drop _obsidian/templates, gitignore .obsidian).
 
+### 2026-05-15 — architect (Reset-C: prune + feature=skill)
+
+281 → **68 nodes** (1 vision + 3 goals + 13 caps + 14 ADRs + 37 features). Deleted all 96 `story-*`, 77 `spec-*`, 77 old `feature-*` (recoverable: `git show 1b92365:nodes/<f>`). Created **37 lean skill-features**, one per skill, `parent:`=its role-discipline cap (cap-03..07), `artifacts:`=that `SKILL.md` — no story/spec wrapper (the SKILL.md is the spec, adr-009/015). Superseded adr-004/007/012/013 (`status: superseded`, `superseded-by: adr-015`; kept as history). Removed `_obsidian/templates/` (node structure carried by authoring skills); `.obsidian/` added to `.gitignore` (personal visual layer, not framework). **Plan deviation, stated:** kept all 13 caps + 14 ADRs rather than pruning caps — deleting caps would orphan ADR parents and the real bloat was features/stories/specs; this hits the ~60–70 target safely without risky cap-reparenting (graph-integrity > rigid plan adherence). Integrity verified: exactly 1 rootless (`vision-sem-ia`), 0 orphans, 0 story/spec, feature count == skill count (37). The strategic backbone the human said "no están mal" is untouched.
+
+Skills applied: `architect-architecture-design`, `po-feature-decomposition` (feature=skill mapping).
+Artifacts: 37 new `nodes/feature-*`; 4 superseded ADRs; deleted 250 nodes + `_obsidian/templates/`; `.gitignore`; this session doc.
+Next: Reset-D — generic slim CLAUDE.md + agent-opener reframe.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-graph-reset.md` — this session doc.
