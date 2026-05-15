@@ -2,8 +2,15 @@
 category: session
 id: 2026-05-15-hard-enforcement-layer
 date: 2026-05-15
-participants: [architect]
-related-nodes: []
+participants: [architect, product-owner]
+related-nodes:
+  - "[[feature-072-node-before-artifact-gate]]"
+  - "[[feature-073-claude-md-orientation-and-governance]]"
+  - "[[feature-074-agent-decision-verification]]"
+  - "[[feature-075-hard-role-jurisdiction]]"
+  - "[[feature-076-per-turn-role-reinforcement]]"
+  - "[[adr-011-hard-enforcement-no-human-override]]"
+  - "[[adr-012-mandatory-active-role-hard-jurisdiction]]"
 artifacts: []
 ---
 
@@ -33,10 +40,19 @@ Skills applied: `architect-architecture-design`.
 Artifacts: `CLAUDE.md` (reverted to committed state); this session doc.
 Next: Phase C — author governing nodes first (feature-072..076 + stories + specs + adr-011/012), commit all before any substrate change.
 
+### 2026-05-15 — product-owner + architect (Phase C: nodes first)
+
+Authored **26 governing nodes**, parents before children, all `draft`/`proposed`, light `## Source` per template (no skill-grade citation apparatus — citation guard honoured). PO authored the 5 features + 14 stories + 5 specs (`po-feature-decomposition`, `po-spec-gherkin`); Architect authored adr-011/adr-012 (`architect-architecture-design`) — logged as cross-role co-authoring within the session, not a Task subagent dispatch. C0 search-before-create applied: relate-not-duplicate to feature-007/010/024/025/028, adr-004/005/010; this work delivers the `2026-05-14` deferred *graph-vs-substrate operating rule* (→ feature-073) and *consultation matrix* (→ feature-074) candidates; pre-existing ungoverned `.claude/settings.json` closed by feature-072/076; legacy `session-start.sh` gap flagged, not retro-fixed. Parent-chain sanity: 26/26 present, all parents resolve. **No substrate touched yet.**
+
+Skills applied: `po-feature-decomposition`, `po-spec-gherkin`, `architect-architecture-design`.
+Artifacts: 26 nodes under `nodes/` (feature/story/spec-072..076, adr-011, adr-012); this session doc.
+Next: Phase D — implement substrate in deadlock-safe order, each path already governed by these nodes.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-hard-enforcement-layer.md` — this session doc.
 - Reverted `CLAUDE.md` — discarded the out-of-process 15-line "Orient here" block (no governing node); content re-applied node-traced in Phase D.
+- Created 26 nodes — `feature-072..076`, their `story-*` (14) and `spec-072..076`, `adr-011`, `adr-012` — the governing graph for the hard-enforcement substrate.
 
 ## Subagent consultations
 
