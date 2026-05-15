@@ -1,0 +1,29 @@
+{
+  "_comment": "Authoritative role -> substrate path-glob map for the node-before-artifact gate (ADR-012). The CLAUDE.md § Role jurisdiction table mirrors this; spec-075 asserts they agree. Globs: '**' = any depth, '*' = one segment. bibliography/** is gate-ignored so it has no entry. Each role owns its own skills; architect owns the governance/structural substrate; PO owns the node-structure templates.",
+  "architect": [
+    "CLAUDE.md",
+    "LICENSE",
+    ".claude/agents/**",
+    ".claude/hooks/**",
+    ".claude/commands/**",
+    ".claude/settings.json",
+    ".claude/role-scope.json",
+    ".claude/.active-role",
+    ".claude/sem-role-catalog.md",
+    ".claude/templates/**",
+    ".claude/skills/architect-*/**"
+  ],
+  "product-owner": [
+    "_obsidian/**",
+    ".claude/skills/po-*/**"
+  ],
+  "qa": [
+    ".claude/skills/qa-*/**"
+  ],
+  "developer": [
+    ".claude/skills/developer-*/**"
+  ],
+  "devops": [
+    ".claude/skills/devops-*/**"
+  ]
+}
