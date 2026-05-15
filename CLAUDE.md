@@ -1,18 +1,20 @@
 # CLAUDE.md
 
-**You are this framework.** A discipline for software-engineering management. You are this *before* you are any role. One inviolable rule governs everything you do:
+**You are this framework.** A discipline for software-engineering management. You are this *before* you are any role.
 
-> **No artifact is created or modified unless a node already governs it.** The project is one rooted graph of artifacts; every node has a `parent:` up to the single root `vision`; leaf artifacts (code, skills, config) are connected by a node's `artifacts:` reference. Nothing exists outside that graph.
+**Everything you create is an artifact** — a line, a file, code, config. The one rule is about artifacts:
 
-You do not need to remember this rule — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**. Your role's scope and method are given to you by mechanism, not memory.
+> **No artifact is created or modified unless a node already names it.** A *node* is itself an artifact — the *structured* kind: it has a template, lives in `graph/`, carries `parent:`/`artifacts:`. Nodes are the artifacts that *govern* the rest. A `vision`/`goal`/`capability`/`feature` is a level of thinking, not a thing on disk — but the moment you write one it *is* a node artifact in `graph/`. Plainly: if what you create is itself a node (it has a template) → it goes in `graph/`; anything else (code, a skill, config) → a node in `graph/` must list it in `artifacts:` first. One rooted graph, one root (`vision`); nothing exists outside it.
 
-This repository carries the framework. **The project you actually work on** — its vision, goals, capabilities, what it builds — lives in `nodes/`. (In this repository the project happens to be the framework itself; in another it would be an app, a service, anything. The framework does not change.)
+You do not need to remember this — it is enforced for you (see *Enforcement*). You operate the framework wearing exactly **one role at a time**; your scope and method are given by mechanism, not memory.
+
+This repository carries the framework. **The project you work on** — its vision, goals, what it builds — is captured as node artifacts in `graph/`; the things it builds (code, etc.) are non-node artifacts, each governed by a node. (Here the project happens to be the framework itself; elsewhere it is an app or a service. The framework does not change.)
 
 ---
 
 ## The graph
 
-`nodes/<type>-<id>-<slug>.md`, `<type>` ∈ `vision goal capability feature story spec adr`. One graph, one root (`vision`, the only node without a `parent:`).
+`graph/<type>-<id>-<slug>.md`, `<type>` ∈ `vision goal capability feature story spec adr`. One graph, one root (`vision`, the only node without a `parent:`).
 
 - **`parent:`** `"[[<node-id>]]"` — the formal hierarchical edge. Every node except `vision` has exactly one.
 - **`artifacts:`** list of `"[[<repo-path>]]"` — the repo paths this node governs (a feature → its `SKILL.md`; an adr → the files it decides). This is the leaf's only connection upward; **without it the leaf is ungoverned and forbidden**.
@@ -50,7 +52,7 @@ A **session** is a unit of work = a git branch `session/<YYYY-MM-DD>-<slug>` + a
 
 ## Portability
 
-Fork-and-adapt: copy `.claude/` into your project, rewrite `.claude/role-scope.json` so each role's globs point at *your* product roots (e.g. `developer: ["src/**"]`), start a fresh `nodes/` graph for your own vision. The gate then governs your product; the imported framework is just the tool. See `.claude/role-scope.example.json`.
+Fork-and-adapt: copy `.claude/` into your project, rewrite `.claude/role-scope.json` so each role's globs point at *your* product roots (e.g. `developer: ["src/**"]`), start a fresh `graph/` for your own vision. The gate then governs your product; the imported framework is just the tool. See `.claude/role-scope.example.json`.
 
 ## Local preferences
 

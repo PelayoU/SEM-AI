@@ -57,6 +57,14 @@ Skills applied: `architect-architecture-design`.
 Artifacts: this session doc.
 Next: human picks merge / PR / discard; confirm adr-015.
 
+### 2026-05-15 — architect (Reset-F: artifact/node ontology + `nodes/`→`graph/`)
+
+Human flagged that CLAUDE.md conflated *node* and *artifact* and that "the project lives in nodes/" misleads. Fixed: CLAUDE.md now states the ontology plainly — **everything created is an artifact; a *node* is the structured kind (template, lives in `graph/`, carries `parent:`/`artifacts:`) and is what *governs* the rest; a capability/goal/vision is a level of thinking whose written form is a node artifact**; rule restated ("if it's itself a node → `graph/`; else a node in `graph/` lists it in `artifacts:` first"). Folder **renamed `nodes/` → `graph/`** (`git mv`, 68 files, history preserved — the folder *is* the graph, its files are node-artifacts). Patched the gate hook (`always_ignore` `graph/*`, the node grep, deny text), `role-scope.json` + `role-scope.example.json` `_comment`, and adr-015 (body + a Clarification block). Verified: `graph/` write → allow (no deadlock); ungoverned → deny; governed (CLAUDE.md/hook via adr-015, architect) → allow; rootless=1, orphan=0, 68 nodes, 37 features; `git show 1b92365:nodes/…` still recovers the pre-rename history; adr-015 confirmed valid UTF-8 (no corruption). `.claude/commands/session-log.md` (only non-mechanism file mentioning `nodes/`) left untouched — pre-existing untracked cruft, flagged not adopted.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `git mv nodes→graph` (68); `CLAUDE.md`, `.claude/hooks/enforce-node-before-artifact.sh`, `.claude/role-scope.json`, `.claude/role-scope.example.json`, `graph/adr-015-*`; this session doc.
+Next: human picks merge / PR / discard; confirm adr-015.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-graph-reset.md` — this session doc.

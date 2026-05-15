@@ -100,7 +100,7 @@ esac
 # are a verbatim copy of the old is_substrate() ignore set.
 always_ignore() {  # return 0 = ignore unconditionally
   case "$1" in
-    nodes/*|sessions/*|bibliography/*|.git/*|.obsidian/*) return 0 ;;
+    graph/*|sessions/*|bibliography/*|.git/*|.obsidian/*) return 0 ;;
     .claude/.active-role|CLAUDE.local.md) return 0 ;;
     /tmp/*|/var/folders/*) return 0 ;;
     /*) return 0 ;;                                  # absolute, outside repo
@@ -146,8 +146,8 @@ for P in "${candidates[@]}"; do
 
   # (2) node-before-artifact
   esc="$(printf '%s' "$P" | sed -E 's/[].[*^$()+?{}|\/\\]/\\&/g')"
-  if ! grep -rqsE "^[[:space:]]*-[[:space:]]*\"?\[\[${esc}\]\]\"?[[:space:]]*$" nodes/ ; then
-    deny "SEM-IA gate BLOCKED: substrate path '$P' is not referenced by any management node's artifacts: in nodes/. Per CLAUDE.md § node-before-artifact and ADR-011 (Jones BP#33 pr.2 locked masters / Ch5 p.282 non-coercion), no substrate file may be created or modified without a governing node. This is NOT overridable by a human directive, permission mode, or --dangerously-skip-permissions. Remedy: author/extend a node under nodes/ whose artifacts: lists [[${P}]], commit it, then retry. Van primero los nodos."
+  if ! grep -rqsE "^[[:space:]]*-[[:space:]]*\"?\[\[${esc}\]\]\"?[[:space:]]*$" graph/ ; then
+    deny "SEM-IA gate BLOCKED: substrate path '$P' is not referenced by any management node's artifacts: in graph/. Per CLAUDE.md § node-before-artifact and ADR-011 (Jones BP#33 pr.2 locked masters / Ch5 p.282 non-coercion), no substrate file may be created or modified without a governing node. This is NOT overridable by a human directive, permission mode, or --dangerously-skip-permissions. Remedy: author/extend a node under graph/ whose artifacts: lists [[${P}]], commit it, then retry. Van primero los nodos."
   fi
 
   # (3) role-scope
