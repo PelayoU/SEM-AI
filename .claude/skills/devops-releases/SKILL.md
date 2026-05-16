@@ -55,7 +55,7 @@ A release plan is acceptable only if all of the following hold:
 4. **Old-version support policy stated** *(BP #49 anti-pattern 9 + practice 10)* — applications with thousands of users do not get support arbitrarily withdrawn; support timeline is announced in advance.
 5. **File-format migration plan when applicable** *(BP #49 anti-pattern 11 + practice 9)* — format changes carry free conversion in both directions; old format remains readable.
 6. **Coordinated with customer support staffing** *(BP #49 + BP #45)* — release volume drives support volume; the release plan checks the customer-support staffing model (cross-link `devops-customer-support`) is still valid.
-7. **Coordinated with configuration control + post-release change** — each release is a new baseline; CRs against the release flow through `po-change-control` + `devops-post-release-change`.
+7. **Coordinated with configuration control + post-release change** — each release is a new baseline; CRs against the release flow through `product-manager-change-control` + `devops-post-release-change`.
 
 ## How you proceed
 
@@ -66,7 +66,7 @@ A release plan is acceptable only if all of the following hold:
 5. **Plan file-format migration** if applicable. Bidirectional, free, in-place upgrade.
 6. **Update customer-support model** (cross-link `devops-customer-support`) to account for the new release's expected ticket volume.
 7. **Publish release notes** including known bugs (per practice 1).
-8. **Measure post-release.** Support volume by category, defect-discovery rate, MTTF; feed back to PO / QA / next release planning.
+8. **Measure post-release.** Support volume by category, defect-discovery rate, MTTF; feed back to Product Manager / QA / next release planning.
 
 ## Pitfalls to avoid
 
@@ -83,6 +83,6 @@ A release plan is acceptable only if all of the following hold:
 - **Best Practice #49 — *Updates and Releases of Software Applications* (Capers Jones, *Software Engineering Best Practices*, McGraw-Hill 2010, pp. 164–165).** Three release-driving forces (bugs / business + law / vendor monetization); 16 named anti-patterns; 11 theoretical-but-correct best practices; mainframe-vs-PC support dichotomy.
 - **Best Practice #45 — *Customer Support* (Jones 2010, pp. 157–158)** — release volume drives support volume; staffing baseline 1/10kFP or 1/150 customers; cross-link `devops-customer-support`.
 - **GISF UC3M `gisf-pipeline-devops.pdf`** — Release strategies (slide 34): Roadmap-Based / Timeboxed / Regular / Continuous Deployment / Feature Management-Based.
-- **Cross-references**: `devops-deployment` (deployment strategy pairs with release strategy); `devops-customer-support` (support model checked at each release); `po-change-control` (CRs per release); `devops-post-release-change` (post-release renovation).
+- **Cross-references**: `devops-deployment` (deployment strategy pairs with release strategy); `devops-customer-support` (support model checked at each release); `product-manager-change-control` (CRs per release); `devops-post-release-change` (post-release renovation).
 - Out-of-bibliography (convention pointers only): semantic versioning (semver), release notes conventions, EULA standards.
 - Full traceability: `bibliography/skill-references.md` § `devops-releases`.

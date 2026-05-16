@@ -35,14 +35,14 @@ A deployment pipeline pass is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Classify the application size and class.** PC / Mac / mobile: lightweight pipeline, customer-self-install. Mid-size IT: full CI/CD pipeline. ERP / mainframe: full 7-stage + customization + side-by-side runs + ~12-month rollout. Cross-link `po-early-sizing`.
+1. **Classify the application size and class.** PC / Mac / mobile: lightweight pipeline, customer-self-install. Mid-size IT: full CI/CD pipeline. ERP / mainframe: full 7-stage + customization + side-by-side runs + ~12-month rollout. Cross-link `product-manager-early-sizing`.
 2. **Pick the 7-stage instrumentation.** For each generic-process stage (GISF slide 32), name the tool / activity / gate.
 3. **Pick the strategies** (5 axes: branching / build / test / release / production deployment). Document trade-offs for each.
 4. **Walk Jones BP #43 10 practices.** Identify which apply, schedule them, name owners.
-5. **For ERP-class work, build the deployment plan** with 12-month scaffold, consultant + in-house staffing, side-by-side run, customization budget. Surface to PO (`po-project-planning`, `po-cost-estimating`) for inclusion in the overall release plan.
+5. **For ERP-class work, build the deployment plan** with 12-month scaffold, consultant + in-house staffing, side-by-side run, customization budget. Surface to Product Manager (`product-manager-project-planning`, `product-manager-cost-estimating`) for inclusion in the overall release plan.
 6. **Integrate with QA gates.** Test environments provisioned per pipeline stage; static analysis (cross-link `developer-static-analysis`) integrated; inspection results (cross-link `qa-inspections-program`) feed pipeline progression decisions.
 7. **Integrate with configuration control** (cross-link `devops-configuration-control`). Artifacts in pipeline are versioned and master-locked.
-8. **Monitor and evolve** — pipeline metrics fed back to PO for next-release planning (cross-link `po-benchmarks-baselines`).
+8. **Monitor and evolve** — pipeline metrics fed back to Product Manager for next-release planning (cross-link `product-manager-benchmarks-baselines`).
 
 ## Pitfalls to avoid
 
@@ -59,6 +59,6 @@ A deployment pipeline pass is acceptable only if all of the following hold:
 
 - **Best Practice #43 — *Software Deployment and Customization* (Capers Jones, *Software Engineering Best Practices*, McGraw-Hill 2010, pp. 154–155).** Deployment-is-poorly-covered observation; ERP-class baseline ($1M+ / 12 months / 25 consultants + 30 in-house); 10 deployment best practices; side-by-side run pattern; customization as norm for large applications.
 - **GISF UC3M `gisf-pipeline-devops.pdf` — Deployment Pipeline model** (slide 30, citing Humble & Farley *Continuous Delivery*). 7-stage model (Develop → Confirm → Build → Test → Provide → Deploy → Release); generic-process detailed instrumentation (slide 32); 5-axis strategy framework (slide 34: branching / build / test / release / deployment); Gitflow worked example (slides 35–38).
-- **Cross-references**: `qa-testing-strategy` (test portfolio constrains pipeline test stage), `qa-defect-removal-efficiency` (CD precondition >99% DRE), `developer-static-analysis` (pipeline integration), `qa-inspections-program` (gating), `devops-configuration-control` (artifact versioning), `po-early-sizing` (ERP-class detection), `po-project-planning` + `po-cost-estimating` (deployment plan integration).
+- **Cross-references**: `qa-testing-strategy` (test portfolio constrains pipeline test stage), `qa-defect-removal-efficiency` (CD precondition >99% DRE), `developer-static-analysis` (pipeline integration), `qa-inspections-program` (gating), `devops-configuration-control` (artifact versioning), `product-manager-early-sizing` (ERP-class detection), `product-manager-project-planning` + `product-manager-cost-estimating` (deployment plan integration).
 - Out-of-bibliography (convention pointers only): Humble & Farley *Continuous Delivery* (book itself not in `sources/`, captured via GISF); Kim et al *The Phoenix Project* / Three Ways; DORA *State of DevOps Report* metrics; specific tooling (Jenkins, GitLab CI, GitHub Actions, ArgoCD, Spinnaker, Tekton).
 - Full traceability: `bibliography/skill-references.md` § `devops-deployment`.

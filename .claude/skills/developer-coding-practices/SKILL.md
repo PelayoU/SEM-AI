@@ -43,7 +43,7 @@ A coding pass is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Confirm the parent feature has INVEST-passing stories and a Gherkin spec** (cross-link `po-feature-decomposition` + `po-spec-gherkin`). Coding above shaky stories propagates ambiguity.
+1. **Confirm the parent feature has INVEST-passing stories and a Gherkin spec** (cross-link `product-manager-feature-decomposition` + `product-manager-spec-gherkin`). Coding above shaky stories propagates ambiguity.
 2. **Confirm Architect decisions are in place** (cross-link `architect-architecture-design`). Architectural style, decomposition, design notation, performance + security budgets are inputs to coding decisions, not afterthoughts.
 3. **Pick or confirm the programming language(s)** (practice 1). Use Jones's 5-axis suitability matrix (cross-link `architect-methodology-selection`) at language scope: size of code involved, application type, application nature (new / replacement / maintenance), attribute fit (especially security and performance), activity fit. Multiple languages are normal for large applications.
 4. **Walk the prevention layer.** Structured programming (practice 2). Certified reuse check (practice 3 + cross-link). Security planning (practice 4). Spaghetti-bowl avoidance (practice 5). Complexity ceilings (practice 6).

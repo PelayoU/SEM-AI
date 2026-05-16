@@ -39,7 +39,7 @@ A maintenance-operations pass is acceptable only if all of the following hold:
 3. **Stand up the Release Kanban** (GISF slide 210). 3 columns; PBIs sized in points; highest priority at top of To Do. Refresh at iteration boundary.
 4. **Build the Burn-Up Chart** (GISF slide 211). Cumulative delivered vs total scope plotted over iterations. Update at iteration end.
 5. **Schedule the daily stand-up** for the maintenance team. ≤15 min; what was done yesterday / what is being done today / blockers.
-6. **Set SLAs** for defect-repair time and change-request-completion time. Communicate to PO + customers.
+6. **Set SLAs** for defect-repair time and change-request-completion time. Communicate to Product Manager + customers.
 7. **Set up the 14-practice tracking** (defects by customer, response time to repair, response time to CR completion, maintenance activities + costs, warranty costs, software availability).
 8. **Size the team** against Jones Table 5-1 (Maintenance specialists 31.5% of staff) + the 120-defect multiplier (less delivered defects = less maintenance staff needed).
 9. **Cross-coordinate** with `developer-maintenance` (code work), `devops-post-release-change` (renovation tool work), `devops-customer-support` (defect-flow from support intake).
@@ -51,7 +51,7 @@ A maintenance-operations pass is acceptable only if all of the following hold:
 - **No flow visualization.** Without Release Kanban + Burn-Up, progress is invisible until a release crisis surfaces it.
 - **Daily stand-up as status meeting.** ≤15 min; coordination, not reporting. Long stand-ups burn time.
 - **Outsourcing strategic legacy.** Jones supports outsourcing for non-strategic maintenance; strategic / privileged-data systems are not appropriate.
-- **Ignoring the 120-defect multiplier.** Maintenance staffing is partly a function of upstream quality. Operations sizing should surface the quality-investment trade-off to PO.
+- **Ignoring the 120-defect multiplier.** Maintenance staffing is partly a function of upstream quality. Operations sizing should surface the quality-investment trade-off to Product Manager.
 - **ITIL adopted as authority.** Cited by Jones as relevant but the standard itself is not in audited bibliography. Apply as convention; cite Jones for the principle.
 
 ## Source
@@ -60,6 +60,6 @@ A maintenance-operations pass is acceptable only if all of the following hold:
 - **Best Practice #35 — *SQA* (Jones 2010, pp. 120–124)** — economic-value-of-quality empirics: 120 + 240 defect-multipliers.
 - **Chapter 5 Table 5-1** — Maintenance specialists 31.5% of software staff; Configuration Control specialists 1.5%; Customer Support specialists 2.0%. DevOps role aggregates these specialties.
 - **GISF UC3M `gisf-delivery-control-and-monitoring.pdf`** — Release Kanban board (slide 210: PBIs To Do / In Progress / Delivered); Release Burn-Up Chart (slide 211); Daily stand-up meeting (slide 93 + slide 240).
-- **Cross-references**: `developer-maintenance` (code-side of legacy work), `devops-post-release-change` (tool-supported renovation), `devops-customer-support` (defect inflow from support), `po-change-control` (CR pipeline), `qa-defect-removal-efficiency` (upstream quality drives downstream maintenance load).
+- **Cross-references**: `developer-maintenance` (code-side of legacy work), `devops-post-release-change` (tool-supported renovation), `devops-customer-support` (defect inflow from support), `product-manager-change-control` (CR pipeline), `qa-defect-removal-efficiency` (upstream quality drives downstream maintenance load).
 - Out-of-bibliography (convention pointers only): ITIL v3/v4 full standard (cited by Jones but spec not in `sources/`), COBIT, DORA MTTR metric, Site Reliability Engineering (Google SRE Book).
 - Full traceability: `bibliography/skill-references.md` § `devops-maintenance-operations`.

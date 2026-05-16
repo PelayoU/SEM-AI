@@ -35,8 +35,8 @@ A methodology choice is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Pull the project parameters.** Size in FP (from `po-early-sizing`), application type, nature (new vs replacement), critical attributes (Cagan four risks from `po-risk-analysis` give hints), activity scope.
-2. **Acquire benchmark data.** ISBSG remote benchmark for comparable applications + methodology. Cross-link to `po-benchmarks-baselines`. Without benchmarks the selection is fiction.
+1. **Pull the project parameters.** Size in FP (from `product-manager-early-sizing`), application type, nature (new vs replacement), critical attributes (Cagan four risks from `product-manager-risk-analysis` give hints), activity scope.
+2. **Acquire benchmark data.** ISBSG remote benchmark for comparable applications + methodology. Cross-link to `product-manager-benchmarks-baselines`. Without benchmarks the selection is fiction.
 3. **Build the five-axis scorecard.** Columns are candidate methodologies; rows are the five axes. For each cell, score on three levels (Strong fit / Adequate / Poor fit) with one-line rationale citing benchmark or Jones text.
 4. **Score the candidates.** No single candidate typically wins all five axes — that is the prompt to consider hybrids.
 5. **Compose the hybrid if needed.** Combine a primary full methodology with partial methods to fill the gaps. Example: TSP for process discipline + JAD for elicitation + formal requirements inspections + Gherkin for acceptance contract + Lean Six Sigma for measurement.
@@ -56,6 +56,6 @@ A methodology choice is acceptable only if all of the following hold:
 ## Source
 
 - **Best Practice #9 — *Selecting Software Methods, Tools, and Practices* (Capers Jones, *Software Engineering Best Practices*, McGraw-Hill 2010, pp. 59–61).** Full methodology list (~18 candidates), partial method list (~10 components), five-axis suitability evaluation (size / type / nature / attribute / activity), hybrid permission, benchmark-as-input mandate.
-- **Cross-reference: ISBSG benchmark database** — Jones Ch 7 / BP #31. Depth in `po-benchmarks-baselines`.
+- **Cross-reference: ISBSG benchmark database** — Jones Ch 7 / BP #31. Depth in `product-manager-benchmarks-baselines`.
 - **Legacy-replacement reality (~80% of new applications)** — Jones BP #11, p. 70.
 - Full traceability: `bibliography/skill-references.md` § `architect-methodology-selection`.

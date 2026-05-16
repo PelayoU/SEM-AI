@@ -46,7 +46,7 @@ An architectural decision is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Confirm size tier.** Pull the FP figure from `po-early-sizing`. Without a size, you cannot apply Table 7-7's escalation rule. If FP is missing, surface that as a precondition.
+1. **Confirm size tier.** Pull the FP figure from `product-manager-early-sizing`. Without a size, you cannot apply Table 7-7's escalation rule. If FP is missing, surface that as a precondition.
 2. **Walk the seven fundamental topics.** For each, write one paragraph that captures the current decision or open question. Topics with "TBD" become explicit work items, not silent gaps.
 3. **Choose an architectural style.** List the candidates (monolithic, client-server, 3-tier, N-tier, event-driven, peer-to-peer, model-driven, pattern-based, SOA, cloud). For each plausible candidate, evaluate against the seven topics. The winner is documented with its trade-offs; the rejected candidates are recorded too, so future re-evaluation has a baseline.
 4. **Apply the Zachman schema** for 10,000+ FP work. Build the 6×6 matrix and fill the cells the application actually constrains; mark the rest as "not applicable for this application" with a one-line reason.

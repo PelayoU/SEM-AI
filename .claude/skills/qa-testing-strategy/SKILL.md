@@ -66,6 +66,6 @@ A test strategy is acceptable only if all of the following hold:
 - **Chapter 9 Table 9-22** (Jones 2010, pp. 615–617) — DRE for testing forms: PSP/TSP unit testing 52% (#38), subroutine testing 50% (#39), XP testing 40% (#40), component testing 40% (#41), system testing 40% (#42), new function testing 35% (#43), regression testing 30% (#44), unit testing 25% (#45); automatic testing average 45%; specialized testing: virus 98% (#51), spyware 98% (#52), security 90% (#53), limits/capacity 90% (#54), penetration 90% (#55), reusability 88% (#56), firewall 87% (#57), performance 80% (#58), nationalization 75% (#59), scalability 65% (#60); user testing: usability 65% (#66), beta 40% (#69), acceptance 25–30% (#70–72).
 - **Chapter 9 Table 9-23** — Testers: 10,000 FP assignment scope, defect prevention 15%, defect removal 50% (highest of any role).
 - **Cross-reference: inspections needed to reach >95%** — Jones BP #36 (depth in `qa-inspections-program`).
-- **Cross-reference: Gherkin acceptance contract for acceptance testing** — Cucumber `gherkin-reference.pdf` (depth in `po-spec-gherkin`).
+- **Cross-reference: Gherkin acceptance contract for acceptance testing** — Cucumber `gherkin-reference.pdf` (depth in `product-manager-spec-gherkin`).
 - Out-of-bibliography (convention pointers only): IEEE 829 test documentation standard, ISTQB testing body of knowledge, agile testing quadrants (Crispin / Gregory).
 - Full traceability: `bibliography/skill-references.md` § `qa-testing-strategy`.

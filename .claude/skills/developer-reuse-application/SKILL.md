@@ -32,7 +32,7 @@ A reuse application pass is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Identify the need.** What functional contract must the new code satisfy? Functional signature, performance budget, security constraints. Pull from the parent Gherkin spec (`po-spec-gherkin`).
+1. **Identify the need.** What functional contract must the new code satisfy? Functional signature, performance budget, security constraints. Pull from the parent Gherkin spec (`product-manager-spec-gherkin`).
 2. **Search the certified reuse library.** Architect curates it (cross-link `architect-reusability-strategy`). Match against name, taxonomy, contract.
 3. **Verify certification status.** Certificate present, version pinned, dependencies tracked, known-defect log accessible. If any is missing, the candidate is *not yet admissible*; refer back to `architect-reuse-certification`.
 4. **Evaluate fit.** Does the artifact's contract match the feature's contract? Examine inputs, outputs, side effects, threading model, error semantics. Mismatches large enough to require modification mean either re-certification or reject + custom code.

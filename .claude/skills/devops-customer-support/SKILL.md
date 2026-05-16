@@ -7,7 +7,7 @@ description: "Size and run the customer-support function using Capers Jones BP #
 
 ## Purpose
 
-Customer support is "almost universally unsatisfactory" (Jones BP #45 p. 157) — labor-intensive, expensive, and economically unsustainable at the 1-support-per-150-customers ratio Jones reports as the empirical baseline. As customer count grows, ratios drift to 1-per-1,000 → long wait times. The only sustainable lever is defect-prevention upstream: every 220 delivered defects fewer ≈ 1 support FTE saved per year (Jones p. 157). This skill lets DevOps size the support function correctly against Jones's empirical ratios, plan the tier structure, evaluate AI / e-mail / phone channel mix, and surface the support-cost-vs-quality-investment trade-off to PO.
+Customer support is "almost universally unsatisfactory" (Jones BP #45 p. 157) — labor-intensive, expensive, and economically unsustainable at the 1-support-per-150-customers ratio Jones reports as the empirical baseline. As customer count grows, ratios drift to 1-per-1,000 → long wait times. The only sustainable lever is defect-prevention upstream: every 220 delivered defects fewer ≈ 1 support FTE saved per year (Jones p. 157). This skill lets DevOps size the support function correctly against Jones's empirical ratios, plan the tier structure, evaluate AI / e-mail / phone channel mix, and surface the support-cost-vs-quality-investment trade-off to Product Manager.
 
 ## When this skill applies
 
@@ -32,14 +32,14 @@ A customer-support plan is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Get the customer count and FP size.** Cross-link `po-early-sizing`. Apply both Jones ratios; the more restrictive sets the baseline.
+1. **Get the customer count and FP size.** Cross-link `product-manager-early-sizing`. Apply both Jones ratios; the more restrictive sets the baseline.
 2. **Project the next year's defect-discovery rate.** Defect potentials × delivered defects (cross-link `qa-defect-removal-efficiency`). Tickets ≈ delivered-defect count × 30 (Jones's discovery factor).
 3. **Plan the tier model** with volume distribution. Web self-service (L0) deflects the highest-volume / lowest-complexity tickets; L1 handles ~60% of the rest; L2 + L3 carry the residual.
 4. **Pick the channel mix.** Phone + e-mail + accessible + self-service. Wait-time targets from BP #49 (≤5 min phone, ≤48h e-mail).
 5. **Decide outsourcing** for L1 if appropriate. Non-strategic, non-privileged-data, language-aligned with customer base.
 6. **Cost the support function.** FTE × labor cost. Compute the trade-off against upstream quality investment (220-defect rule).
 7. **Plan innovation for scale.** For >100k customers consider AI first-tier + e-mail triage + reusable HELP-screen libraries (Jones BP #45 p. 158).
-8. **Surface to PO** as part of release planning (`po-cost-estimating`, `po-project-planning`). Support cost is part of release cost.
+8. **Surface to Product Manager** as part of release planning (`product-manager-cost-estimating`, `product-manager-project-planning`). Support cost is part of release cost.
 
 ## Pitfalls to avoid
 
@@ -56,6 +56,6 @@ A customer-support plan is acceptable only if all of the following hold:
 
 - **Best Practice #45 — *Customer Support of Software Applications* (Capers Jones, *Software Engineering Best Practices*, McGraw-Hill 2010, pp. 157–158).** Empirical staffing ratios (1/10kFP, 1/150 customers, drifting to 1/1,000 at scale); 220-defect ≈ 1 support FTE per year multiplier; support-as-most-commonly-outsourced; AI virtual support / e-mail triage / standardized HELP / SOA-reusable HELP scale levers; small-company-better-support observation.
 - **Best Practice #49 — *Updates and Releases* (Jones 2010, pp. 164–165)** — release-side anti-patterns + practices that interact with support model (16 anti-patterns and 11 practices, especially #2 e-mail SLA, #3 phone SLA, #4 60% first-tier resolution, #5 hearing-impaired, #6 fee scope).
-- **Cross-references**: `qa-defect-removal-efficiency` (quality investment is the support-cost lever); `po-cost-estimating` (support is part of release cost); `po-early-sizing` (FP needed for ratio); `devops-releases` (release plan triggers support volume).
+- **Cross-references**: `qa-defect-removal-efficiency` (quality investment is the support-cost lever); `product-manager-cost-estimating` (support is part of release cost); `product-manager-early-sizing` (FP needed for ratio); `devops-releases` (release plan triggers support volume).
 - Out-of-bibliography (convention pointers only): ITIL service desk model, Zendesk / Salesforce Service Cloud / Intercom tooling, customer-satisfaction (CSAT / NPS) metrics.
 - Full traceability: `bibliography/skill-references.md` § `devops-customer-support`.

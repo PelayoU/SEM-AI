@@ -65,6 +65,6 @@ A post-release change pass is acceptable only if all of the following hold:
 - **Best Practice #48 — *Maintenance and Enhancement* (Jones 2010, pp. 161–164)** — 23 maintenance work types; error-prone module 5%/50% rule; renovation workbench (Relativity Technologies cited).
 - **Best Practice #28 — *Programming or Coding* (Jones 2010, p. 108)** — practice 12 (renovate before enhance).
 - **Chapter 9 Table 9-22** — Complexity analysis tools, static analysis, error-prone module analysis, refactoring DRE numbers (cross-link `qa-defect-removal-efficiency`).
-- **Cross-references**: `developer-maintenance` (code-side of legacy work), `devops-configuration-control` (post-release CM), `devops-maintenance-operations` (operational side), `po-change-control` (CR pipeline applies post-release too).
+- **Cross-references**: `developer-maintenance` (code-side of legacy work), `devops-configuration-control` (post-release CM), `devops-maintenance-operations` (operational side), `product-manager-change-control` (CR pipeline applies post-release too).
 - Out-of-bibliography (convention pointers only): Relativity Technologies renovation workbench (named in Jones p. 163, product spec not in `sources/`), SonarQube / Coverity / Understand legacy-analysis tooling.
 - Full traceability: `bibliography/skill-references.md` § `devops-post-release-change`.

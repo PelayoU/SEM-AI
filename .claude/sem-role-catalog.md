@@ -170,7 +170,7 @@ Bibliographic basis when activated: Jones Ch7 § Business Analysis (pp.468–470
 
 Bibliographic basis when activated: Jones Ch6 (entire chapter); BP #15, #16, #25, #30, #31, #32.
 
-In both cases, the activated role inherits the relevant skills from the PO's catalog (e.g., a separate BA inherits `po-requirements-discovery` + `po-user-involvement`; a separate PM inherits the 5 Process-bucket skills). The skills do not change — only the agent that exercises them.
+In both cases, the activated role inherits the relevant skills from the PO's catalog (e.g., a separate BA inherits `product-manager-requirements-discovery` + `product-manager-user-involvement`; a separate PM inherits the 5 Process-bucket skills). The skills do not change — only the agent that exercises them.
 
 ---
 
@@ -207,20 +207,20 @@ The following table maps each of Jones's 50 Best Practices to the SEM-IA role an
 | 3 | Motivation Mgrs/Executives (p.47) | — | NOT a skill | HR policy |
 | 4 | Selection & Hiring (p.50) | — | NOT a skill | HR policy |
 | 5 | Appraisals & Career Planning (p.50) | — | NOT a skill | HR policy |
-| 6 | **Early Sizing & Scope Control (p.51)** | PO | `po-early-sizing` | Northern/Southern Scope methods; function-point sizing; ISBSG benchmarks |
+| 6 | **Early Sizing & Scope Control (p.51)** | PO | `product-manager-early-sizing` | Northern/Southern Scope methods; function-point sizing; ISBSG benchmarks |
 | 7 | Outsourcing (p.53) | — | NOT a skill | Strategic make-vs-buy decision |
 | 8 | Contractors & Consultants (p.58) | — | NOT a skill | Strategic |
 | 9 | **Selecting Methods/Tools/Practices (p.59)** | Architect | `architect-methodology-selection` | 4-layer software taxonomy + 25-topic methodology taxonomy |
 | 10 | Certifying Methods/Tools/Practices (p.64) | — | NOT a skill | Industry-level certification |
-| 11 | **Requirements (p.70)** | PO | `po-requirements-discovery` | JAD, QFD, prototypes, legacy mining, requirements inspections, 7 fundamental topics + 30 supplemental from Ch7. Super-PO absorbs BA function here. |
-| 12 | **User Involvement (p.72)** | PO (+ Designer for UX side) | `po-user-involvement` | 12 forms: JAD, QFD, focus groups, embedded users, change boards, prototypes, design reviews, doc reviews, defect reporting, acceptance testing, etc. |
+| 11 | **Requirements (p.70)** | PO | `product-manager-requirements-discovery` | JAD, QFD, prototypes, legacy mining, requirements inspections, 7 fundamental topics + 30 supplemental from Ch7. Super-PO absorbs BA function here. |
+| 12 | **User Involvement (p.72)** | PO (+ Designer for UX side) | `product-manager-user-involvement` | 12 forms: JAD, QFD, focus groups, embedded users, change boards, prototypes, design reviews, doc reviews, defect reporting, acceptance testing, etc. |
 | 13 | Executive Mgmt Support (p.74) | — | NOT a skill | Sociological |
 | 14 | **Architecture & Design (p.75)** | Architect | `architect-architecture-design` | Zachman schema (6×6 matrix); 7 fundamental topics (structure, data, interfaces, decomposition, linkage, performance, security); design inspections |
-| 15 | **Project Planning (p.77)** | PO | `po-project-planning` | WBS, historical benchmarks, 5 common failures to avoid. Super-PO absorbs PM function here. |
-| 16 | **Cost Estimating (p.79)** | PO | `po-cost-estimating` | Automated tools mandatory >10k FP (COCOMO/KnowledgePlan/SEER/SLIM/Price-S/SoftCost); manual estimation = malpractice for >10k FP. Super-PO absorbs PM function here. |
-| 17 | **Risk Analysis (p.81)** | PO + Architect + Security | `po-risk-analysis` (PO leads, others contribute) | Above 100k FP, failure to perform = professional malpractice |
-| 18 | **Value Analysis (p.83)** | PO | `po-value-analysis` | Tangible Financial Value + Intangible Value; value points metric |
-| 19 | Cancelling Troubled Projects (p.84) | PO | `po-postmortem` | Formal postmortem, business rule extraction from failed code |
+| 15 | **Project Planning (p.77)** | PO | `product-manager-project-planning` | WBS, historical benchmarks, 5 common failures to avoid. Super-PO absorbs PM function here. |
+| 16 | **Cost Estimating (p.79)** | PO | `product-manager-cost-estimating` | Automated tools mandatory >10k FP (COCOMO/KnowledgePlan/SEER/SLIM/Price-S/SoftCost); manual estimation = malpractice for >10k FP. Super-PO absorbs PM function here. |
+| 17 | **Risk Analysis (p.81)** | PO + Architect + Security | `product-manager-risk-analysis` (PO leads, others contribute) | Above 100k FP, failure to perform = professional malpractice |
+| 18 | **Value Analysis (p.83)** | PO | `product-manager-value-analysis` | Tangible Financial Value + Intangible Value; value points metric |
+| 19 | Cancelling Troubled Projects (p.84) | PO | `product-manager-postmortem` | Formal postmortem, business rule extraction from failed code |
 | 20 | Org Structures (p.87) | — | NOT a skill | Organizational design (Table 2-3 staffing patterns is reference data) |
 | 21 | Training Mgrs (p.89) | — | NOT a skill | HR |
 | 22 | Training Technical Personnel (p.91) | — | NOT a skill | HR (but the 15-topic learning catalog informs skill scope) |
@@ -232,9 +232,9 @@ The following table maps each of Jones's 50 Best Practices to the SEM-IA role an
 | 28 | **Programming/Coding (p.107)** | Developer | `developer-coding-practices` | 13 practices: language selection, structured programming, certified reuse, security planning, complexity <10 cyclomatic, comments, static analysis, TDD, formal code inspections, etc. |
 | 29 | Project Governance (p.109) | — | NOT a skill | SOX legal/regulatory |
 | 30 | **Measurements & Metrics (p.110)** | QA + PM | `qa-measurements` | 9 measure types: effort, costs, milestones, productivity, reqs change volume, defects by origin, defect removal efficiency, earned value |
-| 31 | **Benchmarks & Baselines (p.112)** | PO | `po-benchmarks-baselines` | 25-topic full benchmark + 10-topic partial; ISBSG remote. Super-PO absorbs PM function here. |
-| 32 | **Milestone & Cost Tracking (p.115)** | PO | `po-milestone-tracking` | 13 milestone reviews: req review, plan review, design reviews, test plan review, code inspections, etc. Super-PO absorbs PM function here. |
-| 33 | **Change Control Before Release (p.117)** | PO + Architect | `po-change-control` | 16+ practices: owners, locked masters, multi-release planning, JAD/inspections/prototypes for downstream change reduction |
+| 31 | **Benchmarks & Baselines (p.112)** | PO | `product-manager-benchmarks-baselines` | 25-topic full benchmark + 10-topic partial; ISBSG remote. Super-PO absorbs PM function here. |
+| 32 | **Milestone & Cost Tracking (p.115)** | PO | `product-manager-milestone-tracking` | 13 milestone reviews: req review, plan review, design reviews, test plan review, code inspections, etc. Super-PO absorbs PM function here. |
+| 33 | **Change Control Before Release (p.117)** | PO + Architect | `product-manager-change-control` | 16+ practices: owners, locked masters, multi-release planning, JAD/inspections/prototypes for downstream change reduction |
 | 34 | **Configuration Control (p.119)** | DevOps | `devops-configuration-control` | ISO 10007-2003; IEEE 828-1998; master copies locked |
 | 35 | **SQA (p.120)** | QA | `qa-sqa-program` | 12 SQA roles; independent reporting to senior VP of quality; mandatory >2500 FP |
 | 36 | **Inspections & Static Analysis (p.124)** | QA + Developer | `qa-inspections-program` + `developer-static-analysis` | Fagan-origin formal inspections; 65-85% defect removal efficiency vs 35% for testing alone; applies to architecture, requirements, design, DB design, code, test plans, test cases, user docs |
@@ -255,10 +255,10 @@ The following table maps each of Jones's 50 Best Practices to the SEM-IA role an
 
 **Skill count by role**:
 - **Product Owner (super-PO)**: **15 skills** in 4 buckets:
-  - Strategic (5): `po-vision`, `po-goals`, `po-capabilities`, `po-value-analysis`, `po-risk-analysis`
-  - Discovery (2): `po-requirements-discovery`, `po-user-involvement`
-  - Tactical (3): `po-feature-decomposition`, `po-spec-gherkin`, `po-change-control`
-  - Process (5): `po-early-sizing`, `po-cost-estimating`, `po-project-planning`, `po-milestone-tracking`, `po-benchmarks-baselines`
+  - Strategic (5): `product-manager-vision`, `product-manager-goals`, `product-manager-capabilities`, `product-manager-value-analysis`, `product-manager-risk-analysis`
+  - Discovery (2): `product-manager-requirements-discovery`, `product-manager-user-involvement`
+  - Tactical (3): `product-manager-feature-decomposition`, `product-manager-spec-gherkin`, `product-manager-change-control`
+  - Process (5): `product-manager-early-sizing`, `product-manager-cost-estimating`, `product-manager-project-planning`, `product-manager-milestone-tracking`, `product-manager-benchmarks-baselines`
 - **Architect**: ~6 skills (with `architect-enterprise-architecture` for very large orgs)
 - **Developer**: ~5 skills
 - **QA**: ~5 skills

@@ -34,7 +34,7 @@ A DRE program is acceptable only if all of the following hold:
 ## How you proceed
 
 1. **Set the DRE target** based on the application criticality. Mission-critical / regulated → 99%. Standard business application → 95–97%. Internal-only experiment → 90% with explicit acceptance.
-2. **Estimate defect potentials** by origin. Jones BP #35 baseline (5 categories): requirements, design, code, documents, bad fixes. Typical 10,000-FP application: ~4.0 defects/FP successful, ~7.0 failing. Use the project's prior baseline (cross-link `po-benchmarks-baselines`) or industry typical.
+2. **Estimate defect potentials** by origin. Jones BP #35 baseline (5 categories): requirements, design, code, documents, bad fixes. Typical 10,000-FP application: ~4.0 defects/FP successful, ~7.0 failing. Use the project's prior baseline (cross-link `product-manager-benchmarks-baselines`) or industry typical.
 3. **Pick the defect prevention activities.** JAD + QFD upstream + structured coding + complexity analysis are the high-impact starter set. Add TSP/PSP for new development at scale; add certified-reuse (cross-link `architect-reuse-certification`) when reuse strategy is in place; add embedded users / test-first when methodology supports them.
 4. **Pick the inspection set** (cross-link `qa-inspections-program`). Requirements, design, code at minimum; architecture, DB design, test plan, test case for >95% targets; user-doc for safety-critical or customer-impact-sensitive applications.
 5. **Pick the static analysis tools** for code in supported languages (Java, C, C++, dialects). 87% DRE on coding defects (Table 9-22 #1). Tune to minimize false positives.

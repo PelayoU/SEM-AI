@@ -53,7 +53,7 @@ A maintenance pass is acceptable only if all of the following hold:
    1. Use maintenance specialists rather than developers (when distinction matters at scale).
    2. Consider maintenance outsourcing to specialized maintenance companies.
    3. Use maintenance renovation workbenches.
-   4. Use formal change management procedures (cross-link `po-change-control`).
+   4. Use formal change management procedures (cross-link `product-manager-change-control`).
    5. Use formal change management tools.
    6. Use formal regression test libraries.
    7. Perform automated complexity analysis of legacy applications.
@@ -74,7 +74,7 @@ A maintenance pass is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Classify the work** against the 23 types. Multiple-type combinations are normal; name each. The classification drives estimation (`po-cost-estimating`), planning (`po-project-planning`), and tooling.
+1. **Classify the work** against the 23 types. Multiple-type combinations are normal; name each. The classification drives estimation (`product-manager-cost-estimating`), planning (`product-manager-project-planning`), and tooling.
 2. **Run complexity analysis on the affected modules** (practice 7). Cyclomatic + essential complexity. Modules above ceiling (10 / 20) are flagged for refactor before enhancement.
 3. **Identify error-prone modules in the impacted area** (practice 8). The 5% / 50% rule: ranked defect history per module surfaces the candidates. Surgical removal + replacement is the working response.
 4. **Identify dead code** (practice 9). Static analysis + execution tracing. Remove rather than route around.
@@ -104,6 +104,6 @@ A maintenance pass is acceptable only if all of the following hold:
 - **Best Practice #47 — *Software Change Management After Release* (Jones 2010, p. 160)** — 10-tool list for post-release change (complexity analysis, static analysis, error-prone module ID, dead code ID, data mining, code conversion, renovation workbenches). Cross-link `devops-post-release-change` (M5).
 - **Chapter 5 Table 5-2** — referenced by catalog as the 23 forms-of-maintenance source; replicated in BP #48 pp. 161–162 text.
 - **Chapter 9 Table 9-22** — Refactoring of code: 62% DRE (#25). Error-prone module analysis: 60% DRE (#26). Legacy code inspections: 83% DRE (#10).
-- **Cross-references**: `developer-coding-practices` (practices 12–13 specifically); `qa-inspections-program` (re-inspection after change); `po-change-control` (formal change management procedures); `po-cost-estimating` (separate estimation for the 23 work types); `developer-unit-testing` (regression test library hygiene).
+- **Cross-references**: `developer-coding-practices` (practices 12–13 specifically); `qa-inspections-program` (re-inspection after change); `product-manager-change-control` (formal change management procedures); `product-manager-cost-estimating` (separate estimation for the 23 work types); `developer-unit-testing` (regression test library hygiene).
 - Out-of-bibliography (convention pointers only): ITIL v3 / v4 service management framework, COBIT, Relativity Technologies renovation workbench (named in Jones p. 163 but the product itself not in `sources/`).
 - Full traceability: `bibliography/skill-references.md` § `developer-maintenance`.

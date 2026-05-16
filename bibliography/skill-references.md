@@ -12,13 +12,13 @@ For every SEM-IA skill, the specific bibliographic sources that anchor its crite
 
 **Citation convention**: `<pdf-file>` (under `sources/`) + slide / page + section.
 
-The 15 super-Product-Owner skills are organized in four buckets (Strategic, Discovery, Tactical, Process), matching the structure of `.claude/agents/product-owner.md`.
+The 15 super-Product-Owner skills are organized in four buckets (Strategic, Discovery, Tactical, Process), matching the structure of `.claude/agents/product-manager.md`.
 
 ---
 
 ## Bucket 1 — Strategic
 
-### po-vision
+### product-manager-vision
 
 **Skill**: create / refine / validate the product vision.
 
@@ -33,7 +33,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-goals
+### product-manager-goals
 
 **Skill**: create / refine / validate product goals under the vision.
 
@@ -48,7 +48,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-capabilities
+### product-manager-capabilities
 
 **Skill**: derive / refine / validate capabilities under a goal.
 
@@ -62,7 +62,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-value-analysis
+### product-manager-value-analysis
 
 **Skill**: assess tangible + intangible value of capabilities / features.
 
@@ -74,7 +74,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-risk-analysis
+### product-manager-risk-analysis
 
 **Skill**: identify / classify / mitigate project risks.
 
@@ -88,7 +88,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ## Bucket 2 — Discovery
 
-### po-requirements-discovery
+### product-manager-requirements-discovery
 
 **Skill**: elicit / analyze / validate software requirements.
 
@@ -100,7 +100,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-user-involvement
+### product-manager-user-involvement
 
 **Skill**: design and manage user participation throughout the project.
 
@@ -114,7 +114,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ## Bucket 3 — Tactical
 
-### po-feature-decomposition
+### product-manager-feature-decomposition
 
 **Skill**: decompose capability into features, feature into stories.
 
@@ -131,7 +131,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-spec-gherkin
+### product-manager-spec-gherkin
 
 **Skill**: produce or refine the Gherkin spec for a feature.
 
@@ -145,7 +145,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-change-control
+### product-manager-change-control
 
 **Skill**: manage scope changes before release.
 
@@ -153,37 +153,37 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 - ★ **Best Practice #33 — *Software Change Control Before Release*** — Jones 2010, pp. 117–119. 16 state-of-the-art practices (owners, locked masters, multi-release planning, FP-quantified changes, joint client/dev CCB, JAD/inspections/prototypes upstream, automated tools, etc.); 1%–3%/month change-rate empirics; 50% cumulative growth; 10-FP re-estimation threshold; JAD reduces unplanned changes below 1%/month; cross-artifact ripple inventory.
 - ★ **Critical-topic status of change control** — Jones 2010, Ch. 1, p. 19.
-- Cross-references: `po-requirements-discovery` (BP #11), `po-cost-estimating` (BP #16 for re-estimation), `po-risk-analysis` (category 6 — requirements churn).
+- Cross-references: `product-manager-requirements-discovery` (BP #11), `product-manager-cost-estimating` (BP #16 for re-estimation), `product-manager-risk-analysis` (category 6 — requirements churn).
 
 ---
 
 ## Bucket 4 — Process
 
-### po-early-sizing
+### product-manager-early-sizing
 
 **Skill**: size the application early.
 
 **Source layout**:
 
 - ★ **Best Practice #6 — *Early Sizing and Scope Control of Software Applications*** — Jones 2010, pp. 51–53. FP best practice / LOC malpractice; pattern matching for novel applications; light FP analysis (minutes vs ~400 FP/day for full count); ISBSG critical mass ~5,000 applications; tier-based release strategy (1k single, 10k–100k multi-release at 12–18 months, Agile sprints 100–200 FP); growth-rate prediction.
-- ★ **ISBSG reference** — Jones 2010 BP #31, pp. 113–114 (depth in `po-benchmarks-baselines`).
+- ★ **ISBSG reference** — Jones 2010 BP #31, pp. 113–114 (depth in `product-manager-benchmarks-baselines`).
 - ★ **Growth-rate empirics (1%–3%/month, 50% cumulative)** — Jones 2010 BP #11, p. 71.
 
 ---
 
-### po-cost-estimating
+### product-manager-cost-estimating
 
 **Skill**: estimate effort, cost, schedule, quality.
 
 **Source layout**:
 
 - ★ **Best Practice #16 — *Software Project Cost Estimating*** — Jones 2010, pp. 79–81. Manual ≈ automated below 1,000 FP; automated mandatory above 10,000 FP (manual = malpractice); 14 state-of-the-art elements (FP-primary sizing, LOC secondary, screens/reports tertiary, reusable materials, supply chain, travel, benchmark comparison, trained specialists, tools CHECKPOINT/COCOMO/KnowledgePlan/Price-S/SEER/SLIM/SoftCost, changing requirements, quality, risk, PM tasks, plans/specs/tracking); manual estimates 95% optimistic on test schedules >10k FP; political-rejection-of-accurate-estimate ⇒ 80% failure / 99% overrun.
-- ★ **Historical benchmarks as defense** — Jones 2010 BP #31, pp. 112–115 (depth in `po-benchmarks-baselines`).
+- ★ **Historical benchmarks as defense** — Jones 2010 BP #31, pp. 112–115 (depth in `product-manager-benchmarks-baselines`).
 - ★ **Critical-topic status of quality + project management** — Jones 2010, Ch. 1, p. 19.
 
 ---
 
-### po-project-planning
+### product-manager-project-planning
 
 **Skill**: create and maintain the project plan (WBS, activity network, critical path).
 
@@ -195,7 +195,7 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-milestone-tracking
+### product-manager-milestone-tracking
 
 **Skill**: track progress against milestones; react strongly to surfaced problems.
 
@@ -206,15 +206,15 @@ The 15 super-Product-Owner skills are organized in four buckets (Strategic, Disc
 
 ---
 
-### po-benchmarks-baselines
+### product-manager-benchmarks-baselines
 
 **Skill**: establish and compare against benchmarks and baselines.
 
 **Source layout**:
 
 - ★ **Best Practice #31 — *Software Benchmarks and Baselines*** — Jones 2010, pp. 112–115. Benchmark / baseline distinction; 25-topic full inventory + 10-topic partial; ISBSG ~5,000 projects (+500/year), IT/web-weighted, military classified absent; full on-site ~2 days vs remote partial ~2–3 hours; FP variants (IFPUG, COSMIC, Finnish, Netherlands); self-submission lack-of-validation caveat; "every major project should start by reviewing benchmark information" + "every process improvement plan should start by creating a quantitative baseline" mandates.
-- ★ **High-speed FP methods (pattern matching, light FP analysis)** — Jones 2010 BP #6, pp. 51–52 (depth in `po-early-sizing`).
-- ★ **Benchmarks as defense for estimates** — Jones 2010 BP #16, p. 80 (depth in `po-cost-estimating`).
+- ★ **High-speed FP methods (pattern matching, light FP analysis)** — Jones 2010 BP #6, pp. 51–52 (depth in `product-manager-early-sizing`).
+- ★ **Benchmarks as defense for estimates** — Jones 2010 BP #16, p. 80 (depth in `product-manager-cost-estimating`).
 
 ---
 
@@ -225,10 +225,10 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 - **Cagan, *Inspired* + *Empowered*** (Wiley) — the books themselves are not in `sources/`. The 10 Vision Principles and the 4-risks framework are captured in GISF `gisf-discovery.pdf` slide 89 and `gisf-life-cycle.pdf` slide 64 respectively. Skills cite GISF as the immediate source.
 - **Sinek, *Start with Why*** (Portfolio, 2009) — not in `sources/`. The "Start with why" Principle 1 of Cagan's Ten Vision Principles is captured via GISF slide 89.
 - **Rumelt, *Good Strategy / Bad Strategy*** — not in `sources/`. Not cited as authority.
-- **Doerr, *Measure What Matters*** (OKR framework) — not in `sources/`. Mentioned only as an out-of-bibliography note in `po-goals`.
+- **Doerr, *Measure What Matters*** (OKR framework) — not in `sources/`. Mentioned only as an out-of-bibliography note in `product-manager-goals`.
 - **Doran (1981), SMART** — original 1981 article not in `sources/`; SMART captured verbatim in `gisf-discovery.pdf` slide 95 and cited from there.
-- **Torres, *Continuous Discovery Habits*** (OST) — not in `sources/`. Mentioned only as out-of-bibliography in `po-requirements-discovery`.
-- **Christensen, Jobs to be Done** — not in `sources/`. Mentioned only as out-of-bibliography in `po-value-analysis`.
+- **Torres, *Continuous Discovery Habits*** (OST) — not in `sources/`. Mentioned only as out-of-bibliography in `product-manager-requirements-discovery`.
+- **Christensen, Jobs to be Done** — not in `sources/`. Mentioned only as out-of-bibliography in `product-manager-value-analysis`.
 - **Adzic, *Specification by Example*** — book not in `sources/`. The SbE concept is captured via GISF slide 126; the executable Gherkin form via `gherkin-reference.pdf`. Skills cite these.
 - **Cohn, *User Stories Applied*** — book not in `sources/`. Cohn's story format is captured in GISF `gisf-delivery-backlog-management.pdf` slide 124.
 - **Wake, INVEST origin** — INVEST captured verbatim in `gisf-delivery-backlog-management.pdf` slide 128.
@@ -261,7 +261,7 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 **Source layout**:
 
 - ★ **Best Practice #9 — *Selecting Software Methods, Tools, and Practices*** — Jones 2010, pp. 59–61. Full methodology list (~18: Agile, clean-room, Crystal, DSDM, XP, hybrid, iterative, OO, pattern-based, PSP, RAD, RUP, spiral, structured, TSP, V-model, waterfall); partial method list (~10: code inspections, data-state design, design inspections, flow-based programming, JAD, Lean Six Sigma, pair programming, QFD, requirements inspections, Six Sigma for software); five-axis suitability evaluation (size / type / nature / attribute / activity); hybrid permission; benchmark-as-input mandate; "fad-driven adoption" failure mode.
-- ★ **ISBSG benchmark reference** — Jones BP #31 (depth in `po-benchmarks-baselines`).
+- ★ **ISBSG benchmark reference** — Jones BP #31 (depth in `product-manager-benchmarks-baselines`).
 - ★ **Legacy-replacement reality** (~80% of new applications) — Jones BP #11, p. 70.
 
 ## Bucket — Reuse
@@ -325,7 +325,7 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 - ★ **Best Practice #30 — *Measurements and Metrics*** — Jones 2010, pp. 110–112. 9-measure state-of-the-art inventory (effort, costs, milestone progress, dev productivity, maintenance productivity, requirements churn, defects by origin, DRE, earned value); FP as primary size metric; LOC + cost-per-defect as forbidden metrics; DRE definition + worked example (900 + 100 = 90%); industry-leader >95%, U.S. average ~85%; "measurement is professional malpractice" framing (p. 112).
 - ★ **Best Practice #35** — Jones 2010, pp. 120–124. Severity levels; 9 cost-of-quality components; economic-value-of-quality empirics; 5-category defect origins (requirements / design / code / documents / bad fixes).
 - ★ **Best Practice #11** — Jones 2010, pp. 70–72. Requirements-churn empirics for measure 6.
-- ★ **ISBSG as benchmark source** — Jones BP #31 (depth in `po-benchmarks-baselines`).
+- ★ **ISBSG as benchmark source** — Jones BP #31 (depth in `product-manager-benchmarks-baselines`).
 - Out-of-bibliography (convention pointers only): Crosby Cost of Quality (cited via Jones BP #35), PMI/IEEE/ISO metric standards.
 
 ## Bucket — Removal
@@ -351,7 +351,7 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 - ★ **Best Practice #37 — *Testing and Test Library Control*** — Jones 2010, pp. 128–132. 20+ test forms inventory (developer / specialist-SQA / customer ownership groups); 3–12 forms typically applied; testing-alone cumulative <80% DRE; 20–40% of dev effort; black/white/gray box framing; defect prevention list (18 practices); defect removal list (17 practices); test-library hygiene (Jones: more errors in test cases than in software in some IBM samples); test coverage ~75% typical; successful project 4.0 defects/FP × 95% removal = 0.2 delivered/FP; failing project 7.0/FP × 80% = 1.4 delivered/FP.
 - ★ **Chapter 9 Table 9-22** — DRE per test form: PSP/TSP unit 52% (#38), subroutine 50% (#39), system 40% (#42), new function 35% (#43), regression 30% (#44), unit 25% (#45); specialized: virus 98% (#51), spyware 98% (#52), security 90% (#53), penetration 90% (#55), reusability 88% (#56), firewall 87% (#57), performance 80% (#58); user testing: usability 65% (#66), beta 40% (#69), acceptance 25–30% (#70–72).
 - ★ **Chapter 9 Table 9-23** — Testers: 10k FP scope, 15% defect prevention, 50% defect removal (highest of any role).
-- ★ **Gherkin acceptance contract** — Cucumber `gherkin-reference.pdf` (depth in `po-spec-gherkin`).
+- ★ **Gherkin acceptance contract** — Cucumber `gherkin-reference.pdf` (depth in `product-manager-spec-gherkin`).
 - Out-of-bibliography (convention pointers only): IEEE 829 test docs, ISTQB body of knowledge, Crispin/Gregory agile testing quadrants.
 
 ### qa-defect-removal-efficiency

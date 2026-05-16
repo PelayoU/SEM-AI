@@ -38,7 +38,7 @@ A performance analysis pass is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Confirm size tier.** Below ~10,000 FP performance work is mostly local optimization; at 100,000 FP it is an architectural concern and a specialist is appropriate. Pull the FP figure from `po-early-sizing`.
+1. **Confirm size tier.** Below ~10,000 FP performance work is mostly local optimization; at 100,000 FP it is an architectural concern and a specialist is appropriate. Pull the FP figure from `product-manager-early-sizing`.
 2. **Define the performance budget** during architecture (`architect-architecture-design`, topic 6). Latency, throughput, memory ceiling, startup time, mean-time-to-failure. The budget is part of the architecture decision; ad-hoc tuning later is more expensive.
 3. **Pick tools** *(BP #39, p. 134)*. Profiler for code-level hotspots. Instrumentation embedded in the application for production telemetry. Synthetic load generators for pre-release verification. Operating-system-level profilers for I/O and memory pressure.
 4. **Design the instrumentation** so its overhead is bounded and known. Document the overhead at typical sampling rates. Schedule sampling to avoid distorting steady-state behaviour.

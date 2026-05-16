@@ -37,7 +37,7 @@ A developer-test pass is acceptable only if all of the following hold:
 
 ## How you proceed
 
-1. **Confirm the parent spec exists.** Gherkin AC from `po-spec-gherkin` are the acceptance contract; developer-tests are the white-box layer below them.
+1. **Confirm the parent spec exists.** Gherkin AC from `product-manager-spec-gherkin` are the acceptance contract; developer-tests are the white-box layer below them.
 2. **Decide test-first or concurrent test design.** TDD when methodology supports it (XP and similar); concurrent test design otherwise. Test-after is a fallback, not a default.
 3. **Pick the form mix.** Subroutine + module + unit for most code. Subroutine testing alone is rarely sufficient; module testing alone misses small-grained defects; unit testing alone misses integration. The combination is the working baseline.
 4. **Pick the discipline.** Plain unit testing 25% DRE. PSP/TSP unit testing 52% DRE — requires the PSP/TSP measurement discipline (`architect-methodology-selection`). If the project uses TSP, leverage the higher-DRE form; if not, plan more layers downstream.
@@ -66,6 +66,6 @@ A developer-test pass is acceptable only if all of the following hold:
 - **Best Practice #28 — *Programming or Coding* (Jones 2010, pp. 107–109)** — practice 9 (test cases before or concurrent with code).
 - **Chapter 9 Table 9-22** — DRE per developer-test form: subroutine testing 0.25 cases/FP, 50% DRE (#39); unit testing 3.00 cases/FP, 25% DRE (#45); PSP/TSP unit testing 3.50 cases/FP, 52% DRE (#38); XP testing 2.00 cases/FP, 40% DRE (#40). Test-case inspection 0 cases/FP, 83% DRE (#8).
 - **Chapter 9 p. 618** — Table 9-22 figures are maxima; real-life DRE often less than half.
-- **Cross-references**: `qa-testing-strategy` (full test-portfolio composition), `qa-inspections-program` (test-case inspection), `qa-defect-removal-efficiency` (stack DRE projection), `developer-coding-practices` (tests treated as code), `developer-static-analysis` (static analysis on test code too), `po-spec-gherkin` (AC as the upstream contract).
+- **Cross-references**: `qa-testing-strategy` (full test-portfolio composition), `qa-inspections-program` (test-case inspection), `qa-defect-removal-efficiency` (stack DRE projection), `developer-coding-practices` (tests treated as code), `developer-static-analysis` (static analysis on test code too), `product-manager-spec-gherkin` (AC as the upstream contract).
 - Out-of-bibliography (convention pointers only): xUnit family (JUnit / NUnit / pytest / Jest), Beck Extreme Programming Explained, ISTQB body of knowledge, Crispin & Gregory agile testing quadrants.
 - Full traceability: `bibliography/skill-references.md` § `developer-unit-testing`.

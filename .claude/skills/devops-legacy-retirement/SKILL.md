@@ -36,14 +36,14 @@ A retirement / replacement plan is acceptable only if all of the following hold:
 4. **Custom-vs-commercial-replacement decision documented** *(Jones BP #50 p. 167)* — when commercial replacement exists (the typical case for IT systems), evaluate it. When custom features are unique (the VA patient-record example Jones names), a new application with all original features + new ones is required.
 5. **Trouble expected** *(Jones BP #50 p. 167)* — "unless an application has zero users, replacement and withdrawal are likely to cause trouble." Plan for it: communication, training, side-by-side run, support during transition.
 6. **Architecture choice for replacement** — cross-link `architect-architecture-design` for the seven-fundamental-topics evaluation of the replacement architecture; SOA evaluation is one option among the catalog Jones names.
-7. **Coordination with PO + Architect** — retirement / replacement is a major project, not just a DevOps operation. PO drives the vision / goals for the replacement; Architect designs it; DevOps runs the retirement + deployment + customer-facing aspects.
+7. **Coordination with Product Manager + Architect** — retirement / replacement is a major project, not just a DevOps operation. Product Manager drives the vision / goals for the replacement; Architect designs it; DevOps runs the retirement + deployment + customer-facing aspects.
 
 ## How you proceed
 
 1. **Confirm the project class.** Pure retirement (turn off, no replacement)? Replacement by commercial / OSS? Replacement by custom-built? Migration to new platform? Each has different scope.
 2. **Survey users** (practice 2). Importance of the application; features they actually use; features they don't. Survey informs the replacement's scope.
 3. **Search for similar applications** (practice 3). For IT systems often a commercial replacement exists (ERP packages, SaaS). For specialized systems (VA patient records type) often not — custom build required.
-4. **Mine the legacy for business rules and algorithms** (practice 1; cross-link `devops-post-release-change` tool 5). The mined rules feed the replacement's requirements (`po-requirements-discovery`).
+4. **Mine the legacy for business rules and algorithms** (practice 1; cross-link `devops-post-release-change` tool 5). The mined rules feed the replacement's requirements (`product-manager-requirements-discovery`).
 5. **Apply static analysis if language supported** (practice 8). Find error-prone modules + dead code in the legacy as part of stabilization (cross-link `developer-static-analysis`).
 6. **Stabilize the legacy** (practice 4). The legacy runs for the multi-year replacement period; stabilization keeps it useful, not pristine. Minimal patching, maximal defensive operations.
 7. **Evaluate SOA fit for replacement** (practice 5) and other modern architectures (cross-link `architect-architecture-design`).
@@ -55,7 +55,7 @@ A retirement / replacement plan is acceptable only if all of the following hold:
 
 - **"Just turn it off."** For any non-trivial application Jones (p. 167) is explicit: replacement and withdrawal will cause trouble. Plan the trouble.
 - **Vendor-style sunset** — Microsoft / Intuit / Symantec sunset old versions with file format breakage (Jones p. 166); their pattern is what *not* to do for internal legacy retirement.
-- **Underestimating replacement effort.** A 10,000-FP legacy replacement is a 10,000-FP project (plus possibly more for new features). Apply Jones BP #6 sizing (cross-link `po-early-sizing`) + BP #16 estimating (cross-link `po-cost-estimating`).
+- **Underestimating replacement effort.** A 10,000-FP legacy replacement is a 10,000-FP project (plus possibly more for new features). Apply Jones BP #6 sizing (cross-link `product-manager-early-sizing`) + BP #16 estimating (cross-link `product-manager-cost-estimating`).
 - **Skipping business-rule mining.** Replacement built from interviews alone misses rules that exist only in legacy code. Data mining (practice 1) is the safety net.
 - **Treating SOA as universal answer.** SOA is one architectural option Jones lists (practice 5) for evaluation, not a foregone conclusion. Cross-link `architect-architecture-design` for the trade-off analysis.
 - **Dead-language replacement without language-conversion tools.** Hand-rewrite from COBOL / MUMPS / PL/I to Java is expensive and error-prone. Automated conversion (practice 7) is often the better path.
@@ -65,6 +65,6 @@ A retirement / replacement plan is acceptable only if all of the following hold:
 
 - **Best Practice #50 — *Terminating or Withdrawing Legacy Applications* (Capers Jones, *Software Engineering Best Practices*, McGraw-Hill 2010, pp. 166–167).** Long lifespan empirics (30+ years air traffic control, 20+ years large IT); commercial-vendor sunset anti-patterns (Microsoft/Intuit/Symantec); 8 retirement best practices; dead-language problem; replacement-causes-trouble rule.
 - **Best Practice #47 — *Software Change Management After Release* (Jones 2010, pp. 160–161)** — 10 tools applicable to retirement (data mining, language conversion, static analysis).
-- **Cross-references**: `devops-post-release-change` (tool inventory shared); `architect-architecture-design` (replacement architecture); `architect-reuse-certification` (certified reuse for replacement); `developer-static-analysis` (legacy analysis); `developer-maintenance` (code-side stabilization); `po-early-sizing` + `po-cost-estimating` (replacement sizing + estimating); `po-requirements-discovery` (replacement requirements include mined business rules); `devops-customer-support` (transition support).
+- **Cross-references**: `devops-post-release-change` (tool inventory shared); `architect-architecture-design` (replacement architecture); `architect-reuse-certification` (certified reuse for replacement); `developer-static-analysis` (legacy analysis); `developer-maintenance` (code-side stabilization); `product-manager-early-sizing` + `product-manager-cost-estimating` (replacement sizing + estimating); `product-manager-requirements-discovery` (replacement requirements include mined business rules); `devops-customer-support` (transition support).
 - Out-of-bibliography (convention pointers only): Strangler Fig pattern (Fowler), Anti-Corruption Layer pattern (Evans / DDD), specific language conversion tools (e.g., COBOL-to-Java).
 - Full traceability: `bibliography/skill-references.md` § `devops-legacy-retirement`.

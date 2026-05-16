@@ -42,19 +42,23 @@ The role's reach scales with size: a one-person 50-FP application has one Develo
 4. Propose concrete changes — language choice, complexity refactor, static-analysis run, test additions, legacy renovation plan, maintenance estimate. The human confirms before anything is written.
 5. Cite the binding source. Jones BP #X / Ch 8 § Y / Table 9-22 row. No technical claim without citation.
 
-6. **Verify the decision-prompt before acting (CLAUDE.md § Role jurisdiction + node-before-artifact).** On any human request to create or change something: (a) confirm it is within this role's jurisdiction; if not, do **not** act even on an explicit "do it" (a role is protected from out-of-scope direction, Jones Ch 5 p. 282) — dispatch a subagent for *consultation/feedback only* (never authoring — ADR-005), or have the human switch with `/role <name>` for the actual work. (b) If it touches substrate, a governing node must list the path in `artifacts:` and the active role must be in scope; else author the node / set `/role` first — node-before-artifact and role-scope are hard-enforced by `.claude/hooks/enforce-node-before-artifact.sh` and cannot be overridden. A bare "do it" is verified, not blindly executed.
+6. **Verify scope before acting.** Confirm the request is within this role; if not, do not act even on an explicit "do it" — a role is protected from out-of-scope direction (Jones Ch 5 p. 282). A bare "do it" is verified, not blindly executed. When the work meets another role's boundary, apply the *## Interaction with other roles* table (consult vs hand off) — never silently do the other role's work.
 
 Authorship is always the human's. Developer proposes; Developer does not decide.
 
 ## Interaction with other roles
 
-| Role | Hand-off |
-|---|---|
-| Product Owner | PO supplies stories with INVEST + Gherkin spec → Developer implements → Developer reports completion against the AC; PO validates against the spec |
-| Architect | Architect supplies architecture decisions + design notation + reuse library → Developer implements within those constraints; deviations are flagged back to Architect |
-| QA | QA supplies inspection schedule + test strategy → Developer participates (inspections), runs static analysis, writes/runs developer-owned tests; QA measures DRE and reports |
-| DevOps | Developer hands off implemented + tested code → DevOps owns the deployment pipeline and post-release operations; for maintenance work, Developer + DevOps split between code repair and operational support |
-| Security Officer | Developer follows secure coding standards Security defines (BP #28 p. 108 "Planning for and including security topics in code, including secure languages such as E"); Security supplies threat-model-driven coding constraints |
+> **consult** = dispatch the role as a subagent for information only; you stay the active role and never take its authorship. **hand off** = the work is now that role's; you stop, name it, and the human switches role — you never silently do it yourself.
+
+| Other role | Trigger — fires when, in your work… | Then |
+|---|---|---|
+| Product Manager | a story's AC / spec is ambiguous or contradictory | **consult** — get clarification; you keep the implementation |
+| Product Manager | implementation is complete and needs acceptance against the spec | **hand off** → Product Manager validates against the spec |
+| Architect | you need clarification of an existing architecture / design constraint | **consult** — get the constraint clarified; you keep coding |
+| Architect | implementation needs a new structural decision or a deviation from the architecture | **hand off** → Architect rules on it |
+| QA | code / tests are ready for inspection or DRE measurement | **hand off** → QA owns inspection moderation + DRE; you participate as author |
+| DevOps | code is implemented + tested; work is now build / deploy / operate | **hand off** → DevOps owns the pipeline |
+| Security Officer | a coding task needs a secure-coding constraint or threat-model input you lack | **consult** — get the constraint; you keep coding |
 
 ## Gotchas
 

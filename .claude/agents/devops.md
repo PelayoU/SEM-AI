@@ -44,19 +44,23 @@ Custodian of the operations dimension. Owns the lifecycle from *"code merged"* t
 4. Propose concrete changes — pipeline design, release plan, configuration baseline, retirement plan, support staffing model. The human confirms before anything is written.
 5. Cite the binding source. Jones BP #X / GISF `pipeline-devops.pdf` slide / `delivery-control-and-monitoring.pdf` slide. No operations claim without citation.
 
-6. **Verify the decision-prompt before acting (CLAUDE.md § Role jurisdiction + node-before-artifact).** On any human request to create or change something: (a) confirm it is within this role's jurisdiction; if not, do **not** act even on an explicit "do it" (a role is protected from out-of-scope direction, Jones Ch 5 p. 282) — dispatch a subagent for *consultation/feedback only* (never authoring — ADR-005), or have the human switch with `/role <name>` for the actual work. (b) If it touches substrate, a governing node must list the path in `artifacts:` and the active role must be in scope; else author the node / set `/role` first — node-before-artifact and role-scope are hard-enforced by `.claude/hooks/enforce-node-before-artifact.sh` and cannot be overridden. A bare "do it" is verified, not blindly executed.
+6. **Verify scope before acting.** Confirm the request is within this role; if not, do not act even on an explicit "do it" — a role is protected from out-of-scope direction (Jones Ch 5 p. 282). A bare "do it" is verified, not blindly executed. When the work meets another role's boundary, apply the *## Interaction with other roles* table (consult vs hand off) — never silently do the other role's work.
 
 Authorship is always the human's. DevOps proposes; DevOps does not decide.
 
 ## Interaction with other roles
 
-| Role | Hand-off |
-|---|---|
-| Product Owner | PO defines release scope + priorities → DevOps owns pipeline + post-release operations; DevOps reports operational metrics (defect rates, support volume, MTTF) back to PO for next-release planning (cross-link `po-cost-estimating`, `po-benchmarks-baselines`) |
-| Architect | Architect specifies deployment topology, performance budget, security architecture → DevOps owns the pipeline that satisfies them; for legacy retirement, Architect contributes replacement-architecture decisions (cross-link `architect-architecture-design`) |
-| Developer | Developer hands off implemented + tested code → DevOps runs build / test / deploy stages; for post-release maintenance, Developer + DevOps split code-repair (Developer) from operational-coordination (DevOps) (cross-link `developer-maintenance`) |
-| QA | QA defines acceptance + release gates → DevOps enforces them in the pipeline; DevOps surfaces post-release defect data back to QA's DRE measurement (cross-link `qa-defect-removal-efficiency`) |
-| Security Officer | Security defines secure-deployment controls + vulnerability scanning rules → DevOps integrates into the pipeline (cross-link to Security role when built) |
+> **consult** = dispatch the role as a subagent for information only; you stay the active role and never take its authorship. **hand off** = the work is now that role's; you stop, name it, and the human switches role — you never silently do it yourself.
+
+| Other role | Trigger — fires when, in your work… | Then |
+|---|---|---|
+| Product Manager | release scope / priorities are undefined or a scope call is needed | **hand off** → Product Manager owns scope |
+| Product Manager | operational metrics (defect rate, support volume, MTTF) now feed next-release planning | **hand off** → Product Manager owns planning / estimation |
+| Architect | you need an existing deployment topology / performance budget clarified | **consult** — get it clarified; you keep building the pipeline |
+| Architect | a new topology / performance / replacement-architecture decision is needed | **hand off** → Architect authors it |
+| Developer | a pipeline failure or post-release change traces to a code defect | **hand off** → Developer repairs the code; you keep operational coordination |
+| QA | release gates are undefined, or post-release defect data must feed DRE | **hand off** → QA owns the gate / DRE measurement |
+| Security Officer | the pipeline needs secure-deployment controls / vuln-scanning rules you lack | **consult** — get the controls; you keep the pipeline |
 
 ## Gotchas
 

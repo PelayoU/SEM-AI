@@ -543,25 +543,25 @@ Mapa navegable de las fuentes bibliográficas para CONSTRUIR skills. Los agentes
 
 Mapeo orientativo para refactorizar las skills actuales del PO. Cada skill puede consultar varias fuentes; las marcadas con ★ son la fuente literal de los criterios canónicos.
 
-### po-vision
+### product-manager-vision
 
 - ★ `gisf-discovery.pdf` slides 82-91 (Vision principles + 10 Cagan principles + positioning template + 5 steps + strategy)
 - ★ `gisf-life-cycle.pdf` slide 54 (definición SEM-IA)
 - `agile-story-essentials.pdf` (contexto storytelling)
 
-### po-goal
+### product-manager-goal
 
 - ★ `gisf-life-cycle.pdf` slide 54 (definición SEM-IA)
 - ★ `gisf-life-cycle.pdf` slides 62-64 (modern approach + 4 risks Cagan)
 - `gisf-delivery-planning.pdf` slides 150-152 (planning principles, horizon)
 
-### po-capability
+### product-manager-capability
 
 - ★ `gisf-life-cycle.pdf` slide 54 (**definición literal canónica**)
 - ★ `gisf-life-cycle.pdf` slide 69 (Capability filtering Delivery)
 - `gisf-agile-teams-and-roles.pdf` slide 161 (Capability List → MVP)
 
-### po-feature
+### product-manager-feature
 
 - ★ `gisf-delivery-backlog-management.pdf` slides 121-132 (features definition + INVEST + Story Map)
 - ★ `gisf-delivery-backlog-management.pdf` slide 128 (**INVEST literal**)
@@ -570,7 +570,7 @@ Mapeo orientativo para refactorizar las skills actuales del PO. Cada skill puede
 - `user-story-mapping.pdf` p.1 (think cake, da Vinci, opening/mid/end game)
 - `agile-story-essentials.pdf` p.1 (5 Cs Cycle, shared understanding)
 
-### po-spec
+### product-manager-spec
 
 - ★ `gherkin-reference.pdf` pp.1-9 (**Gherkin canónico Cucumber oficial**)
 - ★ `gisf-delivery-backlog-management.pdf` slides 126-127 (Specification by example structure)
