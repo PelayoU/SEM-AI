@@ -7,7 +7,7 @@ description: "Identify, classify, and mitigate project risks using Capers Jones'
 
 ## Purpose
 
-Most projects that end in court never performed formal risk analysis (Jones, p. 82). This skill lets the Product Manager make project risk explicit before bad outcomes harden into failure: identifying which of Jones's fourteen empirical risk categories apply, layering Cagan's four product-discovery risks, sizing the level of formality required by the project's function-point scale, and producing mitigations rather than warnings. Risk that is named loses half its power; risk that is mitigated loses the rest.
+Most projects that end in court never performed formal risk analysis. This skill lets the Product Manager make project risk explicit before bad outcomes harden into failure: identifying which of Jones's fourteen empirical risk categories apply, layering Cagan's four product-discovery risks, sizing the level of formality required by the project's function-point scale, and producing mitigations rather than warnings. Risk that is named loses half its power; risk that is mitigated loses the rest.
 
 ## When this skill applies
 
@@ -22,21 +22,21 @@ Most projects that end in court never performed formal risk analysis (Jones, p. 
 
 A risk analysis passes review only if all of the following hold:
 
-1. **Jones's fourteen categories swept** *(Capers Jones, BP #17, pp. 81–82)* — every analysis explicitly walks the canonical list below and either tags each as *applies* with a mitigation or marks it *not applicable* with a one-line reason. Silence on a category is the failure mode Jones observed in litigated projects.
-2. **Cagan four risks layered** *(GISF `gisf-life-cycle.pdf` slide 64)* — value risk, usability risk, viability risk, and business viability risk are each addressed. Jones's list is project-execution-centric; Cagan's list catches product-discovery risk that Jones does not enumerate explicitly.
-3. **Size escalation respected** *(Jones, p. 82)* —
+1. **Jones's fourteen categories swept** — every analysis explicitly walks the canonical list below and either tags each as *applies* with a mitigation or marks it *not applicable* with a one-line reason. Silence on a category is the failure mode observed in litigated projects.
+2. **Cagan four risks layered** — value risk, usability risk, feasibility risk, and business viability risk are each addressed. Jones's list is project-execution-centric; Cagan's list catches product-discovery risk that Jones does not enumerate explicitly.
+3. **Size escalation respected** —
    - **Below 1,000 FP**: risk management is *optional* but a minimal sweep is still good hygiene.
    - **Above 10,000 FP**: risk assessment is *mandatory*.
    - **Above 100,000 FP**: failure to perform careful risk assessment is *evidence of professional malpractice*.
    The skill must state which tier the project sits in and apply the corresponding formality.
 4. **Mitigation per active risk** — every risk tagged *applies* carries a concrete mitigation, an owner (a role, not "the team"), and a re-evaluation trigger (date or event).
-5. **Early-and-often, not one-shot** *(Jones, p. 82, "best practices for software risk management")* — the analysis is scheduled to refresh at minimum at every release boundary and on demand when warning signs appear. A one-time risk register is not a risk practice.
-6. **Combinatorial budget** *(Jones, p. 83)* — Jones warns that automated models stumble past ten variables and the unaided mind past two. If the register grows past ~10 cross-cutting risks, group them rather than tracking them all flat; clustering preserves analytic usability.
+5. **Early-and-often, not one-shot** — the analysis is scheduled to refresh at minimum at every release boundary and on demand when warning signs appear. A one-time risk register is not a risk practice.
+6. **Combinatorial budget** — automated risk models stumble past ten variables and the unaided mind past two. If the register grows past ~10 cross-cutting risks, group them rather than tracking them all flat; clustering preserves analytic usability.
 
 ## How you proceed
 
 1. **Anchor the analysis with size and stage.** State function-point size (or best estimate) and project stage (discovery / delivery / release). Without this, the escalation tier and the relevant Cagan risks cannot be set.
-2. **Sweep Jones's fourteen categories** *(BP #17, pp. 81–82)*. For each, tag *applies* or *not applicable*:
+2. **Sweep Jones's fourteen categories.** For each, tag *applies* or *not applicable*:
    1. Outright cancellation due to excessive cost and schedule overruns.
    2. Outright termination due to downsizing or bankruptcy.
    3. Cost overruns in excess of 50% versus initial estimates.
@@ -51,8 +51,8 @@ A risk analysis passes review only if all of the following hold:
    12. Presence of error-prone modules in legacy applications.
    13. Patent violations or theft of intellectual property.
    14. External risks (fire, earthquake, hurricane, etc.) and sale/acquisition of similar business units.
-3. **Layer Cagan four risks** *(slide 64)*: value (will customers use it?), usability (can they figure it out?), viability (can engineers build it with current technology and skills?), business viability (can sales/marketing/legal/finance cope?). Tag each as *low / medium / high* with a one-line reason.
-4. **Apply Jones's seven 2009 best practices for risk management** *(BP #17, p. 82)* — translate each into an action item for this project:
+3. **Layer the Cagan four risks**: value (will customers use it?), usability (can they figure it out?), feasibility (can engineers build it with current technology and skills?), business viability (can sales/marketing/legal/finance cope?). Tag each as *low / medium / high* with a one-line reason.
+4. **Apply the seven best practices for risk management** — translate each into an action item for this project:
    - Early risk assessment even before full requirements.
    - Early prediction of defect potentials and removal efficiency (consult QA role).
    - Comparison of project risk patterns to similar projects.
@@ -61,20 +61,14 @@ A risk analysis passes review only if all of the following hold:
    - Early analysis of change control methods (link to `product-manager-change-control`).
    - Early analysis of value (link to `product-manager-value-analysis`).
 5. **Assign mitigation, owner, and re-evaluation trigger** per active risk. Mitigations name what changes; owners name a role (Architect for technical-feasibility risks, Security for vulnerability risks, Product Manager for scope/value risks, DevOps for performance/deployment risks).
-6. **Cluster if the register passes ten cross-cutting risks** *(Jones, p. 83)* — group by theme (e.g., *requirements stability*, *security*, *team capacity*) rather than presenting a flat list that overwhelms the human reader.
+6. **Cluster if the register passes ten cross-cutting risks** — group by theme (e.g., *requirements stability*, *security*, *team capacity*) rather than presenting a flat list that overwhelms the human reader.
 7. **Schedule the refresh.** Minimum cadence: release boundary + on-warning-sign. Record the next planned review in the register.
 
 ## Pitfalls to avoid
 
-- **One-shot risk registers.** A register written at project start and never updated is the dominant failure mode Jones observed in litigation (p. 82). Schedule the refresh as part of writing the register.
-- **Confident-estimate-without-risks.** Jones observed accurate estimates being rejected and replaced by impossible targets driven by business pressure (p. 82). When estimates jump in confidence after a meeting with executives, treat that as risk category #7 (executive interference).
+- **One-shot risk registers.** A register written at project start and never updated is the dominant failure mode observed in litigation. Schedule the refresh as part of writing the register.
+- **Confident-estimate-without-risks.** Accurate estimates get rejected and replaced by impossible targets driven by business pressure. When estimates jump in confidence after a meeting with executives, treat that as risk category #7 (executive interference).
 - **Skipping security and external risks because they're rare.** Categories 9 (security) and 14 (external/M&A) are systematically under-weighted because they feel exotic. Tag them explicitly even if the answer is *not applicable, low likelihood* — make the call visible.
 - **Owner = "the team".** Mitigations without a named role owner do not get done. Assign to a role, not a person, so the mitigation survives staff changes.
 - **Treating Cagan risks as discovery-only.** Value risk and usability risk persist into delivery — a feature can be feasible to build and still not get used. Carry these into release reviews.
-- **Importing risk frameworks not in audited bibliography.** PMI risk register conventions, FMEA, FAIR — none are in `bibliography/sources/`. Use Jones + Cagan as the authority surface; cite anything else explicitly as out-of-bibliography if the human requests it.
-
-## Source
-
-- **Best Practice #17 — *Software Project Risk Analysis* (Capers Jones, *Software Engineering Best Practices*, McGraw-Hill 2010, pp. 81–83).** Fourteen-category empirical risk inventory; seven 2009 best practices; size-based escalation rules (1k / 10k / 100k FP); malpractice clause above 100k FP.
-- **Cagan four risks (value / usability / viability / business viability)** — Marty Cagan, *Inspired*. Captured in `gisf-life-cycle.pdf` slide 64.
-- Full traceability: `bibliography/skill-references.md` § `product-manager-risk-analysis`.
+- **Importing a risk framework the project has not audited.** PMI risk-register conventions, FMEA, FAIR are practitioner conventions, not this skill's governing body of knowledge. Use Jones + Cagan as the authority surface; surface anything else explicitly if the human requests it.

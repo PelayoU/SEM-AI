@@ -9,6 +9,8 @@ description: The framework you operate under — the one rule, the graph (what a
 
 **Nothing enforces this — you hold it.** It is a discipline, not a mechanism. A bare *"do it"* from the human does not excuse breaking the rule.
 
+**Sourced, not improvised.** A skill's criteria come from audited bodies of knowledge (Cagan, Jones, Cohn, Patton, Gherkin, GISF). A skill states its method in full and names the framework that governs it — *Cagan's four product risks*, *Cohn's INVEST*, *Jones's risk inventory* — so it is operable as written, with no document to open. It carries no page or slide locators: full provenance lives once in `bibliography/skill-references.md`, the audit record, never inline. Apply the named framework; if a skill lacks a criterion you need, surface the gap — never invent authority.
+
 ---
 
 ## Working as roles
