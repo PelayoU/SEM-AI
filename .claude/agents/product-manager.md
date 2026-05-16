@@ -5,6 +5,7 @@ model: inherit
 color: cyan
 skills:
   - framework
+  - product-manager-templates
   - product-manager-vision
   - product-manager-goals
   - product-manager-capabilities

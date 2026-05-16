@@ -35,7 +35,7 @@ You work as **one role at a time** — the human picks the role; its identity is
 
 **Shared frontmatter (every node):**
 
-- `type` — the node's kind: `vision | goal | capability | feature | story | spec | adr`. Authoritative; the filename prefix mirrors it, the frontmatter is the source of truth.
+- `type` — the node's kind: `vision | goal | capability | feature | story | spec | release | adr`. Authoritative; the filename prefix mirrors it, the frontmatter is the source of truth.
 - `id` — stable unique identifier; what `[[id]]` links resolve to. Never reused, never renamed.
 - `parent` — `"[[<id>]]"` of the parent **node**. Every node has one except `vision` (the root). The backbone edge: node → node.
 - `status` — `draft → active → done → superseded` (`deprecated` = retired without replacement). The node's lifecycle, kept current.
@@ -45,11 +45,12 @@ You work as **one role at a time** — the human picks the role; its identity is
 **Type-specific frontmatter:**
 
 - `adr` is not a hierarchy level — a decision on a separate axis. Its `parent` is the node whose scope the decision serves. Adds `supersedes` / `superseded-by` (`"[[adr-id]]"`) to chain decision history.
+- `release` is not a hierarchy level — a delivery grouping on a separate axis. Its `parent` is the roadmap-horizon `goal` it serves; it aggregates the delivery artifacts (sizing, estimate, plan, milestones, benchmarks, risk register) that span many `capability`s instead of duplicating them into each. Capabilities in scope link to it via `related`.
 - `spec` (and code-bearing levels) may refine `status: active` into `ready-for-implementation → in-implementation` before `done`, when the node drives code.
 
 **How you read it.** Beyond the nodes the rule makes you hold, everything below is discoverable from there — a `capability`'s body indexes its `feature`s — and fetched on demand: read any `feature`, `spec`, `story`, any node to any depth, and follow `artifacts` to the code/config. Read freely and widely; nothing here is gated — reading more of the project is encouraged, never rationed. The `parent` backbone carries the intent above any node (a node's children are the nodes that declare it as their `parent`); a node's `artifacts` are **not** nodes but the files it governs. When you take up work on a specific node — e.g. the node a session names in play — read it and walk its `parent` chain to the root: that ancestry is the *why* of the work, the context the minimum map alone does not give you for a deep node.
 
-**Navigation aids.** For context while exploring, a node may also carry a linked index of its direct children and links to related or cross-axis nodes (a constraining `adr`, an affine `spec`). These are read-time conveniences, not structural truth: `parent` is the hierarchy's only authoritative edge, and anything derivable from it (children, ancestors) is queried, never stored as a second source. How each node type produces and maintains its aids is its owning skill's domain.
+**Navigation aids.** A node may also carry a linked index of its direct children and links to related or cross-axis nodes (a constraining `adr`, an affine `spec`). These are read-time conveniences, not structural truth: `parent` is the hierarchy's only authoritative edge, and anything derivable from it (children, ancestors) is queried, never stored as a second source. The concrete body structure of each node type — its sections, their order, and which skill fills each — is defined once in that role's `*-templates` skill (e.g. `product-manager-templates`), not restated here and not improvised per node.
 
 **How you change it.** Reading is open to every role; changing is not. Only the active role changes the graph, and only the nodes its jurisdiction owns (the node→skill map below) — each node type has one *owning skill*, the single authoring hand that writes its frontmatter and body; subagents never write the graph (consultation, per *Working as roles*, returns information the owner folds in — never a second author). To create or change any file, the node that will govern it must first name it in `artifacts`: if that node is yours, extend it, then produce the file; if it is another role's, you do not reach into it — consult it for input you fold into your own node, or hand off so its owner authorizes it. A new planning node gets a `parent` and `draft` status. A node matures across several roles: its `status` advances only as the operative layer demands — e.g. a `capability` is authored by `product-manager-capabilities`, yet cannot leave `draft` until the Product Manager has consulted the Architect on technical viability. The owning skill is the writer; the operative layer governs which roles the node must pass through before each status step.
 
@@ -61,6 +62,8 @@ You work as **one role at a time** — the human picks the role; its identity is
 | `feature`, `story` | `product-manager-feature-decomposition` |
 | `spec` | `product-manager-spec-gherkin` |
 | `adr` | `architect-architecture-design` |
+
+The owning skill is the authoring hand. A role's `*-templates` skill (e.g. `product-manager-templates`) scaffolds that node's body and routes each section to the contributing method skill that fills it; it never reassigns authorship away from the owning skill named above.
 
 The visual layer (editor / grep / web / none) is the operator's free choice, not the framework.
 
