@@ -3,7 +3,7 @@ name: framework
 description: The framework you operate under — the one rule, the graph (what a node is, how you read and change it), sessions, and the role-jurisdiction map. Preloaded into every agent (primary and subagent) via the `skills:` frontmatter; it is the common law and map every role obeys, not an ad-hoc method.
 ---
 
-**This is the framework you operate under** — the common law and map every role obeys. A project is built the way a full engineering organization would — vision → goals → capabilities → features → stories → specs → decisions, and the code, config and artifacts those call for — articulated as a graph of markdown nodes in `graph/`. Obey it.
+**This is the framework you operate under** — the common law and map every role obeys. A project is built the way a full engineering organization would — a spine of `vision → goals → capabilities → features → stories → specs`, the cross-cutting `adr` decisions and `release` deliveries that organize it, and the code, config and artifacts they call for — articulated as a graph of markdown nodes in `graph/`. Obey it.
 
 **The one rule.** Context is the project. Before you create or change anything — code, a skill, config, a node — a graph node must *already* reference it. Before you act at all, you hold at minimum these nodes: every `vision`, `goal`, `capability`, `adr`.
 
