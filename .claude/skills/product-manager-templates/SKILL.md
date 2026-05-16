@@ -1,6 +1,6 @@
 ---
 name: product-manager-templates
-description: "The canonical body templates for every Product Manager graph node — vision, goal, capability, feature/story, spec, and the release/project node — plus the section-by-section pointers to the method skill that fills each section. Use whenever a Product Manager node is being created or audited for structural completeness: 'create a capability', 'new vision', 'start a goal', 'scaffold this feature', 'what sections does a spec need', 'node template', 'is this node complete', 'release node'. This skill gives the shape and the flow; the pointed-to method skills give the depth."
+description: "The canonical body templates for every Product Manager graph node — vision, goal, capability, feature/story, spec, and the release node — plus the section-by-section pointers to the method skill that fills each section. Use whenever a Product Manager node is being created or audited for structural completeness: 'create a capability', 'new vision', 'start a goal', 'scaffold this feature', 'what sections does a spec need', 'node template', 'is this node complete', 'release node'. This skill gives the shape and the flow; the pointed-to method skills give the depth."
 ---
 
 # product-manager-templates
@@ -9,7 +9,7 @@ description: "The canonical body templates for every Product Manager graph node 
 
 A graph node is not a title with a `parent` edge — it is a living document with a defined section structure. This skill is the single place where that structure lives for every Product Manager node type. Each template states the node's frontmatter, its body sections in the order they should be filled, and a `→ método:` pointer per section to the method skill that knows how to fill it well. The template is the **shape and the flow**; it does not duplicate method depth — Cagan's four risks, INVEST, Gherkin, Jones's inventories all stay in their own skills and are reached through the pointers.
 
-This dissolves two problems at once: there is no orphan analysis (every analytical artifact is a section of the node it analyzes, so the framework's "no artifact without a node" rule is satisfied structurally), and there is no node-type proliferation (delivery artifacts that span many capabilities live in the release/project template at the right granularity, not duplicated into every capability).
+This dissolves two problems at once: there is no orphan analysis (every analytical artifact is a section of the node it analyzes, so the framework's "no artifact without a node" rule is satisfied structurally), and there is no node-type proliferation (delivery artifacts that span many capabilities live in the release template at the right granularity, not duplicated into every capability).
 
 ## When this skill applies
 
@@ -24,7 +24,7 @@ This dissolves two problems at once: there is no orphan analysis (every analytic
 2. **Fill each section via its pointed method skill.** The section order *is* the flow; the `→ método:` pointer *is* the orchestration. You do not need a separate orchestrator — follow the sections top to bottom, invoking the named skill for each.
 3. **Sections are method-driven, not freeform.** Do not invent sections; do not skip mandatory ones silently.
 4. **A non-applicable optional section is marked, not deleted:** leave the header and write `N/A — <one-line reason>`. This keeps audits one-glance and matches the convention used across every method skill.
-5. **Respect granularity.** If the thing you are documenting spans many capabilities (a plan, an estimate, a benchmark, the risk register, the user-involvement plan), it is **not** a capability section — it belongs in the release/project template. Cross-cutting risks link back with `related`.
+5. **Respect granularity.** If the thing you are documenting spans many capabilities (a plan, an estimate, a benchmark, the risk register, the user-involvement plan), it is **not** a capability section — it belongs in the release template. Cross-cutting risks link back with `related`.
 
 ## Frontmatter (all node types)
 
@@ -119,9 +119,28 @@ Root node — no `parent`. Single vision is the graph root.
 ## Story → AC traceability                        # every scenario maps to a story id
 ```
 
-### release / project  → orchestrated by the delivery skills
+### release  → orchestrated by the delivery skills
 
-`parent:` a roadmap-horizon goal. This is where artifacts that span many capabilities live — they are **not** duplicated into capability nodes.
+`parent:` the `vision` — a release slices across goals, so it is not a child of any one. `related:` carries the goals and capabilities pulled into this release's scope. This is where artifacts that span many capabilities live — they are **not** duplicated into capability nodes; cross-cutting risks in those capabilities link back here via `related`.
+
+Frontmatter — the shared block (framework contract) plus release-specific fields. Per-type frontmatter is the template's domain; the framework defines only the shared invariant.
+
+```
+---
+type: release
+id: release-002-checkout-overhaul
+parent: "[[vision-001-…]]"
+related: ["[[goal-003-…]]", "[[capability-014-…]]"]   # what this release delivers
+status: draft            # draft → active → done → superseded
+version: "v2.0"          # human label; distinguishes this release node from v1 / v3
+target: 2026-09-30       # planned ship date — the roadmap orders releases by this
+shipped:                 # actual ship date, set when status → done; empty until then
+created: 2026-05-17
+updated: 2026-05-17
+---
+```
+
+A finished release keeps its node with `status: done` and `shipped` set — that is the frozen history (its sizing, plan, milestones, sprints sealed in place). v2 is a **new** release node; nothing accumulates because the body sections are current-state (overwritten), and the revision history lives in git + the change-control CR log, not stacked in the body.
 
 ```
 ## Scope                                          # which capabilities/features this release carries
@@ -138,7 +157,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Pitfalls to avoid
 
 - **Treating the template as a replacement for the method skills.** The template gives shape and order. *How* to do value analysis well is still `product-manager-value-analysis`. Inlining method depth here would bloat the template and create a second source of truth.
-- **Duplicating release-level artifacts into capability nodes.** The plan, the estimate, the benchmark, the risk register, the user-involvement plan are release/project scoped. A capability links to a cross-cutting risk via `related`; it does not own a copy of the register.
+- **Duplicating release-level artifacts into capability nodes.** The plan, the estimate, the benchmark, the risk register, the user-involvement plan are release scoped. A capability links to a cross-cutting risk via `related`; it does not own a copy of the register.
 - **Inventing sections.** If a node seems to need a section no template defines, that is a signal to revise the template here (one place), not to fork the node structure ad hoc.
 - **Deleting non-applicable sections.** Mark `N/A — reason`. A deleted section is indistinguishable from a forgotten one at audit.
 - **Filling sections out of order.** The order encodes precedence (value before Go/No-Go before decomposition; sizing before estimate before plan). Skipping ahead reproduces the failure modes the method skills exist to prevent.
