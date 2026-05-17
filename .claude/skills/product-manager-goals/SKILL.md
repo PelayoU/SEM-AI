@@ -54,3 +54,4 @@ You scaffold the human's authoring; you do not generate goals from thin air.
 - **Skipping the horizon.** A goal without a horizon cannot be measurable; "Time-bound" collapses and SMART becomes SMAR.
 - **Goal-stacking instead of why-stacking.** If popping "why?" keeps producing goals, you are not at the real goal yet — keep going until you hit the vision.
 - **SMART without numbers.** "Improve user satisfaction" is not measurable; "raise NPS from 32 to 45 within Q3" is. Refuse to mark M as passing on adjectives alone.
+- **Importing OKR vocabulary the project has not audited.** SMART is this skill's governing framework; OKRs (Doerr) are a practitioner convention. If the human wants OKR-style key results, surface that it is outside this skill's body of knowledge and ask before importing it.

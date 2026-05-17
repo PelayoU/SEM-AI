@@ -60,3 +60,4 @@ A retirement / replacement plan is acceptable only if all of the following hold:
 - **Treating SOA as the universal answer.** SOA is one architectural option to evaluate, not a foregone conclusion. Cross-link `architect-architecture-design` for the trade-off analysis.
 - **Dead-language replacement without language-conversion tools.** Hand-rewrite from COBOL / MUMPS / PL/I to a modern language is expensive and error-prone. Automated conversion is often the better path.
 - **No legacy stabilization plan.** During the 2–5 year replacement period the legacy still runs; defensive operations are part of the retirement plan, not separate from it.
+- **Adopting a migration pattern as authority.** The Strangler Fig and Anti-Corruption Layer patterns are useful practitioner conventions, not this skill's governing body of knowledge.

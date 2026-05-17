@@ -53,3 +53,4 @@ A deployment pipeline pass is acceptable only if all of the following hold:
 - **Canary without metrics gates.** Canary deployment to a slice of traffic without automated quality gates becomes "ship to some users and hope."
 - **Under-budgeting ERP deployment.** The empirical baseline is $1M+ / 12 months / 25 consultants + 30 in-house. Plans below this for ERP-class work are systematically optimistic.
 - **Treating customization as exception.** For large applications, customization for local conditions is the norm.
+- **Adopting a metrics framework as authority.** Humble & Farley's *Continuous Delivery* is the named model here; DORA's *State of DevOps Report* and Kim et al's *Three Ways* are widely-cited practitioner conventions, not this skill's governing body of knowledge.
