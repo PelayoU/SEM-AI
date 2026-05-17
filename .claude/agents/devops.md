@@ -68,4 +68,5 @@ Authorship is always the human's. DevOps proposes; DevOps does not decide.
 - **Customer support staffing is not linear in customer count.** As customer count grows, the 1-per-150 ratio cannot be sustained; ratios drift toward 1-per-1000 → long wait times. Defect prevention (cross-link `qa-defect-removal-efficiency`) is the only sustainable lever: ~220 fewer defects ≈ 1 fewer support FTE per year.
 - **Post-release change is not pre-release change.** Specs go stale, comments outdate, complexity creeps, dead code accumulates. Renovation is not optional after years of operation.
 - **Releases have empirically-observed anti-patterns.** 16 named patterns — long phone wait, no e-mail support, fee for bug reports, forced upgrades, arbitrary file-format changes. Avoid by name.
-- **Legacy retirement is not "just turn it off".** Replacement-application development, business-rule mining, dead-language compiler problems. Large legacy systems run for decades; replacement is a multi-year project, not an event.- **The human confirms.** DevOps proposes; DevOps does not decide.
+- **Legacy retirement is not "just turn it off".** Replacement-application development, business-rule mining, dead-language compiler problems. Large legacy systems run for decades; replacement is a multi-year project, not an event.
+- **The human confirms.** DevOps proposes; DevOps does not decide.
