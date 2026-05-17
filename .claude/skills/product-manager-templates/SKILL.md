@@ -47,6 +47,9 @@ artifacts: []        # optional: external evidence files hung off this node
 Root node — no `parent`. Single vision is the graph root.
 
 ```
+## Map                  # read-time index, regenerated from the graph — NOT authoritative; `parent` is the only true edge
+- Children: this vision's goals
+- Related:  cross-axis links, if any
 ## Why (start with why)
 ## The future as a socio-technical system        # product absent on purpose
 ## The future product story                      # product inserted into that future
@@ -64,6 +67,9 @@ Root node — no `parent`. Single vision is the graph root.
 `parent:` the vision.
 
 ```
+## Map                  # read-time index, regenerated from the graph — NOT authoritative; `parent` is the only true edge
+- Children: this goal's capabilities
+- Related:  constraining adr; release(s) delivering toward this goal
 ## Outcome statement
   > In order to [GOAL] as [STAKEHOLDER] I want [capability set]
 ## Parent vision                                  # explicit reference
@@ -77,6 +83,9 @@ Root node — no `parent`. Single vision is the graph root.
 `parent:` a goal.
 
 ```
+## Map                  # read-time index, regenerated from the graph — NOT authoritative; `parent` is the only true edge
+- Children: this capability's features
+- Related:  constraining adr; the release(s) whose scope includes it; affine spec
 ## Statement                                      # "In order to [GOAL] as [STAKEHOLDER] I want { … }", implementation-agnostic
 ## Parent goal                                    # explicit reference
 ## Two implementations                            # the agnostic test: name two plausible ones
@@ -91,6 +100,9 @@ Root node — no `parent`. Single vision is the graph root.
 `parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level.
 
 ```
+## Map                  # read-time index, regenerated from the graph — NOT authoritative; `parent` is the only true edge
+- Children: this feature's stories (none if a leaf story)
+- Related:  its spec; constraining adr
 ## Story
   > As a [role], I want [capability], so that [benefit]
 ## Conditions of satisfaction                     # back of the card
@@ -106,6 +118,9 @@ Root node — no `parent`. Single vision is the graph root.
 `parent:` a feature.
 
 ```
+## Map                  # read-time index, regenerated from the graph — NOT authoritative; `parent` is the only true edge
+- Children: none (leaf)
+- Related:  constraining adr; affine spec
 ## Acceptance Criteria                            # AC-A1, AC-A2, … one human sentence each, traceable to story letter
 ## Gherkin
   ```gherkin
@@ -143,6 +158,9 @@ updated: 2026-05-17
 A finished release keeps its node with `status: done` and `shipped` set — that is the frozen history (its sizing, plan, milestones, sprints sealed in place). v2 is a **new** release node; nothing accumulates because the body sections are current-state (overwritten), and the revision history lives in git + the change-control CR log, not stacked in the body.
 
 ```
+## Map                  # read-time index, regenerated from the graph — NOT authoritative; `parent` is the only true edge
+- Children: none (off-spine)
+- Related:  the goals/capabilities delivered (mirrors `related:` frontmatter); bare links only — rationale stays in Scope
 ## Scope                                          # which capabilities/features this release carries
 ## Sizing                     → método: product-manager-early-sizing            # FP band + growth band + tier
 ## Estimate                   → método: product-manager-cost-estimating         # cost/schedule/quality, benchmark-defended

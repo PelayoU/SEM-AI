@@ -43,7 +43,7 @@ A decomposition pass is acceptable only if all of the following hold:
    - **E** — the team can estimate it. If not, split or do a knowledge-acquisition spike first.
    - **S** — small enough to fit in one iteration. If it cannot, split.
    - **T** — testable. There is at least one observable outcome that can confirm done. Defer the Gherkin form to `product-manager-spec-gherkin`.
-7. **Cut release slices horizontally across the backbone.** A release slice picks the minimum sub-tasks per activity that lets the target user complete the goal end-to-end. This is the walking skeleton; further releases thicken it.
+7. **Cut release slices horizontally across the backbone.** A release slice picks the minimum sub-tasks per activity that lets the target user complete the goal end-to-end. This is the walking skeleton; further releases thicken it. If a `release` is already active, align these slices to its scope boundaries (linked in the parent capability's Map); if none exists yet, these slices inform the `release` that will be created — this is a lightweight alignment, not a pre-read gate.
 8. **Honor the 5 Cs cycle.** After Card and Conversation, write Confirmation as the acceptance test before Construction begins. Do not let stories go to Construction without Confirmation, even if everyone "knows what we mean".
 
 ## Pitfalls to avoid

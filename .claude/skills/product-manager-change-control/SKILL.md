@@ -35,7 +35,7 @@ A change-control practice passes review only if all of the following hold:
 
 ## How you proceed
 
-1. **Receive the change request.** Treat any "small tweak", "quick add", or defect-that-is-actually-a-spec-change as a CR. A request that bypasses the CR pipeline is the bug.
+1. **Receive the change request.** Treat any "small tweak", "quick add", or defect-that-is-actually-a-spec-change as a CR. A request that bypasses the CR pipeline is the bug. **Read the active `release` first** — it is linked in the Map of the capability/feature the CR touches; its scope, sizing and single-vs-multi-release state are direct inputs to the routing decision below, so a CR routed without reading it is routed blind.
 2. **Open a CR node** in the project graph (a short markdown stub under the affected feature or capability node), capturing: origin, requested change, requesting party, date, and the artifacts it claims to affect.
 3. **Size the CR in function points.** Use FP because it is comparable across teams and historical data. If the team cannot estimate FP, surface that as a precondition gap and pull in `product-manager-early-sizing`.
 4. **Decide single-release or multi-release.** The default for CRs arriving after roughly 9 months into a release is the next release. Single-release inclusion is the exception, justified by business impact.
