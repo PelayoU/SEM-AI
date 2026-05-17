@@ -83,8 +83,6 @@ A spec passes review only if all of the following hold:
 - **Skipping alternative paths.** Most acceptance escapes are missing alternatives — error cases, edge cases, permission cases. Force at least one *unhappy path* scenario per AC.
 - **No mapping from AC to story.** Without `# AC-A1` comments (or equivalent in the spec body), the audit chain story → spec → test breaks.
 - **Adopting BDD terminology beyond Gherkin.** Some teams import "Then" to mean "next step in the user journey". That is not Cucumber's semantics; do not import it.
-- **Importing a fuller specification framework the project has not audited.** The executable Gherkin form (Cucumber reference) and Specification-by-Example as a practice are this skill's body of knowledge; a fuller external SbE framework is a practitioner convention — surface the gap if the human wants it applied formally.
-
 ## Notes
 
 The canonical shape of an executable spec is the Cucumber Gherkin reference: primary keywords (`Feature`, `Rule`, `Example`/`Scenario`, `Given`/`When`/`Then`/`And`/`But`, `Background`, `Scenario Outline`/`Examples`) and secondary keywords (Doc Strings, Data Tables, Tags, Comments), one Feature per file. Specification by Example is the practice of agreeing the acceptance test before building.

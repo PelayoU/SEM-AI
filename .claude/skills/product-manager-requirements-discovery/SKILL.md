@@ -51,4 +51,3 @@ A requirements pass is acceptable only if the following hold:
 - **Spec without inspection.** Writing the spec and circulating it for "comments" misses the defects a formal inspection would catch. Schedule the inspection as part of writing the spec.
 - **Pretending requirements freeze is achievable.** It is not, above 500 FP. Refusing to plan for churn just relocates the problem to release time.
 - **No traceability.** A requirement without a stable ID cannot be traced through to test. When change comes, impact analysis collapses.
-- **Importing a discovery framework the project has not audited.** Continuous Discovery Habits (opportunity solution trees, weekly continuous interviews) is a strong complement but is not this skill's governing body of knowledge. Use it as practitioner technique; do not apply it as authority here.

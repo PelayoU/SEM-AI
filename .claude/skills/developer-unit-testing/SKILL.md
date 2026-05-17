@@ -58,4 +58,3 @@ A developer-test pass is acceptable only if all of the following hold:
 - **Tests not treated as code.** Tests carry their own defects, complexity, comments, structure. Apply `developer-coding-practices` to them too.
 - **Skipping subroutine and module testing because "we have unit tests".** Different granularity; different defect categories. Unit alone misses subroutine-level boundary defects.
 - **Layer substitution.** Unit tests cannot find requirements defects, design defects, or many of the structural defects static analysis catches. "The unit tests pass" does not clear the upstream defect classes.
-- **Adopting a test framework as authority.** xUnit, JUnit, pytest, Jest are useful tools and conventions, not this skill's governing body of knowledge.

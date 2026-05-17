@@ -64,4 +64,3 @@ A measurement program is acceptable only if all of the following hold:
 - **Mixing burden rates without disclosure.** Cross-company cost comparisons distort silently when burden rates vary. Disclose the burden assumption with every cost figure.
 - **Measurement-as-appraisal.** Using defect data for individual appraisals kills honest reporting.
 - **No historical baseline.** Without a baseline, process improvement cannot show progress. Cross-link to `product-manager-benchmarks-baselines`.
-- **Importing metric frameworks the project has not audited.** PMI / IEEE / ISO have many metric definitions; the Jones nine-measure set is this skill's canonical set. Do not apply the others as authority here.

@@ -70,7 +70,7 @@ A maintenance pass is acceptable only if all of the following hold:
 4. **Error-prone-module rule** — less than 5% of the modules in large systems receive more than 50% of defect reports. These modules are usually unfixable; surgical removal + replacement is the normal therapy. Error-prone-module analysis ~60% DRE on the defect concentration.
 5. **Maintenance-quality multiplier** — every reduction of ~120 delivered defects ≈ one fewer maintenance staff person; every ~240 ≈ one fewer customer-support staff person. Pre-release quality investment compounds in maintenance savings.
 6. **Outsourcing rule** — maintenance outsourcing is more successful than development outsourcing: development outsourcing ends in litigation in a few percent of contracts; maintenance outsourcing far fewer. Consider it for non-strategic legacy.
-7. **Service-management aspects covered** — change management, reliability, availability, daily-use customer issues. ITIL is a relevant practitioner framework for these but is not this skill's governing body of knowledge.
+7. **Service-management aspects covered** — change management, reliability, availability, daily-use customer issues. ITIL is a relevant practitioner framework for these.
 
 ## How you proceed
 
@@ -95,4 +95,3 @@ A maintenance pass is acceptable only if all of the following hold:
 - **Maintaining without a regression test library.** Each fix risks regressing prior work; without a library the risk is invisible.
 - **Single inspector for a "major update".** Bad-fix injection ~5%. Re-inspection is part of the work, not an optional polish.
 - **Maintenance outsourcing of strategic legacy.** Maintenance outsourcing is supported in general but not for systems with concentrated domain knowledge; surface the strategic-vs-non-strategic distinction before deciding.
-- **Adopting a service-management framework as authority.** ITIL / COBIT are useful practitioner conventions for the operational aspects, not this skill's governing body of knowledge.

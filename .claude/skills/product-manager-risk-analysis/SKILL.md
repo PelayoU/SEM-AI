@@ -71,4 +71,3 @@ A risk analysis passes review only if all of the following hold:
 - **Skipping security and external risks because they're rare.** Categories 9 (security) and 14 (external/M&A) are systematically under-weighted because they feel exotic. Tag them explicitly even if the answer is *not applicable, low likelihood* — make the call visible.
 - **Owner = "the team".** Mitigations without a named role owner do not get done. Assign to a role, not a person, so the mitigation survives staff changes.
 - **Treating Cagan risks as discovery-only.** Value risk and usability risk persist into delivery — a feature can be feasible to build and still not get used. Carry these into release reviews.
-- **Importing a risk framework the project has not audited.** PMI risk-register conventions, FMEA, FAIR are practitioner conventions, not this skill's governing body of knowledge. Use Jones + Cagan as the authority surface; surface anything else explicitly if the human requests it.

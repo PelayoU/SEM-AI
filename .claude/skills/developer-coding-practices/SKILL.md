@@ -63,4 +63,3 @@ A coding pass is acceptable only if all of the following hold:
 - **Treating static-analysis output as cosmetic.** The ~87% DRE figure refers to real defect detection (boundary, calls, links). Ignoring it loses one of the highest-leverage prevention + removal activities.
 - **Mixing too many languages without taxonomy.** 12–15 languages in one application is observed but increases integration defects and onboarding cost. Justify each language choice.
 - **Comments at trivial density.** Cargo-cult commenting ("// increment i") is noise; absent commenting on non-obvious decisions is debt. Density follows non-obviousness, not line count.
-- **Importing fashionable practices the project has not audited as authority.** Clean Code, the GoF patterns, SOLID are useful as convention but are not this skill's governing body of knowledge; apply Jones's practices here and reference the others as practitioner convention.

@@ -53,4 +53,3 @@ A DRE program is acceptable only if all of the following hold:
 - **No defect-potential estimate.** Reporting DRE without defect potential is half the story — 99% DRE on 10 defects/FP is worse than 95% on 3 defects/FP.
 - **Stack cut for schedule pressure.** Pulling inspections to "save time" drops cumulative DRE non-linearly. Compute the new projection before agreeing.
 - **Ignoring serious-defect leakage.** Aggregate DRE numbers can hide serious-defect escapes. Report serious-defect DRE separately.
-- **Importing quality frameworks the project has not audited.** Six Sigma DMAIC, CMMI specific-practice mapping, ISO 9000's principles are useful tools but are not this skill's governing body of knowledge; do not apply them as authority here.

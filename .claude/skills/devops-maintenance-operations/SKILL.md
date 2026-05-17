@@ -23,7 +23,7 @@ Maintenance is the dominant expense of the entire software industry — and Cape
 A maintenance-operations pass is acceptable only if all of the following hold:
 
 1. **23 maintenance work types acknowledged** — the operational side coordinates across all 23 types; Developer handles the code work. The operations side names which work types fall to outsource, in-source, or hybrid (cross-link `developer-maintenance` for the canonical list).
-2. **ITIL framework referenced** — ITIL is a relevant practitioner framework for change management, reliability, and availability; it is not this skill's governing body of knowledge.
+2. **ITIL framework referenced** — ITIL is a relevant practitioner framework for change management, reliability, and availability.
 3. **The 14+ legacy best practices coordinated** — maintenance specialists vs developers; renovation workbenches; formal change management procedures + tools; formal regression test libraries; complexity analysis; error-prone module ID; dead code ID; renovate-before-enhance; inspections on major updates; customer-defect tracking; response-time tracking (defect repair AND change-request completion); cost tracking; warranty tracking; availability tracking.
 4. **Response-time tracking in place** — two distinct metrics: time from submission to defect repair, and time from submission to change-request completion. SLAs declared.
 5. **Release Kanban for flow visualization** — a three-column board: PBIs To Do (highest priority at top) / PBIs In Progress / PBIs Delivered. Snapshot updated at iteration end.
@@ -52,4 +52,3 @@ A maintenance-operations pass is acceptable only if all of the following hold:
 - **Daily stand-up as status meeting.** ≤15 min; coordination, not reporting. Long stand-ups burn time.
 - **Outsourcing strategic legacy.** Outsourcing is supported for non-strategic maintenance; strategic / privileged-data systems are not appropriate.
 - **Ignoring the ~120-defect multiplier.** Maintenance staffing is partly a function of upstream quality. Operations sizing should surface the quality-investment trade-off to Product Manager.
-- **Adopting a service-management framework as authority.** ITIL / COBIT / SRE are useful practitioner conventions for the operational aspects, not this skill's governing body of knowledge.

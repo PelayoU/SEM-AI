@@ -45,4 +45,3 @@ A capability passes review only if all of the following hold:
 - **Restating the goal as the capability.** If the capability text is paraphrased goal text, it is at the wrong level — push down, or surface that the goal already covers it.
 - **Pre-committing implementation in the capability name.** *"OAuth login"* names a protocol; *"customer can authenticate using their existing identity provider"* names the ability. The former locks design; the latter leaves it open.
 - **Skipping the MVP filter.** A capability without a Go/No-go decision silently ends up in scope through feature work. Decide before decomposing.
-- **Importing frameworks the project has not audited.** Opportunity Solution Trees, JTBD, OKRs, Rumelt strategy, etc. are not part of this skill's governing bodies of knowledge. Do not apply them as authority here; if the human wants them, surface the gap first.
