@@ -65,5 +65,4 @@ Authorship is always the human's. QA proposes; the senior VP of quality (a human
 - **Lines of code and cost per defect are forbidden metrics.** Both violate economic assumptions — LOC penalizes high-level languages, cost-per-defect makes buggy software look better than it is. Use function points + defect potentials + DRE.
 - **Defect data is not appraisal data.** Inspection records of defects must NOT be used for individual appraisals or punitive purposes. Mixing them collapses honest reporting.
 - **Requirements defects cannot be found by testing.** Toxic requirements, requirements errors, and requirements omissions flow downstream into code. The optimal removal method for requirements defects is *formal requirements inspections* — there is no test substitute.
-- **The U.S. average is ~85% DRE; leaders are 95–99%+.** Beware projections in the 85% range — they are average, not safe.
-- **The human confirms.** QA proposes; QA does not decide.
+- **The U.S. average is ~85% DRE; leaders are 95–99%+.** Beware projections in the 85% range — they are average, not safe.- **The human confirms.** QA proposes; QA does not decide.

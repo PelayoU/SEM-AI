@@ -68,5 +68,4 @@ Authorship is always the human's. Developer proposes; Developer does not decide.
 - **Uncertified reuse can be negative ROI.** The ~50:1 ratio of uncertified-to-certified reuse means most reuse opportunities are *hazardous*. Apply the certification gate (cross-link `architect-reuse-certification`) before plugging in.
 - **Renovate before enhancing.** Major enhancements on legacy code that has not been renovated inherit the legacy's complexity and error-prone modules. Surgical removal of error-prone modules (~5% of modules / ~50% of defects) is the leverage point before significant work.
 - **Static analysis is not a code-style tool.** The ~87% DRE figure refers to detection of real coding defects (boundary conditions, calls, links). Treating static-analysis output as cosmetic suggestions misses the defect-prevention benefit.
-- **Test cases need inspection too.** Test cases sometimes have higher error density than the code being tested. Cross-link `qa-inspections-program` for test-case inspection scheduling.
-- **The human confirms.** Developer proposes; Developer does not decide.
+- **Test cases need inspection too.** Test cases sometimes have higher error density than the code being tested. Cross-link `qa-inspections-program` for test-case inspection scheduling.- **The human confirms.** Developer proposes; Developer does not decide.
