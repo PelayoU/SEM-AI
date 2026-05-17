@@ -2,7 +2,7 @@
 category: session
 id: 2026-05-15-graph-reset
 date: 2026-05-15
-participants: [architect]
+participants: [architect, product-manager]
 related-nodes: []
 artifacts: []
 ---
@@ -65,6 +65,40 @@ Skills applied: `architect-architecture-design`.
 Artifacts: `git mv nodes→graph` (68); `CLAUDE.md`, `.claude/hooks/enforce-node-before-artifact.sh`, `.claude/role-scope.json`, `.claude/role-scope.example.json`, `graph/adr-015-*`; this session doc.
 Next: human picks merge / PR / discard; confirm adr-015.
 
+### 2026-05-15 — architect (Reset-G: role-decision table in CLAUDE.md)
+
+Human asked that CLAUDE.md state what each role decides so a role can self-recognise straying into another's scope (a PO cannot avoid Architect territory if it cannot see what the Architect owns). **Derived, not invented:** read all 5 `.claude/agents/*.md`; each table row = that agent's *"custodian of…"* identity line (Owns) + the direction of its own "Interaction with other roles" hand-offs (what it *supplies to* another = not its call). Added a compact 5-row `What each role decides` block to CLAUDE.md's `## Working as roles` section. Security/Designer excluded (Tier-3, not built — their agent.md rows point at non-existent roles). Governed by adr-015 (CLAUDE.md ∈ its `artifacts:`); no new doctrine — a faithful cross-role surface of agent files adr-015 already governs, so node-before-artifact holds without amending the ADR. The separate piece (multi-role review at `/session-close` over the diff) is a *genuinely new* decision and is NOT done here — it will need its own decision in adr-015 (still `proposed`, amendable) before `/session-close` is rewritten.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `CLAUDE.md` (added role-decision table); this session doc.
+Next: (a) author the `/session-close` multi-role-review decision into adr-015 + rewrite `/session-close`; (b) reshape each agent.md "Interaction with other roles" table into trigger + consult-vs-handoff form; human picks merge / PR / discard; confirm adr-015.
+
+### 2026-05-15 — architect (Reset-H: session-close multi-role review; how-to-operate clarifications)
+
+Node-first: amended `adr-015` (still `proposed`) — added decision 6 (session close runs an advisory multi-role review; command not hook, because the review is agentic and a shell hook cannot read a diff / dispatch roles / write findings; consultation only per ADR-005; never blocks) + a Neutral consequence + added `[[.claude/commands/session-close.md]]` to its `artifacts:` so the command rewrite is governed. Then: `CLAUDE.md` `## How to operate` — two clarifications (one session may pass through several roles, the human does the switch on the same branch, never silently do another role's work; log continuously to the session doc as you go, not reconstructed at close) — clarifications of already-governed content, no further ADR change. Then rewrote `.claude/commands/session-close.md`: generic (dropped all "SEM-IA" per adr-015 decision 3), inserted step 3 = compute `git diff main...HEAD`, dispatch the relevant built roles as `Task` subagents (review-only, ADR-005), findings → new `## Session review (multi-role)` section; and made the branch-decision step strictly neutral — **no default, no recommendation, wait for explicit human choice** (was: "default to merge for solo workflows"; corrected to honour the standing constraint).
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `graph/adr-015-one-unified-artifact-graph.md` (decision 6 + artifacts: + consequence), `CLAUDE.md` (how-to-operate), `.claude/commands/session-close.md` (rewrite); this session doc.
+Next: reshape each agent.md "Interaction with other roles" table into trigger + consult-vs-handoff form (drop Security/Designer — Tier-3, not built); human picks merge / PR / discard; confirm adr-015.
+
+### 2026-05-15 — architect (Reset-I: agent.md step-6 rewrite — rot fix + exit-trigger)
+
+Rewrote step 6 of `## Workflow` in all 5 `agent.md` (identical paragraph, verbatim across files; each file's distinct closing line preserved). Removed teardown rot: dead `/role <name>`, dead `.claude/hooks/enforce-node-before-artifact.sh` + "cannot be overridden" (contradicted adr-015's unenforced-discipline decision), dead cross-ref "§ Role jurisdiction" → "§ Working as roles". Preserved the load-bearing thesis intact (scope check; out-of-scope refused even on explicit "do it", Jones Ch 5 p.282; subagent = consultation-only never authoring, ADR-005; "a bare 'do it' is verified, not blindly executed"). Added **(c)**: role-local exit-trigger recognition — when completed work satisfies a hand-off in this role's own `## Interaction with other roles` table, name it and surface to the human (the missing relay; local/pairwise → respects the contamination invariant). Governed by adr-015 (`artifacts:` lists all 5 agents) — node-before-artifact satisfied.
+
+**Provenance caveat (flagged for the multi-role review, honest record):** authored by a contaminated, role-less instance after the human, with full knowledge of the contamination/recursion objection (which the human originated), explicitly and repeatedly directed it under the existing governing node. Verification was performed exhaustively and surfaced before acting (not blindly executed); the human made the scope determination (human-directed model, adr-010 lineage). This is exactly the kind of provenance a fresh-role `/session-close` review should re-examine — recorded here deliberately so it can.
+
+Skills applied: `architect-architecture-design`.
+Artifacts: `.claude/agents/{product-owner,architect,qa,developer,devops}.md` (step-6 rewrite ×5); this session doc.
+Next: reshape each agent.md "Interaction with other roles" table into trigger + consult-vs-handoff form (drop Security/Designer — Tier-3, not built); the wrapper rot still pending (`/session-open` dead template path, "SEM-IA" strings, no adoption doc); human picks merge / PR / discard; confirm adr-015.
+
+### 2026-05-17 — product-manager (close)
+
+Human entered as Product Manager, then asked to "close the branch — shouldn't have been opened" and exit. Clarified that `session/2026-05-15-graph-reset` is pre-existing **Architect** work (opened 2026-05-15, not this session, not by Product Manager) carrying the completed graph reset + `adr-015` + `CLAUDE.md` rewrite — discarding would abandon all of it. Surfaced the choice neutrally with the irreversibility of discard stated; human chose **leave the branch intact and exit**. No Product Manager work performed; no nodes/artifacts touched. Multi-role diff review intentionally skipped — no new work this session and the branch is preserved untouched (neither merged nor discarded), so an advisory review has no object.
+
+Skills applied: (none — close only).
+Artifacts: this session doc.
+Next: Architect's pending items stand unchanged (accept `adr-015`; agent.md table reshape; wrapper rot; merge / PR / discard). Human decides.
+
 ## Artifacts touched
 
 - Created `sessions/2026-05-15-graph-reset.md` — this session doc.
@@ -84,4 +118,4 @@ Next: human picks merge / PR / discard; confirm adr-015.
 - Superseded ADRs (004/007/012/013) kept as history with `superseded-by:`. The portability branch's gate *code* (role-scope union + always-ignore guard) is retained and is what makes the unified model work; that branch's obsolete doctrine is superseded here.
 - Branch deletion of prior merged session branches = independent housekeeping.
 
-**Merge decision:** <pending — human decides: merge / PR / discard; confirm adr-015 acceptance>.
+**Merge decision:** pending — human decides. Session closed by Product Manager 2026-05-17 on the human's instruction to leave the branch intact and exit; **branch preserved untouched, nothing merged or discarded**. The Architect's merge / PR / discard choice and `adr-015` acceptance remain open and deferred to the human in a future session.
