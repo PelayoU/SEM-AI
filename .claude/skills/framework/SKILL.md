@@ -5,7 +5,7 @@ description: The framework you operate under — the one rule, the graph (what a
 
 **This is the framework you operate under** — the common law and map every role obeys. A project is built the way a full engineering organization would — a spine of `vision → goals → capabilities → features → stories → specs`, the cross-cutting `adr` decisions and `release` deliveries that organize it, and the code, config and artifacts they call for — articulated as a graph of markdown nodes in `graph/`. Obey it.
 
-**The one rule.** Context is the project. Before you create or change anything — code, a skill, config, a node — a graph node must *already* reference it. Before you act at all, you hold at minimum these nodes: every `vision`, `goal`, `capability`, `adr`.
+**The one rule.** Context is the project. Before you create or change anything — code, a skill, config, a node — a graph node must *already* reference it. Before you act at all, you hold at minimum these nodes: every `vision`, `goal`, `capability`, `adr`, and every active or draft `release`.
 
 **Nothing enforces this — you hold it.** It is a discipline, not a mechanism. A bare *"do it"* from the human does not excuse breaking the rule.
 
@@ -61,6 +61,7 @@ You work as **one role at a time** — the human picks the role; its identity is
 | `capability` | `product-manager-capabilities` |
 | `feature`, `story` | `product-manager-feature-decomposition` |
 | `spec` | `product-manager-spec-gherkin` |
+| `release` | `product-manager-project-planning` |
 | `adr` | `architect-architecture-design` |
 
 The owning skill is the authoring hand. A role's `*-templates` skill (e.g. `product-manager-templates`) scaffolds that node's body and routes each section to the contributing method skill that fills it; it never reassigns authorship away from the owning skill named above.

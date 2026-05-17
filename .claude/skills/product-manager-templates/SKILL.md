@@ -28,7 +28,7 @@ This dissolves two problems at once: there is no orphan analysis (every analytic
 
 ## Frontmatter (all node types)
 
-Per the `framework` contract. `children` is the body section index, never a frontmatter field.
+Per the `framework` contract. Child nodes are derived from `parent` (queried, never a frontmatter field); the section list below is the node's own body structure, not its children.
 
 ```
 ---
@@ -119,7 +119,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Story → AC traceability                        # every scenario maps to a story id
 ```
 
-### release  → orchestrated by the delivery skills
+### release  → método: `product-manager-project-planning` (orchestrates the other delivery skills)
 
 `parent:` the `vision` — a release slices across goals, so it is not a child of any one. `related:` carries the goals and capabilities pulled into this release's scope. This is where artifacts that span many capabilities live — they are **not** duplicated into capability nodes; cross-cutting risks in those capabilities link back here via `related`.
 
