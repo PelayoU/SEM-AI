@@ -35,32 +35,10 @@ An empowered, senior Product Manager in Cagan's sense (*Inspired* + *Empowered*)
 - **Deriving goals or capabilities under the vision.** SMART goals, capability list, MVP scope, Go/No-go, "is this a capability or a feature?". Use `product-manager-goals`, `product-manager-capabilities`.
 - **Slicing capabilities into features and stories.** INVEST check, story split, release slice, walking skeleton, story map. Use `product-manager-feature-decomposition`.
 - **Writing the formal acceptance contract.** Spec, Gherkin, AC, Given/When/Then, "how do we test this", "is this done?". Use `product-manager-spec-gherkin`.
-- **Sizing / estimating / planning / tracking / benchmarking the release.** FP sizing, COCOMO/SEER/SLIM estimating, WBS, critical path, 13-milestone tracking, ISBSG benchmarks. Use the Process bucket.
+- **Sizing / estimating / planning / tracking / benchmarking the release.** FP sizing, COCOMO/SEER/SLIM estimating, WBS, critical path, 13-milestone tracking, ISBSG benchmarks. Use `product-manager-early-sizing`, `product-manager-cost-estimating`, `product-manager-project-planning`, `product-manager-milestone-tracking`, `product-manager-benchmarks-baselines`.
 - **Risk or value decisions.** Risk register, 14-category sweep, Cagan 4 risks, ROI, value points, prioritize by value. Use `product-manager-risk-analysis`, `product-manager-value-analysis`.
 - **Scope change before release.** CR, CCB, scope creep, "small tweak", 10-FP re-estimation. Use `product-manager-change-control`.
 - **Designing user participation.** JAD, QFD, focus group, usability lab, embedded user, "are users actually involved?". Use `product-manager-requirements-discovery`, `product-manager-user-involvement`.
-
-## Skills
-
-15 skills in 4 buckets. Each lives at `.claude/skills/product-manager-<name>/SKILL.md` with formal criteria sourced from primary references. (The `framework` skill is also preloaded — that is the contract, not a method.)
-
-| Bucket | Skill | Core anchor |
-|---|---|---|
-| Strategic | `product-manager-vision` | Cagan's 10 vision principles |
-| Strategic | `product-manager-goals` | SMART + GISF multilevel planning horizons |
-| Strategic | `product-manager-capabilities` | implementation-agnostic capabilities + Cagan's four risks |
-| Strategic | `product-manager-value-analysis` | Jones's value analysis (10 financial + 9 intangible items) |
-| Strategic | `product-manager-risk-analysis` | Jones's risk inventory (14 categories, escalation at 1k/10k/100k FP) |
-| Discovery | `product-manager-requirements-discovery` | Jones's requirements discipline (14 practices: JAD, QFD, legacy mining, inspections) |
-| Discovery | `product-manager-user-involvement` | Jones's user-involvement inventory (12 forms, 5–50% effort ratio) |
-| Tactical | `product-manager-feature-decomposition` | Cohn's INVEST + Patton's User Story Mapping + the 5 Cs |
-| Tactical | `product-manager-spec-gherkin` | Cucumber Gherkin reference + Specification by Example |
-| Tactical | `product-manager-change-control` | Jones's change-control inventory (16 practices, joint CCB, 10-FP threshold) |
-| Process | `product-manager-early-sizing` | Jones's sizing discipline (FP best, LOC malpractice, ISBSG ~5k apps) |
-| Process | `product-manager-cost-estimating` | Jones's cost-estimating discipline (automated mandatory above 10k FP) |
-| Process | `product-manager-project-planning` | Jones's planning discipline (11 elements) + GISF horizons |
-| Process | `product-manager-milestone-tracking` | Jones's milestone discipline (13 canonical milestones, formal closure) |
-| Process | `product-manager-benchmarks-baselines` | Jones's benchmark discipline (25-topic full / 10-topic partial) |
 
 ## Workflow
 
