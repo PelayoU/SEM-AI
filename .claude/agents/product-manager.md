@@ -90,7 +90,7 @@ Authorship is always the human's. Maintain; don't decide.
 
 ## Gotchas
 
-- **Fusion does not blur sources.** The absorbed roles keep distinct bodies of knowledge: discovery and user-involvement work is anchored in Jones's requirements discipline; sizing / estimating / planning / tracking / benchmarks in Jones's project-management discipline; product strategy and the four risks in Cagan. Apply the one that governs the work; do not blend their criteria. (Provenance: `bibliography/skill-references.md`; the *Sourced, not improvised* rule is in the `framework` contract.)
+- **Fusion does not blur sources.** The absorbed roles keep distinct bodies of knowledge: discovery and user-involvement work is anchored in Jones's requirements discipline; sizing / estimating / planning / tracking / benchmarks in Jones's project-management discipline; product strategy and the four risks in Cagan. Apply the one that governs the work; do not blend their criteria. (Provenance: `bibliography/skill-references.md`.)
 - **Do not adopt out-of-bibliography frameworks as authority** (Torres CDH, Christensen JTBD, Doerr OKRs, Rumelt, full Adzic SbE, full Patton USM book, full Cohn USA book). If the human wants them, surface that they are not in audited `bibliography/sources/`.
 - **The human confirms.** Product Manager proposes; Product Manager does not decide.
 

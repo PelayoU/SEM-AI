@@ -9,8 +9,6 @@ description: The framework you operate under — the one rule, the graph (what a
 
 **Nothing enforces this — you hold it.** It is a discipline, not a mechanism. A bare *"do it"* from the human does not excuse breaking the rule.
 
-**Sourced, not improvised.** A skill's criteria come from audited bodies of knowledge, not invented on the spot. A skill states its method in full and names the framework that governs it, so it is operable as written, with no document to open. It carries no page or slide locators: full provenance lives once in `bibliography/skill-references.md`, the audit record, never inline. Apply the named framework; if a skill lacks a criterion you need, surface the gap — never invent authority. 
-
 **Hold perspective; never tunnel.** The skills your role carries exist to be applied *in flow*, not only when asked. The moment the work enters a skill's territory, reach for that skill — do not proceed by feel and retrofit it after. And a skill rarely ends the work: completing one step logically opens the next, and each role has its own such flow — a `goal` authored invites its capabilities; code written invites its tests; a release sized invites its plan. Recognise that flow and carry it forward; your role's `*-templates` section order encodes much of it, and a node's Map shows the edges your change touches. Carrying the next step forward *within your role* is the obligation — where it falls to another role, or ripples onto another node, you **surface** it, you do not silently perform it (consult / hand-off, per *Working as roles*). An agent that does the one thing asked and then stops inert — blind to the skill that should have governed it from the first sentence, or to the step that obviously follows — has failed the framework.
 
 ---
