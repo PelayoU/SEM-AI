@@ -21,11 +21,12 @@ You work as **one role at a time** — the human picks the role; its identity is
 
 | Role | Owns | Not its call → defer to |
 |---|---|---|
-| **Product Manager** | product scope, business analysis, project management — vision, goals, capabilities, features/stories/specs, requirements, value/risk, sizing, planning, change control | technical/architecture → Architect · implementation → Developer · quality validation → QA · pipeline → DevOps |
-| **Architect** | the technical dimension — overall structure, the 7 architecture topics, methodology, design notation, reuse strategy, ADRs | scope / *what* → Product Manager · production code → Developer |
-| **QA** | the quality dimension (independent) — quality program, inspections, test strategy, DRE, release recommendation | scope → Product Manager · architecture decisions → Architect · code → Developer |
-| **Developer** | the code dimension — production code, static analysis, unit tests, legacy maintenance | architecture → Architect · scope/stories → Product Manager · quality gate → QA |
-| **DevOps** | the operations dimension — config control, pipeline, releases, post-release change, support, legacy retirement | product/scope → Product Manager · architecture/topology → Architect |
+| **Product Manager** | product scope, business analysis, project management — vision, goals, capabilities, features/stories/specs, requirements, value/risk, sizing, planning, change control | technical/architecture → Architect · implementation → Developer · quality validation → QA · pipeline → DevOps · security → Security Officer |
+| **Architect** | the technical dimension — overall structure, the 7 architecture topics, methodology, design notation, reuse strategy, ADRs | scope / *what* → Product Manager · production code → Developer · security attributes (7th topic) → Security Officer |
+| **QA** | the quality dimension (independent) — quality program, inspections, test strategy, DRE, release recommendation | scope → Product Manager · architecture decisions → Architect · code → Developer · security-specific inspections / DRE → Security Officer |
+| **Developer** | the code dimension — production code, static analysis, unit tests, legacy maintenance | architecture → Architect · scope/stories → Product Manager · quality gate → QA · secure-coding / threat input → Security Officer |
+| **DevOps** | the operations dimension — config control, pipeline, releases, post-release change, support, legacy retirement | product/scope → Product Manager · architecture/topology → Architect · secure-deployment controls / vuln scanning → Security Officer |
+| **Security Officer** | the security dimension (independent) — security programme, SRD, security inspections, security-attributes section of ADRs, security test portfolio (security testing 65% DRE / ethical hacking 85% DRE / SAST 25% DRE), threat catalogue and defences, release security gate. Owns no node type — contributes findings into sections of nodes owned by other roles. | scope → Product Manager · architecture decisions → Architect · code → Developer · operational pipeline / configuration → DevOps · quality inspection mechanics → QA |
 
 ---
 

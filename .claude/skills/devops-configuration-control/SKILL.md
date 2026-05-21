@@ -47,4 +47,5 @@ A configuration control program is acceptable only if all of the following hold:
 - **Side-channel edits to master copies.** Defeats the entire lock. Enforce technically (repository permissions), not just by policy.
 - **Configuration control judging change value.** Out of scope — that is `product-manager-change-control`'s job. Conflating the two collapses both.
 - **No coordination with change control.** Configuration tracks; change control decides. Each presupposes the other.
+- **Signed-artifact policy absent.** For Internet-facing / privileged-data deployments, the configuration-control program includes artifact signing at build, verification at deployment, and a recall mechanism if a vulnerability is disclosed post-admission. Dispatch `security-officer-testing-and-static-analysis` for the policy; cross-link `devops-deployment` for pipeline integration. Unsigned artifacts flowing through the pipeline are one of the named supply-chain attack vectors.
 - **Tool brand as authority.** Specific CM tools are convention; the configuration-control discipline plus ISO 10007 / IEEE 828 are the anchored authority.

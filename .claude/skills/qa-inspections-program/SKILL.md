@@ -39,7 +39,8 @@ An inspection program is acceptable only if all of the following hold:
    - **Test plan inspections** — ~80% DRE.
    - **Test case inspections** — ~83% DRE (test scripts ~78%).
    - **User documentation inspections.**
-4. **Static analysis layered for supported languages** — for Java, C, C++ and other C dialects, automated static analysis is best practice and tops ~87% DRE on common coding defects. False positives are minimized by tuning to the application's specifics.
+   - **Security inspections of requirements and specifications** (Jones BP #38 practice 3) — a distinct inspection form for Internet-facing / privileged-data / safety-critical applications. Checklist and security reviewer supplied by `security-officer-requirements-and-inspection`; the five Fagan preconditions still apply. This is the only viable removal method for requirements-stage security defects (which testing cannot catch).
+4. **Static analysis layered for supported languages** — for Java, C, C++ and other C dialects, automated static analysis is best practice and tops ~87% DRE on common coding defects. For security-specific structural defects, configure security rules in coordination with `security-officer-testing-and-static-analysis` (~25% DRE on security defects when used alone; substantially higher in the combined stack). False positives are minimized by tuning to the application's specifics.
 5. **Defect-origin → optimal-removal mapping respected**:
    | Defect origin | Optimal discovery method |
    |---|---|
@@ -61,9 +62,10 @@ An inspection program is acceptable only if all of the following hold:
 5. **Run the session.** Page-by-page for design / docs; line-by-line for code. Moderator keeps pace; recorder logs defects. Time-box the session; long sessions reduce defect-detection rate.
 6. **Record defects** by origin and severity (cross-link `qa-measurements`). The record is for program improvement, not for individual appraisals (precondition 5).
 7. **Schedule static analysis** for code in supported languages. Run it before code inspection; the inspection then targets defects static analysis cannot find (embedded requirements defects, deeper logic issues).
-8. **Use dynamic analysis for performance / timing defects** — neither inspections nor static analysis catch these well. Cross-link `architect-performance-analysis`.
-9. **Re-inspect after defect repairs and after major changes.** Re-inspection prevents the bad-fix injection problem (bug-repair inspection ~70% DRE).
-10. **Report DRE per inspection class to the SQA program** (cross-link `qa-sqa-program`). The measurement feeds organizational learning and benchmark submission.
+8. **Schedule security inspections for security-relevant artifacts.** Jones BP #38 practice 3: for Internet-facing / privileged-data / safety-critical applications, requirements and specs receive a formal security inspection in addition to the generic requirements / spec inspection. Dispatch `security-officer-requirements-and-inspection` for the security-focused checklist and the security expert as additional reviewer. The five Fagan preconditions still apply; record security defects with origin (requirement / spec / threat-model gap / authorization-model gap / configuration / dependency).
+9. **Use dynamic analysis for performance / timing defects** — neither inspections nor static analysis catch these well. Cross-link `architect-performance-analysis`.
+10. **Re-inspect after defect repairs and after major changes.** Re-inspection prevents the bad-fix injection problem (bug-repair inspection ~70% DRE).
+11. **Report DRE per inspection class to the SQA program** (cross-link `qa-sqa-program`). The measurement feeds organizational learning and benchmark submission. Security-specific DRE figures (inspection of requirements / specs for security defects) feed `security-officer-testing-and-static-analysis` for the cumulative security DRE projection.
 
 ## Pitfalls to avoid
 
@@ -75,3 +77,4 @@ An inspection program is acceptable only if all of the following hold:
 - **Single inspection role pair.** New-code inspection is necessary but not sufficient. Test plan, test case, and user-doc inspections are systematically skipped and produce escape categories.
 - **Long, overstaffed sessions.** Beyond six participants per session the discussion overheads exceed the marginal defect-detection. Four is the modal best practice.
 - **No re-inspection after repairs.** Bad-fix injection rate runs ~2–10%. Without re-inspection these become the next release's defects.
+- **Security inspections skipped for Internet-facing / privileged-data applications.** Jones lists "Perform security inspections of requirements and specifications" as BP #38 practice 3 — a forcing function. A generic requirements/spec inspection by moderator + recorder + author + reviewer cannot substitute for a security expert participating with a security-focused checklist (`security-officer-requirements-and-inspection`). Requirements-stage security defects cannot be removed by testing alone.

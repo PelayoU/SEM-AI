@@ -72,7 +72,8 @@ A spec passes review only if all of the following hold:
    - `@` for Tags to group related Scenarios across files.
    - `#` for Comments at the start of a line.
 8. **Review each *Then* for observability.** If it reads as "the system processes …" or "we update internally …", rewrite as the user-visible or test-visible outcome.
-9. **Inspect the spec with Developer + QA** before promoting it from draft to accepted. This is the Confirmation step of the 5 Cs cycle and is also one of the requirements-inspection forms.
+9. **Dispatch Security Officer for security AC when the feature has a security dimension.** If the parent feature touches Internet-facing surface, privileged data, authentication, cryptography, input validation, deserialization, or any AC-S* derived from SRD, dispatch `security-officer-requirements-and-inspection` to author the spec's `## Security AC` section (AC-S1, AC-S2, …, each with `@security`-tagged Given/When/Then in the Gherkin block). Security Officer returns the section content; you integrate. Mark `N/A — reason` only when no security dimension applies.
+10. **Inspect the spec with Developer + QA** before promoting it from draft to accepted. This is the Confirmation step of the 5 Cs cycle and is also one of the requirements-inspection forms. For specs carrying `AC-S*` security AC, layer the security inspection via `security-officer-requirements-and-inspection` (Jones BP #38 practice 3).
 
 ## Pitfalls to avoid
 
@@ -83,6 +84,7 @@ A spec passes review only if all of the following hold:
 - **Skipping alternative paths.** Most acceptance escapes are missing alternatives — error cases, edge cases, permission cases. Force at least one *unhappy path* scenario per AC.
 - **No mapping from AC to story.** Without `# AC-A1` comments (or equivalent in the spec body), the audit chain story → spec → test breaks.
 - **Adopting BDD terminology beyond Gherkin.** Some teams import "Then" to mean "next step in the user journey". That is not Cucumber's semantics; do not import it.
+- **Security AC olvidadas.** If the parent feature has a security dimension (Internet-facing, privileged-data, auth, crypto, input validation, deserialization) and the spec's `## Security AC` section is empty or unmarked, the dispatch to `security-officer-requirements-and-inspection` is missing. Security AC are derived from SRD, not from asking the user *"do you need security?"*. Mark `N/A — reason` for features that genuinely have no security dimension; otherwise dispatch.
 - **Importing a fuller specification framework the project has not audited.** The executable Gherkin form (Cucumber reference) and Specification-by-Example as a practice are this skill's body of knowledge; a fuller external SbE framework is a practitioner convention — surface the gap if the human wants it applied formally.
 
 ## Notes

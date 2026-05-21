@@ -65,4 +65,5 @@ A value analysis passes review only if all of the following hold:
 - **Pricing apples vs. oranges.** Comparing capability A over 12 months with capability B over 5 years inverts conclusions. Lock the horizon first.
 - **Hidden discount rates.** If the comparison stretches beyond two years, name the discount rate explicitly. Different rates change the winner.
 - **Single-column scoring.** A standalone score gives no decision power. Always score against at least one alternative.
+- **Cagan four-risks scored without Security input for security-relevant work.** Feasibility and viability both carry security implications: feasibility (can we build it securely?) and viability (does threat exposure compromise business viability — regulatory exposure, breach cost, brand damage?). For Internet-facing / privileged-data work, dispatch `security-officer-architecture` (feasibility) and `security-officer-threats-and-defenses` (viability) before scoring those axes.
 - **Importing a value framework the project has not audited.** Jobs-to-be-Done can be useful framing but is not this skill's governing body of knowledge. Surface the gap if the human wants it applied formally.

@@ -76,7 +76,7 @@ A maintenance pass is acceptable only if all of the following hold:
 
 1. **Classify the work** against the 23 types. Multiple-type combinations are normal; name each. The classification drives estimation (`product-manager-cost-estimating`), planning (`product-manager-project-planning`), and tooling.
 2. **Run complexity analysis on the affected modules** (practice 7). Cyclomatic + essential complexity. Modules above ceiling (10 / 20) are flagged for refactor before enhancement.
-3. **Identify error-prone modules in the impacted area** (practice 8). The 5% / 50% rule: ranked defect history per module surfaces the candidates. Surgical removal + replacement is the working response.
+3. **Identify error-prone modules in the impacted area** (practice 8). The 5% / 50% rule: ranked defect history per module surfaces the candidates. Surgical removal + replacement is the working response. **For Internet-facing or privileged-data legacy applications, dispatch `security-officer-testing-and-static-analysis` to run security-focused SAST on the impacted area before enhancement; Jones notes security vulnerabilities in legacy applications tend to be numerous and are significantly reduced through renovation.**
 4. **Identify dead code** (practice 9). Static analysis + execution tracing. Remove rather than route around.
 5. **Apply the renovate-before-enhance rule** for major enhancements (practice 10). Renovation work runs first; the enhancement follows on cleaner ground.
 6. **Schedule formal inspections on major updates** (practice 11 + cross-link `qa-inspections-program`). Bad-fix injection rate ~5%; re-inspection catches it.
@@ -95,4 +95,5 @@ A maintenance pass is acceptable only if all of the following hold:
 - **Maintaining without a regression test library.** Each fix risks regressing prior work; without a library the risk is invisible.
 - **Single inspector for a "major update".** Bad-fix injection ~5%. Re-inspection is part of the work, not an optional polish.
 - **Maintenance outsourcing of strategic legacy.** Maintenance outsourcing is supported in general but not for systems with concentrated domain knowledge; surface the strategic-vs-non-strategic distinction before deciding.
+- **Legacy code renovated without security review.** Jones BP #38 practice 8 ("Utilize static analysis on legacy applications that are to be updated") is a forcing function for legacy under change. Internet-facing / privileged-data legacy systems run 20–30+ years and accumulate undiscovered security vulnerabilities; renovation is the practical removal lever. Dispatch `security-officer-testing-and-static-analysis` for security-focused SAST before enhancement.
 - **Adopting a service-management framework as authority.** ITIL / COBIT are useful practitioner conventions for the operational aspects, not this skill's governing body of knowledge.

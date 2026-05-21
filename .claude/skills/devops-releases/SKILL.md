@@ -56,6 +56,7 @@ A release plan is acceptable only if all of the following hold:
 5. **File-format migration plan when applicable** — format changes carry free conversion in both directions; the old format remains readable.
 6. **Coordinated with customer-support staffing** — release volume drives support volume; the release plan checks that the customer-support staffing model (cross-link `devops-customer-support`) is still valid.
 7. **Coordinated with configuration control + post-release change** — each release is a new baseline; CRs against the release flow through `product-manager-change-control` + `devops-post-release-change`.
+8. **Release security gate present for in-scope classes** — for Internet-facing / privileged-data / financial / medical / military / classified applications, the release node's `## Security gate` section is filled by `security-officer-security-program` (SRD pass, security test pass, ethical-hacker pass for in-scope, SAST clean, no open Sev-1). Security Officer holds independent release-stop authority on security grounds parallel to QA's quality-grounds veto (modern hybrid model). Sub-1k-FP non-Internet-facing applications may mark the section `N/A — reason`.
 
 ## How you proceed
 
@@ -65,8 +66,9 @@ A release plan is acceptable only if all of the following hold:
 4. **Set the old-version support policy.** Announce the support window in advance; do not surprise customers with sunset.
 5. **Plan file-format migration** if applicable. Bidirectional, free, in-place upgrade.
 6. **Update the customer-support model** (cross-link `devops-customer-support`) to account for the new release's expected ticket volume.
-7. **Publish release notes** including known bugs (per practice 1).
-8. **Measure post-release.** Support volume by category, defect-discovery rate, MTTF; feed back to Product Manager / QA / next-release planning.
+7. **Define the release security gate.** For Internet-facing / privileged-data / financial / medical / military / classified applications, dispatch `security-officer-security-program` to author the gate criteria for the release node's `## Security gate` section (per `node-templates`): SRD pass, security test pass (~65% DRE), ethical-hacker pass for in-scope (~85% DRE), SAST clean on security rules, no open Sev-1 vulns. **The gate carries Security Officer's independent release-stop authority, operating in parallel with SQA's quality-grounds veto under this framework's modern hybrid model** (cross-link `qa-sqa-program`).
+8. **Publish release notes** including known bugs (per practice 1).
+9. **Measure post-release.** Support volume by category, defect-discovery rate, MTTF; feed back to Product Manager / QA / next-release planning.
 
 ## Pitfalls to avoid
 
@@ -77,3 +79,4 @@ A release plan is acceptable only if all of the following hold:
 - **Anti-pattern presence treated as "industry standard."** Many anti-patterns are common, but their commonness does not make them right.
 - **No release notes with known bugs.** Practice 1 is to publish known bugs proactively. Customers find them anyway; publishing first turns a surprise into a known limitation.
 - **Phone-only support model.** Anti-patterns 2 + 3. E-mail with a 48h SLA + an accessible channel for the hearing-impaired are practice 2 + practice 5.
+- **Release ships without security gate evaluation.** For in-scope classes (Internet-facing / privileged-data / financial / medical / military / classified), the release node's `## Security gate` section is mandatory. A release without security gate criteria (or with `N/A` not justified) ships blind to security defects. Security Officer's independent release-stop authority operates in parallel to QA's quality-grounds veto; the gate makes that authority operational, not advisory.

@@ -58,4 +58,5 @@ A developer-test pass is acceptable only if all of the following hold:
 - **Tests not treated as code.** Tests carry their own defects, complexity, comments, structure. Apply `developer-coding-practices` to them too.
 - **Skipping subroutine and module testing because "we have unit tests".** Different granularity; different defect categories. Unit alone misses subroutine-level boundary defects.
 - **Layer substitution.** Unit tests cannot find requirements defects, design defects, or many of the structural defects static analysis catches. "The unit tests pass" does not clear the upstream defect classes.
+- **Unit tests treated as security coverage.** Unit tests are white-box on developer-owned code at ~25% DRE plain (~52% PSP/TSP). Security testing (~65% DRE on security defects) and ethical hacking (~85% DRE) are specialist-owned forms in `qa-testing-strategy`, not absorbed by the Developer's unit-test layer. Do not conflate; "we have unit tests" does not cover security.
 - **Adopting a test framework as authority.** xUnit, JUnit, pytest, Jest are useful tools and conventions, not this skill's governing body of knowledge.

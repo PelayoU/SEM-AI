@@ -516,6 +516,69 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
 
 ---
 
+## Bucket — Security Officer (M6 — independent role, no node ownership)
+
+### security-officer-security-program
+
+**Skill**: stand up or audit the software security programme — 8 Jones practices, role definition, independence, ISO 17799 / ISO/IEC 10181 mapping.
+
+**Source layout**:
+
+- ★ **Best Practice #38** — Jones 2010, Section 38 "Best Practices for Software Security Analysis and Control". Eight formal practices: (1) improve engineer security training; (2) formal security plan for any Internet-/network-connected application; (3) security inspections of requirements and specifications; (4) physical security for development teams; (5) home-office / portable security; (6) high-security languages (E, Caja); (7) automated static analysis on new code; (8) static analysis on legacy code being updated.
+- ★ **Chapter 9 Table 9-23** (p. 621) — Security specialists rank #7 of 20 specialist occupations: assignment scope 50,000 FP; defect potentials 7.0; defect prevention impact 70%; defect removal impact 20%. Role-currency rationale (training gap).
+- ★ **Table 2-3** — Personnel staffing ratios: ~1 security specialist per 1,000 FP typical projects; ~5 per 100,000 FP at scale.
+- ★ **Standards baseline** — ISO 17799, ISO/IEC 10181 Security Frameworks. Named partners for threat intelligence: DHS Software Assurance, FBI InfraGuard, Center for Internet Security.
+- Out-of-bibliography (convention pointers only): OWASP ASVS / SAMM; NIST SP 800-53; Microsoft SDL; BSIMM; CISO governance literature.
+
+### security-officer-architecture
+
+**Skill**: analyse and contribute the security-attributes section of an ADR — the 7th fundamental architecture topic. The Architect authors the ADR; Security dispatches back the 7th-topic content.
+
+**Source layout**:
+
+- ★ **Chapter 7 § Architecture** — Jones 2010, seven fundamental architecture topics including security attributes (topic 7); silence on a topic is the #1 architectural defect. Security framed as increasingly critical at all size levels.
+- ★ **Best Practice #38** (Section 38) — Principle of Least Authority (PoLA); capability logic; protected classes of objects; high-security languages E and Google Caja; whitelisting / blacklisting of interfacing applications.
+- ★ **Best Practice #42** (Section 42) — Boundary control / boundary management on external-input subroutines; ACL-only authorization anti-pattern (virus inherits session-owner permissions).
+- ★ **Performance / quality / security overlap** — Jones 2010 Section 38: DoS attacks as performance issue; error-handling routines as primary attack avenue (quality-security overlap).
+- Out-of-bibliography (convention pointers only): STRIDE / DREAD threat modeling; NIST SP 800-30 risk assessment; Microsoft SDL secure-design principles; OWASP ASVS.
+
+### security-officer-testing-and-static-analysis
+
+**Skill**: design the security-specific defect-removal portfolio — security testing (65% DRE), ethical hacking (85% DRE), static analysis for security (25% DRE); 1 security tester per 50,000 FP.
+
+**Source layout**:
+
+- ★ **Table 5-6 (Defect Removal Efficiency by defect type)** — Jones 2010. Per-method DRE on security defects: requirements inspection 0%; design inspection 25%; code inspection 40%; static analysis 25%; **security testing 65%**; **ethical hacking 85%**. Commentary: "requirements defects, security defects, and defects in test materials are the most difficult to eliminate."
+- ★ **Table 5-3 (Defect Removal Methods)** — entry #13 security testing (specialist-owned); entry #26 ethical hacking ("hacking consultants").
+- ★ **Table 5-4 (Tester staffing)** — 1 security tester per 50,000 FP.
+- ★ **Cumulative DRE formula and synergy stack** — Jones 2010 defect-removal-efficiency chapter: leakage = product of (1 − DRE_i); Jones synergy stack of inspection + static analysis + multi-form testing + active SQA reaches >95% cumulative DRE.
+- Out-of-bibliography (convention pointers only): NIST SP 800-115 (penetration testing framework); OWASP ZAP; Burp Suite; Snyk; npm audit; Microsoft SDL security testing; Anthropic `security-guidance` plugin (PreToolUse regex hook for 9 unsafe-code patterns — usable as in-IDE secure-coding reminder).
+
+### security-officer-threats-and-defenses
+
+**Skill**: build the threat catalogue — 17+ named vectors from Jones with corresponding architectural / operational / testing defences; audit against 7 named anti-patterns.
+
+**Source layout**:
+
+- ★ **Best Practice #42** — Jones 2010, Section 42 "Protection against viruses, spyware, hacking". 17+ named attack vectors: hackers; viruses (polymorphic); spyware/adware; DoS; worms; trojans; botnets; browser hijackers; back doors (error-handling, buffer overruns); phishing; email-based; cookie poisoning; cyberextortion; cyberstalking; smart card hijacking; EMP; keystroke loggers.
+- ★ **Seven anti-patterns enumeration** — Jones 2010 Section 42: (1) Global items / globals / Global Name Space; (2) subroutines without boundary checking; (3) static authorization (ACL) without runtime identity verification; (4) untrusted executable attachments; (5) Java / JavaScript / ActiveX without caution; (6) browser-stored passwords; (7) silent privilege elevation.
+- ★ **Named partners for threat intelligence** — DHS Software Assurance, FBI InfraGuard, Center for Internet Security (Section 38 cross-references).
+- Out-of-bibliography (convention pointers only): OWASP Top 10; MITRE ATT&CK; CVE / CWE catalogues; CIS Controls.
+
+### security-officer-requirements-and-inspection
+
+**Skill**: run Security Requirements Deployment (SRD) — Jones's QFD-analogue for security — plus formal security inspections of requirements and specs.
+
+**Source layout**:
+
+- ★ **Chapter 7 § Security Requirements Deployment (SRD)** — Jones 2010 ~lines 22012–22044. Method analogous to QFD for security requirements: engagement of top-gun security expert + development team + user representatives; covers physical security + advanced code-hardening (capability logic, permission restrictions, E, Caja); produces security plan; schedules security test stages; plans ethical-hacker engagement.
+- ★ **Best Practice #38 practice 3** — formal security inspections of requirements and specifications.
+- ★ **Table 5-6 — requirements-defects DRE** — requirements inspection ~85% DRE on requirements defects vs ~0% via testing; security defects whose origin is requirements cannot be removed by testing alone.
+- ★ **Five Fagan preconditions** (cross-link `qa-inspections-program`) — moderator, recorder, adequate preparation, defect log, no-appraisal-use. Security inspection layers on the QA inspection programme.
+- Out-of-bibliography (convention pointers only): Microsoft SDL Security Requirements activity; NIST SP 800-30 risk assessment; STRIDE / DREAD threat modeling; OWASP ASVS.
+
+---
+
 ## Sources in `sources/` referenced but not yet used in 15 super-PO skills
 
 - `gisf-delivery-control-and-monitoring.pdf` — Three Ways DevOps, daily stand-up, Release Kanban. Will be relevant when QA / DevOps roles are built (M3 / M5).
@@ -528,4 +591,4 @@ The following sources were referenced in the earlier (pre-reset) skill set or in
   - **Chapter 7 § Requirements + BA + Design** (beyond Architecture already used) — relevant to potential future skills.
   - **Chapter 8 (Programming, Defects, sections beyond Defect Prevention already used)** — relevant to additional Developer skills if scope grows.
   - **Chapter 9 (Quality + Specialists, sections beyond Tables 9-22 + 9-23 already used)** — relevant to deeper QA / Security work.
-  - Remaining BPs to distribute (M5 + later): #29 (Governance — non-skill per catalog), #34 (Configuration Control → DevOps M5), #38 (Security → Security Officer), #42 (Threats → Security), #43 (Deployment → DevOps M5), #44 (Customer training → DevOps / PO), #47 (Change Management After Release → DevOps M5, partial use in M4 Developer maintenance), #49 (Updates and Releases → DevOps M5), #50 (Terminating Legacy → DevOps M5).
+  - Remaining BPs to distribute: #29 (Governance — non-skill per catalog), #44 (Customer training → DevOps / PO — partial use). Recently consumed: #34 (Configuration Control → DevOps M5), #38 (Security → Security Officer M6), #42 (Threats → Security Officer M6), #43 (Deployment → DevOps M5), #47 (Change Management After Release → DevOps M5, partial use in M4 Developer maintenance), #49 (Updates and Releases → DevOps M5), #50 (Terminating Legacy → DevOps M5).

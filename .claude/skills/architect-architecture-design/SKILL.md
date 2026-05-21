@@ -47,7 +47,7 @@ An architectural decision is acceptable only if all of the following hold:
 ## How you proceed
 
 1. **Confirm size tier.** Pull the FP figure from `product-manager-early-sizing`. Without a size, you cannot apply the escalation rule. If FP is missing, surface that as a precondition.
-2. **Walk the seven fundamental topics.** For each, write one paragraph that captures the current decision or open question. Topics with "TBD" become explicit work items, not silent gaps.
+2. **Walk the seven fundamental topics.** For each, write one paragraph that captures the current decision or open question. Topics with "TBD" become explicit work items, not silent gaps. **For topic 7 (security attributes), dispatch `security-officer-architecture` to produce the section content** — Security Officer analyses threat surface, applies Principle of Least Authority, validates the authorization model (ACL / RBAC / ABAC / capability-based), considers language-level hardening, declares whitelist/blacklist per interface, and specifies boundary-control requirements. Security Officer returns the section; you stay primary as the ADR author and integrate.
 3. **Choose an architectural style.** List the candidates (monolithic, client-server, 3-tier, N-tier, event-driven, peer-to-peer, model-driven, pattern-based, SOA, cloud). For each plausible candidate, evaluate against the seven topics. The winner is documented with its trade-offs; the rejected candidates are recorded too, so future re-evaluation has a baseline.
 4. **Apply the Zachman schema** for 10,000+ FP work. Build the 6×6 matrix and fill the cells the application actually constrains; mark the rest as "not applicable for this application" with a one-line reason.
 5. **Choose the data architecture.** Pick the data model (hierarchical / relational / row-oriented / column-oriented / OO / hybrid). State volumes and growth rate (Jones reports software grows ~8%/year; data faster). Note the join points to the application architecture.
@@ -58,6 +58,7 @@ An architectural decision is acceptable only if all of the following hold:
 ## Pitfalls to avoid
 
 - **Silence on a fundamental topic.** An architecture document that does not address performance, or does not address security, is missing material Jones lists as required. Default for "not applicable" is to write the words "not applicable, because …", not to omit.
+- **Topic 7 (security attributes) authored by Architect alone.** Jones names security as the 7th fundamental architecture topic; he also names ordinary engineer training as insufficient in security (Section 38). Dispatch `security-officer-architecture` for the section's content; Architect integrates and signs the ADR. Deriving topic 7 in isolation reproduces the training gap as an architectural defect.
 - **Universal style winners.** Jones is explicit: no architectural style is universally good or bad. Documenting "we chose SOA" without trade-offs is a religious decision, not an engineering one.
 - **Over-engineering small applications.** Below 1,000 FP, formal architecture costs more than it saves. Apply discipline proportional to size.
 - **Greenfield architecture in pattern-rich industries.** Banking, insurance, pharma, and manufacturing have ~80% portfolio similarity (Jones). Starting from scratch ignores empirical patterns.

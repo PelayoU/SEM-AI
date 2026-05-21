@@ -43,7 +43,7 @@ A post-release change pass is acceptable only if all of the following hold:
 
 1. **Audit the artifact state.** Specs current? Comments current? Complexity measured? Dead code mapped? Test coverage known? Most legacy applications fail multiple of these.
 2. **Apply complexity analysis** (tool 1). Map all paths + branches. Cyclomatic / essential complexity per module. Flag above-ceiling modules.
-3. **Apply static analysis** (tools 2–4). Find bugs, identify error-prone modules (the 5% / 50% rule), identify dead code.
+3. **Apply static analysis** (tools 2–4). Find bugs, identify error-prone modules (the 5% / 50% rule), identify dead code. **For Internet-facing or privileged-data legacy applications, dispatch `security-officer-testing-and-static-analysis` to run security-focused SAST in parallel — Jones BP #38 practice 8 ("Utilize static analysis on legacy applications that are to be updated") is a forcing function for legacy under change; legacy security vulnerabilities tend to be numerous and reduced through renovation.**
 4. **Apply data mining** (tool 5) if specs are stale or if replacement is being considered. Extract business rules and algorithms from code; carry them forward.
 5. **Apply FP enumeration** (tool 7) to size the legacy application properly. Most legacy applications have been operating without a current FP count; estimation works better with one.
 6. **Apply a renovation workbench** (tool 8) for guided change.
@@ -57,4 +57,5 @@ A post-release change pass is acceptable only if all of the following hold:
 - **Tool inventory cherry-picked.** All 10 tools have specific purposes; using only static analysis without data mining or renovation workbench misses the leverage of the combination.
 - **Inspection of stale artifacts.** Inspection on outdated specs / tests inspects fiction. Renovate first, inspect after.
 - **Tribal-knowledge dependency.** Depending on long-tenure maintenance staff for legacy knowledge creates key-person risk. Data mining + documentation refresh during renovation reduces it.
+- **BP #38 practice 8 skipped on legacy.** Jones's practice 8 — "Utilize static analysis on legacy applications that are to be updated" — is a forcing function for legacy code being touched. Security-focused SAST on legacy is dispatched to `security-officer-testing-and-static-analysis`, not absorbed into the generic SAST run. Legacy systems carry undiscovered security vulnerabilities for the duration of their service life (often 20–30+ years).
 - **Tool brand as authority.** Specific renovation / analysis products are convention; the tool *categories* and the renovate-before-enhance discipline are the anchored authority.
