@@ -1,106 +1,35 @@
-# Type-specific required-field markers (warn-level — body must contain these
-# patterns or the engine surfaces a warning). Regex strings are interpreted
-# with the `re.IGNORECASE | re.DOTALL` flags by engine/validators.py.
-
-vision:
-  - name: horizon-years
-    pattern: '\b(2|3|4|5|6|7|8|9|10)[\s-]*years?\b'
-    hint: "vision needs an explicit horizon in years (2–10)"
-
-goal:
-  - name: horizon-band
-    pattern: '\b(roadmap|release|iteration)\b'
-    hint: "goal needs a declared horizon: Roadmap (1–2y) / Release (2–9m) / Iteration (1–4w)"
-  - name: smart-letters
-    pattern: '\bS\b.*\bM\b.*\bA\b.*\bR\b.*\bT\b'
-    hint: "goal needs explicit SMART check (S/M/A/R/T per letter)"
-
-capability:
-  - name: go-or-no-go
-    pattern: '\b(Go|No[\s-]?Go)\b.*\b(value|usability|feasibility|viability)\b'
-    hint: "capability needs Go/No-Go discriminator tied to four-risks (value/usability/feasibility/viability)"
-  - name: two-implementations
-    pattern: 'implementation[\s\S]{1,400}?implementation'
-    hint: "capability needs the implementation-agnostic test (two plausible implementations named)"
-
-feature:
-  - name: invest-letters
-    pattern: '\bI\b.*\bN\b.*\bV\b.*\bE\b.*\bS\b.*\bT\b'
-    hint: "feature/story needs explicit INVEST check (I/N/V/E/S/T per letter)"
-  - name: story-format
-    pattern: 'As\s+an?\s+\w+,?\s+I\s+want\s+\S+'
-    hint: "story format: 'As a [role], I want [capability], so that [benefit]'"
-
-story:
-  - name: invest-letters
-    pattern: '\bI\b.*\bN\b.*\bV\b.*\bE\b.*\bS\b.*\bT\b'
-    hint: "feature/story needs explicit INVEST check (I/N/V/E/S/T per letter)"
-  - name: story-format
-    pattern: 'As\s+an?\s+\w+,?\s+I\s+want\s+\S+'
-    hint: "story format: 'As a [role], I want [capability], so that [benefit]'"
-
-spec:
-  - name: ac-numbering
-    pattern: '\bAC-A?\d+\b'
-    hint: "spec needs numbered ACs (AC-A1, AC-A2, …) traceable to story letter"
-  - name: gherkin-keywords
-    pattern: '\b(Given|When|Then)\b'
-    hint: "spec needs Gherkin scenarios with Given / When / Then"
-
-release:
-  - name: fp-size
-    pattern: '\b\d+[\s,]*\d*\s*(FP|function\s+points?)\b'
-    hint: "release sizing needs an explicit FP figure"
-
-adr:
-  - name: fundamental-topic-1
-    pattern: 'Overall structure'
-    hint: "ADR missing fundamental topic 1: Overall structure"
-  - name: fundamental-topic-2
-    pattern: 'Data structure'
-    hint: "ADR missing fundamental topic 2: Data structure"
-  - name: fundamental-topic-3
-    pattern: 'Interfaces to the outside world|external interfaces'
-    hint: "ADR missing fundamental topic 3: Interfaces to the outside world"
-  - name: fundamental-topic-4
-    pattern: 'Decomposition into functional components|functional decomposition'
-    hint: "ADR missing fundamental topic 4: Decomposition into functional components"
-  - name: fundamental-topic-5
-    pattern: 'Linkage|information transmission'
-    hint: "ADR missing fundamental topic 5: Linkage / information transmission"
-  - name: fundamental-topic-6
-    pattern: 'Performance attributes'
-    hint: "ADR missing fundamental topic 6: Performance attributes"
-  - name: fundamental-topic-7
-    pattern: 'Security attributes'
-    hint: "ADR missing fundamental topic 7: Security attributes (dispatch security-officer)"
-
-measurement:
-  - name: value-and-unit
-    pattern: '\b\d+(?:\.\d+)?\s*(?:%|FP|function\s+points?|defects?|hours?|days?|months?|FTE|\/FP|\/KLOC)\b'
-    hint: "measurement needs a numeric value with a measurement-vocabulary unit (%, FP, defects, hours/days/months, FTE, per-FP)"
-  - name: measure-type
-    pattern: '\b(DRE|defect\s+removal\s+efficiency|defect[-\s]?potential|FP[-\s]?per[-\s]?staff[-\s]?month|cost[-\s]?per[-\s]?FP|schedule|productivity|coverage|cyclomatic|cost[-\s]?of[-\s]?quality|customer[-\s]?satisfaction)\b'
-    hint: "measurement body must name one of the 9 measure types (DRE / defect-potential / cost-per-FP / FP-per-staff-month / schedule / productivity / coverage / cost-of-quality / customer-satisfaction)"
-
-defect:
-  - name: origin
-    pattern: '\b(requirements?|design|coding|data|docs?|documentation|bad[-\s]?fix|security)\b'
-    hint: "defect body must name origin category (requirements / design / coding / data / docs / bad-fix / security)"
-  - name: severity
-    pattern: '\b(sev[-\s]?[1-5]|severity\s+[1-5])\b'
-    hint: "defect body must name severity (sev-1 .. sev-5)"
-  - name: found-by
-    pattern: '\b(inspection|static[-\s]?analysis|unit[-\s]?test|integration[-\s]?test|system[-\s]?test|production|customer|user|ethical[-\s]?hacking|SAST)\b'
-    hint: "defect body must name how it was found (inspection / static-analysis / unit-test / integration-test / system-test / production / customer-reported / ethical-hacking / SAST)"
-
-inspection:
-  - name: inspection-class
-    pattern: '\b(Fagan|formal\s+inspection|SAST|static\s+analysis|sec[-\s]?review|architecture|requirements|design|code|test\s+plan|test\s+case|user[-\s]?doc)\b'
-    hint: "inspection body must name the class (Fagan / SAST / sec-review / architecture / requirements / design / code / test-plan / test-case / user-doc)"
-  - name: participants-count
-    pattern: '\b[3-6]\s*(?:participants?|reviewers?|inspectors?)\b'
-    hint: "Fagan inspection canonically has 3–6 participants (modal 4); count must appear in the Participants section"
-  - name: dre-percent
-    pattern: '\b\d+(?:\.\d+)?\s*%'
-    hint: "inspection body must name the DRE percentage per pass"
+# Type-specific regex markers the validator checks. Each rule is warn-level:
+# if the pattern does not appear in the body, the validator surfaces a hint.
+#
+# The framework ships THIS FILE EMPTY by default — required-field regexes
+# encode methodology opinions (e.g., "a goal must have SMART letters",
+# "a feature must show INVEST", "a spec must show AC numbering + Gherkin
+# keywords", "an ADR must show all 7 fundamental topics"). Populate per
+# your project's school.
+#
+# When this file is empty, validators iterate over nothing — no warnings
+# emitted. Structural validators (parent-type, section-presence per
+# node_types.yaml, lifecycle, jurisdiction) continue to enforce.
+#
+# Example structure (uncomment + adjust per your methodology):
+#
+# goal:
+#   - name: smart-letters
+#     pattern: '\bS\b.*\bM\b.*\bA\b.*\bR\b.*\bT\b'
+#     hint: "goal needs explicit SMART check (S/M/A/R/T per letter)"
+#
+# feature:
+#   - name: invest-letters
+#     pattern: '\bI\b.*\bN\b.*\bV\b.*\bE\b.*\bS\b.*\bT\b'
+#     hint: "feature/story needs explicit INVEST check"
+#   - name: story-format
+#     pattern: 'As\s+an?\s+\w+,?\s+I\s+want\s+\S+'
+#     hint: "story format: 'As a [role], I want [capability], so that [benefit]'"
+#
+# spec:
+#   - name: ac-numbering
+#     pattern: '\bAC-A?\d+\b'
+#     hint: "spec needs numbered ACs (AC-A1, AC-A2, …)"
+#   - name: gherkin-keywords
+#     pattern: '\b(Given|When|Then)\b'
+#     hint: "spec needs Gherkin scenarios"

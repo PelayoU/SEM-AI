@@ -1,58 +1,42 @@
-# Forbidden patterns — body text that should NOT appear in nodes of the
-# named types. Severity is always `warn` here; hard rejects (parent-type
-# mismatches and role jurisdiction violations) are not regex-based.
+# Forbidden body patterns (warn-level) the engine's validators apply.
+#
+# The framework ships THIS FILE EMPTY by default — forbidden patterns
+# encode methodology opinions (e.g., "LOC is a forbidden primary metric",
+# "OKR vocabulary is forbidden in goals"), not framework structure.
+# Populate per your project's school.
+#
+# When `rules: []` and `security_content_pattern: ''`, the engine's
+# warn-level validators iterate over nothing and return no warnings.
+# The structural validators (parent-type, sections per node_types.yaml,
+# lifecycle, jurisdiction) continue to enforce.
 
-rules:
-  - id: loc-as-primary-metric
-    pattern: '\b(lines\s+of\s+code|LOC)\b(?!.*secondary)'
-    scope: [goal, capability, release]
-    message: "LOC as primary size / productivity / quality metric is forbidden — use function points."
-    source: qa-measurements + product-manager-early-sizing
-
-  - id: cost-per-defect
-    pattern: '\bcost\s+per\s+defect\b|\bcost-per-defect\b'
-    scope: [release, capability, goal]
-    message: "Cost-per-defect as quality metric is forbidden — it penalises quality."
-    source: qa-measurements
-
-  - id: okr-vocab-in-goal
-    pattern: '\b(OKR|objectives?\s+and\s+key\s+results?|key\s+results?)\b'
-    scope: [goal]
-    message: "OKR vocabulary not adopted in this instance — SMART is the methodology. Surface gap to user if OKR is wanted formally."
-    source: product-manager-goals
-
-  - id: mechanism-keywords-in-goal
-    pattern: '\b(MCP|RBAC|API\s+endpoint|database\s+schema|SQL|REST)\b'
-    scope: [goal]
-    message: "Goals describe outcomes, not mechanisms. The named mechanism belongs in feature / spec, not goal."
-    source: product-manager-goals (dogfood category error)
-
-  - id: mechanism-keywords-in-capability
-    pattern: '\b(React|Angular|Vue|Django|Rails|Spring|Postgres|MongoDB|Redis|Kafka)\b'
-    scope: [capability]
-    message: "Capabilities are implementation-agnostic. Specific technologies belong in ADR or feature, not capability."
-    source: product-manager-capabilities (two-implementations test fails when capability names tech)
-
-  - id: abstract-outcome-in-feature
-    pattern: '\bimprove\s+(user\s+)?(happiness|satisfaction|experience|UX)\b'
-    scope: [feature, story]
-    message: "Abstract outcomes belong in goal, not feature. Feature must be deliverable and INVEST-passing."
-    source: product-manager-feature-decomposition (dogfood category error)
-
-  - id: git-workflow-in-vision
-    pattern: '\b(pull\s+request|PR\s+review|commit|merge|sprint|standup|kanban)\b'
-    scope: [vision]
-    message: "Vision is the future-as-system over 2–10 years, not git workflow or sprint mechanics."
-    source: product-manager-vision (dogfood category error)
+rules: []
+# Example structure:
+#
+# rules:
+#   - id: loc-as-primary-metric
+#     pattern: '\b(lines\s+of\s+code|LOC)\b(?!.*secondary)'
+#     scope: [goal, capability, release]
+#     message: "LOC as primary size / productivity / quality metric is forbidden — use function points."
+#     source: <your bibliography pointer>
+#
+#   - id: okr-vocab-in-goal
+#     pattern: '\b(OKR|objectives?\s+and\s+key\s+results?)\b'
+#     scope: [goal]
+#     message: "This project uses SMART for goals; surface OKR usage as a gap."
+#     source: <your bibliography pointer>
 
 
-# Security cross-section detection — body text that hints the node has a
-# security dimension. If detected, validators check the type's "security
-# section" (per node_types.yaml) is either populated OR marked `N/A — reason`.
-
-security_content_pattern: '\b(auth(?:entication|orization)?|cryptography|crypto|encryption|deserializ|privileged|input\s+validation|Internet[\s-]?facing|PII|GDPR|HIPAA|PCI[\s-]?DSS|OAuth|JWT|SSO|MFA|session\s+management|password|credential|secret|API\s+key)\b'
-
-security_section_per_type:
-  spec: Security AC
-  release: Security gate
-  adr: Security attributes
+# Security cross-section detector. If a node body contains text matching
+# `security_content_pattern`, validators expect the type's security section
+# (per `security_section_per_type`) to be populated OR explicitly marked
+# `N/A — <reason>`. Empty pattern = no security cross-section enforcement.
+security_content_pattern: ''
+security_section_per_type: {}
+# Example:
+#
+# security_content_pattern: '\b(auth(?:entication|orization)?|crypto|encryption|input\s+validation|OAuth|JWT)\b'
+# security_section_per_type:
+#   spec: Security AC
+#   release: Security gate
+#   adr: Security attributes

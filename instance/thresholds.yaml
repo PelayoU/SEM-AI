@@ -1,80 +1,46 @@
-# Numeric thresholds the validator and estimator check.
-# All anchored in this instance's bibliography (Capers Jones primarily).
-
-vision:
-  horizon_min_years: 2
-  horizon_max_years: 10
-
-goal:
-  horizon_roadmap_min_months: 12
-  horizon_roadmap_max_months: 24
-  horizon_release_min_months: 2
-  horizon_release_max_months: 9
-  horizon_iteration_min_weeks: 1
-  horizon_iteration_max_weeks: 4
-
-# Cyclomatic complexity ceilings (developer-coding-practices · developer-maintenance)
-complexity:
-  safe_max: 10
-  refactor_candidate_max: 20
-
-# Defect Removal Efficiency bands (qa-defect-removal-efficiency)
-dre:
-  safe_min_pct: 95
-  leader_pct: 97
-  industry_leader_pct: 99
-  us_average_pct: 85
-  # Post-release window over which DRE is measured (fixed for cross-project comparability)
-  post_release_window_days: 90
-
-# Fagan inspection participants (qa-inspections-program)
-fagan:
-  participants_min: 3
-  participants_max: 6
-  participants_modal: 4
-
-# Customer support staffing baseline (devops-customer-support)
-support:
-  fte_per_fp: 10000              # 1 support FTE per 10k FP
-  fte_per_customers: 150         # OR 1 per 150 customers (whichever more restrictive)
-  fte_per_customers_at_scale: 1000  # drifts to 1 per 1000 above thousands of customers
-  fte_per_defect_reduction: 220  # ~220 fewer defects ≈ 1 fewer support FTE / year
-
-# Security test forms DRE on security defects (qa-testing-strategy + security-officer-testing-and-static-analysis)
-security_dre:
-  security_testing_pct: 65
-  ethical_hacking_pct: 85
-  sast_on_security_defects_pct: 25
-  sast_generic_pct: 87           # general coding defects, not security-specific
-
-# Security specialist staffing (security-officer-security-program)
-security_staffing:
-  specialist_per_fp: 1000        # ~1 per 1k FP typical
-  specialist_per_large_fp: 20000 # ~5 per 100k FP at scale → 1 per 20k FP
-  tester_per_fp: 50000           # Jones Table 5-4: 1 security tester per 50k FP
-
-# Requirements churn (product-manager-requirements-discovery + change-control)
-churn:
-  min_pct_per_month: 0.5
-  max_pct_per_month: 3.0
-  high_flag_pct_per_month: 3.0   # above this triggers risk #6 escalation
-
-# Change Request re-estimation trigger (product-manager-change-control)
-change_control:
-  cr_re_estimation_trigger_fp: 10
-
-# Architecture size escalation tiers (architect-architecture-design)
-arch_tier:
-  light_max_fp: 1000
-  important_min_fp: 10000
-  critical_min_fp: 100000
-  enterprise_min_fp: 1000000
-
-# SQA program tier (qa-sqa-program)
-sqa:
-  mandatory_min_fp: 2500
-  staff_ratio_min_pct: 1.0
-  staff_ratio_typical_max_pct: 3.0
-  staff_ratio_hard_max_pct: 5.0
-  testing_effort_min_pct: 20
-  testing_effort_max_pct: 40
+# Numerical thresholds the engine exposes via mcp__sem_ai_engine__get_instance_config.
+# The agent consults them when applying its methodology (e.g., "the FP tier band
+# for this project is …", "the DRE safe minimum is …").
+#
+# The framework ships THIS FILE EMPTY by default — these numbers are part of
+# your project's methodology, not part of the framework. Populate per your
+# project's school (Capers Jones if Jones-flavored, SAFe values if SAFe,
+# OKR-aligned bands if OKRs, etc.).
+#
+# When this file is empty:
+#   - get_instance_config returns thresholds: {} — agents fall back to the
+#     methodology embedded in their training, or to project skills.
+#   - the engine continues to enforce structural rules (parent-type,
+#     jurisdiction, lifecycle, section presence) unchanged.
+#
+# Example shape (uncomment + adjust):
+#
+# dre:
+#   safe_min_pct: 95
+#   leader_pct: 97
+#   industry_leader_pct: 99
+#   us_average_pct: 85
+#   post_release_window_days: 90
+#
+# fagan:
+#   participants_min: 3
+#   participants_max: 6
+#   participants_modal: 4
+#
+# arch_tier:
+#   light_max_fp: 1000
+#   important_min_fp: 10000
+#   critical_min_fp: 100000
+#   enterprise_min_fp: 1000000
+#
+# sqa:
+#   mandatory_min_fp: 2500
+#   staff_ratio_min_pct: 1.0
+#   staff_ratio_typical_max_pct: 3.0
+#
+# churn:
+#   min_pct_per_month: 0.5
+#   max_pct_per_month: 3.0
+#
+# change_control:
+#   cr_re_estimation_trigger_fp: 10

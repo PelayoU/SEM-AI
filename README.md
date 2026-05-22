@@ -17,16 +17,27 @@ The framework's full statement is in [`sem-ai/vision/001-sem-ai.md`](sem-ai/visi
 - 6 role-homologous agents — methodology-blind role contracts.
 - The `framework` skill — the always-on contract.
 - The engine MCP (Python) — methodology-blind mechanism with 19 typed tools.
-- The engine's config data — node schema, lifecycle, jurisdiction matrix, validator rules.
+- The engine's infrastructure config — `instance/{instance,lifecycle,jurisdiction,node_types}.yaml`: status state-machine + role × type write-authority matrix + the 11 node types with parent rules + **section templates** + storage targets.
 - SessionStart hook + `.mcp.json` + 3 GitHub Actions (validate · sync · tree).
 
-**Does not ship (methodology):**
+**Ships as empty methodology stubs (project fills in):**
+
+- `instance/thresholds.yaml` — DRE bands, Fagan participants range, FP tiers, churn rates, … (every number a project's methodology cares about).
+- `instance/forbidden.yaml` — body anti-patterns (LOC-as-metric, OKR-in-goal, methodology-specific anti-patterns).
+- `instance/required_fields.yaml` — regex markers per node type (SMART check, INVEST check, Gherkin keywords, FP-size format, …).
+- `instance/sizing.yaml` — function-point auto-estimate coefficients.
+
+Each ships **empty with commented examples**. The framework provides the slot + the validator wiring; the project populates the methodology values.
+
+**Does not ship at all:**
 
 - No Cagan / Jones / Fagan / Cohn / Patton / Humble & Farley / Nygard playbooks.
 - No `instance/methodology/` folder.
 - No `.claude/skills/<role>-<topic>/` skills carrying methodology criteria.
 
-The LLM already carries the SEM literature in its training. The framework constrains the *infrastructure* within which any methodology operates; the methodology itself rides on the LLM's training (and, optionally, on project-supplied skills in `.claude/skills/` — Claude Code's native mechanism).
+The framework's single methodology shipment is the **node body templates** (the section headers per node type in `instance/node_types.yaml`) — without templates the engine cannot enforce body structure at all, so this is the minimum opinion the framework carries. A project tunes templates to its own taste.
+
+For everything else: the LLM already carries the SEM literature in its training (Cagan / Jones / Cohn / Patton / Fagan / Humble & Farley / Nygard / ANSI-IEEE / IFPUG / COSMIC / ISBSG / SAFe / Modern Agile / OKRs / OWASP / NIST / STRIDE / …). The framework constrains the *infrastructure* within which any methodology operates; the methodology itself rides on the LLM's training, on the project's filled-in `instance/*.yaml` stubs, and optionally on project-supplied skills in `.claude/skills/` — Claude Code's native mechanism.
 
 ## Architecture (v0.2)
 

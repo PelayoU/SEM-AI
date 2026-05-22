@@ -28,7 +28,8 @@ What the framework provides:
 - 6 role-homologous agents (`.claude/agents/<role>.md`) — role identity, jurisdiction, the 7-step workflow, the interaction-with-other-roles table. **No methodology criteria, no bibliographic citations, no sub-discipline tables.**
 - The `framework` skill (`.claude/skills/framework/SKILL.md`) — the contract.
 - The engine MCP (`engine/`) — methodology-blind mechanism.
-- The engine's config data (`instance/*.yaml`) — node types schema, lifecycle, jurisdiction matrix, validator rules. *Default values are tuned for the SEM-AI dogfood; any project can override.*
+- The engine's **infrastructure config** — `instance/{instance,lifecycle,jurisdiction,node_types}.yaml`: metadata + status state-machine + role × type write-authority matrix + the 11 node types with parent rules + **section templates** + storage targets. The section templates are the *single methodology opinion the framework carries* — without templates the engine cannot enforce body structure at all, so the framework ships its own opinionated defaults. A project tunes them to its taste.
+- The engine's **methodology stubs** — `instance/{thresholds,forbidden,required_fields,sizing}.yaml` ship **empty with commented examples**. The framework provides the slots + validator wiring; the project populates the values per its own methodology (DRE bands, Fagan range, FP tiers, forbidden patterns, required-field regexes, sizing coefficients).
 - The SessionStart hook + `.mcp.json` registration + GitHub Actions for self-maintenance.
 
 What the framework does **not** provide:

@@ -61,16 +61,17 @@ def test_load_instance_yields_6_roles(instance):
 
 
 def test_thresholds_loaded(instance):
-    assert instance.thresholds["dre"]["safe_min_pct"] == 95
-    assert instance.thresholds["fagan"]["participants_min"] == 3
-    assert instance.thresholds["arch_tier"]["important_min_fp"] == 10_000
+    # The framework ships thresholds.yaml empty by default — methodology values
+    # live in the project's instance, not the framework. The test asserts
+    # structural loading only (a dict is returned; may be empty).
+    assert isinstance(instance.thresholds, dict)
 
 
 def test_forbidden_patterns_loaded(instance):
-    ids = {p.id for p in instance.forbidden_patterns}
-    assert "loc-as-primary-metric" in ids
-    assert "cost-per-defect" in ids
-    assert "okr-vocab-in-goal" in ids
+    # The framework ships forbidden.yaml empty by default — the test asserts
+    # the engine loads the (potentially empty) list as a tuple of
+    # ForbiddenPattern records.
+    assert isinstance(instance.forbidden_patterns, tuple)
 
 
 # ---------------------------------------------------------------------------
@@ -137,24 +138,37 @@ def test_validate_parent_type_allows_correct_parent(instance):
     validate_parent_type(instance, attempt)  # no raise
 
 
-def test_forbidden_pattern_loc_warns_on_goal(instance):
-    attempt = WriteAttempt(
-        type="goal",
-        parent="vision-001-sem-ai",
-        body="Track lines of code per FTE per week as the primary metric.",
-    )
-    _, warnings = validate_attempt(instance, attempt)
-    assert any("loc-as-primary-metric" in w for w in warnings)
+def test_forbidden_pattern_fires_when_configured(instance):
+    """The engine's forbidden-pattern validator iterates the loaded rules and
+    fires on matches. Tests engine behaviour with a synthetic rule injected
+    into a copy of the Instance — independent of which specific rules the
+    project's `instance/forbidden.yaml` populates."""
+    import re
+    from dataclasses import replace
+    from engine.config_loader import ForbiddenPattern
 
-
-def test_forbidden_pattern_okr_warns_on_goal(instance):
-    attempt = WriteAttempt(
-        type="goal",
-        parent="vision-001-sem-ai",
-        body="Q1 OKR: ship the release. Objectives and key results follow.",
+    synthetic = ForbiddenPattern(
+        id="synthetic-test-rule",
+        pattern=re.compile(r"\bxyzzy\b", re.IGNORECASE),
+        scope=("goal",),
+        message="Synthetic rule for engine test.",
+        source="test_engine.py",
     )
-    _, warnings = validate_attempt(instance, attempt)
-    assert any("okr-vocab-in-goal" in w for w in warnings)
+    # Frozen dataclass — rebuild with the extra rule appended.
+    test_instance = replace(
+        instance,
+        forbidden_patterns=(*instance.forbidden_patterns, synthetic),
+    )
+
+    # Body contains the trigger token → warning fires.
+    attempt = WriteAttempt(type="goal", parent="vision-001-sem-ai", body="xyzzy")
+    _, warnings = validate_attempt(test_instance, attempt)
+    assert any("synthetic-test-rule" in w for w in warnings)
+
+    # Body without the token → no warning from this rule.
+    attempt_clean = WriteAttempt(type="goal", parent="vision-001-sem-ai", body="nothing here")
+    _, warnings_clean = validate_attempt(test_instance, attempt_clean)
+    assert not any("synthetic-test-rule" in w for w in warnings_clean)
 
 
 def test_validate_existing_real_node_returns_list(instance):
