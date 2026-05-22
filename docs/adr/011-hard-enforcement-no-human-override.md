@@ -6,7 +6,7 @@ created: 2026-05-15
 updated: 2026-05-22
 maintained_by_role: architect
 superseded-by:
-  - ['adr-015-one-unified-artifact-graph']
+  - adr-015-one-unified-artifact-graph
 ---
 
 # ADR 011 — Node-before-artifact is hard-enforced with no human override

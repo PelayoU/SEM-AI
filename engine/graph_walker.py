@@ -140,12 +140,28 @@ def parse_node_file(path: Path, instance: Instance) -> Node | None:
         created=str(fm.get("created", "")),
         updated=str(fm.get("updated", "")),
         maintained_by_role=fm.get("maintained_by_role", instance.node_types[type_].owning_role),
-        labels=list(fm.get("labels") or []),
+        labels=[str(l) for l in (fm.get("labels") or [])],
         path=path,
         body=body,
-        supersedes=list(fm.get("supersedes") or []),
-        superseded_by=list(fm.get("superseded-by") or []),
+        supersedes=_flatten_str(fm.get("supersedes")),
+        superseded_by=_flatten_str(fm.get("superseded-by")),
     )
+
+
+def _flatten_str(value) -> list[str]:
+    """Defensive: accept str, list[str], list[list[str]] (legacy migration bug);
+    return a flat list[str]."""
+    if not value:
+        return []
+    if isinstance(value, str):
+        return [value]
+    out: list[str] = []
+    for item in value:
+        if isinstance(item, list):
+            out.extend(str(x) for x in item)
+        else:
+            out.append(str(item))
+    return out
 
 
 # ----------------------------------------------------------------------------
