@@ -1,22 +1,34 @@
 ---
 name: node-templates
-description: "The canonical body templates for every graph node type — vision, goal, capability, feature/story, spec, adr, release, defect, measurement, inspection — plus the per-section pointers to whichever project methodology skill (if any) is supplied to fill each section. Use whenever a node is being created or audited for structural completeness: 'create a capability', 'new vision', 'start a goal', 'scaffold this feature', 'what sections does a spec need', 'node template', 'is this node complete', 'release node', 'open an ADR', 'log a defect'. This skill gives the shape and the flow; the methodology that fills each section comes from the project's skills or the LLM's training, not from this skill."
+description: "The canonical body templates for the seven Issue Types the framework recognises — vision, goal, capability, feature, story, spec, adr — plus the per-section pointers to whichever project methodology skill (if any) is supplied to fill each section. Use whenever a node is being created or audited for structural completeness: 'create a capability', 'new vision', 'start a goal', 'scaffold this feature', 'what sections does a spec need', 'node template', 'is this node complete', 'open an ADR'. This skill gives the shape and the flow; the methodology that fills each section comes from the project's skills or the LLM's training, not from this skill. Concepts that ride on native GitHub objects (bugs as labels, releases as Milestones, code inspections as PR reviews) do not have templates here — they live in their native object."
 ---
 
 # node-templates
 
 ## Purpose
 
-A graph node is not a title with a `parent` edge — it is a living document with a defined section structure. This skill is the single place where that structure lives for every node type the framework recognises. Each template states the node's body sections in the order they should be filled, and a `→ method:` pointer per section to whichever methodology skill is currently supplying the depth. The template is the **shape and the flow**; it does not duplicate methodology depth — that comes from the project's methodology skills (if any are installed under `.claude/skills/`) or from the LLM's training, never from this skill.
+A graph node is not a title with a `parent` edge — it is a living document with a defined section structure. This skill is the single place where that structure lives for every Issue Type the framework recognises. Each template states the node's body sections in the order they should be filled, and a `→ method:` pointer per section to whichever methodology skill is currently supplying the depth. The template is the **shape and the flow**; it does not duplicate methodology depth — that comes from the project's methodology skills (if any are installed under `.claude/skills/`) or from the LLM's training, never from this skill.
 
-This dissolves two problems at once: there is no orphan analysis (every analytical artifact is a section of the node it analyzes, so the framework's "no artifact without a node" rule is satisfied structurally), and there is no node-type proliferation (delivery artifacts that span many capabilities live in the release template at the right granularity, not duplicated into every capability).
+This dissolves two problems at once: there is no orphan analysis (every analytical artifact is a section of the node it analyzes, so the framework's "no artifact without a node" rule is satisfied structurally), and there is no node-type proliferation — delivery artifacts that span many capabilities live in the **Milestone body** (a native GitHub object outside this skill's scope), not duplicated into capability Issues nor modelled as an extra Issue Type.
 
 ## When this skill applies
 
-- A node is being created and needs its skeleton.
+- A node of one of the seven Issue Types is being created and needs its skeleton.
 - An existing node is being audited for structural completeness ("does this capability have its value and risk sections?").
 - A reviewer needs to know which methodology skill (if any) owns a given section.
-- The boundary question arises: "is this a section of a capability, or a release-level artifact?".
+- The boundary question arises: "is this a section of a capability, or a Milestone-level delivery artifact?".
+
+## What this skill does NOT cover
+
+Concepts the framework cares about that **don't** get a template here, because they ride on native GitHub objects:
+
+- **Bug** — a normal Issue with label `bug`. Body is free-form per the project's bug-reporting habit. No section template imposed by the framework.
+- **Release planning** — a **GitHub Milestone** with a markdown body. The Milestone body carries Scope / Sizing / Estimate / Risk register / Quality gate / Security gate / Pipeline. The MCP exposes `create_milestone` / `assign_to_milestone` / `publish_release` bridges. The Milestone body sections are documented in `docs/adr/001-all-nodes-as-github-issues.md` (Milestone and Release operations), not here.
+- **Code inspection** — a **PR review**. The reviewer's threaded line comments are the inspection record; no separate Issue, no template.
+- **Spec / ADR inspection** — comments on the inspected Issue itself + label `inspected` when complete. The comment thread is the record; defects raised are opened as separate `bug`-labelled Issues linked from the thread.
+- **Quantitative measurements** — CI artifacts, codecov, sonar, dashboards. Numbers don't live in the graph and don't get a template.
+
+If a node-shaped artifact you're asked to scaffold falls into one of these, you don't pick a template — you use the native object directly.
 
 ## How to use a template
 
@@ -24,7 +36,7 @@ This dissolves two problems at once: there is no orphan analysis (every analytic
 2. **Fill each section via its pointed methodology.** The section order *is* the flow; the `→ method:` pointer *is* the orchestration. Look up the named methodology skill in the Skill listing; if it matches, invoke it. If no methodology skill matches the pointer, fill the section from training and name the method out loud (so the human can accept or substitute).
 3. **Sections are method-driven, not freeform.** Do not invent sections; do not skip mandatory ones silently.
 4. **A non-applicable optional section is marked, not deleted:** leave the header and write `N/A — <one-line reason>`. This keeps audits one-glance.
-5. **Respect granularity.** If the thing you are documenting spans many capabilities (a plan, an estimate, a benchmark, a risk register, a user-involvement plan), it is **not** a capability section — it belongs in the release template. Cross-cutting risks link back to the release node via the `related` custom field.
+5. **Respect granularity.** If the thing you are documenting spans many capabilities (a plan, an estimate, a benchmark, a risk register, a user-involvement plan), it is **not** a capability section — it belongs in the Milestone body. Cross-cutting risks live in the Milestone's Risk register section; capability nodes reference the Milestone, they don't copy the register.
 
 ## How node fields map to GitHub Issue mechanisms
 
@@ -41,6 +53,7 @@ Every node lives as a GitHub Issue (rationale and full mapping in `docs/adr/001-
 | `labels` | native Issue labels |
 | `supersedes` / `superseded-by` | **Supersedes** / **Superseded by** custom fields (available on every type; canonical use is `adr`) |
 | `artifacts` | derived from PRs that close the Issue (`Closes #N`) — never typed in by the agent |
+| Milestone assignment | native Milestone field — set by `assign_to_milestone`, not typed in the body |
 
 The agent **does not type these into the body**. The engine MCP sets each at write time from the call's arguments. The body is the sections below.
 
@@ -70,7 +83,7 @@ Root node — no `parent`. Single vision is the graph root.
 ```
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this goal's capabilities
-- Related:  constraining adr; release(s) delivering toward this goal
+- Related:  constraining adr; the Milestone(s) delivering toward this goal
 ## Outcome statement                              # the measurable outcome this goal asserts
 ## Parent vision                                  # explicit reference (sub-issue link)
 ## Horizon                                        # planning horizon — roadmap / release / iteration scoped
@@ -85,12 +98,12 @@ Root node — no `parent`. Single vision is the graph root.
 ```
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this capability's features
-- Related:  constraining adr; the release(s) whose scope includes it; affine spec
+- Related:  constraining adr; the Milestone(s) whose scope includes it; affine spec
 ## Statement                                      # what the system enables, implementation-agnostic
 ## Parent goal                                    # explicit reference (sub-issue link)
 ## Two implementations                            # name two plausible ones — the agnostic test
 ## Value analysis            → method: project's value-analysis skill, if any
-## Risks                     → method: project's risk-analysis skill, if any   # cross-cutting risks go in the release risk register, linked via related
+## Risks                     → method: project's risk-analysis skill, if any   # cross-cutting risks go in the Milestone's Risk register, not here
 ## Go / No-Go                                     # decision and one-line reason
 ## Feature decomposition     → method: project's feature-decomposition skill, if any   # only for Go capabilities
 ```
@@ -141,86 +154,13 @@ Root node — no `parent`. Single vision is the graph root.
 ## Alternatives considered                        # the options weighed and not chosen, with reasoning
 ```
 
-### release  → method: project's project-planning methodology skill, if any; else from training
-
-`parent:` the `vision` (sub-issue link) — a release slices across goals, so it is not a child of any one. `related:` carries the goals and capabilities pulled into this release's scope (set via the **Related** custom field, not typed in the body). This is where artifacts that span many capabilities live — they are **not** duplicated into capability nodes; cross-cutting risks in those capabilities link back here via `related`.
-
-The Issue tracks the release while it is being built (planning, scope, quality gate, security gate). The publication moment is a **GitHub Release** (native git tag + release notes) linked from the Issue body when the release ships.
-
-```
-## Map                  # read-time index, queried — NOT authoritative
-- Children: none (off-spine)
-- Related:  the goals/capabilities delivered (mirrors the Related custom field); bare links only — rationale stays in Scope
-## Version                                        # human label distinguishing this release from prior / next (e.g. "v2.0")
-## Target / shipped                               # planned ship date; actual ship date set when status → released
-## GitHub Release link                            # set when the release publishes (the native tag + release notes)
-## Scope                                          # which capabilities / features this release carries
-## Sizing                     → method: project's sizing skill, if any
-## Estimate                   → method: project's estimating skill, if any
-## Plan                       → method: project's project-planning skill, if any
-## Risk register              → method: project's risk-analysis skill, if any   # capabilities link here via related
-## Change control             → method: project's change-control skill, if any
-## User-involvement plan      → method: project's user-involvement skill, if any
-## Milestone tracking         → method: project's milestone-tracking skill, if any
-## Benchmarks / baselines     → method: project's benchmarks skill, if any
-## Quality gate               → method: project's quality-gate skill, if any   # QA contributes via consult
-## Security gate              → method: project's security-gate skill, if any   # Security Officer contributes via consult
-```
-
-A finished release keeps its Issue at status `released` with `shipped` set — that is the frozen history (its sizing, plan, milestones sealed in place). v2 is a **new** release Issue; nothing accumulates because the body sections are current-state, and the revision history lives in Issue edit history + the change-control CR log.
-
-### defect  → method: project's defect methodology skill, if any; else from training
-
-`parent:` the node whose work surfaced the defect (sub-issue link) — the `spec` under test, the `inspection` that found it, the `feature` being implemented, etc. Owning role is QA (inspection-found) or Developer (own static-analysis / unit-test) — shared ledger; search before creating to avoid duplicates.
-
-```
-## Map                  # read-time index, queried — NOT authoritative
-- Parent:   the node whose work surfaced this defect
-- Related:  the spec / feature / inspection / measurement this defect interacts with
-## Origin                                         # how this was found — inspection | static-analysis | unit-test | integration-test | …
-## Severity                                       # impact ranking the project's methodology defines
-## Reproduction                                   # exact steps; expected vs actual
-## Root cause                                     # filled when known; left as N/A until then
-## Fix                                            # the change that resolved it; linked PR via Closes #N
-## Verification                                   # how the fix was confirmed (by whom, against what)
-```
-
-### measurement  → method: project's measurement methodology skill, if any; else from training
-
-`parent:` the node whose property the measurement describes (sub-issue link). Status is terminal at `recorded` — measurements have no lifecycle. Owning role is QA.
-
-```
-## Map                  # read-time index, queried — NOT authoritative
-- Parent:   the node this measurement describes
-- Related:  the inspection / test run / benchmark this measurement was taken from
-## What was measured                              # the metric and its definition
-## When                                           # date / build / version measured against
-## How                                            # the procedure; the tool; the conditions
-## Result                                         # the value; the unit
-## Confidence                                     # margin of error / sample size if applicable
-```
-
-### inspection  → method: project's inspection methodology skill, if any; else from training
-
-`parent:` the artifact being inspected (sub-issue link). Status is terminal at `recorded`. Owning role is QA. Defects found are separate `defect` nodes linked via `related`.
-
-```
-## Map                  # read-time index, queried — NOT authoritative
-- Parent:   the artifact inspected (a spec, feature, adr, code module …)
-- Related:  the defects this inspection raised
-## Participants                                   # who took part; roles
-## Checklist                                      # which methodology checklist was applied
-## Findings                                       # observations recorded during the inspection
-## Defects raised                                 # bare links to the defect Issues (rationale stays on each defect)
-## Verdict                                        # the inspection's overall conclusion
-```
-
 ## Pitfalls to avoid
 
 - **Treating the template as a replacement for the methodology.** The template gives shape and order. *How* to do value analysis well comes from the project's methodology skill (if any) or LLM training, not from this skill.
-- **Duplicating release-level artifacts into capability nodes.** The plan, the estimate, the benchmark, the risk register, the user-involvement plan are release scoped. A capability links to a cross-cutting risk via `related`; it does not own a copy of the register.
+- **Duplicating Milestone-level artifacts into capability nodes.** The plan, the estimate, the benchmark, the risk register, the user-involvement plan are Milestone-scoped — they live in the **Milestone body**, not in capability Issues. A capability links to the Milestone; it does not own a copy of the register.
 - **Inventing sections.** If a node seems to need a section no template defines, that is a signal to revise the template here (one place), not to fork the node structure ad hoc.
 - **Deleting non-applicable sections.** Mark `N/A — reason`. A deleted section is indistinguishable from a forgotten one at audit.
-- **Filling sections out of order.** The order encodes precedence (value before Go/No-Go before decomposition; sizing before estimate before plan). Skipping ahead reproduces the failure modes the methodology exists to prevent.
-- **Typing the "frontmatter" concepts into the body.** `type` / `parent` / `status` / `related` / etc. are not body text — they are native Issue mechanisms set by the engine MCP on write. The body is the sections above, nothing else.
+- **Filling sections out of order.** The order encodes precedence (value before Go/No-Go before decomposition). Skipping ahead reproduces the failure modes the methodology exists to prevent.
+- **Typing the "frontmatter" concepts into the body.** `type` / `parent` / `status` / `related` / Milestone assignment / etc. are not body text — they are native Issue mechanisms set by the engine MCP on write. The body is the sections above, nothing else.
+- **Scaffolding a template for a concept that lives natively.** If the work is opening a bug, planning a release, reviewing code, recording an inspection, or logging a measurement — *don't* reach for a template here. Use the native GitHub object (label `bug`, Milestone + Release, PR review, comment on the inspected Issue, CI tool) as documented in `docs/adr/001-all-nodes-as-github-issues.md`.
 - **Naming a methodology skill that does not exist in the Skill listing.** A `→ method:` pointer is a *suggestion of where the depth should come from*. If the project does not install a skill matching the pointer, fill from training and name the method out loud — never invent a skill name.
