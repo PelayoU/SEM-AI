@@ -1,0 +1,25 @@
+# Status state machine. Mirrors engine/lifecycle.py::TRANSITIONS.
+#
+# Notes:
+#   - `superseded` is NOT reachable via transition_status — only via supersede
+#   - `done`, `superseded`, `deprecated` are terminal
+#   - `ready-for-implementation` and `in-implementation` are code-bearing
+#     refinements of `active`, used by spec / story / defect
+
+statuses:
+  - draft
+  - active
+  - ready-for-implementation
+  - in-implementation
+  - done
+  - superseded
+  - deprecated
+
+transitions:
+  draft: [active, deprecated]
+  active: [ready-for-implementation, done, deprecated]
+  ready-for-implementation: [in-implementation, deprecated]
+  in-implementation: [done, deprecated]
+  done: []
+  superseded: []
+  deprecated: []

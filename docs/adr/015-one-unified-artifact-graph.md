@@ -6,11 +6,11 @@ created: 2026-05-15
 updated: 2026-05-22
 maintained_by_role: architect
 supersedes:
-  - ['adr-004-substrate-content-separation'
-  - 'adr-007-obsidian-as-editor-surface'
-  - 'adr-011-hard-enforcement-no-human-override'
-  - 'adr-012-mandatory-active-role-hard-jurisdiction'
-  - 'adr-013-gate-scope-is-project-configurable']
+  - adr-004-substrate-content-separation
+  - adr-007-obsidian-as-editor-surface
+  - adr-011-hard-enforcement-no-human-override
+  - adr-012-mandatory-active-role-hard-jurisdiction
+  - adr-013-gate-scope-is-project-configurable
 ---
 
 # ADR 015 - One unified artifact graph; the rule is an unenforced discipline

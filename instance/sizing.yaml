@@ -1,0 +1,18 @@
+# Function-point auto-estimation coefficients (engine/estimator.py).
+#
+# Used by mcp__sem_ai_engine__estimate_size to derive a project-wide FP figure
+# directly from graph structure when no manual count is declared in a release's
+# `## Sizing` body. Rough IFPUG approximations:
+#   - each spec ≈ an average External Input
+#   - an unspecced feature ≈ ~2 specs' worth of work
+#   - an ADR with a populated `## Data structure` section ≈ 1 Internal Logical File
+#
+# Manual override in `release.## Sizing` always takes precedence; the engine
+# returns the auto-estimate prefixed with `≈` so consumers can flag it.
+
+unit: function-points
+
+coefficients:
+  fp_per_spec: 4
+  fp_per_unspecced_feature: 8
+  fp_per_data_adr: 10

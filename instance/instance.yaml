@@ -1,0 +1,60 @@
+# SEM-AI methodology instance — v0.2
+#
+# This file declares the metadata of THIS project's methodology instance.
+# A different product (or a different SEM school) would replace this file
+# with its own and reuse the engine unchanged.
+
+name: sem-ai
+version: 0.2.0
+description: >
+  The SEM-AI framework's own instance — Software Engineering Management
+  for working with AI, anchored in Capers Jones (software economics +
+  measurement + SRD + security), Marty Cagan (product discovery, four-risks),
+  Mike Cohn / Jeff Patton (story decomposition + USM), Michael Fagan
+  (formal inspections), Jez Humble & David Farley (Continuous Delivery),
+  ANSI/IEEE 1471 + Nygard (architecture & ADRs).
+
+# Where the engine looks for things relative to repo root
+paths:
+  spine_dir: sem-ai
+  adr_dir: docs/adr
+  config_dir: instance
+  methodology_dir: instance/methodology
+
+# The six role-homologous agents.
+roles:
+  - id: product-manager
+    color: cyan
+    description: Owns product scope, business analysis, project management.
+  - id: architect
+    color: blue
+    description: Owns the technical dimension (the seven fundamental architecture topics).
+  - id: developer
+    color: green
+    description: Owns code, static analysis, unit tests, legacy maintenance.
+  - id: qa
+    color: yellow
+    description: Owns the quality dimension, independent of development chain.
+  - id: devops
+    color: magenta
+    description: Owns the operations dimension (config control → pipeline → release → retirement).
+  - id: security-officer
+    color: red
+    description: Owns the security dimension, independent of development chain. Contributes sections; owns no node type exclusively.
+
+# GitHub conventions (Day 3 will wire these into Actions)
+github:
+  labels:
+    feature_prefix: "feature:"   # feature-N issues carry label feature:NNN-slug
+    capability_prefix: "cap:"
+    story_prefix: "story:"
+    spec_prefix: "spec:"
+    defect_label: "type:defect"
+  branch_protection:
+    main_requires_pr: true
+    main_requires_validate_check: true
+  release_notes_sections:
+    - Sizing
+    - Scope
+    - Quality gate
+    - Security gate
