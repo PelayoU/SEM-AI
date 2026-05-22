@@ -15,3 +15,11 @@ bibliography/sources/
 
 # personal visual layer — not framework (ADR-015)
 .obsidian/
+
+# v0.2 — Python engine workspace
+.venv/
+__pycache__/
+*.pyc
+
+# v0.2 — pre-migration scratch (vision DB from v0.1 SQLite era)
+.sem/
