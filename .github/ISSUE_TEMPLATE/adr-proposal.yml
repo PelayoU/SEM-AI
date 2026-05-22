@@ -1,0 +1,43 @@
+name: ADR proposal
+description: Propose a new ADR. The discussion is in the issue; the canonical ADR file lands in `docs/adr/` via a PR.
+title: "[ADR proposal] "
+labels: ["type:adr-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this issue to debate an architectural decision. Once consensus
+        emerges, the Architect creates the ADR file in `docs/adr/NNN-slug.md`
+        via PR (the engine MCP's `create_node type=adr` is the alternative
+        authoring path). Close this issue when the ADR PR is merged.
+  - type: input
+    id: parent_node
+    attributes:
+      label: Scope the decision serves
+      description: e.g. `cap-03-apply-po-discipline`, `release-2026-Q2`, or `vision-001-sem-ai`.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context & forces
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_decision
+    attributes:
+      label: Proposed decision (one unambiguous sentence)
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: security_attributes_dispatch
+    attributes:
+      label: Security attributes (Topic 7)
+      description: |
+        Dispatch Security Officer to author this section. Use `N/A — <reason>`
+        when the decision has no security dimension.
+      value: "Dispatched to Security Officer — pending."

@@ -1,0 +1,133 @@
+name: SEM-AI validate
+
+# Validate the v0.2 markdown spine + ADR files against the engine's
+# validators (hard rejects + warn-level findings). Triggers on every PR
+# that touches sem-ai/ or docs/adr/ or instance/ — the strategic spine,
+# decision history, and methodology config. Warn-level findings are
+# posted as PR comments; hard-reject violations fail the check.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'sem-ai/**.md'
+      - 'docs/adr/**.md'
+      - 'instance/**.yaml'
+      - 'instance/**.yml'
+      - 'engine/**.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install engine dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyYAML mistune mcp
+
+      - name: Validate every spine + ADR node
+        id: validate
+        env:
+          SEM_AI_ROOT: ${{ github.workspace }}
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          from engine.config_loader import load_instance
+          from engine.graph_walker import iter_spine_nodes
+          from engine.validators import validate_node
+
+          inst = load_instance(Path.cwd())
+          findings: list[dict] = []
+          hard_rejects: list[dict] = []
+          for n in iter_spine_nodes(inst):
+              warnings = validate_node(inst, n)
+              if not warnings:
+                  continue
+              for w in warnings:
+                  rel = n.path.relative_to(inst.root) if n.path else None
+                  entry = {"node": n.id, "file": str(rel) if rel else None, "warning": w}
+                  if w.startswith("[hard-reject-rule]"):
+                      hard_rejects.append(entry)
+                  else:
+                      findings.append(entry)
+
+          summary = {
+              "total_nodes": sum(1 for _ in iter_spine_nodes(inst)),
+              "warnings": len(findings),
+              "hard_rejects": len(hard_rejects),
+              "findings": findings,
+              "hard_reject_entries": hard_rejects,
+          }
+          Path("validate-report.json").write_text(json.dumps(summary, indent=2))
+          print(json.dumps({"warnings": len(findings), "hard_rejects": len(hard_rejects)}))
+          # Exit 1 on hard rejects; warnings do not fail the check.
+          if hard_rejects:
+              sys.exit(1)
+          PY
+
+      - name: Upload validation report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sem-ai-validate-report
+          path: validate-report.json
+          if-no-files-found: ignore
+
+      - name: Post PR comment with findings
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('validate-report.json')) return;
+            const report = JSON.parse(fs.readFileSync('validate-report.json', 'utf8'));
+            if (report.warnings === 0 && report.hard_rejects === 0) {
+              return;  // clean — no comment
+            }
+            let body = `## SEM-AI validate\n\n`;
+            body += `**${report.total_nodes}** nodes scanned · `;
+            body += `**${report.hard_rejects}** hard rejects · `;
+            body += `**${report.warnings}** warnings\n\n`;
+            if (report.hard_rejects > 0) {
+              body += `### ❌ Hard rejects (must fix before merge)\n\n`;
+              for (const e of report.hard_reject_entries.slice(0, 20)) {
+                body += `- \`${e.node}\` (${e.file || '—'}): ${e.warning}\n`;
+              }
+              if (report.hard_reject_entries.length > 20) {
+                body += `- … and ${report.hard_reject_entries.length - 20} more (see artifact)\n`;
+              }
+              body += `\n`;
+            }
+            if (report.warnings > 0) {
+              body += `### ⚠ Warnings (informational; merge not blocked)\n\n`;
+              for (const e of report.findings.slice(0, 20)) {
+                body += `- \`${e.node}\` (${e.file || '—'}): ${e.warning}\n`;
+              }
+              if (report.findings.length > 20) {
+                body += `- … and ${report.findings.length - 20} more (see artifact)\n`;
+              }
+            }
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });

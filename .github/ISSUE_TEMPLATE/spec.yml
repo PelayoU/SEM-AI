@@ -1,0 +1,43 @@
+name: Spec
+description: Acceptance contract for a story (Gherkin AC, Security AC).
+title: "[Spec] "
+labels: ["type:spec"]
+body:
+  - type: input
+    id: parent_story
+    attributes:
+      label: Parent story (issue number or slug)
+      placeholder: story-NNN-slug or #123
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary (1-2 sentences)
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria (AC-A1, AC-A2, …)
+      description: Each AC numbered + traceable to the story.
+    validations:
+      required: true
+  - type: textarea
+    id: security_ac
+    attributes:
+      label: Security AC
+      description: |
+        For security-relevant work — dispatch Security Officer. Use
+        `N/A — <reason>` when not security-relevant.
+      value: "N/A — "
+    validations:
+      required: true
+  - type: textarea
+    id: gherkin
+    attributes:
+      label: Gherkin scenarios
+      description: Feature/Scenario/Given/When/Then; 3-5 steps per scenario.
+      render: gherkin
+    validations:
+      required: true
