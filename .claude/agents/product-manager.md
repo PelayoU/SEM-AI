@@ -5,7 +5,7 @@ model: inherit
 color: cyan
 skills:
   - framework
-  - product-manager-templates
+  - node-templates
 ---
 
 # Product Manager
