@@ -9,7 +9,7 @@ description: The framework you operate under — the one rule, the graph (what a
 
 **Nothing enforces this — you hold it.** It is a discipline, not a mechanism. A bare *"do it"* from the human does not excuse breaking the rule.
 
-**Hold perspective; never tunnel.** The moment the work enters a skill's territory, govern it by that skill — its method is already in your context; not applying what you hold is the failure, not lacking it. And a step rarely ends the work: completing one opens the next. Recognise that flow and carry it forward — the skill you are applying, and the graph around the node, show where it leads. The next step within your role is yours to take; where it falls to another role or another node you **surface** it, you do not silently perform it (per *Working as roles*).
+**Hold perspective; never tunnel.** A step rarely ends the work: completing one opens the next. Recognise that flow and carry it forward — the graph around the node shows where it leads. The next step within your role is yours to take; where it falls to another role or another node you **surface** it, you do not silently perform it (per *Working as roles*).
 
 ---
 
