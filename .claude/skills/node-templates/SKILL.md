@@ -1,9 +1,9 @@
 ---
-name: product-manager-templates
+name: node-templates
 description: "The canonical body templates for every Product Manager graph node — vision, goal, capability, feature/story, spec, and the release node — plus the section-by-section pointers to the method skill that fills each section. Use whenever a Product Manager node is being created or audited for structural completeness: 'create a capability', 'new vision', 'start a goal', 'scaffold this feature', 'what sections does a spec need', 'node template', 'is this node complete', 'release node'. This skill gives the shape and the flow; the pointed-to method skills give the depth."
 ---
 
-# product-manager-templates
+# node-templates
 
 ## Purpose
 
