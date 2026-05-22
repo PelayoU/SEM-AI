@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "91070e694c67e0a4",
+        "id": "944e34cf37849829",
         "type": "tabs",
         "children": [
           {
-            "id": "18e907553d4a0ca4",
+            "id": "37edcb64d5a002b0",
             "type": "leaf",
             "state": {
-              "type": "pdf",
-              "state": {
-                "file": "bibliography/sources/se-best-practices.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "se-best-practices"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -51,7 +49,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "catalog",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -92,17 +90,16 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CLAUDE.md",
-                "collapseAll": false,
-                "extraContext": false,
+                "collapseAll": true,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for CLAUDE"
+              "title": "Backlinks"
             }
           },
           {
@@ -111,12 +108,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CLAUDE.md",
+                "file": "_obsidian/templates/adr.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from CLAUDE"
+              "title": "Outgoing links from adr"
             }
           },
           {
@@ -167,8 +164,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -178,47 +174,47 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false,
-      "hidden-folder-obsidian:Hidden Folders": false
+      "bases:Create new base": false
     }
   },
-  "active": "18e907553d4a0ca4",
+  "active": "37edcb64d5a002b0",
   "lastOpenFiles": [
-    "CLAUDE.md",
-    "_obsidian/templates/capability.md",
-    ".claude/skills/po-capability/SKILL.md",
-    ".claude/skills/shared-cross-link/SKILL.md",
-    "bibliography/INDEX.md",
-    ".claude/agents/product-owner.md",
-    "_obsidian/templates/adr.md",
-    "_obsidian/templates/feature.md",
-    "_obsidian/templates/goal.md",
-    "_obsidian/templates/session.md",
-    "_obsidian/templates/spec.md",
-    "_obsidian/templates/story.md",
-    "_obsidian/templates/vision.md",
-    "bibliography/skill-references.md",
-    "bibliography/jones-se-best-practices.md",
-    "bibliography/sources/user-story-mapping.pdf",
-    "bibliography/sources/gherkin-reference.pdf",
-    "bibliography/sources/gisf-delivery-backlog-management.pdf",
-    "bibliography/sources/agile-story-essentials.pdf",
-    "bibliography/sources/se-best-practices.pdf",
-    "bibliography/sources/gisf-pipeline-devops.pdf",
-    "bibliography/sources/gisf-life-cycle.pdf",
-    "bibliography/sources/gisf-discovery.pdf",
-    "bibliography/sources/gisf-delivery-review-and-retrospectives.pdf",
-    "bibliography/sources/gisf-delivery-planning.pdf",
-    "bibliography/torres-continuous-discovery.md",
-    "bibliography/christensen-jtbd.md",
-    "bibliography/cagan-product-vision.md",
-    "bibliography/bass-software-architecture.md",
-    "bibliography/anthropic-subagents.md",
-    "bibliography/anthropic-skills.md",
-    "bibliography/adzic-specification-by-example.md",
-    "nodes/Untitled.md",
-    "_obsidian/templater-scripts/README.md",
-    ".claude/skills/po-feature/SKILL.md",
-    ".claude/skills/po-goal/SKILL.md"
+    "instance/methodology/architect-discipline.md",
+    "instance/methodology/fagan-inspections.md",
+    ".claude/agents/product-manager.md",
+    ".claude/skills/architect-architecture-design/SKILL.md",
+    ".git/objects/92/2c0e00479faed9e1aa3b73b310504731e6769e",
+    ".git/objects/4f/78690d1fbb054671811333d4fb556d8bf1d937",
+    ".git/objects/4e/e171da93c96ed8a0f48c62070a2cd028ada0a4",
+    ".git/objects/a8/a327deb713267efb942e31885dbd573e8c439a",
+    ".git/objects/92/40669c07a52de6ec3ed4656c1dbe908f8fc9f4",
+    ".git/objects/b9/9af79f5967c4f5d2401ddb62cf92054cfd756a",
+    ".git/index.lock",
+    ".git/objects/f0/e7a20a626d23acdfa3135f99b6e670f5c3db73",
+    ".git/objects/c3/6c39164f46d8ac2ff96b1d1f8e7682fc6b2028",
+    "instance/methodology/pm-discipline.md",
+    ".git/objects/de/e673b8a56311ce49c3c01c058c380de2477643",
+    ".pytest_cache/README.md",
+    "TESTING.md",
+    "README.md",
+    "docs/adr/020-skills-reduction-methodology-as-instance.md",
+    "docs/adr/019-markdown-yaml-frontmatter-canonical.md",
+    "docs/adr/018-symmetric-role-primacy.md",
+    "docs/adr/017-engine-instance-split.md",
+    "docs/adr/016-pivot-to-github-backed.md",
+    "instance/methodology/fp-sizing.md",
+    "instance/methodology/README.md",
+    "sessions/2026-05-15-hard-enforcement-layer.md",
+    ".venv/lib/python3.14/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md",
+    ".venv/lib/python3.14/site-packages/starlette-1.0.1.dist-info/licenses/LICENSE.md",
+    ".venv/lib/python3.14/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
+    ".venv/lib/python3.14/site-packages/uvicorn-0.47.0.dist-info/licenses/LICENSE.md",
+    ".venv/lib/python3.14/site-packages/idna-3.16.dist-info/licenses/LICENSE.md",
+    ".venv/lib/python3.14/site-packages/pip-26.1.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md",
+    ".venv/lib/python3.14/site-packages/pip/_vendor/idna/LICENSE.md",
+    "docs/adr/015-one-unified-artifact-graph.md",
+    "docs/adr/013-gate-scope-is-project-configurable.md",
+    "docs/adr/012-mandatory-active-role-hard-jurisdiction.md",
+    "mcp/node_modules/zod-to-json-schema/.github/CR_logotype-full-color.png"
   ]
 }
