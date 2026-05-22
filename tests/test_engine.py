@@ -79,8 +79,8 @@ def test_forbidden_patterns_loaded(instance):
 
 def test_iter_spine_nodes_finds_all_real_nodes(instance):
     nodes = list(iter_spine_nodes(instance))
-    # 69 v0.1-migrated nodes + 5 v0.2 ADRs (016-020) = 74
-    assert len(nodes) == 74
+    # 69 v0.1-migrated nodes + 6 v0.2 ADRs (016-021) = 75
+    assert len(nodes) == 75
 
 
 def test_get_node_resolves_vision(instance):
