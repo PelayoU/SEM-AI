@@ -20,20 +20,12 @@ The framework's full statement is in [`sem-ai/vision/001-sem-ai.md`](sem-ai/visi
 - The engine's infrastructure config — `instance/{instance,lifecycle,jurisdiction,node_types}.yaml`: status state-machine + role × type write-authority matrix + the 11 node types with parent rules + **section templates** + storage targets.
 - SessionStart hook + `.mcp.json` + 3 GitHub Actions (validate · sync · tree).
 
-**Ships as empty methodology stubs (project fills in):**
-
-- `instance/thresholds.yaml` — DRE bands, Fagan participants range, FP tiers, churn rates, … (every number a project's methodology cares about).
-- `instance/forbidden.yaml` — body anti-patterns (LOC-as-metric, OKR-in-goal, methodology-specific anti-patterns).
-- `instance/required_fields.yaml` — regex markers per node type (SMART check, INVEST check, Gherkin keywords, FP-size format, …).
-- `instance/sizing.yaml` — function-point auto-estimate coefficients.
-
-Each ships **empty with commented examples**. The framework provides the slot + the validator wiring; the project populates the methodology values.
-
 **Does not ship at all:**
 
 - No Cagan / Jones / Fagan / Cohn / Patton / Humble & Farley / Nygard playbooks.
 - No `instance/methodology/` folder.
 - No `.claude/skills/<role>-<topic>/` skills carrying methodology criteria.
+- No `instance/thresholds.yaml` / `forbidden.yaml` / `required_fields.yaml` / `sizing.yaml` — these YAML slots exist in the engine as **optional extension points**. If a project wants the engine's warn-level validators populated (DRE bands, FP tiers, anti-patterns, regex markers, sizing coefficients), it creates the file and fills it in. The engine treats missing files as "no rules of that kind apply" — structural validators (parent-type, section presence, lifecycle, jurisdiction) keep enforcing unchanged.
 
 The framework's single methodology shipment is the **node body templates** (the section headers per node type in `instance/node_types.yaml`) — without templates the engine cannot enforce body structure at all, so this is the minimum opinion the framework carries. A project tunes templates to its own taste.
 

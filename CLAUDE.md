@@ -15,8 +15,8 @@ You work as **one role at a time.** Pick it with `claude --agent <role>` (PM, ar
 | Operational tier | GitHub Issues + sub-issues (`feature/story/spec/defect/measurement/inspection`) | Kanban-style work; labels link issues to spine nodes. |
 | Releases | GitHub Releases | Native; `## Sizing` / `## Quality gate` / `## Security gate` sections in the body. |
 | Engine | `engine/` (Python package) | Methodology-blind mechanism over the spine + GitHub. Exposed as `mcp__sem_ai_engine__*`. |
-| Engine config — infrastructure | `instance/{instance,lifecycle,jurisdiction,node_types}.yaml` | What the engine NEEDS to operate: project metadata · status state-machine · role × type write-authority matrix · 11 node types with parent rules + **section templates** + storage targets. The section templates are the only methodology the framework ships; everything else here is pure infrastructure. |
-| Engine config — methodology stubs | `instance/{thresholds,forbidden,required_fields,sizing}.yaml` | **Shipped EMPTY** with commented examples. Numerical thresholds (DRE bands, Fagan range, FP tiers), warn-level forbidden patterns (LOC-as-metric, OKR-in-goal, etc.), required-field regexes (SMART, INVEST, Gherkin), and FP sizing coefficients all live here. The framework provides the slot, the project fills in its methodology choice. |
+| Engine config | `instance/{instance,lifecycle,jurisdiction,node_types}.yaml` | What the engine needs to operate: project metadata · status state-machine · role × type write-authority matrix · 11 node types with parent rules + **section templates** + storage targets. The section templates are the only methodology the framework ships; everything else here is pure infrastructure. |
+| Methodology extensions *(optional, project-supplied)* | `instance/{thresholds,forbidden,required_fields,sizing}.yaml` if a project wants the engine's warn-level validators populated | The engine treats these as optional — missing = no rules of that kind apply, structural validators (parent-type, section presence, lifecycle, jurisdiction) keep enforcing unchanged. Numerical thresholds (DRE bands, FP tiers, …), warn-level forbidden patterns, required-field regexes, FP sizing coefficients. **Not shipped.** |
 | Methodology *(optional, project-supplied)* | `.claude/skills/<topic>/SKILL.md` if a project wants one | Surfaced in Claude Code's skill listing; invoked on demand by the agent. **Not shipped with the framework.** If a project ships nothing here, agents operate from the LLM's training and name the methodology they apply out loud. |
 
 ## Status (v0.2 — 2026-05-22)
@@ -24,7 +24,7 @@ You work as **one role at a time.** Pick it with `claude --agent <role>` (PM, ar
 - ✅ v0.1 SQLite + custom MCP + 9-lens React UI archived on `archive/v0.1-sqlite-experiment` (reachable for offline / regulated deployments via `git worktree add ../sem-ai-v0.1 archive/v0.1-sqlite-experiment`).
 - ✅ v0.2 layout: `sem-ai/` + `docs/adr/`; 74 markdown nodes (the 69 self-bootstrap + 6 v0.2 ADRs) on the 7-field frontmatter.
 - ✅ Engine MCP: 19 typed tools (`read 8 · write 8 · compute 2 · config 1`) in `engine/`; pytest green.
-- ✅ Methodology YAMLs (`thresholds`/`forbidden`/`required_fields`/`sizing`) emptied — the framework ships templates (in `node_types.yaml`) as the only methodology it carries; everything else is project-supplied.
+- ✅ Methodology YAMLs (`thresholds`/`forbidden`/`required_fields`/`sizing`) **not shipped**; engine treats them as optional. The framework's single methodology opinion is the section templates in `node_types.yaml`.
 - ✅ 6 agent.md framework-blind (no methodology references; the LLM brings the school it's applying).
 - ✅ 3 GitHub Actions wired (`sem-ai-validate` on PRs · `sem-ai-tree` on push · `sem-ai-sync` on issues + spine push).
 - ⏳ Branch protection on `main` requires one `gh api` admin call (documented in `README.md`).

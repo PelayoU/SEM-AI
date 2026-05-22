@@ -98,13 +98,19 @@ class Instance:
 # Loader
 # ----------------------------------------------------------------------------
 
-_INSTANCE_FILES = {
+# Files the engine REQUIRES — without them it cannot operate. Missing → fail loud.
+_REQUIRED_FILES = {
     "instance": "instance.yaml",
     "node_types": "node_types.yaml",
-    "thresholds": "thresholds.yaml",
-    "sizing": "sizing.yaml",
     "lifecycle": "lifecycle.yaml",
     "jurisdiction": "jurisdiction.yaml",
+}
+
+# Files that are project methodology extensions — populate per your project,
+# or omit entirely. Missing → treated as empty (no rules of that kind apply).
+_OPTIONAL_FILES = {
+    "thresholds": "thresholds.yaml",
+    "sizing": "sizing.yaml",
     "required_fields": "required_fields.yaml",
     "forbidden": "forbidden.yaml",
 }
@@ -118,20 +124,25 @@ def _yaml_load(path: Path) -> Any:
 def load_instance(root: Path | str) -> Instance:
     """Load instance/*.yaml from `<root>/instance/` into a frozen Instance.
 
-    Raises FileNotFoundError if any required file is missing, and a
-    descriptive ValueError on schema violations.
+    Required files (instance, node_types, lifecycle, jurisdiction) must
+    exist; missing → FileNotFoundError. Optional methodology files
+    (thresholds, sizing, required_fields, forbidden) are treated as empty
+    when absent. ValueError on schema violations.
     """
     root_path = Path(root).resolve()
     inst_dir = root_path / "instance"
     if not inst_dir.is_dir():
         raise FileNotFoundError(f"instance/ directory not found at {inst_dir}")
 
-    raw = {}
-    for key, fname in _INSTANCE_FILES.items():
+    raw: dict[str, Any] = {}
+    for key, fname in _REQUIRED_FILES.items():
         path = inst_dir / fname
         if not path.exists():
-            raise FileNotFoundError(f"instance config missing: {path}")
+            raise FileNotFoundError(f"required instance config missing: {path}")
         raw[key] = _yaml_load(path)
+    for key, fname in _OPTIONAL_FILES.items():
+        path = inst_dir / fname
+        raw[key] = _yaml_load(path) if path.exists() else None
 
     # --- node_types ----------------------------------------------------------
     node_types: dict[str, NodeTypeSpec] = {}
