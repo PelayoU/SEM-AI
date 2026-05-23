@@ -37,6 +37,7 @@ If a node-shaped artifact you're asked to scaffold falls into one of these, you 
 3. **Sections are method-driven, not freeform.** Do not invent sections; do not skip mandatory ones silently.
 4. **A non-applicable optional section is marked, not deleted:** leave the header and write `N/A — <one-line reason>`. This keeps audits one-glance.
 5. **Respect granularity.** If the thing you are documenting spans many capabilities (a plan, an estimate, a benchmark, a risk register, a user-involvement plan), it is **not** a capability section — it belongs in the Milestone body. Cross-cutting risks live in the Milestone's Risk register section; capability nodes reference the Milestone, they don't copy the register.
+6. **Anchor pending — when the parent hasn't crystallized yet.** When you create a node bottom-up (a feature that emerged from user signals before its capability is named, a capability that emerged from feature patterns before its goal is named), set `parent` to the closest meaningful ancestor that already exists, keep that parent in `status: draft`, and write `anchor pending` in the Map section's `- Parent:` line. The parent link is provisional and will be corrected via `update_node` when the higher level crystallizes. This is the bottom-up half of the hierarchical loop (see ADR-002); it is the normal way capabilities emerge from feature patterns and goals from capability patterns, not an exception.
 
 ## How node fields map to GitHub Issue mechanisms
 
