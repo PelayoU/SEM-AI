@@ -64,6 +64,7 @@ The seven Issue Types that survived the audit are the ones GitHub does **not** m
 | **Spec / ADR inspection** | Comments on the spec or ADR Issue itself + label `inspected` when complete | A would-be `inspection` Issue Type for non-code artifacts. Defects raised by the inspection are opened as separate `bug`-labelled Issues linked from the inspection comment. |
 | **Quantitative measurements** | CI artifacts, codecov, sonar, dashboards | A would-be `measurement` Issue Type. Numbers live in tooling, not in the graph. |
 | **Pre-formal deliberation** | Issue comments on the ADR while in `proposed` state (the conversation that matures it to `accepted`) | A would-be `discussion` recognition. Discussions as a GitHub feature exist; the framework neither requires nor forbids them — if a team uses them, it's outside the framework's concern. |
+| **Session history on a node** | Issue comments posted by the session lifecycle: `📍 in play in session/<id>` when the node enters a session, `✅ decision (role)` when a binding decision touches it, `🏁 session closed` when the session ends, each linking the session doc. GitHub's native cross-references make these clickable from the Issue thread; the engine MCP's `get_node_artifacts(node)` parses them to surface session docs as artifacts | A would-be "Sessions" custom field or in-body "Session history" section. The Issue's comment thread already is the chronological record per node. |
 
 ## How it works (the "frontmatter equivalent" in Issues)
 
@@ -79,7 +80,7 @@ Every concept the v0.2 YAML frontmatter encoded maps to a native Issue mechanism
 | `maintained_by_role` | label `role:<role-id>` — set by the engine on every write from the `acting_role` parameter |
 | `labels` | native Issue labels (1:1) |
 | `supersedes` / `superseded-by` | **custom fields** "Supersedes" (multi-issue-reference) / "Superseded by" (single-issue-reference); available across all node types but used canonically for ADRs |
-| `artifacts` (files this node touches) | **derived automatically** from the PRs that close the Issue (`Closes #N` in PR description). Each linked PR contributes its `changed_files`; the engine MCP query `get_node_artifacts(node)` returns the union. No anticipated / predicted artifacts — only post-hoc, mechanical record |
+| `artifacts` | **material evidence derived from external sources linked to the node**, returned as a union by the engine MCP query `get_node_artifacts(node)`: (a) the `changed_files` of PRs that close the Issue (`Closes #N`); (b) the `sessions/<id>.md` of session docs where this node was `in-play`, detected via the bot comments the session lifecycle posts on each affected Issue. Post-hoc and mechanical — no anticipated artifacts, no human bookkeeping |
 
 The engine MCP's API surface includes 19 typed tools for graph operations (`create_node`, `update_node`, `transition_status`, `link_commit`, `set_related`, `add_label`, `remove_label`, `supersede`, `query_nodes`, `search_nodes`, `get_node`, `children_of`, `ancestors_of`, `get_related`, `get_tree`, `estimate_size`, `validate_node`, `get_project_map`, `get_instance_config`) **plus three Milestone/Release bridges** introduced by this ADR (see *Milestone and Release operations* below).
 
