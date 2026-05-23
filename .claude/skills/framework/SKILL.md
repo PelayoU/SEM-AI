@@ -94,14 +94,31 @@ The visual layer is the operator's free choice, not the framework: the GitHub Pr
 
 ## Sessions
 
-A **session** is a unit of work = a git branch `session/<YYYY-MM-DD>-<slug>` + a doc `sessions/<id>.md` (history, not a graph node). One session runs across several roles: the role changes on the same branch as the work demands; the session continues.
+A **session** is a unit of work = a **git worktree** at a sibling path (e.g. `~/Developer/<repo>-session-<id>/`) checked out on branch `session/<YYYY-MM-DD>-<slug>` + a doc `sessions/<id>.md` inside that worktree (history, not a graph node). One session runs across several roles: the role changes inside the same worktree as the work demands; the session continues. **Multiple simultaneous sessions are the rule, not the exception** — each in its own worktree, each with its own Claude Code conversation. The graph (Issues in GitHub) is global and orthogonal to worktrees; jurisdiction by role prevents two simultaneous sessions from writing the same node.
 
-**The session doc has four parts.** *Frontmatter* (`id`, `date`, `participants` = roles that contributed, `related-nodes` = `[[id]]`s in play). *Context* — why this session exists; one paragraph, stable. *Log* — append-only audit trail. *Handoff* — overwritten, forward-looking: where things stand, what is decided and binding, the node(s) in play, and what the next role must pick up.
+**Changing role inside a session does not change worktree.** It is the same conversation of Claude Code; the in-memory context the previous role built (the Issues it read, the analysis it produced) persists when the next role takes over. The session doc is *not* how the next role rehydrates that context in the moment — it is how the next role rehydrates it **after a compactation, a closure, or a new conversation tomorrow**.
 
-**The Log is an attributed record, never a narrative you continue.** Every entry is third-person and role-attributed — *"Product Manager authored `vision-foo`; rationale: …"*, never *"I authored…"*. This is load-bearing: the doc is injected into whatever role resumes the session, and first-person operative text bleeds into that role's self-model — it "remembers" doing work it never did, in a role not its own. You did not perform the Log's entries; read them as inherited record. Continue as the role your agent defines; the **Handoff** states what *you* pick up.
+**The session doc has three parts.** *Frontmatter* (`id`, `opened`, `in-play` = list of Issue numbers currently in the session). *Context* — why this session exists; one paragraph, stable, written at open. *Decisions* — append-only, **only binding decisions, attributed by role**: one line each (date, role, what was decided, link to the affected Issue). *Handoff* — overwritten, forward-looking: active role, nodes in play, what the next role must pick up.
 
-**Log as you go.** Append each meaningful step — what changed, which role, which skill, why — third-person and attributed, then refresh the **Handoff**. Written continuously, the audit trail, not reconstructed at close. This is direct discipline, not a command: you do it because this contract says so.
+**No append-only Log of every step.** The conversation transcript (`~/.claude/projects/<repo>/<session>.jsonl`) is the raw chronological record — Claude Code maintains it for free. The doc only captures what cannot be reconstructed from the transcript: the decisions that should survive a context reset, attributed to the role that took them.
 
-**Bootstrap, every new conversation:** the `SessionStart` hook injects `sessions/<id>.md` when on a `session/*` branch — the fast path. If it did not (hook disabled, not picked up, or a downstream project without it): run `git branch --show-current`; on `session/*` read `sessions/<id>.md` yourself; on `main` ask the human whether to open a session or work directly. **To open a session:** create branch `session/<YYYY-MM-DD>-<slug>` and scaffold `sessions/<id>.md` with the four parts above (empty Log, a Context paragraph, a Handoff stating the opening intent).
+**Decisions are third-person and role-attributed** — *"Product Manager: capability-08 Go; decompose into feat-12, feat-14"*, never *"I decided…"*. This is load-bearing: the doc is read by whoever resumes the session later (possibly another role), and first-person operative text bleeds into the next role's self-model — it "remembers" doing work it never did, in a role not its own. Continue as the role your agent defines; the **Handoff** states what *you* pick up.
 
-**The one command:** `/session-close` — multi-role review of the session's Issue diffs + finalize the doc + the human decides merge / PR / discard. Opening and logging are direct discipline per the above; they have no command.
+**The session leaves its mark on the graph through native Issue comments**, not through a custom field. At three lifecycle points the active role posts a comment on each affected Issue:
+
+- 📍 *In play in [session/&lt;id&gt;]* — when the node enters the session's `in-play`
+- ✅ *Decision (role): &lt;summary&gt;* — when a binding decision touches this node, linking the Decisions section of the doc
+- 🏁 *Session closed* — when the session ends, summarising the outcome on this node
+
+These comments form the chronological session history of the node, navigable from the Issue thread, surfaced by `get_node_artifacts(node)` as session-doc artifacts (see ADR-001 § *Native GitHub objects we don't duplicate*). No custom field, no in-body section to maintain.
+
+**Bootstrap, every new conversation:** the `SessionStart` hook detects the worktree (via `git worktree list`) and, when the worktree is checked out on a `session/*` branch, reads `sessions/<id>.md` (Frontmatter + Context + Decisions + Handoff) plus the project map mínimo plus the Issues named in `in-play`. If the hook did not fire: run `git branch --show-current`; on `session/*` read `sessions/<id>.md` yourself; on `main` you are outside a session — ask the human whether to open one or work directly on the graph (single-Issue edits don't always need a session).
+
+**The `PreCompact` hook refreshes the Handoff** with the current state and preserves the Decisions list across the compactation. The `Stop` hook (closing the Claude Code conversation without closing the session) refreshes the Handoff final-state so the next reopening lands on solid ground.
+
+**Two slash commands** are the only ones the framework ships for sessions:
+
+- `/session-open <slug>` — creates the worktree at the sibling path, creates the branch `session/<YYYY-MM-DD>-<slug>`, scaffolds the doc (Frontmatter, Context written from the prompt, empty Decisions, Handoff stating opening intent), posts the 📍 comment on each Issue named in `in-play`.
+- `/session-close` — multi-role review of the session's Issue comments + finalize the Handoff + post the 🏁 comment on each affected Issue + the human decides merge / PR / discard of the branch + `git worktree remove <path>`.
+
+Opening and closing happen through these two commands. Anotating a binding decision while the session runs is inline discipline — one line in Decisions + the ✅ comment on the affected Issue — not a command. The transcript handles the step-by-step narrative.
