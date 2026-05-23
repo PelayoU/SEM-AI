@@ -22,6 +22,9 @@ The agent's identity is `.claude/agents/<role>.md`; the framework contract is th
 | [002](docs/adr/002-graph-is-hierarchical-but-not-unidirectional.md) | The graph is hierarchical in structure but not unidirectional in construction — 4 modes + anchor-pending pattern |
 | [003](docs/adr/003-holistic-product-dimensions-cross-cut-the-spine.md) | Five holistic product dimensions cross-cut the spine — Technology / UX / Monetization / Acquisition / Offline (+ Functionality as base), as both structured slots in the spine and evaluation lens for every role |
 | [004](docs/adr/004-invocation-model.md) | Invocation model — hooks primary (framework presumes Claude Code on every dev), MCP for writes, Actions as opt-in examples |
+| [005](docs/adr/005-value-chain-probabilistic.md) | Value chain Output → Outcome → Benefit → Value — probabilistic, not deterministic; the framework enables value, does not provide it; learning is the guaranteed output of every cycle |
+| [006](docs/adr/006-features-may-declare-experimental-intent.md) | Features may declare experimental intent — delivery (pay off learning) or experiment (resolve uncertainty); vision as polar-star with Value ambition, features as steps toward it |
+| [007](docs/adr/007-holistic-dimensions-as-risk-surface.md) | Holistic dimensions are also the risk surface — an unvalidated dimension is a risk assumed without knowing; the four canonical risk classes (value / usability / viability / business viability) map to the dimensions |
 
 ## The seven Issue Types
 
@@ -31,6 +34,20 @@ cross-axis:  adr
 ```
 
 **Concepts that ride on native GitHub objects** (no Issue Type): bugs → label `bug`; release planning → GitHub Milestone; release publication → GitHub Release; code inspection → PR review; non-code inspection → comments on the inspected Issue + label `inspected`; quantitative measurements → CI tooling. See ADR-001 for the full mapping.
+
+## The bare-minimum cycle
+
+Every cycle of work — regardless of granularity (a vision being articulated, a feature being shipped, a spec being tested) — traverses the same five steps. They are the framework's process spine, distributed across the components above. **As an agent, follow them; do not skip them silently — each skip has a cost, and skipping changes what the framework can do next.**
+
+| # | Step | Where it lives in the framework | What happens here |
+|---|---|---|---|
+| 1 | **Card** | An Issue is opened (vision / goal / capability / feature / story / spec) | A unit of work is captured. The Issue is a placeholder for the conversation, not the conversation itself. |
+| 2 | **Conversation** | A session of work begins — `claude --agent <role>` opens a Claude Code conversation; the human and the agent talk, explore, validate. Issue comments + the session doc's Decisions section are the conversation's traces. | The knowledge that will inform construction is generated here. The body of the node will destila this conversation. |
+| 3 | **Confirmation** | The Issue body is updated with the destilada result — sections filled, Acceptance check stated, spec's Acceptance Criteria written, binding decisions logged in the session doc's Decisions section, ✅ comments posted on affected Issues | What the team agreed becomes recorded. The Issue body is the destilado of step 2, not its replacement. |
+| 4 | **Construction** | A PR is opened that closes the Issue via `Closes #N`. Code is reviewed line-by-line in the PR. Artifacts are derived automatically from `Closes #N` on merge. | The work materializes. Construction may surface new findings that loop back to step 2 — that is normal, not a failure. |
+| 5 | **Consequences** | The feature's `## Value chain` section is populated post-done: Outputs shipped, Outcomes observed, Benefits measured, Value assessment, **Learning extracted** (always populated; the guaranteed output of every cycle — see ADR-005), Next cards surfaced | The cycle closes by recording what actually happened along the chain Output → Outcome → Benefit → Value. The chain is probabilistic; honesty matters more than celebration. New cards surfaced here become step 1 of the next cycle. |
+
+The framework provides the infrastructure for each step; the agent operates them. Direction-of-construction is not strictly 1→5 — bottom-up cycles, anchor-pending patterns, and pivots are explicitly recognized (ADR-002). What is not negotiable is that **each step has its place; silently collapsing the cycle into fewer steps produces specific failure modes** (skipping Conversation → builds the wrong thing; skipping Confirmation → ambiguous construction; skipping Consequences → no learning, no loop, one-way pipeline).
 
 ## Where things live
 
@@ -57,15 +74,23 @@ There is no mid-conversation role switch in Claude Code today. Cross-role input 
 
 Each session leaves its mark on the graph via Issue comments at three lifecycle points: 📍 in play / ✅ decision (role) / 🏁 closed. The full session model is in `framework/SKILL.md` § Sessions.
 
-## Status (v0.3 — 2026-05-23)
+## Status (v0.3 — 2026-05-24)
+
+Conceptual model:
 
 - ✅ Catalog audited down to 7 Issue Types + native bridges (ADR-001)
 - ✅ Hierarchical loop + anchor-pending pattern (ADR-002)
 - ✅ Holistic product dimensions in spine templates + as evaluation lens (ADR-003)
 - ✅ Invocation model: hooks primary, MCP writes, Actions opt-in (ADR-004)
+- ✅ Value chain Output→Outcome→Benefit→Value, probabilistic; learning as guaranteed output (ADR-005)
+- ✅ Features may declare experimental intent; vision as polar-star with Value ambition (ADR-006)
+- ✅ Holistic dimensions are also the risk surface; modern approach principles 1-3 covered (ADR-007)
 - ✅ Session model on branches (no worktrees) + comments-lifecycle huella en el grafo
 - ✅ 6 agent.md methodology-blind; framework + node-templates skills aligned
-- ⏳ Engine MCP backend (the 19 + 3 tools) — not yet implemented
+
+Implementation pending:
+
+- ⏳ Engine MCP backend (the 19 + 3 tools, with `acting_role` + `triggered_by` enforcement) — not yet implemented
 - ⏳ `engine/checks/` library — not yet implemented
 - ⏳ 5 hooks in `.claude/settings.json` — not yet declared
 - ⏳ `/session-open`, `/session-close`, `/catch-up` skills — not yet implemented
