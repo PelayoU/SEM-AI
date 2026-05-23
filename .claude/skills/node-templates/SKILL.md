@@ -76,7 +76,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Value ambition                                 # the outcomes that define this vision as REALIZED — multi-dimensional success (cross-reference Holistic dimensions); quantifiable when possible, qualitative otherwise. NOT a forecast or commitment — the polar star the work navigates toward. The destination of the value chain (see ADR-005). The Maximum Viable Value the team pursues, where 'viable' constrains the ambition to what is technically/economically/operationally reachable.
 ## Horizon                                        # planning horizon, explicit
 ## Adopted trends                                 # trends believed to hold over the horizon
-## Holistic dimensions                            # see ADR-003 — every slot is considered; N/A only with one-line reason
+## Holistic dimensions                            # each slot is a DESIGN slot AND a RISK-SURFACE slot — silent omission = absorbed risk. Mapping: Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk. See ADR-003 (design lens) + ADR-007 (risk surface). Every slot is considered; N/A only with one-line reason.
 - Functionality:        the product's core reason for being
 - Technology:           technical posture the vision commits to    → consult: architect
 - UX design:            the experience posture (PM in small teams; UX Designer if project ships one)
@@ -98,7 +98,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Horizon                                        # planning horizon — roadmap / release / iteration scoped
 ## Acceptance check                               # criteria by which this goal is judged done
 ## Why this goal                                  # the chain from the vision down to this goal
-## Holistic dimensions                            # the outcome this goal pursues in each dimension; see ADR-003 — N/A only with one-line reason
+## Holistic dimensions                            # the outcome this goal pursues in each dimension. Each slot is DESIGN + RISK SURFACE (see ADR-007); silent omission = absorbed risk. See ADR-003 — N/A only with one-line reason.
 - Functionality:        functional outcome
 - Technology:           technical outcome           → consult: architect
 - UX design:            experience outcome
@@ -121,7 +121,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Value analysis            → method: project's value-analysis skill, if any
 ## Risks                     → method: project's risk-analysis skill, if any   # cross-cutting risks go in the Milestone's Risk register, not here
 ## Go / No-Go                                     # decision and one-line reason
-## Holistic dimensions                            # what this capability does in each dimension; see ADR-003 — N/A only with one-line reason
+## Holistic dimensions                            # what this capability does in each dimension. Each slot is DESIGN + RISK SURFACE (see ADR-007); silent omission = absorbed risk. See ADR-003 — N/A only with one-line reason.
 - Functionality:        what the capability does, functionally
 - Technology:           technical components and posture            → consult: architect
 - UX design:            experience this capability surfaces or relies on
@@ -140,12 +140,12 @@ Root node — no `parent`. Single vision is the graph root.
 - Children: this feature's stories (none if a leaf story)
 - Related:  its spec; constraining adr
 ## Story                                          # role, need, benefit — phrased per the project's chosen story format
-## Uncertainty addressed                          # OPTIONAL — feature only (story drops this). The unknown this cycle resolves (free-form prose). N/A — delivery, not experiment ← legitimate when this feature pays off learning already accumulated. Populated → primary intent is experimental: the cycle's success is judged by whether the uncertainty is resolved (Learning extracted in Value chain), value chain completion is a bonus. See ADR-006.
+## Uncertainty addressed                          # OPTIONAL — feature only (story drops this). The unknown this cycle resolves (free-form prose). N/A — delivery, not experiment ← legitimate when this feature pays off learning already accumulated. Populated → primary intent is experimental: the cycle's success is judged by whether the uncertainty is resolved (Learning extracted in Value chain), value chain completion is a bonus. An experiment names which holistic dimension(s) it tests — that mapping IS the risk class it validates (Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk). See ADR-006 + ADR-007.
 ## Conditions of satisfaction                     # the back of the card
 ## Acceptance check                               # criteria by which the output is judged complete (output-layer, not value-layer)
 ## Position in the larger narrative               # where this fits in the user's flow
 ## State                                          # where in the lifecycle the conversation/construction sits
-## Holistic dimensions                            # FEATURE ONLY (story drops this); how this feature manifests in each dimension; see ADR-003
+## Holistic dimensions                            # FEATURE ONLY (story drops this). How this feature manifests in each dimension. Each slot is DESIGN + RISK SURFACE: Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk. Silent omission = absorbed risk; mark N/A only with explicit reason. See ADR-003 + ADR-007.
 - Functionality:        what the feature does, functionally
 - Technology:           technical components touched                → consult: architect
 - UX design:            UX surfaces / flows / copy this feature affects
