@@ -73,6 +73,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## The future product story                       # product inserted into that future
 ## One-breath narrative                           # repeatable by everyone
 ## Positioning                                    # target customer, need, category, key benefit, primary differentiation
+## Value ambition                                 # the outcomes that define this vision as REALIZED — multi-dimensional success (cross-reference Holistic dimensions); quantifiable when possible, qualitative otherwise. NOT a forecast or commitment — the polar star the work navigates toward. The destination of the value chain (see ADR-005). The Maximum Viable Value the team pursues, where 'viable' constrains the ambition to what is technically/economically/operationally reachable.
 ## Horizon                                        # planning horizon, explicit
 ## Adopted trends                                 # trends believed to hold over the horizon
 ## Holistic dimensions                            # see ADR-003 — every slot is considered; N/A only with one-line reason
@@ -139,6 +140,7 @@ Root node — no `parent`. Single vision is the graph root.
 - Children: this feature's stories (none if a leaf story)
 - Related:  its spec; constraining adr
 ## Story                                          # role, need, benefit — phrased per the project's chosen story format
+## Uncertainty addressed                          # OPTIONAL — feature only (story drops this). The unknown this cycle resolves (free-form prose). N/A — delivery, not experiment ← legitimate when this feature pays off learning already accumulated. Populated → primary intent is experimental: the cycle's success is judged by whether the uncertainty is resolved (Learning extracted in Value chain), value chain completion is a bonus. See ADR-006.
 ## Conditions of satisfaction                     # the back of the card
 ## Acceptance check                               # criteria by which the output is judged complete (output-layer, not value-layer)
 ## Position in the larger narrative               # where this fits in the user's flow
