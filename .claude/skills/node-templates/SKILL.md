@@ -92,7 +92,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this goal's capabilities
 - Related:  constraining adr; the Milestone(s) delivering toward this goal
-## Outcome statement                              # the measurable outcome this goal asserts
+## Outcome statement                              # the measurable OUTCOME (behavioral / system change observable in the world) this goal asserts. NOT an output (a thing to be built). Mis-stated: "Ship feature X" — that's an output. Well-stated: "X% of users do Y differently". See ADR-005 for output/outcome/benefit/value distinctions.
 ## Parent vision                                  # explicit reference (sub-issue link)
 ## Horizon                                        # planning horizon — roadmap / release / iteration scoped
 ## Acceptance check                               # criteria by which this goal is judged done
@@ -132,7 +132,7 @@ Root node — no `parent`. Single vision is the graph root.
 
 ### feature / story  → method: project's feature-decomposition skill, if any; else from training
 
-`parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level. The Holistic dimensions section below applies to **feature**; at **story** granularity, the dimensions manifest directly in the story's Acceptance check (and in the spec's Acceptance Criteria when a spec exists), so the section is dropped — see ADR-003.
+`parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level. The Holistic dimensions and Value chain sections apply to **feature**; at **story** granularity, the dimensions manifest in the Acceptance check and value lives at the parent feature level — sections dropped at story scope. See ADR-003 + ADR-005.
 
 ```
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
@@ -140,10 +140,10 @@ Root node — no `parent`. Single vision is the graph root.
 - Related:  its spec; constraining adr
 ## Story                                          # role, need, benefit — phrased per the project's chosen story format
 ## Conditions of satisfaction                     # the back of the card
-## Acceptance check                               # criteria by which this is judged complete
+## Acceptance check                               # criteria by which the output is judged complete (output-layer, not value-layer)
 ## Position in the larger narrative               # where this fits in the user's flow
 ## State                                          # where in the lifecycle the conversation/construction sits
-## Holistic dimensions                            # FEATURE ONLY (story drops this — its dimensions live in the Acceptance check); how this feature manifests in each dimension; see ADR-003
+## Holistic dimensions                            # FEATURE ONLY (story drops this); how this feature manifests in each dimension; see ADR-003
 - Functionality:        what the feature does, functionally
 - Technology:           technical components touched                → consult: architect
 - UX design:            UX surfaces / flows / copy this feature affects
@@ -152,6 +152,13 @@ Root node — no `parent`. Single vision is the graph root.
 - Offline experience:   off-screen effect (support load, logistics, partner impact, …)
 ## Requirements detail        → method: project's requirements-discovery skill, if any   # when this opens a new feature area
 ## Spec                       → method: project's spec methodology skill, if any
+## Value chain                                    # FEATURE ONLY, post-done. The chain is PROBABILISTIC — most cycles do not complete it fully; honesty matters more than theatre. See ADR-005.
+- Outputs shipped:        what was actually built (often auto-filled from PRs that closed this Issue)
+- Outcomes observed:      behavioral change observed in users / system (or 'none — users did not adopt as expected')
+- Benefits measured:      metric movements caused by the outcome (or 'none — outcome did not move the metrics it should have moved'); reference the relevant Holistic dimension(s)
+- Value assessment:       honest benefit-to-cost ratio. May be negative. The framework asks for honesty, not celebratory reporting.
+- Learning extracted:     what this cycle taught regardless of whether value materialized. THIS IS THE GUARANTEED OUTPUT OF EVERY CYCLE — never N/A; always populate.
+- Next cards surfaced:    new Issues this evaluation spawned (deprecate this feature? pivot via supersede? double down? new experiment?)
 ```
 
 ### spec  → method: project's spec methodology skill, if any; else from training
