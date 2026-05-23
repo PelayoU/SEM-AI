@@ -75,6 +75,13 @@ Root node — no `parent`. Single vision is the graph root.
 ## Positioning                                    # target customer, need, category, key benefit, primary differentiation
 ## Horizon                                        # planning horizon, explicit
 ## Adopted trends                                 # trends believed to hold over the horizon
+## Holistic dimensions                            # see ADR-003 — every slot is considered; N/A only with one-line reason
+- Functionality:        the product's core reason for being
+- Technology:           technical posture the vision commits to    → consult: architect
+- UX design:            the experience posture (PM in small teams; UX Designer if project ships one)
+- Monetization:         how the vision creates and captures economic value
+- Acquisition:          how the vision reaches users / customers
+- Offline experience:   off-screen experiences essential to deliver the value
 ```
 
 ### goal  → method: project's goal methodology skill, if any; else from training
@@ -90,6 +97,13 @@ Root node — no `parent`. Single vision is the graph root.
 ## Horizon                                        # planning horizon — roadmap / release / iteration scoped
 ## Acceptance check                               # criteria by which this goal is judged done
 ## Why this goal                                  # the chain from the vision down to this goal
+## Holistic dimensions                            # the outcome this goal pursues in each dimension; see ADR-003 — N/A only with one-line reason
+- Functionality:        functional outcome
+- Technology:           technical outcome           → consult: architect
+- UX design:            experience outcome
+- Monetization:         economic outcome
+- Acquisition:          adoption / growth outcome
+- Offline experience:   off-screen outcome
 ```
 
 ### capability  → method: project's capability methodology skill, if any; else from training
@@ -106,12 +120,19 @@ Root node — no `parent`. Single vision is the graph root.
 ## Value analysis            → method: project's value-analysis skill, if any
 ## Risks                     → method: project's risk-analysis skill, if any   # cross-cutting risks go in the Milestone's Risk register, not here
 ## Go / No-Go                                     # decision and one-line reason
+## Holistic dimensions                            # what this capability does in each dimension; see ADR-003 — N/A only with one-line reason
+- Functionality:        what the capability does, functionally
+- Technology:           technical components and posture            → consult: architect
+- UX design:            experience this capability surfaces or relies on
+- Monetization:         contribution to economic value
+- Acquisition:          contribution to reaching / retaining users
+- Offline experience:   off-screen experience this capability requires or affects
 ## Feature decomposition     → method: project's feature-decomposition skill, if any   # only for Go capabilities
 ```
 
 ### feature / story  → method: project's feature-decomposition skill, if any; else from training
 
-`parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level.
+`parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level. The Holistic dimensions section below applies to **feature**; at **story** granularity, the dimensions manifest directly in the story's Acceptance check (and in the spec's Acceptance Criteria when a spec exists), so the section is dropped — see ADR-003.
 
 ```
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
@@ -122,6 +143,13 @@ Root node — no `parent`. Single vision is the graph root.
 ## Acceptance check                               # criteria by which this is judged complete
 ## Position in the larger narrative               # where this fits in the user's flow
 ## State                                          # where in the lifecycle the conversation/construction sits
+## Holistic dimensions                            # FEATURE ONLY (story drops this — its dimensions live in the Acceptance check); how this feature manifests in each dimension; see ADR-003
+- Functionality:        what the feature does, functionally
+- Technology:           technical components touched                → consult: architect
+- UX design:            UX surfaces / flows / copy this feature affects
+- Monetization:         economic effect of this feature
+- Acquisition:          acquisition / retention effect
+- Offline experience:   off-screen effect (support load, logistics, partner impact, …)
 ## Requirements detail        → method: project's requirements-discovery skill, if any   # when this opens a new feature area
 ## Spec                       → method: project's spec methodology skill, if any
 ```
