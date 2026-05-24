@@ -95,3 +95,63 @@ Considered: adding `experiment-in-progress` as a status, or making `done` mean d
 ## Status
 
 Accepted. Features may declare experimental intent via the Uncertainty addressed slot; the vision declares its destination via the Value ambition slot; the framework reads both intents (delivery / experiment) as legitimate first-class shapes of work.
+
+---
+
+## Update — label `experiment` as the visible counterpart to the slot (2026-05-24)
+
+After the original decision was operationalized, a gap surfaced: the `Uncertainty addressed` slot lives **inside** the Issue body and is only visible when the Issue is opened. From the Issue list, from the Projects v2 board, from a `gh issue list` invocation, there is no signal that a given feature is an experiment vs a delivery. For a team that interleaves discovery and delivery (the dual-track operational mode), that opacity creates friction — agents and humans alike read the list of features without knowing which are validating unknowns and which are paying off learning already accumulated.
+
+This update closes the gap **without contradicting the original decision** — none of the original rejections (no new Issue Type, no new status, no enum custom field) is reversed.
+
+### Decision (update)
+
+The framework recognises **a native GitHub label `experiment`** as the visible counterpart to the `Uncertainty addressed` slot. The engine MCP applies it automatically when the slot is populated on `create_node(type=feature, …)` or `update_node`; it removes it when the slot is cleared to N/A. The label is **mechanical**, not free-form: the team does not curate it directly; the engine maintains coherence between slot and label.
+
+Reading guide:
+
+| Signal | What it tells you |
+|---|---|
+| Feature has no `experiment` label | Delivery feature (pays off learning already accumulated; success = value chain completion per ADR-005) |
+| Feature has `experiment` label | Experimental feature (Uncertainty addressed is populated; success = the uncertainty is resolved, value chain completion is bonus) |
+
+The slot and the label encode the same truth from two angles: the slot says **what** uncertainty (free-form, useful for the agent that will work on it); the label says **that** it is an experiment (visible, queryable, filterable).
+
+### Why a label (and not Issue Type or status or enum)
+
+The label is the **single mechanism** that achieves visibility without contradicting any of the original rejections:
+
+- It is **not a new Issue Type** — feature stays feature; ADR-001 audit principle holds.
+- It is **not a new status** — the lifecycle remains uniform across delivery and experiment.
+- It is **not an enum custom field** — the free-form prose in the slot remains the primary description; the label is a derived signal.
+- It is **native to GitHub** — Projects v2 supports it as a filter/group natively; `gh issue list -l experiment` works out of the box; the team's existing tools keep functioning without special-casing.
+- It is **maintained by the engine, not the team** — coherence between slot and label is mechanical, not a discipline burden.
+
+This matches the pattern of how the framework handles `bug` (per ADR-001): a native label rather than an Issue Type. Same decision shape, same justification.
+
+### Expected destination by experiment sub-type
+
+The `Uncertainty addressed` slot accommodates any kind of experiment. Different sub-types have different natural destinations; the framework documents these as convention, does not enforce them:
+
+| Experiment sub-type | What it ships | Natural final status |
+|---|---|---|
+| **Prototype** (landing page, mockup, smoke test, concierge) | Discardable artifact whose only purpose was to produce the learning | `deprecated` — sea que validated or invalidated. If validated, open a new feature with `delivery` intent and a `related` link back to this experiment for the production version. |
+| **Spike** (technical or design exploration to validate feasibility) | A decision + possibly throwaway code | Usually `deprecated`; can be `done` if the spike's output is light and useful enough to keep. |
+| **A/B test** | A chosen variant + data on the comparison | `done` — the winning variant stays in production; the experiment Issue closes with learning recorded. |
+| **Concierge** (humans manually doing what software would eventually do) | Operational data on what is worth automating | `deprecated` after the learning is extracted; the automation (if validated) opens as a new delivery feature. |
+
+The label `experiment` covers all four uniformly; the sub-type is captured in the slot's prose (free-form). If a project finds itself wanting a sub-label like `prototype` to filter only the discardable sub-type, it can add that locally — the framework's default set is the single `experiment` label.
+
+### Consequences (update)
+
+- The engine MCP gains responsibility for label-slot coherence: on every write of a `feature` Issue, if `Uncertainty addressed` is populated → ensure label `experiment` is present; if cleared to N/A → ensure label `experiment` is absent.
+- The framework SKILL § The graph (the polar-star / features-as-steps paragraph) mentions the label briefly as the visibility complement.
+- The `node-templates` slot comment for `Uncertainty addressed` references the auto-applied label and documents the destination conventions by sub-type.
+- The label `experiment` is provisioned by `scripts/setup-github-project.sh` alongside the `bug` label (when that script is implemented).
+- Projects v2 saved views can include "All experiments in progress" as a default view, surfacing the discovery work distinct from the delivery work — supporting the dual-track operational mode without imposing it as a framework requirement.
+
+### What this update does NOT change
+
+- The Uncertainty addressed slot stays exactly as decided in the original ADR — free-form prose, optional, N/A for pure deliveries.
+- The intent of a feature (delivery / experiment) remains a continuum; the label is the *primary* signal, not the only one. Mixed-intent features (primarily delivery with a side experiment) populate the slot lightly with the side uncertainty; the label flips on; the team reads the situation as "primarily delivery with experimental sub-component", which the framework does not need to model with more granularity.
+- The Value chain section in the feature template (ADR-005) is read by intent as before; the label just makes the intent visible from the outside before the Value chain section is even reached.
