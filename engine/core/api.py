@@ -350,13 +350,15 @@ def estimate_size(adapter: BackendAdapter, node_id: str) -> SizeEstimate:
 def validate_node(adapter: BackendAdapter, node_id: str) -> tuple[Finding, ...]:
     """Run the engine's checks against a node, returning warn-level findings.
 
-    The actual findings come from `engine/checks/` library (security_review,
-    architect_coherence, etc.) — pending implementation per ADR-008 update §
-    semantic CI. Until those land, returns an empty tuple.
+    Delegates to `engine/checks/run_all_checks` which dispatches the node to
+    the appropriate checks based on its type — security_review on spec/
+    ADR/feature, architect_coherence on ADR, pm_acceptance on spec/feature.
+    Returns an empty tuple when no check applies (e.g. on a vision).
     """
-    _ = adapter.get_issue(node_id)  # raises if missing
-    # TODO(engine/checks): wire to the semantic CI library when it ships
-    return ()
+    node = adapter.get_issue(node_id)
+    from ..checks import run_all_checks
+
+    return run_all_checks(node, adapter)
 
 
 # ============================================================== CONFIG (1)
