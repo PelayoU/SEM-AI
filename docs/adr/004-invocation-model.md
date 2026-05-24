@@ -146,3 +146,120 @@ For these the project enables the corresponding Action from `examples/`. The fra
 - The framework's status as "infrastructure for working with AI" is materially supported by this ADR: the auto-invocation of roles by graph events is what makes it more than a set of agent.md files. Without this, the framework would be six agents waiting to be called; with this, the framework is the agents collaborating reactively over the graph.
 
 This ADR's implementation (the actual hooks, the engine/checks/ library, the Actions YAML examples) is deferred to subsequent commits; this records the decision and the contracts.
+
+---
+
+## Update — MCP vs skills + internal adapter pattern of the engine (2026-05-24)
+
+Two related questions surfaced during operationalisation that the original ADR did not address explicitly:
+
+1. **What lives in the MCP and what lives in skills?** Both exist; both are accessible to the agent; the boundary between them was implicit.
+2. **What is the internal architecture of the engine MCP?** The ADR said "MCP for writes" but did not specify how the engine is structured for the long term — particularly for the future extension points named in ADR-009 (Jira, Linear, GitLab as alternative backends).
+
+This update closes both gaps. No existing decision is reversed; the original ADR-004 (hooks primary + MCP + Actions opt-in) is preserved as-is and extended.
+
+### Part 1 — MCP vs skills: division of responsibility
+
+The two mechanisms cover **different layers** of the same problem. They are not alternatives; they are complementary.
+
+| Mechanism | What it provides | Naturaleza |
+|---|---|---|
+| **MCP** (Model Context Protocol) | **Tools** with strict schemas. Hard-reject on violation. Deterministic — the agent cannot bypass the contract. | Enforcement — mechanical, not discretionary |
+| **Skill** | **Markdown** that guides the agent. Tells it what to do and how. | Guidance — the agent reads and follows; can in principle deviate |
+
+The boundary, made explicit:
+
+| Responsibility | Where it lives | Why |
+|---|---|---|
+| Parent-type rules (e.g. `goal.parent must be vision`) | **Engine MCP** (validators) | Skill cannot enforce; agent could misread under context pressure |
+| Role jurisdiction (e.g. PM cannot author ADR) | **Engine MCP** (`acting_role` enforcement) | Same |
+| Lifecycle (status transitions legal per type) | **Engine MCP** (`transition_status` tool) | Same |
+| `triggered_by` permissions (agent invoked by hook → restricted to read+comment+open Issues) | **Engine MCP** | Critical for the semantic CI per ADR-008 update — without mechanical enforcement, an auto-invoked agent could write outside its authorised scope |
+| Slot-label coherence (label `experiment` applied when `Uncertainty addressed` populated per ADR-006 update) | **Engine MCP** | Mechanical coherence between body and label |
+| Milestone/Release operations (`create_milestone`, `publish_release`) | **Engine MCP** (bridges) | Cross-resource GitHub operations needing acting_role check |
+| The framework contract (one rule, the graph, sessions) | **`framework/SKILL.md`** | It is the **philosophy** of the framework, not a tool set |
+| Body templates per Issue Type | **`node-templates/SKILL.md`** | Prose to be filled by the agent; not mechanical enforcement |
+| Project-supplied methodology (SMART analysis, story mapping, value analysis depth, etc.) | **Project skills** under `.claude/skills/<topic>/` | Discrecional guidance — the project's chosen school |
+| The `/session-open`, `/session-close`, `/catch-up` slash commands | **Skills** (framework-shipped) | They orchestrate MCP calls but the orchestration is prose-shaped |
+
+**The principle**: if breaking the rule would silently corrupt the graph, it belongs in MCP. If breaking the rule would only mean "the agent followed a different style", it belongs in skill.
+
+### Part 2 — Alternative backends + alternative orchestrators
+
+ADR-009 named the MCP layer as the theoretical extension point for backends beyond GitHub (Jira / Linear / GitLab) and orchestrators beyond GitHub Actions (Jenkins / GitLab CI). This update specifies **how each is modeled**:
+
+| Concept | What kind of integration | Why |
+|---|---|---|
+| **GitHub as graph backend** | `mcp__github__*` wrapped by `mcp__sem_ai_engine__*` (this ADR) | The agent writes to the graph from inside Claude Code; needs deterministic enforcement |
+| **Jira as graph backend (future)** | New adapter inside the engine MCP; agent still calls `mcp__sem_ai_engine__*` (same API) — see Part 3 | Same reason — graph operations need enforcement; backend swap is internal to the engine |
+| **Linear as graph backend (future)** | Same pattern — internal adapter | Same |
+| **GitHub Actions as pipeline orchestrator** | **NOT a MCP** — runs independently of the agent, triggered by GitHub events | The agent does not orchestrate the pipeline from Claude Code; the pipeline runs on the runner |
+| **Jenkins as pipeline orchestrator (future)** | **NOT a MCP** — integrated via webhooks → `mcp__sem_ai_engine__*` on relevant events | Same — Jenkins runs outside the agent's session; the framework only cares about the graph events Jenkins emits, not how Jenkins runs |
+| **GitLab CI / CircleCI / Buildkite as orchestrator** | Same — NOT a MCP; webhook integration | Same |
+
+**An attempted shorthand like "a skill `framework-jira`" or "a skill `framework-jenkins`" would be wrong**:
+- For Jira (graph backend): a skill could not enforce mechanical rules. Use an MCP adapter.
+- For Jenkins (orchestrator): there is no graph integration to do inside the agent. Jenkins doesn't need a representation in the framework's tool layer.
+
+### Part 3 — Internal architecture of the engine MCP: adapter pattern
+
+The engine MCP is **one MCP process** from the agent's point of view (`mcp__sem_ai_engine__*` is the only namespace the agent sees). Internally, the engine is structured in two layers:
+
+```
+mcp__sem_ai_engine    (single MCP server, single API surface)
+│
+├── core/                          INVARIANT — does not change between backends
+│   ├── catalog.py                 The 7 Issue Types and their parent-type rules
+│   ├── validators.py              parent-type, jurisdiction, lifecycle, status
+│   ├── permissions.py             acting_role, triggered_by enforcement
+│   └── api.py                     The 19 + 3 tools exposed to the agent
+│
+└── adapters/                      SWAPPABLE — one per backend, same interface
+    ├── github.py                  v0.3.0: gh CLI + REST/GraphQL HTTP
+    ├── jira.py                    (future): Jira REST API
+    ├── linear.py                  (future): Linear GraphQL
+    └── gitlab.py                  (future): GitLab REST/GraphQL
+
+    Common adapter interface (internal):
+      - create_issue / update_issue / get_issue / list_issues
+      - link_sub_issue / unlink_sub_issue
+      - set_custom_field / get_custom_field
+      - assign_to_milestone / create_milestone / publish_release
+      - comment_on_issue / add_label / remove_label
+      - search / cross_reference
+```
+
+The agent's API is **invariant** across backends. When a project switches backends:
+
+- The adopting project's config (`.sem-ai/config.yaml` or equivalent — to be specified when implementation lands) names the backend.
+- The engine selects the adapter at startup.
+- The agent's calls to `mcp__sem_ai_engine__*` are unchanged.
+- No re-installation, no breaking change in agent's API.
+
+### Why this pattern (not "wrapper of MCPs")
+
+A literal "wrapper over `mcp__github__*` calling other MCPs" was considered. Rejected because:
+
+- **MCP-from-MCP is technically non-trivial.** Each MCP is an independent server speaking to the client (Claude Code), not to other MCPs. For the engine MCP to call `mcp__github__*` from inside, it would have to be both a server (to Claude) and a client (to GitHub MCP), with nested connection lifecycle, error propagation in two directions, and observability complications.
+- **It does not buy escalabilidad real.** What gives escalabilidad is the **internal layering** (core + adapters), not whether each adapter uses MCP-from-MCP, HTTP, CLI, or some mix.
+- **An adapter is free to choose how it talks to its backend** — REST API directly, GraphQL, CLI wrapper, or eventually a sub-MCP call if the maquinaria matures. The adapter's *interface to the engine core* is what matters; its *implementation choice* per backend is a local decision.
+
+For v0.3.0 the GitHub adapter uses `gh` CLI + REST/GraphQL HTTP directly from Python. Pragmatic, low-dependency, well-debugged tooling. When the Jira adapter ships (post-v1, per ADR-009), it will use the Jira REST API directly via `requests`. Same pattern; different implementation per adapter.
+
+### How this realizes ADR-009's "theoretical extension point"
+
+ADR-009 said: *"the MCP layer is the framework's real contract and the theoretical extension point for adapters to Jira / Linear / Jenkins / GitLab CI — but those adapters are not ship in v0.x"*.
+
+The adapter pattern from this update is **the concrete shape that extension point takes**. Future adapters land in `adapters/<backend>.py`, implement the same internal interface, and become available when the project's config selects them. No engine rewrite, no API break, no agent retraining.
+
+### Consequences of this update
+
+- `engine/` (pending implementation per CLAUDE.md) is structured as `engine/core/` + `engine/adapters/github.py` from day one. Even though only one adapter ships in v0.3.0, the layering is in place so future adapters slot in cleanly.
+- The framework documentation (CLAUDE.md, README.md, future onboarding guide) consistently distinguishes:
+  - **The engine MCP** (one process, one API surface, internally layered)
+  - **Skills** (framework SKILL + node-templates SKILL + project-supplied skills)
+  - **Hooks** (per the main body of this ADR)
+  - **Action examples** (per the main body)
+- Backends-as-skills is never proposed in framework documentation. If a project requests Jira support, the answer is "we accept contributions of a `jira.py` adapter under `engine/adapters/`", not "write a skill".
+- Orchestrators (Jenkins, GitLab CI, etc.) are integrated via webhooks → MCP, never via skills or via adapters in the engine. The framework documents the integration pattern; the project owns the webhook wiring.
+- `engine/checks/` (named in the main body of this ADR) is a separate concern from `engine/core/`. Checks are the semantic-CI library invoked by hooks and Actions; the core is the catalog + validators + permissions. Both are pure-Python, share the engine package, but are different modules with different responsibilities.
