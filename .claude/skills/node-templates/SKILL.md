@@ -93,11 +93,11 @@ Root node — no `parent`. Single vision is the graph root.
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this goal's capabilities
 - Related:  constraining adr; the Milestone(s) delivering toward this goal
-## Outcome statement                              # the measurable OUTCOME (behavioral / system change observable in the world) this goal asserts. NOT an output (a thing to be built). Mis-stated: "Ship feature X" — that's an output. Well-stated: "X% of users do Y differently". Output / outcome / benefit / value are distinct layers of the value chain.
+## Outcome statement                              # the measurable OUTCOME (behavioral / system change observable in the world) this goal asserts. NOT an output (a thing to be built). Mis-stated: "Ship feature X" — that's an output. Well-stated: "X% of users do Y differently". Output / outcome / benefit / value are distinct layers of the value chain. **Why-stack test**: if the proposed goal sounds like a solution ("I want a Twitter account"), pop the why — "why? → talk to users → why? → promote programme → why? → sell more tickets" — until you reach the real business outcome. If the first phrasing survives the pop, it's a goal; if it collapses, the real goal is upstream.
 ## Stakeholder                                    # WHO benefits if this goal is realized. Concrete role + context (e.g. "Adopter team's PM + developers", "Solo developer + enterprise PM"). Names the WHO of the template "In order to [outcome], as [STAKEHOLDER], I want { capabilities }". Goals that cannot name a stakeholder are usually solutions in disguise — pop the why-stack until a real beneficiary surfaces.
 ## Parent vision                                  # explicit reference (sub-issue link)
 ## Horizon                                        # planning horizon — roadmap / release / iteration scoped. SMART criterion T (Time-bound): continuous / steady-state goals must still name at least one checkpoint (e.g. "by v1.0", "audited quarterly from Q1-2027").
-## Acceptance check                               # criteria by which this goal is judged done. SMART criterion M (Measurable) + T (Time-bound): includes a checkpoint condition tied to a release / date / cadence, not just a steady-state property.
+## Acceptance check                               # criteria by which this goal is judged done. SMART criterion M (Measurable) + T (Time-bound): includes a checkpoint condition tied to a release / date / cadence, not just a steady-state property. SMART shape: "By [v1.0 release / date / cadence], [≥N% / N projects / specific condition] [observable behaviour or system state], measured by [method]". The "by [...]" anchors T; the "[≥N% / ...]" anchors M; "measured by" anchors how the team will know.
 ## Why this goal                                  # the chain from the vision down to this goal
 ## Holistic dimensions                            # the outcome this goal pursues in each dimension. Each slot is DESIGN + RISK SURFACE; silent omission = absorbed risk. N/A only with one-line reason.
 - Functionality:        functional outcome
@@ -116,9 +116,9 @@ Root node — no `parent`. Single vision is the graph root.
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this capability's features
 - Related:  constraining adr; the Milestone(s) whose scope includes it; affine spec
-## Statement                                      # what the system enables, implementation-agnostic
+## Statement                                      # WHAT the system enables, implementation-agnostic. Concrete enough to be assessable; abstract enough that more than one implementation could satisfy it. Hypermarket example: capability is "Coinless hypermarket trolley" (concrete WHAT); the *feature* is "NFC trolley-unlock from mobile" (one HOW). If the Statement names a specific technology, framework, or vendor ("uses GitHub", "via Python", "with our MCP"), HOW has leaked into WHAT — push the specifics down to the Feature decomposition section.
 ## Parent goal                                    # explicit reference (sub-issue link)
-## Two implementations                            # name two plausible ones — the agnostic test
+## Two implementations                            # name two plausible alternatives — the agnostic test. This section is the anti-solution salvavidas: if you can only name one implementation, the Statement is probably already a feature/solution in disguise. Forces the capability to sit at the right altitude. (One is usually the one we ship; the other is the rejected alternative, with a one-line reason for rejection.)
 ## Value analysis            → method: project's value-analysis skill, if any
 ## Risks                     → method: project's risk-analysis skill, if any   # cross-cutting risks go in the Milestone's Risk register, not here
 ## Go / No-Go                                     # decision and one-line reason

@@ -377,12 +377,17 @@ class TestCompute:
         assert result.node_id == node.id
         assert result.estimate == "unknown" # default until methodology skill applies
 
-    def test_validate_node_returns_empty_until_checks_lib(
+    def test_validate_node_invokes_checks_lib(
         self, adapter: MockAdapter, vision
     ):
+        # Empty goal body triggers goal_smart findings (missing Stakeholder,
+        # output-shaped phrasing, etc.). The checks lib has landed; an
+        # empty-body goal is correctly flagged as warn-level findings.
         node = adapter.seed_node(type=NodeType.GOAL, parent_id="#1")
         result = api.validate_node(adapter, node.id)
-        assert result == () # empty until engine/checks/ implementation lands
+        assert result, "validate_node should surface findings from the checks lib"
+        assert all(f.severity == "warning" for f in result)
+        assert any(f.code.startswith("GS") for f in result)
 
 
 # ================================================================== CONFIG

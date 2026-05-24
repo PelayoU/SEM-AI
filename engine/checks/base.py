@@ -61,6 +61,7 @@ def run_all_checks(node: Node, adapter: BackendAdapter) -> tuple[Finding, ...]:
     if no check applies to this node type.
     """
     from .architect_coherence import check_adr_coherence
+    from .goal_smart import check_goal_smart
     from .pm_acceptance import check_pm_acceptance
     from .security_review import check_security_review
 
@@ -79,5 +80,10 @@ def run_all_checks(node: Node, adapter: BackendAdapter) -> tuple[Finding, ...]:
     # PM acceptance on spec and feature.
     if node.type in {NodeType.SPEC, NodeType.FEATURE}:
         findings.extend(check_pm_acceptance(ctx))
+
+    # SMART check on goals — Stakeholder presence + time-bound anchors +
+    # outcome-shaped phrasing.
+    if node.type == NodeType.GOAL:
+        findings.extend(check_goal_smart(ctx))
 
     return tuple(findings)

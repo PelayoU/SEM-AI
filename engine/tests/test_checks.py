@@ -12,6 +12,7 @@ import pytest
 from engine.checks import (
     Finding,
     check_adr_coherence,
+    check_goal_smart,
     check_pm_acceptance,
     check_security_review,
     derive_artifacts_from_pr_body,
@@ -336,6 +337,159 @@ class TestPMAcceptance:
         adapter.seed_node(id="#1", type=NodeType.VISION, status=Status.ACTIVE)
         ctx = CheckContext(node=adapter.nodes["#1"], adapter=adapter)
         findings = check_pm_acceptance(ctx)
+        assert findings == []
+
+
+# ----- goal_smart -----------------------------------------------------------
+
+
+class TestGoalSmart:
+    def _ctx(self, adapter, *, body=""):
+        adapter.seed_node(id="#1", type=NodeType.VISION, status=Status.ACTIVE)
+        goal = adapter.seed_node(
+            type=NodeType.GOAL, body=body, status=Status.ACTIVE, parent_id="#1",
+        )
+        return CheckContext(node=goal, adapter=adapter)
+
+    def _well_formed_body(self, *, outcome=None, stakeholder=True,
+                          horizon=None, acceptance=None) -> str:
+        parts = [
+            "## Outcome statement",
+            outcome or "X% of users do Y differently after the change.",
+        ]
+        if stakeholder:
+            parts += ["## Stakeholder", "Adopter team's PM + developers."]
+        parts += [
+            "## Horizon",
+            horizon or "By v1.0 release.",
+            "## Acceptance check",
+            acceptance or "By v1.0 release, ≥80% of X pass Y, measured by Z.",
+        ]
+        return "\n".join(p for p in parts) + "\n"
+
+    def test_well_formed_goal_no_findings(self, adapter: MockAdapter):
+        ctx = self._ctx(adapter, body=self._well_formed_body())
+        findings = check_goal_smart(ctx)
+        assert findings == []
+
+    def test_missing_stakeholder_section_raises_gs001(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter, body=self._well_formed_body(stakeholder=False),
+        )
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS001" for f in findings)
+
+    def test_empty_stakeholder_section_raises_gs001(
+        self, adapter: MockAdapter
+    ):
+        body = (
+            "## Outcome statement\nX% of users do Y differently.\n"
+            "## Stakeholder\n\n"  # empty
+            "## Horizon\nBy v1.0.\n"
+            "## Acceptance check\nBy v1.0 ≥80% pass.\n"
+        )
+        ctx = self._ctx(adapter, body=body)
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS001" for f in findings)
+
+    def test_horizon_without_time_bound_raises_gs002(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                horizon="Continuous — steady-state property of the framework."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS002" for f in findings)
+
+    def test_horizon_with_release_no_finding(self, adapter: MockAdapter):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                horizon="Continuous, with v1.0 release as the first checkpoint."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert not any(f.code == "GS002" for f in findings)
+
+    def test_horizon_with_quarter_no_finding(self, adapter: MockAdapter):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                horizon="Audited quarterly starting Q1-2027."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert not any(f.code == "GS002" for f in findings)
+
+    def test_acceptance_without_time_bound_raises_gs003(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                acceptance="The rate of defects approaches zero."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS003" for f in findings)
+
+    def test_outcome_with_output_verb_raises_gs004(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                outcome="Ship the new dashboard so users see their metrics."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS004" for f in findings)
+
+    def test_outcome_with_build_verb_raises_gs004(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                outcome="Build a Twitter account for the programme."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS004" for f in findings)
+
+    def test_outcome_with_markdown_emphasis_still_detected(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                outcome="**Implement** the feature for marketing."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert any(f.code == "GS004" for f in findings)
+
+    def test_outcome_starting_with_subject_no_finding(
+        self, adapter: MockAdapter
+    ):
+        ctx = self._ctx(
+            adapter,
+            body=self._well_formed_body(
+                outcome="Adopters report a measurable shift in review labor."
+            ),
+        )
+        findings = check_goal_smart(ctx)
+        assert not any(f.code == "GS004" for f in findings)
+
+    def test_non_goal_skipped(self, adapter: MockAdapter):
+        adapter.seed_node(id="#1", type=NodeType.VISION, status=Status.ACTIVE)
+        ctx = CheckContext(node=adapter.nodes["#1"], adapter=adapter)
+        findings = check_goal_smart(ctx)
         assert findings == []
 
 

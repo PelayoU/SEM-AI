@@ -22,6 +22,7 @@ Used by:
 from .architect_coherence import check_adr_coherence
 from .artifacts_derive import derive_artifacts_from_pr_body
 from .base import CheckContext, Finding, run_all_checks
+from .goal_smart import check_goal_smart
 from .pm_acceptance import check_pm_acceptance
 from .security_review import check_security_review
 
@@ -29,6 +30,7 @@ __all__ = [
     "CheckContext",
     "Finding",
     "check_adr_coherence",
+    "check_goal_smart",
     "check_pm_acceptance",
     "check_security_review",
     "derive_artifacts_from_pr_body",
