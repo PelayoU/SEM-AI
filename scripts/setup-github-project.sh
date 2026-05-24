@@ -106,22 +106,25 @@ done
 
 # ----- Labels ---------------------------------------------------------------
 
+#
+# Format: <name>|<color-hex>|<description>
+# Pipe used as separator because role: labels contain ':' in their names.
 LABELS=(
-  "bug:d73a4a:An Issue reporting a defect; native GitHub bug semantics"
-  "experiment:8b5cf6:Feature with experimental intent; engine MCP auto-applies when Uncertainty addressed is populated (ADR-006 update)"
-  "inspected:0e8a16:Non-code artifact (spec / ADR / requirements) that completed an inspection (ADR-001)"
-  "role:product-manager:1d76db:Maintained by the Product Manager role"
-  "role:architect:0e8a16:Maintained by the Architect role"
-  "role:developer:5319e7:Maintained by the Developer role"
-  "role:qa:fbca04:Maintained by the QA role"
-  "role:devops:c5def5:Maintained by the DevOps role"
-  "role:security-officer:b60205:Maintained by the Security Officer role"
+  "bug|d73a4a|An Issue reporting a defect; native GitHub bug semantics"
+  "experiment|8b5cf6|Feature with experimental intent (ADR-006); engine auto-applies via Uncertainty addressed"
+  "inspected|0e8a16|Non-code artifact (spec / ADR / requirements) that completed an inspection (ADR-001)"
+  "role:product-manager|1d76db|Maintained by the Product Manager role"
+  "role:architect|0e8a16|Maintained by the Architect role"
+  "role:developer|5319e7|Maintained by the Developer role"
+  "role:qa|fbca04|Maintained by the QA role"
+  "role:devops|c5def5|Maintained by the DevOps role"
+  "role:security-officer|b60205|Maintained by the Security Officer role"
 )
 
 echo
 echo "==> Provisioning labels"
 for ENTRY in "${LABELS[@]}"; do
-  IFS=':' read -r LABEL_NAME LABEL_COLOR LABEL_DESC <<<"$ENTRY"
+  IFS='|' read -r LABEL_NAME LABEL_COLOR LABEL_DESC <<<"$ENTRY"
   if gh label list --repo "$REPO" --json name --jq '.[].name' | grep -qx "$LABEL_NAME"; then
     echo "    [exists] $LABEL_NAME"
   else
