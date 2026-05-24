@@ -1,0 +1,60 @@
+name: sem-ai-ci
+
+# CI for the SEM-AI framework itself (per ADR-008). Runs the validators that
+# the framework's own engine/checks/ will later expose as a library for
+# adopting projects. For v0.3.0-pre, stages 1-5 are active; stages 6 (engine
+# pytest) and 7 (validators self-test) become active when engine/ ships.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate framework integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install validator dependencies
+        run: pip install pyyaml
+
+      - name: Stage 1 — ADR coherence
+        run: python scripts/validators/check_repo.py adrs
+
+      - name: Stage 2 — Skill frontmatter
+        run: python scripts/validators/check_repo.py skills
+
+      - name: Stage 3 — Agent frontmatter
+        run: python scripts/validators/check_repo.py agents
+
+      - name: Stage 4 — Settings.json
+        run: python scripts/validators/check_repo.py settings
+
+  markdown-lint:
+    name: Markdown lint (warn-only)
+    runs-on: ubuntu-latest
+    # Warn-only during v0.3.0-pre — the framework's prose has long lines in
+    # template comments and ADR tables that strict markdown linting flags.
+    # Will be tightened in a later commit once we agree on the rule set.
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stage 5 — Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            CLAUDE.md
+            README.md
+            docs/**/*.md
+            .claude/**/*.md
