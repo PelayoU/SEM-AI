@@ -2,14 +2,16 @@
 """sem-ai-ci validators — stage runner.
 
 Subcommands:
-  skills Skill frontmatter — framework + node-templates SKILL.md have valid `name:` matching directory
-  agents Agent frontmatter — the six agent.md files have required fields + preload framework + node-templates
-  settings .claude/settings.json — valid JSON; hooks structure (when present)
+  skills          Skill frontmatter — framework + node-templates SKILL.md have valid `name:` matching directory
+  agents          Agent frontmatter — the six agent.md files have required fields + preload framework + node-templates
+  settings        .claude/settings.json — valid JSON; hooks structure (when present)
+  engine-harness  engine/ stays harness-agnostic — no code-level references to .claude/ or other harness bindings
 
 Usage:
   python scripts/validators/check_repo.py skills
   python scripts/validators/check_repo.py agents
   python scripts/validators/check_repo.py settings
+  python scripts/validators/check_repo.py engine-harness
 
 Exits 0 on pass, 1 on fail with a list of issues, 2 on bad invocation.
 
@@ -162,6 +164,81 @@ def check_settings() -> int:
     return 0
 
 
+# ----- Stage 5: engine/ harness-agnostic -------------------------------------
+
+
+ENGINE_DIR = ROOT / "engine"
+
+# Patterns that indicate harness-specific leakage in engine/ code.
+# We deliberately scan only *code* lines (strip leading whitespace, ignore
+# pure-comment lines and docstring continuations) so docstring references to
+# `.claude/` for documentation purposes don't false-positive.
+_HARNESS_LEAK_RE = re.compile(
+    r'^\s*(?:from|import)\s+\S*claude'   # any import that mentions "claude" in the module path
+    r'|^[^#]*[\'"`]\.claude/'             # string literals with `.claude/` paths in code (not comments)
+)
+
+
+def check_engine_harness() -> int:
+    """Verify engine/ has no code-level references to harness bindings.
+
+    Per ADR #65 (Claude Code is the primary AI harness; engine/ stays
+    harness-agnostic), engine/ must not import from .claude/ or reference
+    .claude/ paths in code (docstrings + comments documenting the
+    relationship are fine).
+    """
+    if not ENGINE_DIR.exists():
+        emit_fail(f"engine/ directory not found: {ENGINE_DIR.relative_to(ROOT)}")
+        return 1
+
+    errors: list[str] = []
+    for path in sorted(ENGINE_DIR.rglob("*.py")):
+        rel = path.relative_to(ROOT)
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except UnicodeDecodeError:
+            continue
+        in_docstring = False
+        docstring_delim = None
+        for lineno, raw in enumerate(lines, 1):
+            stripped = raw.strip()
+            # Track triple-quoted docstring blocks so we can skip their content.
+            if in_docstring:
+                if docstring_delim and docstring_delim in raw:
+                    in_docstring = False
+                    docstring_delim = None
+                continue
+            for delim in ('"""', "'''"):
+                if stripped.startswith(delim):
+                    # Single-line docstring like """foo"""?
+                    if stripped.count(delim) >= 2:
+                        break
+                    in_docstring = True
+                    docstring_delim = delim
+                    break
+            if in_docstring:
+                continue
+            # Skip full-line comments
+            if stripped.startswith("#"):
+                continue
+            if _HARNESS_LEAK_RE.search(raw):
+                errors.append(
+                    f"{rel}:{lineno}: harness leakage — {stripped[:80]!r}"
+                )
+
+    if errors:
+        for e in errors:
+            emit_fail(e)
+        emit_fail(
+            "engine/ must stay harness-agnostic per ADR #65. "
+            "Move harness-specific code to .claude/ (or future binding dirs)."
+        )
+        return 1
+
+    emit_ok(f"engine/ harness-clean ({len(list(ENGINE_DIR.rglob('*.py')))} files scanned)")
+    return 0
+
+
 # ----- Dispatcher --------------------------------------------------------------
 
 
@@ -169,6 +246,7 @@ COMMANDS = {
     "skills": check_skills,
     "agents": check_agents,
     "settings": check_settings,
+    "engine-harness": check_engine_harness,
 }
 
 
