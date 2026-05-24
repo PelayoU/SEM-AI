@@ -127,3 +127,49 @@ The cost of the alternative path is honestly recognized — adopters with mature
 ## Status
 
 Accepted. SEM-AI is GitHub-first: GitHub for the graph backend (ADR-001), GitHub Actions as the primary recommended pipeline orchestrator (this ADR), GitHub for distribution (ADR-008). The MCP layer is the framework's real contract and the theoretical extension point for future adapters to Jira / Linear / Jenkins / GitLab CI — but those adapters are not ship in v0.x. Adopters on non-GitHub stacks can integrate via webhooks + MCP at their own cost; the framework documents but does not ship the alternative paths.
+
+---
+
+## Update — `mcp__github__*` is not required by the framework (2026-05-24)
+
+When the engine implementation began (commit `ed364b8` — Bloque B2 of the engine), a question surfaced that the original ADR did not address explicitly: **does the framework require the official GitHub MCP (`mcp__github__*`) to be loaded by the CLI client?**
+
+The answer: **no.** This update articulates why and what the framework requires instead.
+
+### Three channels the agent uses for GitHub operations
+
+| Channel | What for | Provided by |
+|---|---|---|
+| **`mcp__sem_ai_engine__*`** | Graph operations with framework enforcement (parent-type / jurisdiction / lifecycle / acting_role / triggered_by) — the 22 typed tools per ADR-001 + ADR-004 update | Our engine MCP server |
+| **`Bash(gh …)`** | GitHub operations the engine does not wrap: open PRs, merge PRs, create branches, list releases, run secret scanning, etc. | `gh` CLI invoked via Bash |
+| **Built-in CLI tools** (`Read`, `Write`, `Edit`, `Grep`, `Bash`) | Filesystem-local operations: read code, edit files, grep across the working tree | The CLI client (Claude Code today) |
+
+Together these three cover every GitHub operation the agent needs during a session. `mcp__github__*` would duplicate the second channel (it offers the same operations as `gh` CLI, just with different invocation syntax).
+
+### Why this matters
+
+Three concrete benefits to NOT requiring `mcp__github__*`:
+
+1. **Simpler adopter setup.** The required stack is: a CLI client with MCP support (Claude Code, OpenCode, future others) + `gh` CLI authenticated + Python 3.11 with a venv. Three dependencies. If we required `mcp__github__*` it would be four, plus the agent would have two ways to do the same thing (`mcp__github__create_pull_request` vs `Bash(gh pr create …)`) and the framework would need to document which to prefer when.
+
+2. **Portability across CLI clients.** Different CLI clients may name or configure the GitHub MCP differently. By not requiring it, the framework decouples itself from how each client provisions third-party MCPs.
+
+3. **Coherence with the framework's own hooks.** ADR-004's five hooks include `PreToolUse on Bash(gh pr create *)` and `PostToolUse on Bash(gh pr merge *)`. These matchers explicitly assume `gh` CLI invocations. If the agent opened a PR via `mcp__github__create_pull_request` instead, the framework's pre-emptive security/PM review hook and the artifact-derivation hook would not fire. Standardising on `gh` CLI makes the hook system coherent.
+
+### The framework's actual requirements
+
+This update makes the framework's runtime requirements explicit (overrides/refines ADR-004's premise of "Claude Code" alone):
+
+- **A CLI client with MCP support.** Claude Code, OpenCode, or any future tool compatible with the MCP protocol. The framework's engine ships as an MCP server; the client connects to it.
+- **`gh` CLI installed and authenticated.** Required for GitHub operations beyond the engine + for the engine itself internally (since the engine uses `gh` CLI via subprocess per ADR-004 update § adapter pattern).
+- **Python 3.11+ with a local venv.** For running `engine/mcp_server.py` and its dependencies (`pyyaml`, `requests`, `mcp`).
+- **`mcp__github__*` is NOT required.** If the CLI client loads it for other reasons, that's fine — the agent can use it as an alternative to `Bash(gh …)`, but the framework's hooks and convention prefer `gh` CLI.
+
+### Practical consequences
+
+- `scripts/setup-engine.sh` (Bloque C, pending) verifies `gh auth status` passes; does NOT verify `mcp__github__*` is loaded.
+- The future onboarding documentation lists three dependencies, not four.
+- The framework's example pipelines (`examples/.github/workflows/sample-pipeline.yml`) use `gh` CLI in their `notify-graph` job, not `mcp__github__*`. Already correctly written.
+- The framework SKILL's § The graph language ("reads/writes go through the engine MCP") remains accurate; this update clarifies that operations *outside* the graph go via `gh` CLI, not via `mcp__github__*`.
+
+This update does not change the original ADR-009 decisions. It clarifies a third-party dependency assumption that was implicit before.
