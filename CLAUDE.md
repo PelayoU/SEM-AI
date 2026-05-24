@@ -76,7 +76,7 @@ There is no mid-conversation role switch in Claude Code today. Cross-role input 
 
 Each session leaves its mark on the graph via Issue comments at three lifecycle points: 📍 in play / ✅ decision (role) / 🏁 closed. The full session model is in `framework/SKILL.md` § Sessions.
 
-## Status (v0.3.0-pre — 2026-05-24)
+## Status (v0.3.0 — 2026-05-24)
 
 Conceptual model — closed across nine ADRs:
 
@@ -92,12 +92,21 @@ Conceptual model — closed across nine ADRs:
 - ✅ Session model on branches (no worktrees) + comments-lifecycle huella en el grafo
 - ✅ 6 agent.md methodology-blind; framework + node-templates skills aligned
 
-Implementation pending — the road to `v0.3.0`:
+Implementation — `v0.3.0` feature complete:
 
-- ⏳ Engine MCP backend (the 19 + 3 tools, with `acting_role` + `triggered_by` enforcement) — not yet implemented
-- ⏳ `engine/checks/` library — not yet implemented
-- ⏳ 5 hooks in `.claude/settings.json` — not yet declared
-- ⏳ `/session-open`, `/session-close`, `/catch-up` skills — not yet implemented
-- ⏳ `scripts/setup-github-project.sh` (provisions Issue Types + custom fields + saved views + labels `bug` + `experiment`) — not yet shipped
-- ⏳ `examples/.github/workflows/` — sample pipeline + structural Action examples not yet shipped
-- ⏳ Framework's own CI in `.github/workflows/sem-ai-ci.yml` — not yet shipped
+- ✅ Engine MCP backend — 22 typed tools (19 graph + 3 Milestone/Release bridges) with `acting_role` + `triggered_by` enforcement, layered as `engine/core/` + `engine/adapters/github.py` (gh CLI)
+- ✅ `engine/checks/` semantic CI library — security_review, architect_coherence, pm_acceptance, artifacts_derive
+- ✅ 5 hooks declared in `.claude/settings.json` — SessionStart, PreCompact, PostToolUse on transition_status / gh pr merge, PreToolUse on gh pr create
+- ✅ 3 slash commands shipped — `/session-open`, `/session-close`, `/catch-up` (in `.claude/skills/` + `scripts/skills/`)
+- ✅ `scripts/setup-engine.sh` + `scripts/setup-github-project.sh` — adopter setup in 3 commands
+- ✅ `examples/.github/workflows/sample-pipeline.yml` — reference end-to-end pipeline
+- ✅ Framework's own CI in `.github/workflows/sem-ai-ci.yml` — 5 stages: ADRs, skills, agents, settings, markdown lint
+- ✅ 295 tests passing in 0.08s
+
+Deferred to v0.4 / later:
+
+- ⏳ 5 opt-in Action examples (`sem-ai-validate-posthoc.yml`, `sem-ai-security-review.yml`, etc.) — useful only when humans edit Issues from the GitHub UI or external collaborators open PRs without Claude Code
+- ⏳ Agent-invoking-agent pattern from hooks (e.g. `PostToolUse on transition_status` spawning `claude --agent security-officer` for deeper review) — pattern needs more design
+- ⏳ MCP adapters for Jira / Linear (per ADR-009 § theoretical extension point)
+- ⏳ Projects v2 Status field via GraphQL (currently encoded as `status:<value>` label)
+- ⏳ Optional pip distribution of `engine/` (per ADR-008 update — deferred until adopter base grows)

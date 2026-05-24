@@ -6,13 +6,13 @@ Six role-homologous AI agents — PM, Architect, Developer, QA, DevOps, Security
 
 The framework ships **infrastructure**, not methodology. The LLM brings methodology from its training; projects layer their own via `.claude/skills/`.
 
-> **Status:** `v0.3.0-pre` — the conceptual model is closed (nine ADRs in `docs/adr/`). Implementation is in progress: framework CI is active, engine MCP backend + hooks + slash commands pending the road to `v0.3.0`.
+> **Status:** `v0.3.0` — feature complete. Engine MCP, semantic CI library, 5 reactive hooks, 3 slash commands, both setup scripts, sample pipeline, framework CI — all shipped. 295 tests passing. Ready for adoption.
 
 ## Use this template
 
 This repository is a **GitHub template**. The framework is delivered as a clone — no `npm install`, no global packages. The engine and the rest of the framework live in the same repo; you get everything when you click "Use this template".
 
-### Today — `v0.3.0-pre` (no engine yet, 2 commands)
+### Setup — 3 commands
 
 ```bash
 # 1. Create from template + clone
@@ -20,36 +20,28 @@ gh repo create my-product --template owner/sem-ai
 gh repo clone owner/my-product
 cd my-product
 
-# 2. Provision GitHub structure: 7 Issue Types + labels + Projects v2
-./scripts/setup-github-project.sh
-
-# 3. Start working
-claude --agent product-manager
-```
-
-The agent reads / writes the graph via `mcp__github__*` (native Claude Code integration) and `gh` CLI. **Mechanical enforcement** of parent-type, jurisdiction, lifecycle, etc. is **not active yet** — the engine MCP that performs it ships in `v0.3.0`.
-
-### At `v0.3.0` — engine in the template (3 commands)
-
-```bash
-# 1. Create from template + clone
-gh repo create my-product --template owner/sem-ai
-gh repo clone owner/my-product
-cd my-product
-
-# 2. Set up the engine (local venv + minimal Python deps)
+# 2. Set up the engine (local venv + minimal Python deps + verify)
 ./scripts/setup-engine.sh
 
-# 3. Provision GitHub structure
+# 3. Provision GitHub structure (Issue Types + labels + Projects v2)
+export SEM_AI_REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 ./scripts/setup-github-project.sh
 
-# 4. Start working — engine MCP starts automatically with the session
+# 4. Start working — engine MCP + 5 hooks start automatically
 claude --agent product-manager
 ```
 
-The engine adds **mechanical enforcement**: the agent that tries to create a `goal` with `parent=feature` gets a hard reject, not a polite suggestion. Hooks fire on graph events (`SessionStart`, `PreCompact`, `PostToolUse` on `transition_status` / `gh pr create` / `gh pr merge`) and auto-invoke role agents to perform semantic CI per [ADR-008 § two layers of CI](docs/adr/008-deployable-framework.md).
+The engine provides **mechanical enforcement**: an agent that tries to create a `goal` with `parent=feature` gets a hard reject, not a polite suggestion. Hooks fire on graph events (`SessionStart`, `PreCompact`, `PostToolUse` on `transition_status` / `gh pr merge`, `PreToolUse` on `gh pr create`) and run engine/checks/ for semantic CI per [ADR-008 § two layers of CI](docs/adr/008-deployable-framework.md).
 
 The engine code lives in `engine/` inside the template — no pip install. See [ADR-008 § engine in the template](docs/adr/008-deployable-framework.md) for the rationale.
+
+### Inside a session
+
+```
+/session-open <slug>     creates session branch + doc + posts 📍 on each in-play Issue
+/session-close           finalizes Handoff + posts 🏁 + prompts merge/PR/discard
+/catch-up [--since 7d]   digest of graph changes since last invocation (or custom window)
+```
 
 ### Beyond `v0.3.0` — optional pip package
 
@@ -68,8 +60,10 @@ Typically opens a `vision` Issue — the polar star of your product (see [ADR-00
 | Understand the contract every agent obeys | [`.claude/skills/framework/SKILL.md`](.claude/skills/framework/SKILL.md) |
 | See the body templates for the seven Issue Types | [`.claude/skills/node-templates/SKILL.md`](.claude/skills/node-templates/SKILL.md) |
 | See a role's identity + jurisdiction | [`.claude/agents/<role>.md`](.claude/agents/) |
+| Use the slash commands inside a session | [`.claude/skills/session-open/SKILL.md`](.claude/skills/session-open/SKILL.md) · [`session-close`](.claude/skills/session-close/SKILL.md) · [`catch-up`](.claude/skills/catch-up/SKILL.md) |
+| See how the engine works inside | [`engine/`](engine/) — `core/` (catalog, validators, api) + `adapters/github.py` (gh CLI) + `checks/` (semantic CI) + `mcp_server.py` |
 | Copy a reference deployment pipeline | [`examples/.github/workflows/sample-pipeline.yml`](examples/.github/workflows/sample-pipeline.yml) |
-| Set up your own GitHub repo for the framework | [`scripts/setup-github-project.sh`](scripts/setup-github-project.sh) |
+| Set up your own GitHub repo for the framework | [`scripts/setup-engine.sh`](scripts/setup-engine.sh) + [`scripts/setup-github-project.sh`](scripts/setup-github-project.sh) |
 
 ## Versioning and updates
 
