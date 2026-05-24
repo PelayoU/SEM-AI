@@ -10,16 +10,54 @@ The framework ships **infrastructure**, not methodology. The LLM brings methodol
 
 ## Use this template
 
-This repository is a **GitHub template**. To adopt the framework in a new project:
+This repository is a **GitHub template**. The framework is delivered as a clone — no `npm install`, no global packages. The engine and the rest of the framework live in the same repo; you get everything when you click "Use this template".
 
-1. Click **"Use this template"** → **"Create a new repository"** on the GitHub page of this repo.
-2. Clone your new repo locally.
-3. Run the provisioning script to set up Issue Types, labels, Projects v2, and custom fields:
-   ```bash
-   ./scripts/setup-github-project.sh
-   ```
-4. Open Claude Code at the repo root with a role: `claude --agent product-manager` (or `architect`, `developer`, `qa`, `devops`, `security-officer`).
-5. The first session typically opens a `vision` Issue — the polar star of your product (see [ADR-006](docs/adr/006-features-may-declare-experimental-intent.md) § Value ambition).
+### Today — `v0.3.0-pre` (no engine yet, 2 commands)
+
+```bash
+# 1. Create from template + clone
+gh repo create my-product --template owner/sem-ai
+gh repo clone owner/my-product
+cd my-product
+
+# 2. Provision GitHub structure: 7 Issue Types + labels + Projects v2
+./scripts/setup-github-project.sh
+
+# 3. Start working
+claude --agent product-manager
+```
+
+The agent reads / writes the graph via `mcp__github__*` (native Claude Code integration) and `gh` CLI. **Mechanical enforcement** of parent-type, jurisdiction, lifecycle, etc. is **not active yet** — the engine MCP that performs it ships in `v0.3.0`.
+
+### At `v0.3.0` — engine in the template (3 commands)
+
+```bash
+# 1. Create from template + clone
+gh repo create my-product --template owner/sem-ai
+gh repo clone owner/my-product
+cd my-product
+
+# 2. Set up the engine (local venv + minimal Python deps)
+./scripts/setup-engine.sh
+
+# 3. Provision GitHub structure
+./scripts/setup-github-project.sh
+
+# 4. Start working — engine MCP starts automatically with the session
+claude --agent product-manager
+```
+
+The engine adds **mechanical enforcement**: the agent that tries to create a `goal` with `parent=feature` gets a hard reject, not a polite suggestion. Hooks fire on graph events (`SessionStart`, `PreCompact`, `PostToolUse` on `transition_status` / `gh pr create` / `gh pr merge`) and auto-invoke role agents to perform semantic CI per [ADR-008 § two layers of CI](docs/adr/008-deployable-framework.md).
+
+The engine code lives in `engine/` inside the template — no pip install. See [ADR-008 § engine in the template](docs/adr/008-deployable-framework.md) for the rationale.
+
+### Beyond `v0.3.0` — optional pip package
+
+Once the adopter base grows and engine updates become routine, the same engine code may also be published as `pip install sem-ai-engine` for adopters who prefer that update model. **Optional**, not the primary distribution.
+
+### The first session
+
+Typically opens a `vision` Issue — the polar star of your product (see [ADR-006](docs/adr/006-features-may-declare-experimental-intent.md) § Value ambition). From there the work cascades: goals, capabilities, features, specs.
 
 ## Documentation map
 
