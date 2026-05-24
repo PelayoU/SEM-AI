@@ -1,6 +1,6 @@
 # SEM-AI
 
-**Software-Engineering-Management infrastructure for working with AI.** Six role-homologous AI agents (PM, Architect, Developer, QA, DevOps, Security Officer) collaborating reactively over a shared project-intent graph stored as GitHub Issues.
+**GitHub-native infrastructure for AI-augmented product development.** Six role-homologous AI agents (PM, Architect, Developer, QA, DevOps, Security Officer) collaborating reactively over a shared project-intent graph stored as GitHub Issues, with GitHub Actions as the recommended pipeline orchestrator (see ADR-009).
 
 The framework ships **infrastructure**, not methodology. The LLM brings methodology from its training; projects layer their own methodology via `.claude/skills/`. **Fixed layer** = Issue Types + custom fields + role contracts + the MCP + the hooks. **Variable layer** = body content + project-supplied methodology skills + project-supplied Actions.
 
@@ -25,6 +25,8 @@ The agent's identity is `.claude/agents/<role>.md`; the framework contract is th
 | [005](docs/adr/005-value-chain-probabilistic.md) | Value chain Output → Outcome → Benefit → Value — probabilistic, not deterministic; the framework enables value, does not provide it; learning is the guaranteed output of every cycle |
 | [006](docs/adr/006-features-may-declare-experimental-intent.md) | Features may declare experimental intent — delivery (pay off learning) or experiment (resolve uncertainty); vision as polar-star with Value ambition, features as steps toward it |
 | [007](docs/adr/007-holistic-dimensions-as-risk-surface.md) | Holistic dimensions are also the risk surface — an unvalidated dimension is a risk assumed without knowing; the four canonical risk classes (value / usability / viability / business viability) map to the dimensions |
+| [008](docs/adr/008-deployable-framework.md) | SEM-AI as a deployable framework — SemVer, distribution as GitHub template repo + future pip package, CI/CD pipeline, dogfood, extensibility boundary |
+| [009](docs/adr/009-github-as-primary-platform.md) | GitHub is the primary platform — backend, orchestrator (GitHub Actions recommended), distribution; the MCP layer is the real contract and the theoretical extension point for Jira / Linear / Jenkins / GitLab adapters post-v1 |
 
 ## The seven Issue Types
 
@@ -74,25 +76,28 @@ There is no mid-conversation role switch in Claude Code today. Cross-role input 
 
 Each session leaves its mark on the graph via Issue comments at three lifecycle points: 📍 in play / ✅ decision (role) / 🏁 closed. The full session model is in `framework/SKILL.md` § Sessions.
 
-## Status (v0.3 — 2026-05-24)
+## Status (v0.3.0-pre — 2026-05-24)
 
-Conceptual model:
+Conceptual model — closed across nine ADRs:
 
 - ✅ Catalog audited down to 7 Issue Types + native bridges (ADR-001)
 - ✅ Hierarchical loop + anchor-pending pattern (ADR-002)
 - ✅ Holistic product dimensions in spine templates + as evaluation lens (ADR-003)
 - ✅ Invocation model: hooks primary, MCP writes, Actions opt-in (ADR-004)
 - ✅ Value chain Output→Outcome→Benefit→Value, probabilistic; learning as guaranteed output (ADR-005)
-- ✅ Features may declare experimental intent; vision as polar-star with Value ambition (ADR-006)
+- ✅ Features may declare experimental intent; vision as polar-star with Value ambition (ADR-006); label `experiment` as visibility complement
 - ✅ Holistic dimensions are also the risk surface; modern approach principles 1-3 covered (ADR-007)
+- ✅ SEM-AI as a deployable framework — SemVer, distribution, CI/CD, dogfood (ADR-008)
+- ✅ GitHub as the primary platform — backend + orchestrator + distribution; MCP as extension point (ADR-009)
 - ✅ Session model on branches (no worktrees) + comments-lifecycle huella en el grafo
 - ✅ 6 agent.md methodology-blind; framework + node-templates skills aligned
 
-Implementation pending:
+Implementation pending — the road to `v0.3.0`:
 
 - ⏳ Engine MCP backend (the 19 + 3 tools, with `acting_role` + `triggered_by` enforcement) — not yet implemented
 - ⏳ `engine/checks/` library — not yet implemented
 - ⏳ 5 hooks in `.claude/settings.json` — not yet declared
 - ⏳ `/session-open`, `/session-close`, `/catch-up` skills — not yet implemented
-- ⏳ `examples/.github/workflows/` — not yet shipped
-- ⏳ `scripts/setup-github-project.sh` (provisions the 7 Issue Types + custom fields + saved views + `bug` label) — not yet shipped
+- ⏳ `scripts/setup-github-project.sh` (provisions Issue Types + custom fields + saved views + labels `bug` + `experiment`) — not yet shipped
+- ⏳ `examples/.github/workflows/` — sample pipeline + structural Action examples not yet shipped
+- ⏳ Framework's own CI in `.github/workflows/sem-ai-ci.yml` — not yet shipped
