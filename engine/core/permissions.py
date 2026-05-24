@@ -74,6 +74,7 @@ RESTRICTED_OPS: frozenset[str] = frozenset(
         "supersede",
         "add_label",
         "remove_label",
+        "create_milestone",
         "assign_to_milestone",
         "publish_release",
     }

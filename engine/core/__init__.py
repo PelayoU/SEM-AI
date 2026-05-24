@@ -3,8 +3,9 @@
 This module is **backend-agnostic**: no I/O, no GitHub knowledge, no MCP server
 machinery. Pure data + validation logic. The catalog (the 7 Issue Types and
 their rules), the permissions matrix (role-jurisdiction + triggered_by), the
-validators (parent-type, status, jurisdiction, triggered_by), and the
-exceptions raised on hard-reject all live here.
+validators (parent-type, status, jurisdiction, triggered_by), the data models
+(Node, Finding, ProjectMap, …), and the 22 api tools (which delegate I/O to
+adapters) all live here.
 
 Adapters (`engine/adapters/`) translate between this domain and concrete
 backends (GitHub today, possibly Jira/Linear post-v1 per ADR-009). The MCP
@@ -24,7 +25,23 @@ from .exceptions import (
     SupersedeViolation,
     TriggeredByViolation,
 )
-from .permissions import JURISDICTION, RESTRICTED_OPS, Role, TriggeredBy
+from .models import (
+    Finding,
+    InstanceConfig,
+    Milestone,
+    Node,
+    ProjectMap,
+    Release,
+    SizeEstimate,
+    TreeNode,
+)
+from .permissions import (
+    ALWAYS_PERMITTED_OPS,
+    JURISDICTION,
+    RESTRICTED_OPS,
+    Role,
+    TriggeredBy,
+)
 from .validators import (
     validate_jurisdiction,
     validate_parent,
@@ -40,6 +57,7 @@ __all__ = [
     "Status",
     "TypeContract",
     # permissions
+    "ALWAYS_PERMITTED_OPS",
     "JURISDICTION",
     "RESTRICTED_OPS",
     "Role",
@@ -57,4 +75,17 @@ __all__ = [
     "validate_status",
     "validate_supersede",
     "validate_triggered_by",
+    # models
+    "Finding",
+    "InstanceConfig",
+    "Milestone",
+    "Node",
+    "ProjectMap",
+    "Release",
+    "SizeEstimate",
+    "TreeNode",
 ]
+
+# Note: `api` is NOT re-exported here to avoid a circular import
+# (api imports adapters.base which imports core.catalog). Import api
+# directly: `from engine.core import api`.
