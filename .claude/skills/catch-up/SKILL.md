@@ -96,4 +96,3 @@ Issues are grouped by type (vision / goal / capability / feature / story / spec 
 ## Related
 
 - `framework/SKILL.md` § Sessions and the SessionStart hook — for the always-on bootstrap
-- ADR-004 § hooks — the broader reactive context

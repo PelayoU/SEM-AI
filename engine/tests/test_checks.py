@@ -207,7 +207,7 @@ class TestArchitectCoherence:
         old = adapter.seed_node(
             type=NodeType.ADR, parent_id="#1",
             body="## Context\nA\n## Decision\nB\n## Consequences\nC",
-            status=Status.ACCEPTED,  # still accepted, not superseded
+            status=Status.ACCEPTED, # still accepted, not superseded
         )
         new = adapter.seed_node(
             type=NodeType.ADR, parent_id="#1",
@@ -402,7 +402,7 @@ class TestRunAllChecks:
         adapter.seed_node(id="#1", type=NodeType.VISION, status=Status.ACTIVE)
         adr = adapter.seed_node(
             type=NodeType.ADR, parent_id="#1",
-            body="## Decision\nDo X",  # missing Context + Consequences
+            body="## Decision\nDo X", # missing Context + Consequences
         )
         findings = run_all_checks(adr, adapter)
         codes = {f.code for f in findings}
@@ -424,7 +424,7 @@ class TestValidateNodeIntegration:
         adapter.seed_node(id="#1", type=NodeType.VISION, status=Status.ACTIVE)
         adr = adapter.seed_node(
             type=NodeType.ADR, parent_id="#1",
-            body="## Decision\nDo X",  # missing Context, Consequences,
+            body="## Decision\nDo X", # missing Context, Consequences,
                                        # Security attributes
         )
         findings = api.validate_node(adapter, adr.id)

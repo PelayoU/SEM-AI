@@ -87,4 +87,3 @@ After this skill completes:
 - `framework/SKILL.md` § Sessions — the full session model
 - `/session-close` skill — the counterpart that closes the session
 - `/catch-up` skill — for digesting changes that happened while you were away
-- ADR-001 § Native objects, ADR-004 § hooks — the broader context

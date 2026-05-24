@@ -20,7 +20,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.hooks._common import emit_context, read_input  # noqa: E402
+from scripts.hooks._common import emit_context, read_input # noqa: E402
 
 # Match "--body 'text with closes #N'" or "--body \"text\""
 _BODY_FLAG_RE = re.compile(r"--body\s+(?:'([^']*)'|\"([^\"]*)\")")
@@ -84,7 +84,7 @@ def main() -> int:
             continue
 
     if not all_findings:
-        return 0  # quiet — all the Issues being closed look fine
+        return 0 # quiet — all the Issues being closed look fine
 
     lines = [
         f"📋 Pre-PR checks across {len(closed_ids)} Issue(s) surfaced "
@@ -95,7 +95,7 @@ def main() -> int:
         sev_emoji = {"info": "ℹ️", "warning": "⚠️", "error": "❌"}.get(
             f.severity, "•"
         )
-        lines.append(f"  {sev_emoji} {issue_id} [{f.code}] {f.message}")
+        lines.append(f" {sev_emoji} {issue_id} [{f.code}] {f.message}")
     lines.append("")
     lines.append(
         "These are warnings (the hook does not block). Consider addressing "

@@ -2,10 +2,10 @@
 
 The api layer (`engine/core/api.py`) talks ONLY to this interface; it never
 touches GitHub / Jira / Linear directly. This is what makes backends
-swappable per ADR-004 update + ADR-009.
+swappable + .
 
 The interface is internal to the engine — adopters do not implement adapters
-themselves. New adapters are framework contributions per ADR-008
+themselves. New adapters are framework contributions
 extensibility boundary.
 """
 
@@ -137,7 +137,7 @@ class BackendAdapter(ABC):
     ) -> None:
         """Link superseded_id as superseded BY superseding_id; close the chain."""
 
-    # ----- Milestone / Release bridges (ADR-001 § Milestone and Release operations) -----
+    # ----- Milestone / Release bridges -----
 
     @abstractmethod
     def create_milestone(

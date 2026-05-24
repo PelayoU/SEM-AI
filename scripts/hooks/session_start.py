@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SessionStart hook — bootstrap the session doc + project map mínimo.
 
-Per ADR-004 + framework SKILL § Sessions: when a new Claude Code conversation
+Per + framework SKILL § Sessions: when a new Claude Code conversation
 opens on a `session/*` branch, this hook injects the session doc (Context +
 Decisions + Handoff + in-play Issues) as additionalContext so the agent
 arrives oriented. On `main` (no active session), it injects a brief note
@@ -20,7 +20,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.hooks._common import (  # noqa: E402
+from scripts.hooks._common import ( # noqa: E402
     current_branch,
     emit_context,
     is_session_branch,

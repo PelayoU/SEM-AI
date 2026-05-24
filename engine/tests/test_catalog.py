@@ -2,7 +2,7 @@
 
 Verifies the seven Issue Types are coherent: parent rules form a tree rooted
 at vision, statuses include the initial + terminal options, and the codified
-rules match ADR-001's documented contracts.
+rules match 's documented contracts.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ def test_get_contract_returns_catalog_entry():
 
 
 def test_only_vision_is_root():
-    """Vision is the single type with no parent (per ADR-001)."""
+    """Vision is the single type with no parent."""
     assert CATALOG[NodeType.VISION].valid_parent_types is None
     for nt in NodeType:
         if nt is NodeType.VISION:
@@ -69,14 +69,14 @@ def test_story_parent_is_feature():
 
 
 def test_spec_parent_is_feature():
-    """Spec sits beside story, both children of feature (per ADR-001)."""
+    """Spec sits beside story, both children of feature."""
     assert CATALOG[NodeType.SPEC].valid_parent_types == frozenset(
         {NodeType.FEATURE}
     )
 
 
 def test_adr_can_have_any_spine_parent():
-    """ADRs constrain any spine node (per ADR-001 § cross-axis)."""
+    """ADRs constrain any spine node."""
     adr_parents = CATALOG[NodeType.ADR].valid_parent_types
     expected = frozenset(
         {
@@ -115,7 +115,7 @@ def test_terminal_statuses_subset_of_valid_statuses():
 
 
 def test_deprecated_terminal_universal():
-    """Every type can be deprecated (per ADR-001 + ADR-005 § retiring nodes)."""
+    """Every type can be deprecated."""
     for nt, contract in CATALOG.items():
         assert Status.DEPRECATED in contract.terminal_statuses, (
             f"{nt.value} should accept deprecation as a terminal status"
@@ -123,14 +123,14 @@ def test_deprecated_terminal_universal():
 
 
 def test_vision_statuses_minimal():
-    """Vision is rarely changed: active and deprecated only (ADR-001)."""
+    """Vision is rarely changed: active and deprecated only."""
     assert CATALOG[NodeType.VISION].valid_statuses == frozenset(
         {Status.ACTIVE, Status.DEPRECATED}
     )
 
 
 def test_goal_and_capability_share_same_lifecycle():
-    """Goal and capability use the same lifecycle (ADR-001)."""
+    """Goal and capability use the same lifecycle."""
     assert (
         CATALOG[NodeType.GOAL].valid_statuses
         == CATALOG[NodeType.CAPABILITY].valid_statuses
@@ -138,7 +138,7 @@ def test_goal_and_capability_share_same_lifecycle():
 
 
 def test_feature_and_story_share_same_lifecycle():
-    """Feature and story use the same lifecycle (ADR-001)."""
+    """Feature and story use the same lifecycle."""
     assert (
         CATALOG[NodeType.FEATURE].valid_statuses
         == CATALOG[NodeType.STORY].valid_statuses
@@ -146,14 +146,14 @@ def test_feature_and_story_share_same_lifecycle():
 
 
 def test_spec_has_ready_for_implementation_phase():
-    """Spec includes ready-for-implementation + in-implementation (ADR-001)."""
+    """Spec includes ready-for-implementation + in-implementation."""
     spec_statuses = CATALOG[NodeType.SPEC].valid_statuses
     assert Status.READY_FOR_IMPLEMENTATION in spec_statuses
     assert Status.IN_IMPLEMENTATION in spec_statuses
 
 
 def test_adr_has_proposed_accepted_superseded():
-    """ADR uses the canonical Nygard chain (ADR-001 § adr type)."""
+    """ADR uses the canonical Nygard chain."""
     adr_statuses = CATALOG[NodeType.ADR].valid_statuses
     assert Status.PROPOSED in adr_statuses
     assert Status.ACCEPTED in adr_statuses

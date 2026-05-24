@@ -19,7 +19,7 @@ This skill performs the close mechanics (Handoff + 🏁 + disposition prompt) bu
 
 - The session's work is complete (or has reached a meaningful stopping point worth recording).
 - You're handing off the work to another role or to "tomorrow" — the doc has to reflect the final state, not the opening assumption.
-- A session can also be closed when it failed to produce value (per ADR-005 § value chain probabilistic — learning is the guaranteed output; closure preserves the learning).
+- A session can also be closed when it failed to produce value — learning is the guaranteed output of every cycle, and closure preserves the learning.
 
 **Don't auto-close on a context switch.** If you are pausing work but expect to return, leave the session open and rely on `SessionStart` to re-hydrate you. Only close when the work block is genuinely done.
 
@@ -78,7 +78,7 @@ Note: the 🏁 Issue comments are still posted (the learning is recorded). The b
 🏁 Session closed: [session/<id>](url) — <outcome>
 ```
 
-This format is mechanical (the `🏁` marker is load-bearing for the framework's get_node_artifacts derivation per ADR-001 § Native objects). Don't customize the marker; customize only the outcome text via `--outcome`.
+This format is mechanical (the `🏁` marker is load-bearing for the framework's get_node_artifacts derivation). Don't customize the marker; customize only the outcome text via `--outcome`.
 
 ## What this skill does NOT do
 
@@ -90,5 +90,4 @@ This format is mechanical (the `🏁` marker is load-bearing for the framework's
 
 - `/session-open` — the counterpart
 - `framework/SKILL.md` § Sessions — the full model
-- ADR-005 § value chain — guidance on Value chain section before close
-- ADR-006 § experimental intent — guidance on closing experimental features
+- `node-templates/SKILL.md` § feature template — Value chain + Uncertainty addressed sections, the guidance before closing experimental features

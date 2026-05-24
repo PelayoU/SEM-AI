@@ -9,8 +9,8 @@ Inspects ADR nodes for structural completeness and chain consistency:
     body reference might fail this check if not handled via the supersede
     tool).
 
-These are warn-level findings; the Architect agent (invoked via hook per
-ADR-004 when an ADR moves to `accepted`) does deeper review.
+These are warn-level findings; the Architect agent (invoked via hook when an
+ADR moves to `accepted`) does deeper review.
 """
 
 from __future__ import annotations

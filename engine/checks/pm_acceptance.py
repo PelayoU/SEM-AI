@@ -4,11 +4,11 @@ Inspects spec and feature nodes for structural fitness against the
 templates in `node-templates/SKILL.md`:
   - Spec: Acceptance Criteria section populated with AC-A* entries.
   - Feature in 'done' status: Value chain section populated, especially
-    the 'Learning extracted' slot (the guaranteed output per ADR-005).
+    the 'Learning extracted' slot (the guaranteed output).
   - Feature with 'experiment' label: Uncertainty addressed section
-    populated (per ADR-006 update).
+    populated.
 
-The PM agent (invoked via hook on PR creation per ADR-004) does deeper
+The PM agent (invoked via hook on PR creation) does deeper
 review of acceptance vs implementation; this check is the structural
 first pass.
 """
@@ -72,7 +72,7 @@ def check_pm_acceptance(ctx: CheckContext) -> list[Finding]:
                         code="PM003",
                         message=(
                             "Feature is 'done' but the 'Value chain' section "
-                            "is missing or empty. Per ADR-005, post-done the "
+                            "is missing or empty. Per , post-done the "
                             "section must be populated honestly — Outputs / "
                             "Outcomes observed / Benefits / Value assessment / "
                             "Learning extracted / Next cards surfaced."
@@ -90,7 +90,7 @@ def check_pm_acceptance(ctx: CheckContext) -> list[Finding]:
                             message=(
                                 "Feature 'done' with Value chain present but "
                                 "'Learning extracted' missing or N/A. Per "
-                                "ADR-005, learning is the guaranteed output "
+                                ", learning is the guaranteed output "
                                 "of every cycle — never N/A. Populate before "
                                 "closing the cycle."
                             ),
@@ -98,7 +98,7 @@ def check_pm_acceptance(ctx: CheckContext) -> list[Finding]:
                     )
 
         # If feature has 'experiment' label, Uncertainty addressed must be
-        # populated (the engine maintains slot-label coherence per ADR-006,
+        # populated (the engine maintains slot-label coherence,
         # but this check catches edits made outside the engine).
         if "experiment" in ctx.node.labels:
             if not section_is_populated(body, "Uncertainty addressed"):
@@ -109,7 +109,7 @@ def check_pm_acceptance(ctx: CheckContext) -> list[Finding]:
                         message=(
                             "Feature has the 'experiment' label but the "
                             "'Uncertainty addressed' section is empty or "
-                            "N/A. The label-slot coherence (ADR-006 update) "
+                            "N/A. The label-slot coherence "
                             "is mechanically maintained by the engine, but "
                             "manual edits via UI may break it. Either "
                             "populate the slot or remove the label."

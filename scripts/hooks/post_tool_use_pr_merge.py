@@ -3,7 +3,7 @@
 
 When a PR mergers, parse 'Closes #N' references from the PR body and post
 a comment on each closed Issue listing the files the PR changed. This
-materializes the artifacts-derived-from-PRs rule per ADR-001.
+materializes the artifacts-derived-from-PRs rule.
 
 The bot comment format: '📦 Artifacts derived: ...' so it's distinct from
 the 📍/✅/🏁 session lifecycle markers.
@@ -24,7 +24,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.hooks._common import emit, read_input  # noqa: E402
+from scripts.hooks._common import emit, read_input # noqa: E402
 
 # Match `gh pr merge <num>` or `gh pr merge <num> --squash` etc.
 _PR_NUM_RE = re.compile(r"gh\s+pr\s+merge\s+(\d+)")

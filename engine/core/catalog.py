@@ -5,8 +5,8 @@ rules: which parent types are valid, which statuses are legal, where the
 lifecycle starts, and which terminal states it can end at. The validators
 (`engine/core/validators.py`) consult this table on every write.
 
-Source of truth: ADR-001 (catalog of 7 types + status validation per type)
-plus ADR-002 (anchor-pending pattern uses `draft` as initial for most types).
+Source of truth: (catalog of 7 types + status validation per type)
+plus (anchor-pending pattern uses `draft` as initial for most types).
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from enum import Enum
 
 
 class NodeType(str, Enum):
-    """The seven Issue Types the framework recognises (ADR-001)."""
+    """The seven Issue Types the framework recognises."""
 
     VISION = "vision"
     GOAL = "goal"
@@ -28,7 +28,7 @@ class NodeType(str, Enum):
 
 
 class Status(str, Enum):
-    """The union of all per-type statuses (ADR-001 § Status validation per type).
+    """The union of all per-type statuses.
 
     Projects v2 exposes one "Status" select field at board level whose option
     list is this union. Each type's legal subset is enforced by the validators,
@@ -82,10 +82,10 @@ class TypeContract:
 
 
 #: The catalog — single source of truth for the 7 Issue Types.
-#: Codified from ADR-001 § Status validation per type.
+#: Codified from .
 CATALOG: dict[NodeType, TypeContract] = {
     NodeType.VISION: TypeContract(
-        valid_parent_types=None,  # root — only one vision per project
+        valid_parent_types=None, # root — only one vision per project
         valid_statuses=frozenset({Status.ACTIVE, Status.DEPRECATED}),
         initial_status=Status.ACTIVE,
         terminal_statuses=frozenset({Status.DEPRECATED}),

@@ -33,7 +33,7 @@ class Node:
     parent_id: str | None
     related_ids: tuple[str, ...]
     labels: tuple[str, ...]
-    created_at: str  # ISO 8601 timestamp
+    created_at: str # ISO 8601 timestamp
     updated_at: str
     maintained_by_role: Role | None
     milestone: str | None
@@ -48,7 +48,7 @@ class Finding:
     from the (future) `engine/checks/` library.
     """
 
-    severity: str  # "warning" | "info"
+    severity: str # "warning" | "info"
     code: str
     message: str
 
@@ -58,8 +58,8 @@ class SizeEstimate:
     """Result of `estimate_size`. Methodology supplied by project skills."""
 
     node_id: str
-    estimate: str  # free-form ("8 story points", "M", "2-3 weeks", etc.)
-    confidence: str  # free-form ("low", "high", "anchored", etc.)
+    estimate: str # free-form ("8 story points", "M", "2-3 weeks", etc.)
+    confidence: str # free-form ("low", "high", "anchored", etc.)
     rationale: str
 
 
@@ -88,11 +88,11 @@ class TreeNode:
 
 @dataclass(frozen=True)
 class Milestone:
-    """A GitHub Milestone (per ADR-001 § Native objects we don't duplicate)."""
+    """A GitHub Milestone."""
 
     number: int
     title: str
-    state: str  # "open" | "closed"
+    state: str # "open" | "closed"
     due_on: str | None
     body: str
     url: str
@@ -100,7 +100,7 @@ class Milestone:
 
 @dataclass(frozen=True)
 class Release:
-    """A GitHub Release (per ADR-001)."""
+    """A GitHub Release."""
 
     tag: str
     name: str
@@ -113,13 +113,12 @@ class Release:
 class InstanceConfig:
     """Project-level configuration the adapter exposes to the agent.
 
-    Sourced from `.sem-ai/config.yaml` + env var overrides per ADR-004 update
-    § config (when the github adapter implements it). The API tool
+    Sourced from `.sem-ai/config.yaml` + env var overrides. The API tool
     `get_instance_config` returns this so the agent can introspect the
     repo it's operating on.
     """
 
-    repo: str  # "owner/name"
-    backend: str  # "github" for v0.3.0
-    project_id: str | None  # Projects v2 number or null if not provisioned
+    repo: str # "owner/name"
+    backend: str # "github" for v0.3.0
+    project_id: str | None # Projects v2 number or null if not provisioned
     default_milestone: str | None

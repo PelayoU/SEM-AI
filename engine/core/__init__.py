@@ -8,10 +8,10 @@ validators (parent-type, status, jurisdiction, triggered_by), the data models
 adapters) all live here.
 
 Adapters (`engine/adapters/`) translate between this domain and concrete
-backends (GitHub today, possibly Jira/Linear post-v1 per ADR-009). The MCP
+backends (GitHub today, possibly Jira/Linear post-v1). The MCP
 server (`engine/mcp_server.py`) exposes the api functions to the agent.
 
-For the conceptual rationale see ADR-001 (the catalog), ADR-004 (the
+For the conceptual rationale (the catalog), (the
 invocation model + the update on adapter pattern), and the related ADRs
 referenced from those.
 """

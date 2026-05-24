@@ -31,9 +31,9 @@ export SEM_AI_REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 claude --agent product-manager
 ```
 
-The engine provides **mechanical enforcement**: an agent that tries to create a `goal` with `parent=feature` gets a hard reject, not a polite suggestion. Hooks fire on graph events (`SessionStart`, `PreCompact`, `PostToolUse` on `transition_status` / `gh pr merge`, `PreToolUse` on `gh pr create`) and run engine/checks/ for semantic CI per [ADR-008 § two layers of CI](docs/adr/008-deployable-framework.md).
+The engine provides **mechanical enforcement**: an agent that tries to create a `goal` with `parent=feature` gets a hard reject, not a polite suggestion. Hooks fire on graph events (`SessionStart`, `PreCompact`, `PostToolUse` on `transition_status` / `gh pr merge`, `PreToolUse` on `gh pr create`) and run `engine/checks/` for semantic CI. The framework runs two layers of validation: structural CI on every push (catalog + skills + agents + settings), and semantic CI inside Claude Code sessions (hooks invoke role-coherence checks).
 
-The engine code lives in `engine/` inside the template — no pip install. See [ADR-008 § engine in the template](docs/adr/008-deployable-framework.md) for the rationale.
+The engine code lives in `engine/` inside the template — no pip install. The rationale: the framework is one cohesive artifact; splitting the engine into a separately-versioned package would force adopters to track two version axes for no clear gain at this stage.
 
 ### Inside a session
 
@@ -49,14 +49,14 @@ Once the adopter base grows and engine updates become routine, the same engine c
 
 ### The first session
 
-Typically opens a `vision` Issue — the polar star of your product (see [ADR-006](docs/adr/006-features-may-declare-experimental-intent.md) § Value ambition). From there the work cascades: goals, capabilities, features, specs.
+Typically opens a `vision` Issue — the polar star of your product. The vision encodes both identity (Positioning) and ambition (Value ambition — the destination of the value chain). From there the work cascades: goals, capabilities, features, specs.
 
 ## Documentation map
 
 | If you want to… | Read |
 |---|---|
 | Understand the framework in 5 minutes | [`CLAUDE.md`](CLAUDE.md) |
-| See the canonical decisions | [`docs/adr/`](docs/adr/) (nine ADRs, numbered) |
+| See the canonical decisions | The SEM-AI project's Issues filtered by `type:adr` — the framework's own decisions live in its own graph |
 | Understand the contract every agent obeys | [`.claude/skills/framework/SKILL.md`](.claude/skills/framework/SKILL.md) |
 | See the body templates for the seven Issue Types | [`.claude/skills/node-templates/SKILL.md`](.claude/skills/node-templates/SKILL.md) |
 | See a role's identity + jurisdiction | [`.claude/agents/<role>.md`](.claude/agents/) |
@@ -67,7 +67,7 @@ Typically opens a `vision` Issue — the polar star of your product (see [ADR-00
 
 ## Versioning and updates
 
-SEM-AI uses [Semantic Versioning](https://semver.org/) per [ADR-008](docs/adr/008-deployable-framework.md):
+SEM-AI uses [Semantic Versioning](https://semver.org/):
 
 - **MAJOR** — break in the catalog of Issue Types, role-jurisdiction matrix, or existing ADR decision.
 - **MINOR** — new ADR adding functionality, new skill, new Action example, backward-compatible MCP tool.
@@ -77,7 +77,7 @@ When a new version ships, adopters read the changelog (generated from the framew
 
 ## Other platforms
 
-SEM-AI is GitHub-first by decision (see [ADR-009](docs/adr/009-github-as-primary-platform.md)). The MCP layer is the framework's real contract and the theoretical extension point for adapters to Jira / Linear / Jenkins / GitLab CI — but those adapters are not ship in `v0.x`. Adopters on non-GitHub stacks can integrate via webhooks at their own adaptation cost.
+SEM-AI is GitHub-first by decision. The MCP layer is the framework's real contract and the theoretical extension point for adapters to Jira / Linear / Jenkins / GitLab CI — but those adapters do not ship in `v0.x`. Adopters on non-GitHub stacks can integrate via webhooks at their own adaptation cost.
 
 ## License
 

@@ -2,18 +2,20 @@
 """sem-ai-ci validators — stage runner.
 
 Subcommands:
-  adrs      ADR coherence — header present, internal links resolve, supersede chain consistent
-  skills    Skill frontmatter — framework + node-templates SKILL.md have valid `name:` matching directory
-  agents    Agent frontmatter — the six agent.md files have required fields + preload framework + node-templates
-  settings  .claude/settings.json — valid JSON; hooks structure (when present) per ADR-004
+  skills Skill frontmatter — framework + node-templates SKILL.md have valid `name:` matching directory
+  agents Agent frontmatter — the six agent.md files have required fields + preload framework + node-templates
+  settings .claude/settings.json — valid JSON; hooks structure (when present)
 
 Usage:
-  python scripts/validators/check_repo.py adrs
   python scripts/validators/check_repo.py skills
   python scripts/validators/check_repo.py agents
   python scripts/validators/check_repo.py settings
 
 Exits 0 on pass, 1 on fail with a list of issues, 2 on bad invocation.
+
+Note: ADR coherence is no longer checked here. ADRs live as GitHub Issues
+(type:adr) in the project's graph, not as markdown files; their integrity
+is enforced by the engine MCP when they are created/updated.
 """
 
 from __future__ import annotations
@@ -26,7 +28,6 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-ADR_DIR = ROOT / "docs" / "adr"
 SKILLS_DIR = ROOT / ".claude" / "skills"
 AGENTS_DIR = ROOT / ".claude" / "agents"
 SETTINGS_FILE = ROOT / ".claude" / "settings.json"
@@ -65,49 +66,7 @@ def parse_frontmatter(text: str) -> dict | None:
     return data if isinstance(data, dict) else None
 
 
-# ----- Stage 1: ADR coherence --------------------------------------------------
-
-
-def check_adrs() -> int:
-    if not ADR_DIR.exists():
-        emit_fail(f"ADR directory not found: {ADR_DIR.relative_to(ROOT)}")
-        return 1
-    adr_files = sorted(ADR_DIR.glob("[0-9][0-9][0-9]-*.md"))
-    if not adr_files:
-        emit_fail(f"No ADRs found in {ADR_DIR.relative_to(ROOT)}")
-        return 1
-
-    available_slugs = {p.stem for p in adr_files}
-    required_headers = ("Status", "Date", "Supersedes", "Superseded by")
-    errors: list[str] = []
-
-    for adr in adr_files:
-        rel = adr.relative_to(ROOT)
-        text = adr.read_text(encoding="utf-8")
-
-        if not text.startswith("# ADR-"):
-            errors.append(f"{rel}: must start with '# ADR-...' first heading")
-
-        for header in required_headers:
-            pattern = rf"^- \*\*{re.escape(header)}\*\*:"
-            if not re.search(pattern, text, re.MULTILINE):
-                errors.append(f"{rel}: missing '- **{header}**:' header line")
-
-        for m in re.finditer(r"docs/adr/(\d{3}-[a-z0-9-]+)\.md", text):
-            ref_slug = m.group(1)
-            if ref_slug not in available_slugs:
-                errors.append(f"{rel}: references missing ADR file docs/adr/{ref_slug}.md")
-
-    if errors:
-        for e in errors:
-            emit_fail(e)
-        return 1
-
-    emit_ok(f"{len(adr_files)} ADRs validated")
-    return 0
-
-
-# ----- Stage 2: Skill frontmatter ----------------------------------------------
+# ----- Stage 1: Skill frontmatter ----------------------------------------------
 
 
 def check_skills() -> int:
@@ -193,7 +152,7 @@ def check_settings() -> int:
     if not isinstance(data, dict):
         emit_fail(".claude/settings.json: top-level must be an object")
         return 1
-    # When hooks are declared (post-v0.3.0), validate structure per ADR-004.
+    # When hooks are declared (post-v0.3.0), validate structure.
     # For now, presence-only check.
     hooks = data.get("hooks")
     if hooks is not None and not isinstance(hooks, dict):
@@ -207,7 +166,6 @@ def check_settings() -> int:
 
 
 COMMANDS = {
-    "adrs": check_adrs,
     "skills": check_skills,
     "agents": check_agents,
     "settings": check_settings,

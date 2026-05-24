@@ -20,13 +20,13 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.skills._common import (  # noqa: E402
+from scripts.skills._common import ( # noqa: E402
     normalize_issue_number,
     session_id_from_branch,
     slugify,
     today,
 )
-from scripts.skills.session_close import parse_in_play_from_doc  # noqa: E402
+from scripts.skills.session_close import parse_in_play_from_doc # noqa: E402
 
 
 # ----- _common --------------------------------------------------------------
@@ -35,7 +35,7 @@ from scripts.skills.session_close import parse_in_play_from_doc  # noqa: E402
 class TestCommon:
     def test_today_format(self):
         result = today()
-        assert len(result) == 10  # YYYY-MM-DD
+        assert len(result) == 10 # YYYY-MM-DD
         assert result.count("-") == 2
 
     def test_slugify_simple(self):
@@ -87,7 +87,7 @@ class TestParseInPlayFromDoc:
         assert parse_in_play_from_doc(doc) == ["#7"]
 
     def test_strip_quotes_and_whitespace(self):
-        doc = '---\nin-play: [ "#1" , \'#2\' ,   #3 ]\n---\n'
+        doc = '---\nin-play: [ "#1" , \'#2\' , #3 ]\n---\n'
         result = parse_in_play_from_doc(doc)
         # All three should be captured (quotes and whitespace stripped)
         assert "#1" in result

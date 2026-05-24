@@ -13,8 +13,8 @@ start of a session. Persists the last-invocation timestamp in
 last time".
 
 Usage:
-  python scripts/skills/catch_up.py                # since last invocation
-  python scripts/skills/catch_up.py --since 7d     # last 7 days
+  python scripts/skills/catch_up.py # since last invocation
+  python scripts/skills/catch_up.py --since 7d # last 7 days
   python scripts/skills/catch_up.py --since 2026-05-01T00:00:00Z
 """
 

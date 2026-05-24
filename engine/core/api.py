@@ -4,7 +4,7 @@ Each function:
 1. Validates inputs via the validators (`engine/core/validators.py`).
 2. Delegates the I/O to a `BackendAdapter` (the github / jira / linear etc.
    implementation passed in).
-3. Maintains coherence between body and labels (per ADR-006 update: the
+3. Maintains coherence between body and labels (per : the
    `experiment` label tracks the `Uncertainty addressed` slot).
 
 The functions are pure with respect to the adapter — they don't know how the
@@ -58,7 +58,7 @@ def _is_experimental_body(body: str | None) -> bool:
     section's content starts with `N/A` (case-insensitive). Returns True
     otherwise.
 
-    Implements the slot-label coherence rule of ADR-006 update.
+    Implements the slot-label coherence rule of .
     """
     if not body:
         return False
@@ -87,7 +87,7 @@ def _ensure_experiment_label_coherence(
     add/remove); if no change was needed, returns the input node unchanged.
     """
     if node.type is not NodeType.FEATURE:
-        return node  # the slot exists only on feature; story drops it
+        return node # the slot exists only on feature; story drops it
     should_be_experimental = _is_experimental_body(new_body)
     currently_has = _EXPERIMENT_LABEL in node.labels
     if should_be_experimental and not currently_has:
@@ -381,9 +381,9 @@ def create_milestone(
     acting_role: Role,
     triggered_by: TriggeredBy = TriggeredBy.HUMAN,
 ) -> Milestone:
-    """Create a Milestone — release planning, per ADR-001 § Milestone operations.
+    """Create a Milestone — release planning,.
 
-    Only `acting_role=pm` is authorised (per ADR-001 table). The validator
+    Only `acting_role=pm` is authorised (per table). The validator
     here is a special case — milestone is not in the Issue Type catalog, so
     the jurisdiction check is inlined.
     """
@@ -393,7 +393,7 @@ def create_milestone(
 
         raise JurisdictionViolation(
             f"role {acting_role.value!r} is not authorised to create Milestones. "
-            f"Authorised role: 'product-manager' (ADR-001 § Milestone operations)"
+            f"Authorised role: 'product-manager'"
         )
     return adapter.create_milestone(title, due_date, body, acting_role=acting_role)
 
@@ -429,7 +429,7 @@ def publish_release(
 ) -> Release:
     """Close a Milestone and publish the corresponding GitHub Release.
 
-    Only `acting_role=devops` is authorised (per ADR-001 table). DevOps owns
+    Only `acting_role=devops` is authorised (per table). DevOps owns
     the publication moment of a release.
     """
     validate_triggered_by("publish_release", triggered_by)
@@ -438,6 +438,6 @@ def publish_release(
 
         raise JurisdictionViolation(
             f"role {acting_role.value!r} is not authorised to publish Releases. "
-            f"Authorised role: 'devops' (ADR-001 § Milestone operations)"
+            f"Authorised role: 'devops'"
         )
     return adapter.publish_release(milestone_number, tag, notes, acting_role=acting_role)

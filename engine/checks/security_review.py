@@ -1,18 +1,17 @@
 """Security review check.
 
 Inspects spec / ADR / feature nodes for:
-  1. Presence of the Security attributes section (ADR template per
+  1. Presence of the Security attributes section (the ADR template in the
      node-templates SKILL has this section explicitly).
   2. Threat keywords (auth, password, token, secret, PII, …) in the body
      trigger a check that the Security attributes section is populated.
-  3. ADR template's Security attributes section being N/A on a node that
-     touches auth/crypto/data is flagged as a defect (per ADR-007 +
-     framework SKILL: silence on the security topic is among the top
-     architectural defects).
+  3. The Security attributes section being N/A on a node that touches
+     auth/crypto/data is flagged as a defect — silence on the security
+     topic is among the top architectural defects.
 
 Findings are warn-level — they do not block writes. The Security Officer
-agent (invoked via hook per ADR-004) does deeper semantic review; this
-check is the mechanical first pass.
+agent (invoked via hook) does deeper semantic review; this check is the
+mechanical first pass.
 """
 
 from __future__ import annotations

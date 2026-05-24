@@ -3,7 +3,7 @@
 
 When a node transitions status, run engine/checks/ semantic CI against it
 and surface findings as additionalContext for the agent. Coherent with
-ADR-008 update § two layers of CI: the structural validators in the engine
+
 core already hard-rejected illegal transitions; this hook adds the
 semantic layer (Security attributes present? AC populated? Value chain
 populated when done? etc.).
@@ -22,7 +22,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.hooks._common import emit_context, read_input  # noqa: E402
+from scripts.hooks._common import emit_context, read_input # noqa: E402
 
 
 def main() -> int:
@@ -60,7 +60,7 @@ def main() -> int:
         return 0
 
     if not findings:
-        return 0  # quiet success
+        return 0 # quiet success
 
     lines = [
         f"📋 Post-transition checks for {node_id} surfaced {len(findings)} finding(s):",
@@ -68,7 +68,7 @@ def main() -> int:
     ]
     for f in findings:
         sev_emoji = {"info": "ℹ️", "warning": "⚠️", "error": "❌"}.get(f.severity, "•")
-        lines.append(f"  {sev_emoji} [{f.code}] {f.message}")
+        lines.append(f" {sev_emoji} [{f.code}] {f.message}")
     lines.append("")
     lines.append(
         "These are warn-level (the engine does not block on them). Address "

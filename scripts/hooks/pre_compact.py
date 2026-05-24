@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PreCompact hook — refresh the Handoff section of the session doc.
 
-Per ADR-004 + framework SKILL § Sessions: before Claude Code compacts the
+Per + framework SKILL § Sessions: before Claude Code compacts the
 conversation, this hook appends a timestamp line to the Handoff so the
 post-compact state has a marker the next role can rely on. Decisions are
 preserved because they live in their own append-only section already.
@@ -19,7 +19,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.hooks._common import (  # noqa: E402
+from scripts.hooks._common import ( # noqa: E402
     current_branch,
     emit,
     is_session_branch,

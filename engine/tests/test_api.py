@@ -2,7 +2,7 @@
 
 Verifies the 22 api functions orchestrate the adapter correctly: validators
 are invoked, the adapter is called with the expected arguments, and
-slot-label coherence (`experiment` label per ADR-006 update) is enforced.
+slot-label coherence (`experiment` label) is enforced.
 Uses MockAdapter (see conftest.py).
 """
 
@@ -109,7 +109,7 @@ class TestReads:
         assert pmap.vision.id == "#1"
         assert len(pmap.goals) == 1
         assert len(pmap.capabilities) == 1
-        assert len(pmap.accepted_adrs) == 1  # only accepted, not proposed
+        assert len(pmap.accepted_adrs) == 1 # only accepted, not proposed
 
 
 # =================================================================== WRITES
@@ -124,7 +124,7 @@ class TestCreateNode:
         )
         assert node.type == NodeType.GOAL
         assert node.parent_id == "#1"
-        assert node.status == Status.DRAFT  # initial
+        assert node.status == Status.DRAFT # initial
         assert node.maintained_by_role == Role.PM
 
     def test_create_vision_without_parent(self, adapter: MockAdapter):
@@ -134,7 +134,7 @@ class TestCreateNode:
             acting_role=Role.PM,
         )
         assert node.type == NodeType.VISION
-        assert node.status == Status.ACTIVE  # initial for vision
+        assert node.status == Status.ACTIVE # initial for vision
 
     def test_create_with_wrong_parent_type_rejected(
         self, adapter: MockAdapter, vision
@@ -375,14 +375,14 @@ class TestCompute:
         node = adapter.seed_node(type=NodeType.GOAL, parent_id="#1")
         result = api.estimate_size(adapter, node.id)
         assert result.node_id == node.id
-        assert result.estimate == "unknown"  # default until methodology skill applies
+        assert result.estimate == "unknown" # default until methodology skill applies
 
     def test_validate_node_returns_empty_until_checks_lib(
         self, adapter: MockAdapter, vision
     ):
         node = adapter.seed_node(type=NodeType.GOAL, parent_id="#1")
         result = api.validate_node(adapter, node.id)
-        assert result == ()  # empty until engine/checks/ implementation lands
+        assert result == () # empty until engine/checks/ implementation lands
 
 
 # ================================================================== CONFIG

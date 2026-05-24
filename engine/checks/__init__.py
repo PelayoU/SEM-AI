@@ -1,6 +1,6 @@
 """SEM-AI engine/checks/ — semantic CI library.
 
-Per ADR-008 update § two layers of CI, this package implements the
+Per , this package implements the
 **semantic** layer of CI: validators that inspect the *content* of a node
 (body sections present, required structures populated, supersede chain
 consistent, artifacts derivable) and surface warn-level findings the
@@ -13,9 +13,9 @@ returns findings; the human / agent decides what to do with them.
 
 Used by:
   - `engine/core/api.validate_node` — the agent's on-demand check
-  - hooks (per ADR-004) — when a node transitions to a state worth
+  - hooks — when a node transitions to a state worth
     reviewing (spec → ready-for-implementation, adr → accepted, …)
-  - GitHub Action examples (per ADR-008 update) — post-hoc validation
+  - GitHub Action examples — post-hoc validation
     of UI / external-collaborator edits
 """
 

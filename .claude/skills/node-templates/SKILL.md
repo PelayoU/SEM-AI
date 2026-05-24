@@ -23,7 +23,7 @@ This dissolves two problems at once: there is no orphan analysis (every analytic
 Concepts the framework cares about that **don't** get a template here, because they ride on native GitHub objects:
 
 - **Bug** — a normal Issue with label `bug`. Body is free-form per the project's bug-reporting habit. No section template imposed by the framework.
-- **Release planning** — a **GitHub Milestone** with a markdown body. The Milestone body carries Scope / Sizing / Estimate / Risk register / Quality gate / Security gate / Pipeline. The MCP exposes `create_milestone` / `assign_to_milestone` / `publish_release` bridges. The Milestone body sections are documented in `docs/adr/001-all-nodes-as-github-issues.md` (Milestone and Release operations), not here.
+- **Release planning** — a **GitHub Milestone** with a markdown body. The Milestone body carries Scope / Sizing / Estimate / Risk register / Quality gate / Security gate / Pipeline. The MCP exposes `create_milestone` / `assign_to_milestone` / `publish_release` bridges. The Milestone body sections are operational, not architectural — they don't get a template here.
 - **Code inspection** — a **PR review**. The reviewer's threaded line comments are the inspection record; no separate Issue, no template.
 - **Spec / ADR inspection** — comments on the inspected Issue itself + label `inspected` when complete. The comment thread is the record; defects raised are opened as separate `bug`-labelled Issues linked from the thread.
 - **Quantitative measurements** — CI artifacts, codecov, sonar, dashboards. Numbers don't live in the graph and don't get a template.
@@ -37,11 +37,11 @@ If a node-shaped artifact you're asked to scaffold falls into one of these, you 
 3. **Sections are method-driven, not freeform.** Do not invent sections; do not skip mandatory ones silently.
 4. **A non-applicable optional section is marked, not deleted:** leave the header and write `N/A — <one-line reason>`. This keeps audits one-glance.
 5. **Respect granularity.** If the thing you are documenting spans many capabilities (a plan, an estimate, a benchmark, a risk register, a user-involvement plan), it is **not** a capability section — it belongs in the Milestone body. Cross-cutting risks live in the Milestone's Risk register section; capability nodes reference the Milestone, they don't copy the register.
-6. **Anchor pending — when the parent hasn't crystallized yet.** When you create a node bottom-up (a feature that emerged from user signals before its capability is named, a capability that emerged from feature patterns before its goal is named), set `parent` to the closest meaningful ancestor that already exists, keep that parent in `status: draft`, and write `anchor pending` in the Map section's `- Parent:` line. The parent link is provisional and will be corrected via `update_node` when the higher level crystallizes. This is the bottom-up half of the hierarchical loop (see ADR-002); it is the normal way capabilities emerge from feature patterns and goals from capability patterns, not an exception.
+6. **Anchor pending — when the parent hasn't crystallized yet.** When you create a node bottom-up (a feature that emerged from user signals before its capability is named, a capability that emerged from feature patterns before its goal is named), set `parent` to the closest meaningful ancestor that already exists, keep that parent in `status: draft`, and write `anchor pending` in the Map section's `- Parent:` line. The parent link is provisional and will be corrected via `update_node` when the higher level crystallizes. This is the bottom-up half of the hierarchical loop; it is the normal way capabilities emerge from feature patterns and goals from capability patterns, not an exception.
 
 ## How node fields map to GitHub Issue mechanisms
 
-Every node lives as a GitHub Issue (rationale and full mapping in `docs/adr/001-all-nodes-as-github-issues.md`). Templates below describe the **body** — the sections inside the Issue text. The "frontmatter" the v0.1 / v0.2 designs put at the top of a markdown file is replaced, per concept, by native Issue mechanisms set by the engine MCP at write time (not by the agent typing them into the body):
+Every node lives as a GitHub Issue. Templates below describe the **body** — the sections inside the Issue text. Per-concept "frontmatter" is replaced by native Issue mechanisms set by the engine MCP at write time (not by the agent typing them into the body):
 
 | Concept | Mechanism — set by engine on `create_node` / `update_node` |
 |---|---|
@@ -73,10 +73,10 @@ Root node — no `parent`. Single vision is the graph root.
 ## The future product story                       # product inserted into that future
 ## One-breath narrative                           # repeatable by everyone
 ## Positioning                                    # target customer, need, category, key benefit, primary differentiation
-## Value ambition                                 # the outcomes that define this vision as REALIZED — multi-dimensional success (cross-reference Holistic dimensions); quantifiable when possible, qualitative otherwise. NOT a forecast or commitment — the polar star the work navigates toward. The destination of the value chain (see ADR-005). The Maximum Viable Value the team pursues, where 'viable' constrains the ambition to what is technically/economically/operationally reachable.
+## Value ambition                                 # the outcomes that define this vision as REALIZED — multi-dimensional success (cross-reference Holistic dimensions); quantifiable when possible, qualitative otherwise. NOT a forecast or commitment — the polar star the work navigates toward. The destination of the value chain. The Maximum Viable Value the team pursues, where 'viable' constrains the ambition to what is technically/economically/operationally reachable.
 ## Horizon                                        # planning horizon, explicit
 ## Adopted trends                                 # trends believed to hold over the horizon
-## Holistic dimensions                            # each slot is a DESIGN slot AND a RISK-SURFACE slot — silent omission = absorbed risk. Mapping: Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk. See ADR-003 (design lens) + ADR-007 (risk surface). Every slot is considered; N/A only with one-line reason.
+## Holistic dimensions                            # each slot is a DESIGN slot AND a RISK-SURFACE slot — silent omission = absorbed risk. Mapping: Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk. Every slot is considered; N/A only with one-line reason.
 - Functionality:        the product's core reason for being
 - Technology:           technical posture the vision commits to    → consult: architect
 - UX design:            the experience posture (PM in small teams; UX Designer if project ships one)
@@ -93,12 +93,12 @@ Root node — no `parent`. Single vision is the graph root.
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this goal's capabilities
 - Related:  constraining adr; the Milestone(s) delivering toward this goal
-## Outcome statement                              # the measurable OUTCOME (behavioral / system change observable in the world) this goal asserts. NOT an output (a thing to be built). Mis-stated: "Ship feature X" — that's an output. Well-stated: "X% of users do Y differently". See ADR-005 for output/outcome/benefit/value distinctions.
+## Outcome statement                              # the measurable OUTCOME (behavioral / system change observable in the world) this goal asserts. NOT an output (a thing to be built). Mis-stated: "Ship feature X" — that's an output. Well-stated: "X% of users do Y differently". Output / outcome / benefit / value are distinct layers of the value chain.
 ## Parent vision                                  # explicit reference (sub-issue link)
 ## Horizon                                        # planning horizon — roadmap / release / iteration scoped
 ## Acceptance check                               # criteria by which this goal is judged done
 ## Why this goal                                  # the chain from the vision down to this goal
-## Holistic dimensions                            # the outcome this goal pursues in each dimension. Each slot is DESIGN + RISK SURFACE (see ADR-007); silent omission = absorbed risk. See ADR-003 — N/A only with one-line reason.
+## Holistic dimensions                            # the outcome this goal pursues in each dimension. Each slot is DESIGN + RISK SURFACE; silent omission = absorbed risk. N/A only with one-line reason.
 - Functionality:        functional outcome
 - Technology:           technical outcome           → consult: architect
 - UX design:            experience outcome
@@ -121,7 +121,7 @@ Root node — no `parent`. Single vision is the graph root.
 ## Value analysis            → method: project's value-analysis skill, if any
 ## Risks                     → method: project's risk-analysis skill, if any   # cross-cutting risks go in the Milestone's Risk register, not here
 ## Go / No-Go                                     # decision and one-line reason
-## Holistic dimensions                            # what this capability does in each dimension. Each slot is DESIGN + RISK SURFACE (see ADR-007); silent omission = absorbed risk. See ADR-003 — N/A only with one-line reason.
+## Holistic dimensions                            # what this capability does in each dimension. Each slot is DESIGN + RISK SURFACE; silent omission = absorbed risk. N/A only with one-line reason.
 - Functionality:        what the capability does, functionally
 - Technology:           technical components and posture            → consult: architect
 - UX design:            experience this capability surfaces or relies on
@@ -133,19 +133,19 @@ Root node — no `parent`. Single vision is the graph root.
 
 ### feature / story  → method: project's feature-decomposition skill, if any; else from training
 
-`parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level. The Holistic dimensions and Value chain sections apply to **feature**; at **story** granularity, the dimensions manifest in the Acceptance check and value lives at the parent feature level — sections dropped at story scope. See ADR-003 + ADR-005.
+`parent:` a capability (feature) or a feature (story = sub-task granularity). Same template, smaller scope at story level. The Holistic dimensions and Value chain sections apply to **feature**; at **story** granularity, the dimensions manifest in the Acceptance check and value lives at the parent feature level — sections dropped at story scope.
 
 ```
 ## Map                  # read-time index, queried — NOT authoritative; the sub-issue link is the only true edge
 - Children: this feature's stories (none if a leaf story)
 - Related:  its spec; constraining adr
 ## Story                                          # role, need, benefit — phrased per the project's chosen story format
-## Uncertainty addressed                          # OPTIONAL — feature only (story drops this). The unknown this cycle resolves (free-form prose). N/A — delivery, not experiment ← legitimate when this feature pays off learning already accumulated. Populated → primary intent is experimental: the cycle's success is judged by whether the uncertainty is resolved (Learning extracted in Value chain), value chain completion is a bonus. The engine MCP applies the native label `experiment` automatically when this slot is populated (and removes it if the slot is cleared to N/A) — visibility from the Issue list / Projects v2 / `gh issue list`. An experiment names which holistic dimension(s) it tests — that mapping IS the risk class it validates (Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk). Expected final status by sub-type: PROTOTYPE (landing page / mockup / smoke test / concierge — discardable artifact) → `deprecated` always; if the prototype validated the idea, open a new `delivery` feature with `related` link back. SPIKE (technical/design feasibility) → usually `deprecated`, can be `done` if output is light and useful. A/B TEST → `done` (winning variant stays). CONCIERGE (humans doing what software would) → `deprecated` after learning extracted; automation opens as new delivery feature. See ADR-006 + ADR-007.
+## Uncertainty addressed                          # OPTIONAL — feature only (story drops this). The unknown this cycle resolves (free-form prose). N/A — delivery, not experiment ← legitimate when this feature pays off learning already accumulated. Populated → primary intent is experimental: the cycle's success is judged by whether the uncertainty is resolved (Learning extracted in Value chain), value chain completion is a bonus. The engine MCP applies the native label `experiment` automatically when this slot is populated (and removes it if the slot is cleared to N/A) — visibility from the Issue list / Projects v2 / `gh issue list`. An experiment names which holistic dimension(s) it tests — that mapping IS the risk class it validates (Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk). Expected final status by sub-type: PROTOTYPE (landing page / mockup / smoke test / concierge — discardable artifact) → `deprecated` always; if the prototype validated the idea, open a new `delivery` feature with `related` link back. SPIKE (technical/design feasibility) → usually `deprecated`, can be `done` if output is light and useful. A/B TEST → `done` (winning variant stays). CONCIERGE (humans doing what software would) → `deprecated` after learning extracted; automation opens as new delivery feature.
 ## Conditions of satisfaction                     # the back of the card
 ## Acceptance check                               # criteria by which the output is judged complete (output-layer, not value-layer)
 ## Position in the larger narrative               # where this fits in the user's flow
 ## State                                          # where in the lifecycle the conversation/construction sits
-## Holistic dimensions                            # FEATURE ONLY (story drops this). How this feature manifests in each dimension. Each slot is DESIGN + RISK SURFACE: Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk. Silent omission = absorbed risk; mark N/A only with explicit reason. See ADR-003 + ADR-007.
+## Holistic dimensions                            # FEATURE ONLY (story drops this). How this feature manifests in each dimension. Each slot is DESIGN + RISK SURFACE: Monetization↔value risk · UX design↔usability risk · Technology↔viability risk · Acquisition+Offline↔business viability risk. Silent omission = absorbed risk; mark N/A only with explicit reason.
 - Functionality:        what the feature does, functionally
 - Technology:           technical components touched                → consult: architect
 - UX design:            UX surfaces / flows / copy this feature affects
@@ -154,7 +154,7 @@ Root node — no `parent`. Single vision is the graph root.
 - Offline experience:   off-screen effect (support load, logistics, partner impact, …)
 ## Requirements detail        → method: project's requirements-discovery skill, if any   # when this opens a new feature area
 ## Spec                       → method: project's spec methodology skill, if any
-## Value chain                                    # FEATURE ONLY, post-done. The chain is PROBABILISTIC — most cycles do not complete it fully; honesty matters more than theatre. See ADR-005.
+## Value chain                                    # FEATURE ONLY, post-done. The chain is PROBABILISTIC — most cycles do not complete it fully; honesty matters more than theatre.
 - Outputs shipped:        what was actually built (often auto-filled from PRs that closed this Issue)
 - Outcomes observed:      behavioral change observed in users / system (or 'none — users did not adopt as expected')
 - Benefits measured:      metric movements caused by the outcome (or 'none — outcome did not move the metrics it should have moved'); reference the relevant Holistic dimension(s)
@@ -200,5 +200,5 @@ Root node — no `parent`. Single vision is the graph root.
 - **Deleting non-applicable sections.** Mark `N/A — reason`. A deleted section is indistinguishable from a forgotten one at audit.
 - **Filling sections out of order.** The order encodes precedence (value before Go/No-Go before decomposition). Skipping ahead reproduces the failure modes the methodology exists to prevent.
 - **Typing the "frontmatter" concepts into the body.** `type` / `parent` / `status` / `related` / Milestone assignment / etc. are not body text — they are native Issue mechanisms set by the engine MCP on write. The body is the sections above, nothing else.
-- **Scaffolding a template for a concept that lives natively.** If the work is opening a bug, planning a release, reviewing code, recording an inspection, or logging a measurement — *don't* reach for a template here. Use the native GitHub object (label `bug`, Milestone + Release, PR review, comment on the inspected Issue, CI tool) as documented in `docs/adr/001-all-nodes-as-github-issues.md`.
+- **Scaffolding a template for a concept that lives natively.** If the work is opening a bug, planning a release, reviewing code, recording an inspection, or logging a measurement — *don't* reach for a template here. Use the native GitHub object directly: label `bug`, Milestone + Release, PR review, comment on the inspected Issue, CI tool.
 - **Naming a methodology skill that does not exist in the Skill listing.** A `→ method:` pointer is a *suggestion of where the depth should come from*. If the project does not install a skill matching the pointer, fill from training and name the method out loud — never invent a skill name.

@@ -1,10 +1,10 @@
 """GitHub adapter — implements `BackendAdapter` via the `gh` CLI + GraphQL.
 
-Per ADR-009, GitHub is the primary platform; per ADR-004 update § adapter
-pattern, the engine speaks to the backend through a swappable adapter. Per
-the recent design discussion, this adapter uses the `gh` CLI for issue /
-label / milestone / release operations, and `gh api graphql` for Projects v2
-custom-field reads/writes (Status, Related, Supersedes/Superseded-by).
+GitHub is the framework's primary platform; the engine speaks to the backend
+through a swappable adapter so other backends (Jira / Linear / GitLab) remain
+a theoretical post-v1 extension point. This adapter uses the `gh` CLI for
+issue / label / milestone / release operations, and `gh api graphql` for
+Projects v2 custom-field reads/writes (Status, Related, Supersedes/Superseded-by).
 
 Why `gh` CLI rather than HTTP directly:
   - Auth: inherits from `gh auth login` (one-time per dev), no token plumbing
@@ -44,14 +44,13 @@ from .base import BackendAdapter
 class GitHubAdapterConfig:
     """Configuration for the GitHub adapter.
 
-    Sourced from `.sem-ai/config.yaml` + env var overrides per ADR-004
-    update § config. The `setup-github-project.sh` script populates the
+    Sourced from `.sem-ai/config.yaml` + env var overrides. The `setup-github-project.sh` script populates the
     project_number when it provisions the Projects v2 board.
     """
 
-    repo: str  # "owner/name"
-    project_owner: str | None = None  # owner of the Projects v2 board
-    project_number: int | None = None  # the Projects v2 number
+    repo: str # "owner/name"
+    project_owner: str | None = None # owner of the Projects v2 board
+    project_number: int | None = None # the Projects v2 number
 
 
 # -------------------------------------------------------------- helpers
@@ -176,7 +175,7 @@ def _parse_issue_to_node(issue_json: dict, default_status: Status) -> Node:
         body=issue_json.get("body", "") or "",
         status=status,
         parent_id=parent_id,
-        related_ids=(),  # filled separately via Projects v2 GraphQL when needed
+        related_ids=(), # filled separately via Projects v2 GraphQL when needed
         labels=labels,
         created_at=issue_json.get("createdAt", ""),
         updated_at=issue_json.get("updatedAt", ""),
@@ -200,7 +199,11 @@ def _to_number(issue_id: str) -> int:
 
 
 _ISSUE_FIELDS = (
-    "number,title,body,state,labels,createdAt,updatedAt,milestone,issueType"
+    # NOTE: 'issueType' is intentionally omitted — gh CLI rejects it with
+    # 'Unknown JSON field' on accounts/repos without Issue Types enabled.
+    # _detect_type falls back to the 'type:<X>' label for type discrimination
+    # uniformly across account types.
+    "number,title,body,state,labels,createdAt,updatedAt,milestone"
 )
 
 
@@ -433,20 +436,44 @@ class GitHubAdapter(BackendAdapter):
         if not m:
             raise RuntimeError(f"could not parse issue number from: {url!r}")
         new_id = f"#{m.group(1)}"
-        # Link sub-issue parent if specified
+        # Link sub-issue parent if specified.
+        # The sub-issues REST API may not be enabled on accounts that lack the
+        # beta feature; fall back to a 'parent:<id>' label so the relation is
+        # still queryable.
         if parent_id is not None:
             parent_n = _to_number(parent_id)
             new_n = _to_number(new_id)
-            _run_gh(
-                [
-                    "api",
-                    "-X",
-                    "POST",
-                    f"repos/{self.config.repo}/issues/{parent_n}/sub_issues",
-                    "-F",
-                    f"sub_issue_id={new_n}",
-                ]
-            )
+            try:
+                _run_gh(
+                    [
+                        "api",
+                        "-X",
+                        "POST",
+                        f"repos/{self.config.repo}/issues/{parent_n}/sub_issues",
+                        "-F",
+                        f"sub_issue_id={new_n}",
+                    ]
+                )
+            except subprocess.CalledProcessError:
+                parent_label = f"parent:{parent_id}"
+                try:
+                    _run_gh(
+                        [
+                            "label",
+                            "create",
+                            parent_label,
+                            *self._repo_args(),
+                            "--color",
+                            "ededed",
+                            "--description",
+                            f"Parent link to {parent_id} (sub-issues API fallback)",
+                        ]
+                    )
+                except subprocess.CalledProcessError:
+                    pass  # label already exists
+                self.add_label(
+                    new_id, parent_label, acting_role=acting_role
+                )
         return self.get_issue(new_id)
 
     def update_issue(

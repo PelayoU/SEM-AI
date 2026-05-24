@@ -3,10 +3,6 @@
 # Minimal by design: only what the engine genuinely needs at runtime.
 # Pinned to known-good versions to avoid surprise upgrades; refreshed
 # during release cycles.
-#
-# See docs/adr/004-invocation-model.md § Update for the adapter pattern
-# rationale and docs/adr/008-deployable-framework.md § Update for the
-# engine-in-template distribution model.
 
 # YAML parser — used for parsing the .sem-ai/config.yaml + frontmatter in
 # session docs and (eventually) parsing the spine templates the validators

@@ -24,8 +24,8 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.hooks import pre_compact  # noqa: E402
-from scripts.hooks._common import (  # noqa: E402
+from scripts.hooks import pre_compact # noqa: E402
+from scripts.hooks._common import ( # noqa: E402
     emit_context,
     is_session_branch,
     read_input,
@@ -307,7 +307,7 @@ class TestPostToolUsePrMerge:
                 return_value=None,
             ):
                 rc = post_tool_use_pr_merge.main()
-        assert rc == 0  # graceful failure
+        assert rc == 0 # graceful failure
 
     def test_gh_pr_merge_with_closes_posts_comments(
         self, monkeypatch, capsys

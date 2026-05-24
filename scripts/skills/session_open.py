@@ -24,7 +24,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.skills._common import (  # noqa: E402
+from scripts.skills._common import ( # noqa: E402
     SESSIONS_DIR,
     doc_path_for,
     gh_issue_comment,
@@ -149,11 +149,11 @@ def main() -> int:
             posted += 1
 
     print(f"Opened session {session_id}")
-    print(f"  Branch: {branch}")
-    print(f"  Doc:    sessions/{session_id}.md")
+    print(f" Branch: {branch}")
+    print(f" Doc: sessions/{session_id}.md")
     if in_play_normalized:
         print(
-            f"  📍 comments posted: {posted}/{len(in_play_normalized)} "
+            f" 📍 comments posted: {posted}/{len(in_play_normalized)} "
             f"({', '.join(in_play_normalized)})"
         )
     print()

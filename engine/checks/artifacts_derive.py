@@ -1,15 +1,14 @@
 """Artifacts derivation from PR bodies.
 
-Per ADR-001 § 'How it works' (frontmatter equivalent → artifacts):
 artifacts of a node are derived post-hoc from PRs that close the Issue
 via `Closes #N` markers in the PR body. This module parses the markers
 and returns the mapping.
 
 Invoked by:
-  - The `PostToolUse on Bash(gh pr merge *)` hook (ADR-004 hook 5) to
+  - The `PostToolUse on Bash(gh pr merge *)` hook ( hook 5) to
     record artifacts the moment a PR mergers, so the agent's next call
     to `get_node` reflects the new evidence.
-  - The `sem-ai-artifacts.yml` Action example (per ADR-004 + ADR-009)
+  - The `sem-ai-artifacts.yml` Action example
     when a PR mergers outside Claude Code.
 
 This is not a check that returns Findings — it's a deriver that returns
@@ -53,7 +52,7 @@ def parse_closed_issues(pr_body: str) -> tuple[str, ...]:
     """
     if not pr_body:
         return ()
-    seen: dict[str, None] = {}  # ordered dedupe
+    seen: dict[str, None] = {} # ordered dedupe
     for m in _CLOSE_PATTERN.finditer(pr_body):
         issue_id = f"#{m.group(1)}"
         seen.setdefault(issue_id, None)
@@ -65,7 +64,7 @@ def derive_artifacts_from_pr_body(
 ) -> dict[str, tuple[str, ...]]:
     """Map every closed-Issue id to the files the PR changed.
 
-    Per ADR-001: each PR linked via `Closes #N` contributes its
+    each PR linked via `Closes #N` contributes its
     `changed_files` to the closed Issue's artifacts. If a PR closes
     multiple Issues, all of them get the same set of changed files.
 

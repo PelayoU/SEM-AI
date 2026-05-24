@@ -31,14 +31,14 @@ from engine.core.validators import (
 
 class TestValidateParent:
     def test_vision_has_no_parent(self):
-        validate_parent(NodeType.VISION, parent_type=None)  # no raise
+        validate_parent(NodeType.VISION, parent_type=None) # no raise
 
     def test_vision_with_parent_rejected(self):
         with pytest.raises(ParentTypeViolation, match="root type"):
             validate_parent(NodeType.VISION, parent_type=NodeType.GOAL)
 
     def test_goal_parent_must_be_vision(self):
-        validate_parent(NodeType.GOAL, parent_type=NodeType.VISION)  # no raise
+        validate_parent(NodeType.GOAL, parent_type=NodeType.VISION) # no raise
 
     def test_goal_without_parent_rejected(self):
         with pytest.raises(ParentTypeViolation, match="requires a parent"):
@@ -122,7 +122,7 @@ class TestValidateStatus:
             validate_status(NodeType.FEATURE, s)
 
     def test_feature_rejects_draft(self):
-        """Feature uses backlog as initial, not draft (per ADR-001)."""
+        """Feature uses backlog as initial, not draft."""
         with pytest.raises(StatusViolation):
             validate_status(NodeType.FEATURE, Status.DRAFT)
 

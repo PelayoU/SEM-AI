@@ -26,7 +26,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.skills._common import (  # noqa: E402
+from scripts.skills._common import ( # noqa: E402
     current_branch,
     doc_path_for,
     gh_issue_comment,
@@ -102,30 +102,30 @@ def main() -> int:
 
     # Print summary
     print(f"Closing session {session_id}")
-    print(f"  Branch: {branch}")
-    print(f"  Doc:    sessions/{session_id}.md")
+    print(f" Branch: {branch}")
+    print(f" Doc: sessions/{session_id}.md")
     if in_play_refs:
         print(
-            f"  🏁 comments posted: {posted}/{len(in_play_refs)} "
+            f" 🏁 comments posted: {posted}/{len(in_play_refs)} "
             f"({', '.join(in_play_refs)})"
         )
     print()
     print("Next: decide the disposition of this branch:")
     print(
-        "  - merge to main:    git checkout main && git merge --no-ff "
+        " - merge to main: git checkout main && git merge --no-ff "
         f"session/{session_id}"
     )
     print(
-        "  - open PR for review:  gh pr create --base main --head "
+        " - open PR for review: gh pr create --base main --head "
         f"session/{session_id}"
     )
     print(
-        f"  - discard the branch:  git checkout main && "
+        f" - discard the branch: git checkout main && "
         f"git branch -D session/{session_id}"
     )
     print()
     print(
-        "Per ADR-008 dogfood: the disposition is your call. The session doc "
+        "Per dogfood: the disposition is your call. The session doc "
         "is preserved in either case (committed to the branch + visible via "
         "the 🏁 Issue comments)."
     )

@@ -1,6 +1,6 @@
 """Hard-reject exceptions raised by the validators.
 
-Per ADR-001 + ADR-004: the engine MCP **hard-rejects** parent-type,
+the engine MCP **hard-rejects** parent-type,
 jurisdiction, lifecycle, and triggered_by violations. These are mechanical,
 not discretionary — the agent receives a structured error and adjusts.
 
@@ -29,8 +29,8 @@ class FrameworkRejection(Exception):
 class ParentTypeViolation(FrameworkRejection):
     """Raised when the parent's `NodeType` is not valid for the child type.
 
-    Example: trying to create a `goal` whose `parent` is a `feature`. Per
-    ADR-001 the goal's parent must be a `vision`.
+    Example: trying to create a `goal` whose `parent` is a `feature`. A
+    goal's parent must be a `vision`.
     """
 
 
@@ -38,7 +38,7 @@ class StatusViolation(FrameworkRejection):
     """Raised when the requested status is not legal for this `NodeType`.
 
     Example: trying to set status `proposed` on a `vision` — that status only
-    applies to `adr`. Per ADR-001 § Status validation per type.
+    applies to `adr`. Each NodeType has a closed set of legal statuses.
     """
 
 
@@ -54,7 +54,7 @@ class JurisdictionViolation(FrameworkRejection):
 class TriggeredByViolation(FrameworkRejection):
     """Raised when a hook- or Action-invoked agent attempts a restricted op.
 
-    Per ADR-004 update: `triggered_by` of HOOK or ACTION restricts the agent
+    `triggered_by` of HOOK or ACTION restricts the agent
     to read + comment + open new Issues. Operations that mutate existing
     graph state (update_node, transition_status, set_related, supersede,
     add_label, remove_label, assign_to_milestone, publish_release) are

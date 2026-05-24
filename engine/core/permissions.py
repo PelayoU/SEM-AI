@@ -10,8 +10,7 @@ Two enforcement mechanisms live here:
 2. **RESTRICTED_OPS** — operations that an agent invoked by hook or Action
    (i.e. `triggered_by != HUMAN`) is not allowed to perform. Auto-invoked
    agents read and comment freely, may open new bug/security-finding Issues,
-   but cannot transition status or edit existing nodes. Source: ADR-004 update
-   § restricted permissions for hook/Action-invoked agents.
+   but cannot transition status or edit existing nodes.
 
 The two mechanisms are independent: a write must pass both checks to proceed.
 """
@@ -35,7 +34,7 @@ class Role(str, Enum):
 
 
 class TriggeredBy(str, Enum):
-    """Who initiated the write (ADR-004 update).
+    """Who initiated the write.
 
     The MCP server defaults to HUMAN when the agent's prompt came from the
     interactive session. Hooks set HOOK; Actions set ACTION. These two trigger
@@ -64,7 +63,7 @@ JURISDICTION: dict[NodeType, frozenset[Role]] = {
 #: Hooks and Actions may invoke agents reactively but those agents are
 #: restricted to read + comment + open new Issues. They cannot mutate
 #: existing graph state.
-#: Source: ADR-004 update § restricted permissions for hook/Action-invoked
+#:
 #: agents.
 RESTRICTED_OPS: frozenset[str] = frozenset(
     {
@@ -96,7 +95,7 @@ ALWAYS_PERMITTED_OPS: frozenset[str] = frozenset(
         "estimate_size",
         "validate_node",
         "get_instance_config",
-        "create_node",  # restricted in another way: only for new Issues; not editing existing
-        "link_commit",  # additive: linking a commit doesn't mutate the node's state
+        "create_node", # restricted in another way: only for new Issues; not editing existing
+        "link_commit", # additive: linking a commit doesn't mutate the node's state
     }
 )

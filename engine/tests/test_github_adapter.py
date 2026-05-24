@@ -88,7 +88,7 @@ class TestToNumber:
 
     def test_invalid_format_raises(self):
         with pytest.raises(ValueError):
-            _to_number("42")  # missing #
+            _to_number("42") # missing #
 
     def test_with_text_raises(self):
         with pytest.raises(ValueError):
@@ -163,7 +163,7 @@ class TestParseIssueToNode:
         assert node.id == "#42"
         assert node.type == NodeType.GOAL
         assert node.title == "Increase retention"
-        assert node.status == Status.ACTIVE  # from label, not default
+        assert node.status == Status.ACTIVE # from label, not default
         assert node.maintained_by_role == Role.PM
 
     def test_default_status_when_no_label(self):
@@ -223,7 +223,7 @@ class TestAdapterReads:
         """Bug-labelled Issues without type are excluded."""
         sub_issues = [
             make_issue_json(number=10, issue_type="capability"),
-            make_issue_json(number=11, labels=["bug"]),  # no type
+            make_issue_json(number=11, labels=["bug"]), # no type
         ]
         with patch(
             "engine.adapters.github.subprocess.run",
@@ -339,7 +339,7 @@ class TestAdapterWrites:
         # 1: create URL. 2: link sub_issue. 3: get_issue.
         responses = [
             FakeCompleted(stdout="https://github.com/acme/widget/issues/42\n"),
-            FakeCompleted(stdout=""),  # sub_issues POST
+            FakeCompleted(stdout=""), # sub_issues POST
             FakeCompleted(
                 stdout=json.dumps(
                     make_issue_json(number=42, issue_type="goal")
@@ -366,7 +366,7 @@ class TestAdapterWrites:
 
     def test_update_issue_uses_edit(self, adapter):
         responses = [
-            FakeCompleted(stdout=""),  # edit
+            FakeCompleted(stdout=""), # edit
             FakeCompleted(
                 stdout=json.dumps(
                     make_issue_json(
@@ -398,16 +398,16 @@ class TestAdapterWrites:
             number=42, issue_type="goal", labels=["status:draft"]
         )
         responses = [
-            FakeCompleted(stdout=json.dumps(current)),  # get_issue
-            FakeCompleted(stdout=""),  # remove old status label
-            FakeCompleted(stdout=""),  # add new status label
+            FakeCompleted(stdout=json.dumps(current)), # get_issue
+            FakeCompleted(stdout=""), # remove old status label
+            FakeCompleted(stdout=""), # add new status label
             FakeCompleted(
                 stdout=json.dumps(
                     make_issue_json(
                         number=42, issue_type="goal", labels=["status:active"]
                     )
                 )
-            ),  # final get_issue
+            ), # final get_issue
         ]
         with patch(
             "engine.adapters.github.subprocess.run", side_effect=responses
@@ -491,8 +491,8 @@ class TestAdapterBridges:
     def test_publish_release_closes_milestone_then_creates_release(self, adapter):
         # 3 calls: PATCH milestone to close, release create, release view.
         responses = [
-            FakeCompleted(stdout=""),  # PATCH milestone
-            FakeCompleted(stdout=""),  # release create
+            FakeCompleted(stdout=""), # PATCH milestone
+            FakeCompleted(stdout=""), # release create
             FakeCompleted(
                 stdout=json.dumps(
                     {

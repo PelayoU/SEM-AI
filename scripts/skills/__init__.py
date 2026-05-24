@@ -7,7 +7,7 @@ Python work (git operations, gh CLI calls, doc scaffolding, delta digest).
 
 Three skills:
 
-  session_open.py        creates a session branch + doc + posts 📍 comments
-  session_close.py       finalizes the Handoff + posts 🏁 + merge/PR/discard
-  catch_up.py            delta digest of graph changes since last invocation
+  session_open.py creates a session branch + doc + posts 📍 comments
+  session_close.py finalizes the Handoff + posts 🏁 + merge/PR/discard
+  catch_up.py delta digest of graph changes since last invocation
 """

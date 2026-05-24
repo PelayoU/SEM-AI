@@ -5,15 +5,14 @@ call. Uses stdio transport — Claude Code (or any compatible MCP client) spawns
 this script as a subprocess and communicates over stdin/stdout.
 
 Lifecycle:
-  - At startup: parses config from .sem-ai/config.yaml + env vars (per ADR-004
-    update § config), constructs a `GitHubAdapter`, registers tool handlers.
+  - At startup: parses config from .sem-ai/config.yaml + env vars, constructs a `GitHubAdapter`, registers tool handlers.
   - Per tool call: validates inputs, delegates to the api function, serializes
     the result to JSON, returns to the client.
   - On `FrameworkRejection`: returns an MCP error with the violation reason
     the agent can act on.
 
 CLI:
-  python -m engine.mcp_server         start the server (stdio loop)
+  python -m engine.mcp_server start the server (stdio loop)
   python -m engine.mcp_server --check verify imports + config; exit 0
                                       (used by scripts/setup-engine.sh)
 """
@@ -600,8 +599,8 @@ def main(argv: list[str] | None = None) -> int:
         names = {t["name"] for t in TOOLS}
         assert len(names) == 22, "duplicate tool names in registry"
         try:
-            from . import adapters  # noqa: F401
-            from .core import api  # noqa: F401
+            from . import adapters # noqa: F401
+            from .core import api # noqa: F401
         except ImportError as e:
             print(f"FAIL: import error: {e}", file=sys.stderr)
             return 1
