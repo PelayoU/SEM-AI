@@ -94,9 +94,10 @@ Root node — no `parent`. Single vision is the graph root.
 - Children: this goal's capabilities
 - Related:  constraining adr; the Milestone(s) delivering toward this goal
 ## Outcome statement                              # the measurable OUTCOME (behavioral / system change observable in the world) this goal asserts. NOT an output (a thing to be built). Mis-stated: "Ship feature X" — that's an output. Well-stated: "X% of users do Y differently". Output / outcome / benefit / value are distinct layers of the value chain.
+## Stakeholder                                    # WHO benefits if this goal is realized. Concrete role + context (e.g. "Adopter team's PM + developers", "Solo developer + enterprise PM"). Names the WHO of the template "In order to [outcome], as [STAKEHOLDER], I want { capabilities }". Goals that cannot name a stakeholder are usually solutions in disguise — pop the why-stack until a real beneficiary surfaces.
 ## Parent vision                                  # explicit reference (sub-issue link)
-## Horizon                                        # planning horizon — roadmap / release / iteration scoped
-## Acceptance check                               # criteria by which this goal is judged done
+## Horizon                                        # planning horizon — roadmap / release / iteration scoped. SMART criterion T (Time-bound): continuous / steady-state goals must still name at least one checkpoint (e.g. "by v1.0", "audited quarterly from Q1-2027").
+## Acceptance check                               # criteria by which this goal is judged done. SMART criterion M (Measurable) + T (Time-bound): includes a checkpoint condition tied to a release / date / cadence, not just a steady-state property.
 ## Why this goal                                  # the chain from the vision down to this goal
 ## Holistic dimensions                            # the outcome this goal pursues in each dimension. Each slot is DESIGN + RISK SURFACE; silent omission = absorbed risk. N/A only with one-line reason.
 - Functionality:        functional outcome
