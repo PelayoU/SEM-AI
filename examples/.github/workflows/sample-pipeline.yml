@@ -1,0 +1,263 @@
+# ============================================================================
+# SAMPLE DEPLOYMENT PIPELINE — reference end-to-end workflow for adopting
+# projects (per ADR-009). Copy to your project's .github/workflows/ and
+# customize for your stack. Heavy comments are intentional: this file is a
+# starter kit, not framework infrastructure. Delete the comments once your
+# pipeline is settled.
+#
+# What this pipeline demonstrates:
+#   - Build / test / static-analysis / package / deploy-staging /
+#     deploy-production stages — the seven canonical pipeline stages
+#     (the project chooses which to include; this file shows all seven).
+#   - Native integration with the SEM-AI graph: PRs that include
+#     'Closes #N' automatically link to the Issue; on merge to main,
+#     the framework derives artifacts (via the framework's PostToolUse
+#     hook if the merger uses Claude Code, OR via the sem-ai-artifacts
+#     opt-in Action — see examples/.github/workflows/sem-ai-artifacts.yml).
+#   - Lifecycle comment '🏁 Session closed' posted on the affected Issue
+#     when production deployment succeeds.
+#
+# What this pipeline does NOT do:
+#   - It does NOT prescribe a stack. The actual build/test/deploy steps are
+#     placeholders. Replace with your tools (Maven, Gradle, npm, pytest,
+#     Docker, Terraform, Helm, ArgoCD, AWS CDK, etc.) — GitHub Marketplace
+#     has Actions for all of them.
+#   - It does NOT enforce stages. Comment out what you don't need. The
+#     framework only cares that 'done' on an Issue means 'shipped' — the
+#     pipeline defines what shipped concretely means in your context.
+# ============================================================================
+
+name: sample-pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_to_production:
+        description: 'Skip staging and deploy to production'
+        required: false
+        default: 'false'
+
+# Required secrets (configure in your repo's Settings → Secrets):
+#   - DEPLOY_TOKEN_STAGING / DEPLOY_TOKEN_PRODUCTION (or use OIDC for cloud)
+#   - ANTHROPIC_API_KEY if you also enable the framework's role-invocation
+#     Actions in examples/.github/workflows/sem-ai-*.yml
+#
+# Required permissions (the workflow needs to comment on Issues for the
+# lifecycle marker):
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  # --------------------------------------------------------------------------
+  # Stage 1: BUILD
+  # --------------------------------------------------------------------------
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Replace this block with your build tool. Examples:
+      #   - Java/Maven:  setup-java@v4 + 'mvn -B package -DskipTests'
+      #   - Node/npm:    setup-node@v4 + 'npm ci && npm run build'
+      #   - Python:      setup-python@v5 + 'pip install build && python -m build'
+      #   - Go:          setup-go@v5 + 'go build ./...'
+      - name: Build (placeholder)
+        run: echo "Replace with your project's build command"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ github.sha }}
+          path: |
+            # Adjust this path to your build output
+            dist/
+            build/
+            target/
+          if-no-files-found: ignore
+
+  # --------------------------------------------------------------------------
+  # Stage 2: UNIT TESTS
+  # --------------------------------------------------------------------------
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      # Replace with your test runner.
+      - name: Run unit tests (placeholder)
+        run: echo "Replace with: pytest / npm test / mvn test / go test ./... / etc."
+
+      # If you want test results in PR comments:
+      # - uses: dorny/test-reporter@v1
+      #   with: { ... }
+
+  # --------------------------------------------------------------------------
+  # Stage 3: STATIC ANALYSIS
+  # --------------------------------------------------------------------------
+  static-analysis:
+    name: Static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # SonarCloud and CodeQL need full history
+
+      # Pick your tools. Examples — comment in what you use:
+      #
+      # SonarCloud (popular general):
+      # - name: SonarCloud
+      #   uses: SonarSource/sonarcloud-github-action@v3
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #
+      # CodeQL (GitHub-native security):
+      # - uses: github/codeql-action/init@v3
+      #   with: { languages: 'javascript,python' }
+      # - uses: github/codeql-action/analyze@v3
+      #
+      # Trivy (container/IaC security):
+      # - uses: aquasecurity/trivy-action@master
+      #   with: { scan-type: 'fs' }
+      #
+      # Snyk:
+      # - uses: snyk/actions/python@master
+      #   env: { SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} }
+      - name: Static analysis (placeholder)
+        run: echo "Replace with SonarCloud / CodeQL / Trivy / Snyk / etc."
+
+  # --------------------------------------------------------------------------
+  # Stage 4: PACKAGE
+  # --------------------------------------------------------------------------
+  package:
+    name: Package artifact
+    runs-on: ubuntu-latest
+    needs: [test, static-analysis]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      # Examples:
+      #   - Docker image:  docker/build-push-action@v5 → push to ghcr.io/owner/image
+      #   - Maven artifact: mvn deploy → Maven Central or internal Nexus
+      #   - npm package:   npm publish (with NODE_AUTH_TOKEN)
+      #   - Python wheel:  python -m build → upload to PyPI
+      - name: Package (placeholder)
+        run: echo "Replace with docker build / mvn deploy / npm publish / etc."
+
+  # --------------------------------------------------------------------------
+  # Stage 5: DEPLOY TO STAGING
+  # --------------------------------------------------------------------------
+  deploy-staging:
+    name: Deploy to staging
+    runs-on: ubuntu-latest
+    needs: package
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: staging
+      # url: https://staging.your-product.example
+    steps:
+      - uses: actions/checkout@v4
+
+      # Examples:
+      #   - AWS:        aws-actions/configure-aws-credentials@v4 + aws/ecs/etc.
+      #   - GCP:        google-github-actions/auth@v2 + gcloud/cloud-run/etc.
+      #   - Azure:      azure/login@v2 + azure/webapps-deploy@v3
+      #   - Kubernetes: helm/kind-action@v1 + kubectl apply
+      #   - Vercel/Netlify/Cloudflare: their respective Actions
+      - name: Deploy to staging (placeholder)
+        run: echo "Replace with your deployment to a staging environment"
+
+      # Run smoke tests against staging
+      - name: Smoke tests on staging (placeholder)
+        run: echo "Replace with your smoke test invocation"
+
+  # --------------------------------------------------------------------------
+  # Stage 6: INTEGRATION/E2E TESTS ON STAGING
+  # --------------------------------------------------------------------------
+  e2e-staging:
+    name: E2E tests on staging
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    steps:
+      - uses: actions/checkout@v4
+
+      # Examples: Cypress, Playwright, Selenium, custom REST test suite
+      - name: E2E tests (placeholder)
+        run: echo "Replace with your E2E test suite"
+
+  # --------------------------------------------------------------------------
+  # Stage 7: DEPLOY TO PRODUCTION
+  # Manual approval gate. GitHub will block until reviewers configured on
+  # the 'production' environment approve.
+  # --------------------------------------------------------------------------
+  deploy-production:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: e2e-staging
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      # url: https://your-product.example
+      # Configure required reviewers + wait timer in Settings → Environments
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to production (placeholder)
+        run: echo "Replace with your production deployment command"
+
+      - name: Verify production health (placeholder)
+        run: echo "Replace with health-check curl / probe"
+
+  # --------------------------------------------------------------------------
+  # Stage 8: NOTIFY THE GRAPH — post the 🏁 lifecycle marker on Issues
+  # closed by the PR/commit that triggered this run.
+  #
+  # This is the integration point with the SEM-AI graph. The native
+  # 'Closes #N' link in the PR description (or the commit message) already
+  # closes the Issue on merge; this step adds the lifecycle-aware comment
+  # the framework expects (per framework/SKILL.md § Sessions and ADR-001
+  # § Native objects we don't duplicate). If a session doc exists, link it.
+  # --------------------------------------------------------------------------
+  notify-graph:
+    name: Notify graph — 🏁 lifecycle marker
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    if: success() && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find Issues closed by this commit's PR
+        id: find-issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Find the merge commit's PR and extract Closes #N references.
+          # Outputs a space-separated list of Issue numbers as `issues`.
+          PR=$(gh pr list --search "${{ github.sha }}" --state merged --json number --jq '.[0].number' || true)
+          if [ -z "$PR" ]; then
+            echo "issues=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          BODY=$(gh pr view "$PR" --json body --jq .body)
+          ISSUES=$(printf "%s\n" "$BODY" | grep -ioE 'closes? #[0-9]+' | grep -oE '[0-9]+' | sort -u | tr '\n' ' ')
+          echo "issues=$ISSUES" >> "$GITHUB_OUTPUT"
+
+      - name: Post 🏁 comment on each closed Issue
+        if: steps.find-issues.outputs.issues != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for ISSUE in ${{ steps.find-issues.outputs.issues }}; do
+            gh issue comment "$ISSUE" --body "🏁 Session closed — shipped to production via commit \`${{ github.sha }}\`. Pipeline run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          done
