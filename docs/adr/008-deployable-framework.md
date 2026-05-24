@@ -207,3 +207,75 @@ ADR-004 already decided the invocation model (hooks + MCP + Actions opt-in). ADR
 - Future references to "the framework's CI" should mean both layers, unless explicitly qualified as "structural CI" or "semantic CI".
 - The `sem-ai-release.yml` pipeline (per the CD stages in this ADR), when implemented, will only run on a tag commit whose structural CI passed AND whose semantic CI has been observed via the active hooks/Actions during the development cycle that produced the commit. The release is not a thing the structural CI alone produces.
 - The framework's marketing / positioning (per ADR-009): "GitHub-native AI product framework with two-layer CI — structural integrity validated by traditional automation, semantic alignment validated by reactive role agents". This is the framework's value proposition concretely.
+
+---
+
+## Update — engine code lives in the template repo (2026-05-24)
+
+The original ADR-008 left the question "where exactly does the engine code live?" partially open. The Distribution section named "pip package `sem-ai-engine`" as the engine's distribution channel, but did not say whether the engine code also lives inside the template repository, or only in a separate pip package the adopter installs.
+
+After consideration, the decision is: **the engine code lives inside the template repo as a top-level `engine/` directory**. The pip package is **deferred and optional**, not the primary distribution.
+
+### The decision
+
+| Layer | Where it lives in `v0.3.0` |
+|---|---|
+| Skills + agents + ADRs + scripts + examples | Template repo (already shipped) |
+| **Engine code** (`engine/core/`, `engine/adapters/`, `engine/checks/`, `engine/mcp_server.py`, `engine/requirements.txt`) | **Template repo, top-level `engine/` directory** |
+| `.claude/settings.json` | Points to the local engine (`python engine/mcp_server.py` or equivalent), not to a pip-installed binary |
+| Adopter setup | `./scripts/setup-engine.sh` creates a local venv, installs minimal deps, verifies the MCP starts |
+
+When an adopter clones the template, **the engine comes with the clone**. No external package install for the engine itself. Only a local venv with minimal pure-Python dependencies (PyYAML + `requests` or equivalents).
+
+### Why engine-in-template, not pip-only
+
+Three reasons aligned with the framework's design principles:
+
+1. **Single source of truth**. The engine version in the template repo is always coherent with the skills / ADRs / agents in that same repo. There is no scenario where the adopter has framework v0.3.0 skills but engine v0.2.5 installed — the two stay in lockstep because they ship together.
+
+2. **Zero installation friction beyond a venv**. The adopter's setup is "clone + run two scripts". No pip global state, no PyPI account, no version-mismatch debugging. The framework presumes Claude Code on every dev (per ADR-004 premise) and `gh` CLI; adding a Python venv as the third tool is a tolerable addition. Adding pip as a distribution channel would multiply the failure modes.
+
+3. **Fork-friendly**. Some adopters will want to customize the engine — add a validator, tighten a check, swap an adapter. With engine-in-template, those customizations happen locally as code edits committed to their fork; with pip, customizations require either a custom fork of the package (heavier) or monkey-patching at runtime (fragile). Fork-friendly is the right default for an early-stage framework where adoption patterns are still being discovered.
+
+### When does pip make sense
+
+The pip package option **is not abandoned**. It becomes attractive when:
+
+- The adopter base reaches a size (say 20+ active projects) where the bulk of adopters do NOT customize the engine and primarily need updates pushed cleanly via `pip install --upgrade`.
+- The engine itself stabilizes enough that updates become rare and small (post-v1.0+ territory).
+- Manual updates via `git diff` between tags become operationally painful (the changelog from the CD pipeline is no longer sufficient).
+
+At that point, packaging `engine/` as `sem-ai-engine` on PyPI is a small additional ship — the code is already there, only `setup.py` / `pyproject.toml` + publishing pipeline need to be added. The template repo can either continue to include the engine (default) or be slimmed to just declare a dependency on `sem-ai-engine` (opt-in via a flag in `scripts/setup-engine.sh`).
+
+This update therefore **defers the pip decision** without abandoning it. For `v0.3.0` through (likely) `v0.5.0` or `v1.0.0`, engine-in-template is the model.
+
+### Adopter flow in `v0.3.0`
+
+```bash
+# 1. Create from template
+gh repo create my-product --template owner/sem-ai
+
+# 2. Clone
+gh repo clone owner/my-product
+cd my-product
+
+# 3. Set up the engine (venv + minimal Python deps)
+./scripts/setup-engine.sh
+
+# 4. Set up GitHub (Issue Types + labels + Projects v2)
+./scripts/setup-github-project.sh
+
+# 5. Open Claude Code with a role; MCP starts automatically
+claude --agent product-manager
+```
+
+Three scripts, ~2 minutes from "I saw the template" to "I'm authoring the first vision Issue".
+
+### Consequences
+
+- `engine/` directory will be added to the template repo when implementation begins; structured as `engine/core/` + `engine/adapters/` + `engine/checks/` (per the ADR-004 update on internal adapter pattern).
+- A new `scripts/setup-engine.sh` will be created (in the same commit that introduces `engine/`) to create the local venv and verify the MCP starts.
+- `.claude/settings.json` will declare the local engine as an MCP server via the `mcpServers` mechanism Claude Code supports, pointing at `engine/mcp_server.py`.
+- `engine/requirements.txt` lists minimal dependencies (PyYAML + `requests`); pinned versions to avoid surprise upgrades.
+- `engine/` source tree is included in CI stages 6 (engine tests via pytest) and 7 (validators self-test) when those stages activate.
+- The framework's distribution decision is now operationally clear: **template repo is the only distribution channel for `v0.3.0`**; pip is a documented future option but not the v0.3.0 mechanism.
