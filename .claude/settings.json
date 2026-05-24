@@ -1,1 +1,9 @@
-{}
+{
+  "mcpServers": {
+    "sem_ai_engine": {
+      "command": ".venv/bin/python",
+      "args": ["-m", "engine.mcp_server"]
+    }
+  },
+  "hooks": {}
+}
