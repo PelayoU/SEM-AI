@@ -1,0 +1,26 @@
+# Engine dependencies.
+#
+# Minimal by design: only what the engine genuinely needs at runtime.
+# Pinned to known-good versions to avoid surprise upgrades; refreshed
+# during release cycles.
+#
+# See docs/adr/004-invocation-model.md § Update for the adapter pattern
+# rationale and docs/adr/008-deployable-framework.md § Update for the
+# engine-in-template distribution model.
+
+# YAML parser — used for parsing the .sem-ai/config.yaml + frontmatter in
+# session docs and (eventually) parsing the spine templates the validators
+# inspect.
+pyyaml>=6.0,<7.0
+
+# HTTPS client — used by future adapters that talk to a backend via REST
+# (the github adapter primarily uses 'gh' CLI but falls back to HTTP for
+# Projects v2 GraphQL operations that 'gh' does not expose ergonomically).
+requests>=2.31,<3.0
+
+# Anthropic MCP server library — the protocol layer that exposes the
+# engine's tools to the agent.
+mcp>=1.0,<2.0
+
+# --- dev dependencies (installed by setup-engine.sh in dev mode) ---
+# pytest>=8.0,<9.0
