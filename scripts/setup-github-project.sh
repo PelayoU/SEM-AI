@@ -106,26 +106,66 @@ done
 
 # ----- Labels ---------------------------------------------------------------
 
-#
 # Format: <name>|<color-hex>|<description>
-# Pipe used as separator because role: labels contain ':' in their names.
+# Pipe used as separator because role: / type: / status: labels contain ':'.
+#
+# On accounts without native Issue Types, the engine uses 'type:<X>' labels
+# as the type discriminator (see engine/adapters/github.py::_detect_type).
+# The 'status:<X>' labels are the per-node status carrier when the Projects
+# v2 Status field is not wired (token-scope dependent).
+# Both sets MUST exist before any create_node call — otherwise gh issue
+# create aborts with "label not found" and the first Issue write fails.
 LABELS=(
+  # Cross-cutting concept labels (rideable on native GitHub objects)
   "bug|d73a4a|An Issue reporting a defect; native GitHub bug semantics"
-  "experiment|8b5cf6|Feature with experimental intent; engine auto-applies via Uncertainty addressed"
-  "inspected|0e8a16|Non-code artifact (spec / ADR / requirements) that completed an inspection"
+  "experiment|8b5cf6|Feature with experimental intent; engine auto-applies"
+  "inspected|0e8a16|Non-code artifact that completed an inspection"
+
+  # Role labels — every Issue writes carry one (acting_role)
   "role:product-manager|1d76db|Maintained by the Product Manager role"
   "role:architect|0e8a16|Maintained by the Architect role"
   "role:developer|5319e7|Maintained by the Developer role"
   "role:qa|fbca04|Maintained by the QA role"
   "role:devops|c5def5|Maintained by the DevOps role"
   "role:security-officer|b60205|Maintained by the Security Officer role"
+
+  # Type labels — the 7 Issue Types (engine discriminator when native
+  # Issue Types are not provisioned)
+  "type:vision|0e8a16|SEM-AI node type: vision (graph root)"
+  "type:goal|1d76db|SEM-AI node type: goal"
+  "type:capability|5319e7|SEM-AI node type: capability"
+  "type:feature|fbca04|SEM-AI node type: feature"
+  "type:story|c5def5|SEM-AI node type: story"
+  "type:spec|d4c5f9|SEM-AI node type: spec"
+  "type:adr|b60205|SEM-AI node type: adr (architectural decision)"
+
+  # Status labels — union of all per-type statuses (engine enforces which
+  # subset is legal per type); used when Projects v2 Status field is not wired
+  "status:active|0e8a16|SEM-AI status: active (in pursuit)"
+  "status:draft|cccccc|SEM-AI status: draft"
+  "status:done|28a745|SEM-AI status: done"
+  "status:deprecated|b60205|SEM-AI status: deprecated"
+  "status:backlog|c5def5|SEM-AI status: backlog"
+  "status:in-progress|fbca04|SEM-AI status: in-progress"
+  "status:review|ff9500|SEM-AI status: review"
+  "status:ready-for-implementation|d4c5f9|SEM-AI status: ready for implementation"
+  "status:in-implementation|8b5cf6|SEM-AI status: in implementation"
+  "status:proposed|e4e669|SEM-AI status: proposed (adr)"
+  "status:accepted|0e8a16|SEM-AI status: accepted (adr)"
+  "status:superseded|7e7e7e|SEM-AI status: superseded (adr)"
 )
 
 echo
-echo "==> Provisioning labels"
+echo "==> Provisioning labels (${#LABELS[@]} total)"
+
+# Snapshot existing label names once (avoids N round-trips and the
+# 30-result default cap on `gh label list` that would mis-flag labels as
+# missing when the repo already carries more than 30 of them).
+EXISTING_LABELS="$(gh label list --repo "$REPO" --limit 500 --json name --jq '.[].name' 2>/dev/null || true)"
+
 for ENTRY in "${LABELS[@]}"; do
   IFS='|' read -r LABEL_NAME LABEL_COLOR LABEL_DESC <<<"$ENTRY"
-  if gh label list --repo "$REPO" --json name --jq '.[].name' | grep -qx "$LABEL_NAME"; then
+  if printf '%s\n' "$EXISTING_LABELS" | grep -qx "$LABEL_NAME"; then
     echo " [exists] $LABEL_NAME"
   else
     gh label create "$LABEL_NAME" \
