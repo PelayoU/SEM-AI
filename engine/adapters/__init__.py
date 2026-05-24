@@ -10,5 +10,11 @@ implementations live in sibling modules (`engine/adapters/github.py`, etc.).
 """
 
 from .base import BackendAdapter
+from .github import GitHubAdapter, GitHubAdapterConfig, load_config
 
-__all__ = ["BackendAdapter"]
+__all__ = [
+    "BackendAdapter",
+    "GitHubAdapter",
+    "GitHubAdapterConfig",
+    "load_config",
+]
