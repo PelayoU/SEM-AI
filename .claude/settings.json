@@ -5,5 +5,62 @@
       "args": ["-m", "engine.mcp_server"]
     }
   },
-  "hooks": {}
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".venv/bin/python scripts/hooks/session_start.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".venv/bin/python scripts/hooks/pre_compact.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__sem_ai_engine__transition_status",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".venv/bin/python scripts/hooks/post_tool_use_transition.py",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".venv/bin/python scripts/hooks/post_tool_use_pr_merge.py",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".venv/bin/python scripts/hooks/pre_tool_use_pr_create.py",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
 }
