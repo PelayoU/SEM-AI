@@ -160,3 +160,50 @@ A future `sem-ai upgrade` CLI tool is **deferred**: the upgrade pattern is not y
 ## Status
 
 Accepted. SEM-AI distinguishes the deployment pipeline of adopting projects (methodology, not framework concern) from its own deployment pipeline (framework infrastructure). The framework distributes as a GitHub template repository (primary) with a future pip package for the engine; uses SemVer; ships CI for self-validation; releases via tag-driven CD with narrative changelog. The framework develops by applying itself (dogfood). Adopting projects can change methodology, project-specific roles, body content, and their own pipelines — but cannot change the canonical catalog, the canonical roles, or the canonical ADRs; for those, the path is contribution upstream.
+
+---
+
+## Update — the two layers of Continuous Integration (2026-05-24)
+
+The CI stages described above (stages 1–7 of `sem-ai-ci.yml`) cover one half of what Continuous Integration means in the SEM-AI framework. Naming only that half hides the other half — and the other half is precisely what differentiates this framework from a generic CI/CD setup. This update names both halves explicitly.
+
+### CI has two layers in SEM-AI
+
+| Layer | What it validates | Mechanism | Who invokes it |
+|---|---|---|---|
+| **Structural CI** (mechanical) | The repo is well-formed: ADRs coherent, frontmatter valid, settings parseable, markdown legible | Python validators + markdownlint on GHA runners | `.github/workflows/sem-ai-ci.yml` on every push / PR |
+| **Semantic CI** (via agents) | The content is coherent with intent: a spec doesn't drift from its ADR, a feature aligns with its goal, no security issues sneak in, code matches its acceptance criteria | Role agents invoked **reactively** by graph events — Security Officer reviewing a spec marked `ready-for-implementation`, Architect checking ADR coherence on `accepted`, PM verifying acceptance pre-PR, QA inspecting test gaps | Hooks (per ADR-004) when Claude Code is the active CLI; Action examples in `examples/.github/workflows/sem-ai-*.yml` when it isn't |
+
+**Both layers together compose "the framework's CI"**. Citing only the structural layer (because it's the one with a YAML file) is incomplete framing.
+
+### Why this is not metaphor
+
+In a generic CI setup, "CI" means: lint, build, unit tests, static analysis, security scan. All of those are mechanical — they run automated tools against artifacts. The SEM-AI framework, on top of that, adds **automated review of semantic alignment** between the artifact and the intent it serves. That review is performed by AI agents whose contracts (the seven ADRs about the graph) define what "aligned" means.
+
+The agent-as-reviewer is not a chatbot decoration; it is a CI participant. When a `spec` transitions to `ready-for-implementation`, the Security Officer is auto-invoked to read the spec's Security attributes section and post findings — same as a SAST tool runs on a build artifact. The semantic layer enforces the **content** of the ADRs the way the structural layer enforces the **form** of the repo.
+
+### Where each layer lives
+
+- **Structural CI**: `.github/workflows/sem-ai-ci.yml` — already shipped in v0.3.0-pre (commit `9808182`). Stages 1–5 active; stages 6 (engine pytest) and 7 (validators self-test) activate when `engine/` ships.
+- **Semantic CI hooks (Claude Code path)**: declared in `.claude/settings.json` — pending implementation per ADR-004. The five hooks: `SessionStart`, `PreCompact`, `PostToolUse on transition_status`, `PreToolUse on Bash(gh pr create *)`, `PostToolUse on Bash(gh pr merge *)`. They invoke `engine/checks/` library functions (also pending).
+- **Semantic CI Actions (UI / external path)**: five opt-in templates in `examples/.github/workflows/` — pending implementation per ADR-004. The five: `sem-ai-validate-posthoc.yml`, `sem-ai-security-review.yml`, `sem-ai-artifacts.yml`, `sem-ai-sync-project.yml`, `sem-ai-status-transition.yml`. Each invokes the same `engine/checks/` library that hooks use; coherence is mechanical via the marker pattern from ADR-004.
+- **Engine MCP** with `triggered_by` enforcement: ensures that agents invoked by hook/Action have restricted permissions (read + comment + open new Issues, but no transition or body edit on existing Issues) — preserving "the human confirms" while allowing reactive findings. Pending implementation.
+
+### Implication for the road to v0.3.0
+
+The `v0.3.0` tag (per the SemVer schedule in this ADR) cannot be cut until **both layers** of CI are real:
+
+- Structural CI is real today (stages 1–5).
+- Semantic CI requires `engine/checks/` library + the 5 hooks declared + the 5 Action examples committed.
+
+Therefore the road to `v0.3.0` has structural CI as a done item and semantic CI as the central remaining work. CLAUDE.md's pending list accurately reflects this: the items "Engine MCP backend", "engine/checks/ library", "5 hooks in .claude/settings.json", "examples/.github/workflows/" are not just engineering chores — they are **the semantic CI of the framework becoming real**.
+
+### Why this update lives in ADR-008 and not in a new ADR
+
+ADR-004 already decided the invocation model (hooks + MCP + Actions opt-in). ADR-008 already decided the framework's CI/CD as part of "SEM-AI as a deployable framework". This update connects the two: the invocation model of ADR-004 *is* the semantic CI of ADR-008. The connection was implicit but not stated; this update states it. A new ADR-010 would be redundant — no new decision is taken; the same decisions are re-framed under a unified concept.
+
+### Consequences of this update
+
+- Future references to "the framework's CI" should mean both layers, unless explicitly qualified as "structural CI" or "semantic CI".
+- The `sem-ai-release.yml` pipeline (per the CD stages in this ADR), when implemented, will only run on a tag commit whose structural CI passed AND whose semantic CI has been observed via the active hooks/Actions during the development cycle that produced the commit. The release is not a thing the structural CI alone produces.
+- The framework's marketing / positioning (per ADR-009): "GitHub-native AI product framework with two-layer CI — structural integrity validated by traditional automation, semantic alignment validated by reactive role agents". This is the framework's value proposition concretely.
