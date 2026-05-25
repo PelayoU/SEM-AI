@@ -437,12 +437,30 @@ class GitHubAdapter(BackendAdapter):
             raise RuntimeError(f"could not parse issue number from: {url!r}")
         new_id = f"#{m.group(1)}"
         # Link sub-issue parent if specified.
-        # The sub-issues REST API may not be enabled on accounts that lack the
-        # beta feature; fall back to a 'parent:<id>' label so the relation is
-        # still queryable.
+        # The sub-issues REST API's `sub_issue_id` parameter requires the
+        # *database id* of the child Issue (a large integer like 4512604563),
+        # NOT the issue_number (`#42` → 42). Pre-2026-05-25 we passed the
+        # issue_number and got 404 across the board — misdiagnosed as a
+        # personal-account/private-repo limitation. Fix: fetch the database
+        # id of the newly-created Issue and pass it.
+        # The parent in the URL still uses issue_number (different API path
+        # parameter, takes the human-readable number).
+        # If the API call fails (real platform limitation, e.g. repo without
+        # sub-issues support), fall back to a `parent:<id>` label so the
+        # relation stays queryable.
         if parent_id is not None:
             parent_n = _to_number(parent_id)
             new_n = _to_number(new_id)
+            new_database_id = int(
+                _run_gh(
+                    [
+                        "api",
+                        f"repos/{self.config.repo}/issues/{new_n}",
+                        "--jq",
+                        ".id",
+                    ]
+                ).strip()
+            )
             try:
                 _run_gh(
                     [
@@ -451,7 +469,7 @@ class GitHubAdapter(BackendAdapter):
                         "POST",
                         f"repos/{self.config.repo}/issues/{parent_n}/sub_issues",
                         "-F",
-                        f"sub_issue_id={new_n}",
+                        f"sub_issue_id={new_database_id}",
                     ]
                 )
             except subprocess.CalledProcessError:

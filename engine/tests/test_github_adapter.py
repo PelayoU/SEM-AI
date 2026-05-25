@@ -336,10 +336,15 @@ class TestAdapterWrites:
         assert node.id == "#42"
 
     def test_create_issue_with_parent_links_sub_issue(self, adapter):
-        # 1: create URL. 2: link sub_issue. 3: get_issue.
+        # 1: create URL. 2: fetch database_id of new Issue. 3: POST sub_issues.
+        # 4: get_issue. The sub_issues API requires `sub_issue_id` to be the
+        # *database id* (e.g. 4512604563), NOT the issue number — passing
+        # issue_number returns 404 silently.
+        new_database_id = 4512604563
         responses = [
             FakeCompleted(stdout="https://github.com/acme/widget/issues/42\n"),
-            FakeCompleted(stdout=""), # sub_issues POST
+            FakeCompleted(stdout=f"{new_database_id}\n"),  # fetch database id
+            FakeCompleted(stdout=""),  # sub_issues POST
             FakeCompleted(
                 stdout=json.dumps(
                     make_issue_json(number=42, issue_type="goal")
@@ -357,12 +362,18 @@ class TestAdapterWrites:
                 parent_id="#1",
                 acting_role=Role.PM,
             )
-        # Second call should hit /sub_issues
+        # Call 2: fetch the new Issue's database id via `gh api /issues/N --jq .id`
         second_call_args = mock_run.call_args_list[1][0][0]
         assert "api" in second_call_args
-        assert any("/sub_issues" in arg for arg in second_call_args)
-        # Verify sub_issue_id is the new issue number
-        assert any("sub_issue_id=42" in arg for arg in second_call_args)
+        assert any("/issues/42" in arg for arg in second_call_args)
+        assert "--jq" in second_call_args
+        # Call 3: POST sub_issues with the database id, NOT the issue_number
+        third_call_args = mock_run.call_args_list[2][0][0]
+        assert "api" in third_call_args
+        assert any("/sub_issues" in arg for arg in third_call_args)
+        assert any(
+            f"sub_issue_id={new_database_id}" in arg for arg in third_call_args
+        ), f"sub_issue_id must be database id ({new_database_id}), got: {third_call_args}"
 
     def test_update_issue_uses_edit(self, adapter):
         responses = [
